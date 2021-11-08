@@ -1,1 +1,1 @@
-# openmetadata-help-charts
+# openmetadata-helm-charts
