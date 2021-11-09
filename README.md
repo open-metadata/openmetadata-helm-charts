@@ -13,12 +13,12 @@
 - [License](#license)
 
 ## Introduction
----------------
+
 
 [This Repository](https://github.com/open-metadata/openmetadata-helm-charts) houses Kubernetes [Helm](https://helm.sh) charts for deploying [Open Metadata](https://github.com/open-metadata/OpenMetadata) and it's dependencies (Elastic Search and MySQL) on a Kubernetes Cluster.
 
 ## Setup
----------------
+
 
 Set up a Kubernetes Cluster
 - In a cloud platform of your choice like Amazon EKS, Google Kubernetes Engine or Azure Kubernetes Service
@@ -30,7 +30,7 @@ Install the below tools:
 - [Helm](https://helm.sh) to deploy resources based on Helm Charts from this repository. Note, we only support Helm 3
 
 ## Quickstart
----------------
+
 
 Assuming Kubernetes setup is done and your kubernetes context is points to a correct kubernetes cluster, first we install Open Metadata dependencies.
 
@@ -61,7 +61,7 @@ kubectl port-forward <openmetadata-front end pod name> 8585:8585
 ```
 
 ## Documentation and Support
----------------
+
 Check out [OpenMetadata documentation](https://docs.open-metadata.org/) for a complete description of OpenMetadata's features.
 
 Join [our Slack Community](https://slack.open-metadata.org/) if you get stuck, want to chat, or are thinking of a new feature.
@@ -71,7 +71,7 @@ Or join the group at [https://groups.google.com/g/openmetadata-users](https://gr
 We're here to help - and make OpenMetadata even better!
 
 ## Contributors
----------------
+
 We ❤️ all contributions, big and small!
 
 Read [Build Code and Run Tests](https://docs.open-metadata.org/open-source-community/developer/build-code-run-tests) for how to setup your local development environment. Get started with our [Good first issues](https://github.com/open-metadata/OpenMetadata/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
@@ -79,5 +79,5 @@ Read [Build Code and Run Tests](https://docs.open-metadata.org/open-source-commu
 If you want to, you can reach out via [Slack](https://openmetadata.slack.com/join/shared_invite/zt-wksh1bww-iQGk45NTw6Tp4Q9UZd6QOw#/shared-invite/email) or [email](mailto:dev@open-metadata.org) and we'll set up a pair programming session to get you started.
 
 ## License
----------------
+
 OpenMetadata is released under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
