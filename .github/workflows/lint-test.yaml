@@ -39,12 +39,13 @@ jobs:
       - name: Install chart-testing
         uses: helm/chart-testing-action@v2.0.1
 
-      - name: Run chart-testing (list-changed)
-        id: list-changed
-        run: |
-          changed=$(ct list-changed --target-branch=${{ env.default_branch }})
-          if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
-          fi
+      # - name: Run chart-testing (list-changed)
+      #   id: list-changed
+      #   run: |
+      #     changed=$(ct list-changed --target-branch=${{ env.default_branch }})
+      #     if [[ -n "$changed" ]]; then
+      #       echo "::set-output name=changed::true"
+      #     fi
+      
       - name: Run chart-testing (lint)
         run: ct lint --target-branch=${{ env.default_branch }}
