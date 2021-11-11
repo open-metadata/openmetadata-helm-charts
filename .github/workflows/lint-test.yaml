@@ -1,51 +1,54 @@
-# name: Lint and Test Open Metadata Helm Charts
+name: Lint and Test Open Metadata Helm Charts
 
-# on:
-#   push:
-#     branches:
-#       - main
-#     paths-ignore:
-#       - '**.md'
-#       - 'LICENSE'
-#       - 'NOTICE'
-#   pull_request:
-#     paths-ignore:
-#       - '**.md'
-#       - 'LICENSE'
-#       - 'NOTICE'
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
 
-# jobs:
-#   lint-test:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          # ct needs history to compare
+          fetch-depth: 0
       
-#       - name: Determine default branch
-#         run: |
-#           DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
-#           echo "default_branch=$DEFAULT_BRANCH" >> $GITHUB_ENV
-#           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
+      - name: Determine default branch
+        run: |
+          DEFAULT_BRANCH=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
+          echo "default_branch=$DEFAULT_BRANCH" >> $GITHUB_ENV
+          echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
 
-#       - name: Install Helm
-#         uses: azure/setup-helm@v1
-#         with:
-#           version: v3.4.0
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
 
-#       - uses: actions/setup-python@v2
-#         with:
-#           python-version: 3.7
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
 
-#       - name: Install chart-testing
-#         uses: helm/chart-testing-action@v2.0.1
+      - name: Install chart-testing
+        uses: helm/chart-testing-action@v2.0.1
 
-#       - name: Run chart-testing (list-changed)
-#         id: list-changed
-#         run: |
-#           changed=$(ct list-changed --target-branch=${{ env.default_branch }})
-#           if [[ -n "$changed" ]]; then
-#             echo "::set-output name=changed::true"
-#           fi
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --target-branch=${{ env.default_branch }})
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
 
-#       - name: Run chart-testing (lint)
-#         run: ct lint --target-branch=${{ env.default_branch }}
+      - name: Run chart-testing (lint)
+        run: ct lint --target-branch=${{ env.default_branch }}
