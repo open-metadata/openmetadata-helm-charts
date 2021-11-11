@@ -20,6 +20,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          # ct needs history to compare
+          fetch-depth: 0
       
       - name: Determine default branch
         run: |
