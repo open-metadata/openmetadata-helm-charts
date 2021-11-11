@@ -78,8 +78,8 @@ Run `kubectl get pods` command to check the statuses of pods running you should 
 
 ```
 NAME                            READY   STATUS    RESTARTS   AGE
-elasticsearch-0                 1/1     Running   0          2m34s
-mysql-0                         1/1     Running   0          2m34s
+elasticsearch-0                 1/1     Running   0          5m34s
+mysql-0                         1/1     Running   0          5m34s
 openmetadata-5566f4d8b9-544gb   1/1     Running   0          98s
 ```
 
