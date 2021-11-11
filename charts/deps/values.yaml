@@ -1,0 +1,48 @@
+# Default values for deps.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# MQSQL configurations for helm dependency
+# you can find more details about this here https://artifacthub.io/packages/helm/bitnami/mysql
+mysql:
+  enabled: true
+  fullnameOverride: "mysql"
+  image:
+    pullPolicy: "Always"
+  auth:
+    rootPassword: password # provided by CI/CD
+    # database: openmetadata_db # provided by CI/CD
+    # username: openmetadata_user # provided by CI/CD
+    # password: openmetadata_password # provided by CI/CD
+  primary:
+    service:
+      nodePort: 3306
+  initdbScripts:
+    init_openmetadata_db_scripts.sql: |
+      CREATE DATABASE openmetadata_db;
+      CREATE USER 'openmetadata_user'@'%' IDENTIFIED BY 'openmetadata_password';
+      GRANT ALL PRIVILEGES ON openmetadata_db.* TO 'openmetadata_user'@'%' WITH GRANT OPTION;
+      commit;
+    init_airflow_db_scripts.sql: |
+      CREATE DATABASE airflow_db;
+      CREATE USER 'airflow_user'@'%' IDENTIFIED BY 'airflow_pass';
+      GRANT ALL PRIVILEGES ON airflow_db.* TO 'airflow_user'@'%' WITH GRANT OPTION;
+      commit;
+
+# ElasticSearch configurations for helm dependency
+# you can find more details about this here https://artifacthub.io/packages/helm/elastic/elasticsearch
+elasticsearch: 
+  enabled: true
+  replicas: 1
+  minimumMasterNodes: 1
+  fullnameOverride: "elasticsearch"
+  imagePullPolicy: "Always"
+  esJavaOpts: "-Xmx128m -Xms128m"
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512M"
+    limits:
+      cpu: "1000m"
+      memory: "512M"
+
