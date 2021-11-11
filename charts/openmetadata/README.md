@@ -1,8 +1,25 @@
 # Open Metadata
 
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/open-metadata)](https://artifacthub.io/packages/search?repo=open-metadata)
+
 A Helm Chart for Open Metadata.
 
 Current chart version is `0.0.1`
+
+## Install OpenMetadata
+
+Run the following command to install openmetadata with default configuration.
+
+```
+helm repo add open-metadata https://helm.open-metadata.org
+helm install openmetadata open-metadata/openmetadata
+```
+
+If the default configuration is not applicable, you can update the values listed below in a `values.yaml` file and run
+
+```
+helm install openmetadata open-metadata/openmetadata --values <<path-to-values-file>>
+```
 
 ## Chart Values
 
