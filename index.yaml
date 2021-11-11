@@ -1,0 +1,35 @@
+apiVersion: v1
+entries:
+  openmetadata:
+  - apiVersion: v2
+    appVersion: 0.5.0
+    created: "2021-11-11T04:17:35.533478982Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: e941e9eedaeff540b32d780ef5561f310352e1bf084b474d11c77469d3355559
+    icon: https://open-metadata.org/images/favicon.png
+    name: openmetadata
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.1/openmetadata-0.0.1.tgz
+    version: 0.0.1
+  openmetadata-dependencies:
+  - apiVersion: v2
+    appVersion: 0.5.0
+    created: "2021-11-11T04:17:35.743732952Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.12
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.10.2
+    description: Helm Dependencies for OpenMetadata
+    digest: 5b8ab6fcc3d9638aee49f6baeb31fa3d3a4d4a4c7f939d69650026ed99e2fc69
+    name: openmetadata-dependencies
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
+    version: 0.0.1
+generated: "2021-11-11T04:17:35.743743952Z"
