@@ -34,6 +34,11 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.4.0
+      
+      - name: Add Helm repos
+        run: |
+          helm repo add elasticsearch https://helm.elastic.co
+          helm repo add mysql https://charts.bitnami.com/bitnami
 
       - uses: actions/setup-python@v2
         with:
