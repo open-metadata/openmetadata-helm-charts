@@ -23,6 +23,9 @@ version: 0.0.2
 # It is recommended to use it with quotes.
 appVersion: "0.6.0"
 
+maintainers:
+  - name: OpenMetadata
+
 # Add Dependencies of other charts
 dependencies:
 - name: mysql

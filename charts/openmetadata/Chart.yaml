@@ -23,5 +23,7 @@ version: 0.0.2
 # It is recommended to use it with quotes.
 appVersion: "0.6.0"
 
-icon: https://open-metadata.org/images/favicon.png
+maintainers:
+  - name: OpenMetadata
 
+icon: https://open-metadata.org/images/favicon.png

@@ -10,10 +10,7 @@ mysql:
   image:
     pullPolicy: "Always"
   auth:
-    rootPassword: password # provided by CI/CD
-    # database: openmetadata_db # provided by CI/CD
-    # username: openmetadata_user # provided by CI/CD
-    # password: openmetadata_password # provided by CI/CD
+    rootPassword: password    # provided by CI/CD
   primary:
     service:
       nodePort: 3306
@@ -31,7 +28,7 @@ mysql:
 
 # ElasticSearch configurations for helm dependency
 # you can find more details about this here https://artifacthub.io/packages/helm/elastic/elasticsearch
-elasticsearch: 
+elasticsearch:
   enabled: true
   replicas: 1
   minimumMasterNodes: 1
@@ -45,4 +42,3 @@ elasticsearch:
     limits:
       cpu: "1000m"
       memory: "512M"
-
