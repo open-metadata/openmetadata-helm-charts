@@ -2,6 +2,19 @@ apiVersion: v1
 entries:
   openmetadata:
   - apiVersion: v2
+    appVersion: 0.6.0
+    created: "2021-11-17T13:25:31.273303363Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: ade4a327e20b43f3bd8aedcb8ae108b2f35abddaf35d489f399323ca6c52a379
+    icon: https://open-metadata.org/images/favicon.png
+    maintainers:
+    - name: OpenMetadata
+    name: openmetadata
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.2/openmetadata-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
     appVersion: 0.5.0
     created: "2021-11-11T04:17:35.533478982Z"
     description: A Helm chart for OpenMetadata on Kubernetes
@@ -13,6 +26,27 @@ entries:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.1/openmetadata-0.0.1.tgz
     version: 0.0.1
   openmetadata-dependencies:
+  - apiVersion: v2
+    appVersion: 0.6.0
+    created: "2021-11-17T13:25:31.423819039Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.12
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.10.2
+    description: Helm Dependencies for OpenMetadata
+    digest: 46afe5915000ddd7a420b841a94f3a797007f961204824b092c7e68f2dfd523f
+    maintainers:
+    - name: OpenMetadata
+    name: openmetadata-dependencies
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.2/openmetadata-dependencies-0.0.2.tgz
+    version: 0.0.2
   - apiVersion: v2
     appVersion: 0.5.0
     created: "2021-11-11T04:17:35.743732952Z"
@@ -32,4 +66,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2021-11-11T04:17:35.743743952Z"
+generated: "2021-11-17T13:25:31.423832239Z"
