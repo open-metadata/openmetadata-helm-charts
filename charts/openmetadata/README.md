@@ -4,7 +4,7 @@
 
 A Helm Chart for Open Metadata.
 
-Current chart version is `0.0.2`
+Current chart version is `0.0.3`
 
 ## Install OpenMetadata
 
@@ -32,7 +32,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.6.0` |
+| image.tag | string | `0.7.0` |
 | imagePullSecrets | list | `[]` |
 | livenessProbe.initialDelaySeconds | int | `80` |
 | livenessProbe.periodSeconds | int | `30` |
