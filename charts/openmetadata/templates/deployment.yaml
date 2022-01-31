@@ -45,7 +45,10 @@ spec:
           {{- end }}
           ports:
             - name: http
-              containerPort: 8585
+              containerPort: {{ .Values.global.openmetadata.port }}
+              protocol: TCP
+            - name: http-admin
+              containerPort: {{ .Values.global.openmetadata.adminPort }}
               protocol: TCP
           livenessProbe:
             initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
@@ -61,6 +64,52 @@ spec:
             httpGet:
               path: /
               port: http
+          env:
+          - name: SERVER_HOST
+            value: "{{ .Values.global.openmetadata.host }}"
+          - name: SERVER_PORT
+            value: "{{ .Values.global.openmetadata.port }}"
+          - name: SERVER_ADMIN_PORT
+            value: "{{ .Values.global.openmetadata.adminPort }}"
+          - name: ELASTICSEARCH_HOST
+            value: "{{ .Values.global.elasticsearch.host }}"
+          - name: ELASTICSEARCH_PORT
+            value: "{{ .Values.global.elasticsearch.port }}"
+          - name: ELASTICSEARCH_SCHEME
+            value: "{{ .Values.global.elasticsearch.scheme }}"
+          - name: MYSQL_HOST
+            value: "{{ .Values.global.mysql.host }}"
+          - name: MYSQL_PORT
+            value: "{{ .Values.global.mysql.port }}"
+          {{- with .Values.global.mysql.auth }}
+          - name: MYSQL_USER
+            value: {{ .username }}
+          - name: MYSQL_USER_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .password.secretRef }}"
+                key: "{{ .password.secretKey }}"
+          {{- end }}
+          - name: MYSQL_DATABASE
+            value: "{{ .Values.global.mysql.databaseName }}"
+          {{- if .Values.global.airflow.enabled -}}
+          - name: AIRFLOW_HOST
+            value: "{{ .Values.global.airflow.host }}"
+          - name: AIRFLOW_PORT
+            value: "{{ .Values.global.airflow.port }}"
+          {{- with .Values.global.airflow.auth }}
+          - name: AIRFLOW_USERNAME
+            value: {{ .username }}
+          - name: AIRFLOW_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .password.secretRef }}"
+                key: "{{ .password.secretKey }}"
+          {{- end }}
+          {{- end }}
+          {{- with .Values.extraEnvs }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}
