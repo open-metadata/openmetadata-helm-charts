@@ -31,8 +31,16 @@ Install the below tools:
 
 ## Quickstart
 
+Assuming kubectl context points to the correct kubernetes cluster, first create kubernetes secrets that contain MySQL and Airflow passwords as secrets.
 
-Assuming Kubernetes setup is done and your kubernetes context is points to a correct kubernetes cluster, first we install Open Metadata dependencies.
+```
+kubectl create secret generic mysql-secrets --from-literal=openmetadata-user-password=openmetadata_password
+kubectl create secret generic airflow-secrets --from-literal=openmetadata-airflow-admin-password=admin
+```
+
+The above commands sets the passwords as an example. Change to any password of choice.
+
+Next, we install Open Metadata dependencies.
 
 Add openmetadata helm repo by running the following - 
 
