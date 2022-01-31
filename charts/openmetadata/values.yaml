@@ -37,6 +37,9 @@ service:
   port: 8585
   annotations: {}
 
+existingSecret: ~  # Add existing Kubernetes Secret object as environment variables
+
+
 extraEnvs: []
   # - name: MY_ENVIRONMENT_VAR
  #   value: the_value_goes_here
