@@ -15,5 +15,9 @@ spec:
       targetPort: http
       protocol: TCP
       name: http
+    - port: {{ .Values.service.adminPort }}
+      targetPort: http
+      protocol: TCP
+      name: http-admin
   selector:
     {{- include "OpenMetadata.selectorLabels" . | nindent 4 }}

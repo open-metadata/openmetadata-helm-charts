@@ -4,7 +4,7 @@
 
 A Helm Chart for Open Metadata.
 
-Current chart version is `0.0.4`
+Current chart version is `0.0.5`
 
 ## Install OpenMetadata
 
@@ -30,6 +30,24 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | extraVolumes | Templatable string of additional `volumes` to be passed to the `tpl` function | "" |
 | extraVolumeMounts | Templatable string of additional `volumeMounts` to be passed to the `tpl` function | "" |
 | fullnameOverride | string | `"openmetadata"` |
+| global.airflow.auth.password.secretRef | string | `airflow-secrets` |
+| global.airflow.auth.password.secretKey | string | `openmetadata-airflow-admin-password` |
+| global.airflow.auth.username | string | `admin` |
+| global.airflow.enabled | bool | `true` |
+| global.airflow.host | string | `airflow` |
+| global.airflow.port | int | 8080 |
+| global.elasticsearch.host | string | `elasticsearch` |
+| global.elasticsearch.port | int | 9200 |
+| global.elasticsearch.scheme | string | `http` |
+| global.mysql.auth.password.secretRef | string | `mysql-secrets` |
+| global.mysql.auth.password.secretKey | string | `openmetadata-user-password` |
+| global.mysql.auth.username | string | `openmetadata_user` |
+| global.mysql.databaseName | string | `openmetadata_db` |
+| global.mysql.host | string | `mysql` |
+| global.mysql.port | int | 3306 |
+| global.openmetadata.adminPort | int | 8586 |
+| global.openmetadata.host | string | `openmetadata` |
+| global.openmetadata.port | int | 8585 |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
 | image.tag | string | `0.8.0` |

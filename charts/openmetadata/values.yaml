@@ -3,6 +3,35 @@
 # Declare variables to be passed into your templates.
 replicaCount: 1
 
+# Overrides the openmetadata config file with the help of Environment Variables
+global:
+  openmetadata:
+    host: openmetadata
+    port: 8585
+    adminPort: 8586
+  elasticsearch:
+    host: elasticsearch
+    port: 9200
+    scheme: http
+  mysql:
+    host: mysql
+    port: 3306
+    auth:
+      username: openmetadata_user
+      password:
+        secretRef: mysql-secrets
+        secretKey: openmetadata-user-password
+    databaseName: openmetadata_db
+  airflow:
+    enabled: false
+    host: airflow
+    port: 8080
+    auth:
+      username: admin
+      password:
+        secretRef: airflow-secrets
+        secretKey: openmetadata-airflow-admin-password
+
 image:
   repository: openmetadata/server
   # Overrides the image tag whose default is the chart appVersion.
@@ -35,6 +64,7 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 8585
+  adminPort: 8586
   annotations: {}
 
 extraEnvs: []

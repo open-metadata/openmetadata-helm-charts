@@ -1,9 +1,9 @@
 dependencies:
 - name: mysql
   repository: https://charts.bitnami.com/bitnami
-  version: 8.8.12
+  version: 8.8.23
 - name: elasticsearch
   repository: https://helm.elastic.co
   version: 7.10.2
-digest: sha256:30c559cea9b153f35871078a709a17b88c958e04721eb07e52bfde46ea5ad613
-generated: "2021-11-01T11:24:49.503644+05:30"
+digest: sha256:f4e538fb891692267b032c4add5f7e19703a542293402f885ed46255034b69e7
+generated: "2022-01-31T17:08:01.838281+05:30"
