@@ -4,9 +4,18 @@
 
 A Helm Chart for Open Metadata.
 
-Current chart version is `0.0.5`
+Current chart version is `0.0.6`
 
 ## Install OpenMetadata
+
+Assuming kubectl context points to the correct kubernetes cluster, first create kubernetes secrets that contain MySQL and Airflow passwords as secrets.
+
+```
+kubectl create secret generic mysql-secrets --from-literal=openmetadata-user-password=openmetadata_password
+kubectl create secret generic airflow-secrets --from-literal=openmetadata-airflow-admin-password=admin
+```
+
+The above commands sets the passwords as an example. Change to any password of choice.
 
 Run the following command to install openmetadata with default configuration.
 
@@ -21,15 +30,19 @@ If the default configuration is not applicable, you can update the values listed
 helm install openmetadata open-metadata/openmetadata --values <<path-to-values-file>>
 ```
 
-## Chart Values
+---
+**NOTE**
+
+Starting from version `0.0.6` openmetadata Helm charts supports automatic repair and migration of Databases. This will ONLY be handle on Helm chart upgrades to latest versions here-forward.
+
+This is achieved by Helm Hooks currently.
+
+---
+
+## Global Chart Values
 
 | Key | Type | Default |
 |-----|------|---------|
-| affinity | object | `{}` |
-| extraEnvs | Extra [environment variables][] which will be appended to the `env:` definition for the container | `[]` |
-| extraVolumes | Templatable string of additional `volumes` to be passed to the `tpl` function | "" |
-| extraVolumeMounts | Templatable string of additional `volumeMounts` to be passed to the `tpl` function | "" |
-| fullnameOverride | string | `"openmetadata"` |
 | global.airflow.auth.password.secretRef | string | `airflow-secrets` |
 | global.airflow.auth.password.secretKey | string | `openmetadata-airflow-admin-password` |
 | global.airflow.auth.username | string | `admin` |
@@ -48,6 +61,16 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | global.openmetadata.adminPort | int | 8586 |
 | global.openmetadata.host | string | `openmetadata` |
 | global.openmetadata.port | int | 8585 |
+
+## Chart Values
+
+| Key | Type | Default |
+|-----|------|---------|
+| affinity | object | `{}` |
+| extraEnvs | Extra [environment variables][] which will be appended to the `env:` definition for the container | `[]` |
+| extraVolumes | Templatable string of additional `volumes` to be passed to the `tpl` function | "" |
+| extraVolumeMounts | Templatable string of additional `volumeMounts` to be passed to the `tpl` function | "" |
+| fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
 | image.tag | string | `0.8.0` |
