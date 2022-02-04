@@ -3,6 +3,19 @@ entries:
   openmetadata:
   - apiVersion: v2
     appVersion: 0.8.0
+    created: "2022-02-04T07:41:57.851878257Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: 9901efb61dd2cf1816ea6f794347cb2d860387de2d904914675ca5fdb87157b1
+    icon: https://open-metadata.org/images/favicon.png
+    maintainers:
+    - name: OpenMetadata
+    name: openmetadata
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.6/openmetadata-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 0.8.0
     created: "2022-02-01T03:16:21.318684463Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: fe537a4bb1e6803d38f36e8b9d7bd5249558aa1213ca2f19c44bbdbe32cf6ff2
@@ -65,6 +78,27 @@ entries:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.1/openmetadata-0.0.1.tgz
     version: 0.0.1
   openmetadata-dependencies:
+  - apiVersion: v2
+    appVersion: 0.8.0
+    created: "2022-02-04T07:41:57.994853555Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.23
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.10.2
+    description: Helm Dependencies for OpenMetadata
+    digest: 385c033c58d0c24eb410a51c1dd20563be1bcca900b13ecdf91c3e82f76ccbe7
+    maintainers:
+    - name: OpenMetadata
+    name: openmetadata-dependencies
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.6/openmetadata-dependencies-0.0.6.tgz
+    version: 0.0.6
   - apiVersion: v2
     appVersion: 0.8.0
     created: "2022-02-01T03:16:21.559791002Z"
@@ -168,4 +202,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2022-02-01T03:16:21.55984919Z"
+generated: "2022-02-04T07:41:57.994902056Z"
