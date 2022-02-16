@@ -3,6 +3,20 @@ entries:
   openmetadata:
   - apiVersion: v2
     appVersion: 0.8.0
+    created: "2022-02-16T23:58:55.015283194Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: 0dfbb4ebd6f6c239c99a2a052e8b33d64d50d4d3e67c3f7c2c48772b3cf54d79
+    icon: https://open-metadata.org/images/favicon.png
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.7/openmetadata-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
+    appVersion: 0.8.0
     created: "2022-02-04T07:41:57.851878257Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 9901efb61dd2cf1816ea6f794347cb2d860387de2d904914675ca5fdb87157b1
@@ -78,6 +92,28 @@ entries:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.1/openmetadata-0.0.1.tgz
     version: 0.0.1
   openmetadata-dependencies:
+  - apiVersion: v2
+    appVersion: 0.8.0
+    created: "2022-02-16T23:58:55.226056375Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.23
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.10.2
+    description: Helm Dependencies for OpenMetadata
+    digest: 9c9dea9f8af5e27266be67a40234de20d0e6bd3f1b4c7869dde71d4f63064282
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata-dependencies
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.7/openmetadata-dependencies-0.0.7.tgz
+    version: 0.0.7
   - apiVersion: v2
     appVersion: 0.8.0
     created: "2022-02-04T07:41:57.994853555Z"
@@ -202,4 +238,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2022-02-04T07:41:57.994902056Z"
+generated: "2022-02-16T23:58:55.226130075Z"
