@@ -22,34 +22,34 @@ spec:
         name: {{ .Chart.Name }}-db-migrations-hook
         env:
           - name: OPENMETADATA_APP_VERSION
-            value: "{{ .Chart.AppVersion }}"
+            value: {{ .Chart.AppVersion }}
           - name: SERVER_HOST
-            value: "{{ .Values.global.openmetadata.host }}"
+            value: {{ .Values.global.openmetadata.host }}
           - name: SERVER_PORT
-            value: "{{ .Values.global.openmetadata.port }}"
+            value: {{ .Values.global.openmetadata.port }}
           - name: SERVER_ADMIN_PORT
-            value: "{{ .Values.global.openmetadata.adminPort }}"
+            value: {{ .Values.global.openmetadata.adminPort }}
           - name: ELASTICSEARCH_HOST
-            value: "{{ .Values.global.elasticsearch.host }}"
+            value: {{ .Values.global.elasticsearch.host }}
           - name: ELASTICSEARCH_PORT
-            value: "{{ .Values.global.elasticsearch.port }}"
+            value: {{ .Values.global.elasticsearch.port }}
           - name: ELASTICSEARCH_SCHEME
-            value: "{{ .Values.global.elasticsearch.scheme }}"
+            value: {{ .Values.global.elasticsearch.scheme }}
           - name: MYSQL_HOST
-            value: "{{ .Values.global.mysql.host }}"
+            value: {{ .Values.global.mysql.host }}
           - name: MYSQL_PORT
-            value: "{{ .Values.global.mysql.port }}"
+            value: {{ .Values.global.mysql.port }}
           {{- with .Values.global.mysql.auth }}
           - name: MYSQL_USER
             value: {{ .username }}
           - name: MYSQL_USER_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: "{{ .password.secretRef }}"
-                key: "{{ .password.secretKey }}"
+                name: {{ .password.secretRef }}
+                key: {{ .password.secretKey }}
           {{- end }}
           - name: MYSQL_DATABASE
-            value: "{{ .Values.global.mysql.databaseName }}"
+            value: {{ .Values.global.mysql.databaseName }}
         volumeMounts:
         - name: migration-script
           mountPath: /db-migrations
