@@ -50,12 +50,21 @@ spec:
           {{- end }}
           - name: MYSQL_DATABASE
             value: {{ .Values.global.mysql.databaseName }}
+          {{- with .Values.extraEnvs }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
         volumeMounts:
         - name: migration-script
           mountPath: /db-migrations
+        {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 8 }}
+        {{- end }}
       restartPolicy: Never
       volumes:
       - name: migration-script
         configMap:
           name: db-migrations-cm-hook
           defaultMode: 0777
+      {{- with .Values.extraVolumes }}
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
