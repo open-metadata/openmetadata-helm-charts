@@ -2,6 +2,20 @@ apiVersion: v1
 entries:
   openmetadata:
   - apiVersion: v2
+    appVersion: 0.8.3
+    created: "2022-02-21T15:30:08.504946839Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: 0fb677d7227901ac89cde9e1c2e4ccd257908105647076d2ca6e2d21c02db256
+    icon: https://open-metadata.org/images/favicon.png
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.8/openmetadata-0.0.8.tgz
+    version: 0.0.8
+  - apiVersion: v2
     appVersion: 0.8.0
     created: "2022-02-16T23:58:55.015283194Z"
     description: A Helm chart for OpenMetadata on Kubernetes
@@ -92,6 +106,28 @@ entries:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.1/openmetadata-0.0.1.tgz
     version: 0.0.1
   openmetadata-dependencies:
+  - apiVersion: v2
+    appVersion: 0.8.3
+    created: "2022-02-21T15:30:08.720087251Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.23
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.10.2
+    description: Helm Dependencies for OpenMetadata
+    digest: 0c23b1ac9fdf5e800ced6255b9d1c574ba0875731f86157fe14fd9ec17eab0fe
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata-dependencies
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.8/openmetadata-dependencies-0.0.8.tgz
+    version: 0.0.8
   - apiVersion: v2
     appVersion: 0.8.0
     created: "2022-02-16T23:58:55.226056375Z"
@@ -238,4 +274,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2022-02-16T23:58:55.226130075Z"
+generated: "2022-02-21T15:30:08.720135652Z"
