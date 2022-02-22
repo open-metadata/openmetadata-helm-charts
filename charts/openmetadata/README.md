@@ -93,5 +93,6 @@ This is achieved by Helm Hooks currently.
 | serviceAccount.annotations | object | `{}` |
 | serviceAccount.create | bool | `true` |
 | serviceAccount.name | string | `nil` |
+| sidecars | list | `[]` |
 | tolerations | list | `[]` |
 

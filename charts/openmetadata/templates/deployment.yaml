@@ -26,13 +26,9 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-      {{- with .Values.extraInitContainers }}
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      {{- include "tplvalues.render" (dict "value" .Values.extraInitContainers "context" $) | nindent 8 }}
       volumes:
-      {{- with .Values.extraVolumes }}
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+      {{- include "tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -112,6 +108,9 @@ spec:
           {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        {{- if .Values.sidecars }}
+          {{- include "tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
+        {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
