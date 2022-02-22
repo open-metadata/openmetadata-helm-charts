@@ -4,8 +4,6 @@
 
 A Helm Chart for Open Metadata.
 
-Current chart version is `0.0.6`
-
 ## Install OpenMetadata
 
 Assuming kubectl context points to the correct kubernetes cluster, first create kubernetes secrets that contain MySQL and Airflow passwords as secrets.
