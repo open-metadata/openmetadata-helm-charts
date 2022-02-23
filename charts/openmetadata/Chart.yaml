@@ -31,23 +31,23 @@ sources:
 
 keywords:
   - metadata
-  - data-science 
-  - data 
-  - machine-learning 
-  - automation 
-  - big-data 
-  - bigdata 
-  - artificial-intelligence 
-  - datascience 
-  - data-engineering 
-  - data-catalog 
-  - metadata-api 
-  - governance 
-  - data-profiling 
-  - metadata-management 
-  - dataengineering 
-  - dataquality 
-  - bigdataanalytics 
+  - data-science
+  - data
+  - machine-learning
+  - automation
+  - big-data
+  - bigdata
+  - artificial-intelligence
+  - datascience
+  - data-engineering
+  - data-catalog
+  - metadata-api
+  - governance
+  - data-profiling
+  - metadata-management
+  - dataengineering
+  - dataquality
+  - bigdataanalytics
   - datadiscovery
 
 maintainers:
