@@ -21,8 +21,6 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ .Chart.Name }}-db-migrations-hook
         env:
-          - name: OPENMETADATA_APP_VERSION
-            value: "{{ .Chart.AppVersion }}"
           - name: SERVER_HOST
             value: "{{ .Values.global.openmetadata.host }}"
           - name: SERVER_PORT
