@@ -33,6 +33,28 @@ spec:
             value: "{{ .Values.global.elasticsearch.port }}"
           - name: ELASTICSEARCH_SCHEME
             value: "{{ .Values.global.elasticsearch.scheme }}"
+           {{- if .Values.global.elasticsearch.auth.enabled -}}
+          {{- with .Values.global.elasticsearch.auth }}
+          - name: ELASTICSEARCH_USER
+            value: "{{ .username }}"
+          - name: ELASTICSEARCH_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .password.secretRef }}
+                key: {{ .password.secretKey }}
+          {{- end }}
+          {{- end }}
+          {{- if .Values.global.elasticsearch.trustStore.enabled -}}
+          - name: ELASTICSEARCH_TRUST_STORE_PATH
+            value: {{.Values.global.elasticsearch.trustStore.path }}
+          {{- with .Values.global.elasticsearch.trustStore.password }}
+          - name: ELASTICSEARCH_TRUST_STORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .password.secretRef }}
+                key: {{ .password.secretKey }}
+          {{- end }}
+          {{- end }}
           - name: MYSQL_HOST
             value: "{{ .Values.global.mysql.host }}"
           - name: MYSQL_PORT

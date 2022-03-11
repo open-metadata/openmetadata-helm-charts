@@ -14,15 +14,30 @@ global:
     host: elasticsearch
     port: 9200
     scheme: http
+    connectionTimeoutSecs: 5
+    socketTimeoutSecs: 60
+    batchSize: 10
+    trustStore:
+      enabled: false
+      path: ""
+      password:
+        secretRef: "elasticsearch-truststore-secrets"
+        secretKey: "openmetadata-elasticsearch-truststore-password"
+    auth:
+      enabled: false
+      username: "elasticsearch"
+      password:
+        secretRef: elasticsearch-secrets
+        secretKey: openmetadata-elastcisearch-password
   mysql:
     host: mysql
     port: 3306
+    databaseName: openmetadata_db
     auth:
       username: openmetadata_user
       password:
         secretRef: mysql-secrets
-        secretKey: openmetadata-user-password
-    databaseName: openmetadata_db
+        secretKey: openmetadata-mysql-password
   airflow:
     enabled: false
     host: airflow
@@ -31,7 +46,34 @@ global:
       username: admin
       password:
         secretRef: airflow-secrets
-        secretKey: openmetadata-airflow-admin-password
+        secretKey: openmetadata-airflow-password
+  authorizer:
+    className: "org.openmetadata.catalog.security.NoopAuthorizer"
+    containerRequestFilter: "org.openmetadata.catalog.security.NoopFilter"
+    initialAdmin: "admin"
+    botPrincipal: "ingestion-bot"
+    principalDomain: "open-metadata.org"
+  authentication:
+    provider: "no-auth"
+    publicKey: ""
+    authority: ""
+    clientId: ""
+    callbackUrl: ""
+
+  # Example Google SSO Auth Config
+  # authorizer:
+  #   className: "org.openmetadata.catalog.security.DefaultAuthorizer"
+  #   containerRequestFilter: "org.openmetadata.catalog.security.JwtFilter"
+  #   initialAdmin: "suresh"
+  #   botPrincipal: "ingestion-bot"
+  #   principalDomain: "open-metadata.org"
+  # authentication:
+  #   provider: "google"
+  #   publicKey: "https://www.googleapis.com/oauth2/v3/certs"
+  #   authority: "https://accounts.google.com"
+  #   clientId: "<client_id>"
+  #   callbackUrl: "<callback_url>"
+
 
 image:
   repository: openmetadata/server
