@@ -9,8 +9,8 @@ A Helm Chart for Open Metadata.
 Assuming kubectl context points to the correct kubernetes cluster, first create kubernetes secrets that contain MySQL and Airflow passwords as secrets.
 
 ```
-kubectl create secret generic mysql-secrets --from-literal=openmetadata-user-password=openmetadata_password
-kubectl create secret generic airflow-secrets --from-literal=openmetadata-airflow-admin-password=admin
+kubectl create secret generic mysql-secrets --from-literal=openmetadata-mysql-password=openmetadata_password
+kubectl create secret generic airflow-secrets --from-literal=openmetadata-airflow-password=admin
 ```
 
 The above commands sets the passwords as an example. Change to any password of choice.
@@ -41,17 +41,35 @@ This is achieved by Helm Hooks currently.
 
 | Key | Type | Default |
 |-----|------|---------|
+| global.authentication.provider | string | `no-auth` |
+| global.authentication.publicKey | string | `Empty String` |
+| global.authentication.authority | string | `Empty String` |
+| global.authentication.clientId | string | `Empty String` |
+| global.authentication.callbackUrl | string | `Empty String` |
+| global.authorizer.className | string | `org.openmetadata.catalog.security.NoopAuthorizer` |
+| global.authorizer.containerRequestFilter | string | `org.openmetadata.catalog.security.NoopFilter` |
+| global.authorizer.initialAdmin | string | `admin` |
+| global.authorizer.botPrincipal | string | `ingestion-bot` |
+| global.authorizer.principalDomain | string | `open-metadata.org` |
 | global.airflow.auth.password.secretRef | string | `airflow-secrets` |
-| global.airflow.auth.password.secretKey | string | `openmetadata-airflow-admin-password` |
+| global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` |
 | global.airflow.auth.username | string | `admin` |
 | global.airflow.enabled | bool | `true` |
 | global.airflow.host | string | `airflow` |
 | global.airflow.port | int | 8080 |
+| global.elasticsearch.auth.enabled | bool | `false` |
+| global.elasticsearch.auth.username | string | `elasticsearch` |
+| global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` |
+| global.elasticsearch.auth.password.secretKey | string | `openmetadata-elastcisearch-password` |
 | global.elasticsearch.host | string | `elasticsearch` |
 | global.elasticsearch.port | int | 9200 |
 | global.elasticsearch.scheme | string | `http` |
+| global.elasticsearch.trustStore.enabled | bool | `false` |
+| global.elasticsearch.trustStore.path | string | `Empty String` |
+| global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` |
+| global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` |
 | global.mysql.auth.password.secretRef | string | `mysql-secrets` |
-| global.mysql.auth.password.secretKey | string | `openmetadata-user-password` |
+| global.mysql.auth.password.secretKey | string | `openmetadata-mysql-password` |
 | global.mysql.auth.username | string | `openmetadata_user` |
 | global.mysql.databaseName | string | `openmetadata_db` |
 | global.mysql.host | string | `mysql` |
@@ -71,7 +89,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.8.0` |
+| image.tag | string | `0.9.0` |
 | imagePullSecrets | list | `[]` |
 | livenessProbe.initialDelaySeconds | int | `80` |
 | livenessProbe.periodSeconds | int | `30` |
