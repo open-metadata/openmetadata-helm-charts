@@ -34,8 +34,8 @@ Install the below tools:
 Assuming kubectl context points to the correct kubernetes cluster, first create kubernetes secrets that contain MySQL and Airflow passwords as secrets.
 
 ```
-kubectl create secret generic mysql-secrets --from-literal=openmetadata-user-password=openmetadata_password
-kubectl create secret generic airflow-secrets --from-literal=openmetadata-airflow-admin-password=admin
+kubectl create secret generic mysql-secrets --from-literal=openmetadata-mysql-password=openmetadata_password
+kubectl create secret generic airflow-secrets --from-literal=openmetadata-airflow-password=admin
 ```
 
 The above commands sets the passwords as an example. Change to any password of choice.
