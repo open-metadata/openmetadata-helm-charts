@@ -60,7 +60,7 @@ This is achieved by Helm Hooks currently.
 | global.elasticsearch.auth.enabled | bool | `false` |
 | global.elasticsearch.auth.username | string | `elasticsearch` |
 | global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` |
-| global.elasticsearch.auth.password.secretKey | string | `openmetadata-elastcisearch-password` |
+| global.elasticsearch.auth.password.secretKey | string | `openmetadata-elasticsearch-password` |
 | global.elasticsearch.host | string | `elasticsearch` |
 | global.elasticsearch.port | int | 9200 |
 | global.elasticsearch.scheme | string | `http` |
