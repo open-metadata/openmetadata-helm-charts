@@ -28,7 +28,7 @@ global:
       username: "elasticsearch"
       password:
         secretRef: elasticsearch-secrets
-        secretKey: openmetadata-elastcisearch-password
+        secretKey: openmetadata-elasticsearch-password
   mysql:
     host: mysql
     port: 3306
