@@ -79,6 +79,9 @@ spec:
         {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 8 }}
         {{- end }}
+      {{- if .Values.sidecars }}
+        {{- include "tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 6 }}
+      {{- end }}
       restartPolicy: Never
       volumes:
       - name: migration-script
