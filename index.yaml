@@ -3,6 +3,44 @@ entries:
   openmetadata:
   - apiVersion: v2
     appVersion: 0.9.0
+    created: "2022-04-04T22:52:59.309610704Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: 228f0e1f04960414e140dcd0e99de6c2dfa2d291d4620f3d0b88fd61d406a10e
+    home: https://open-metadata.org/
+    icon: https://open-metadata.org/images/favicon.png
+    keywords:
+    - metadata
+    - data-science
+    - data
+    - machine-learning
+    - automation
+    - big-data
+    - bigdata
+    - artificial-intelligence
+    - datascience
+    - data-engineering
+    - data-catalog
+    - metadata-api
+    - governance
+    - data-profiling
+    - metadata-management
+    - dataengineering
+    - dataquality
+    - bigdataanalytics
+    - datadiscovery
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata
+    sources:
+    - https://github.com/open-metadata/OpenMetadata
+    - https://github.com/open-metadata/openmetadata-helm-charts
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.14/openmetadata-0.0.14.tgz
+    version: 0.0.14
+  - apiVersion: v2
+    appVersion: 0.9.0
     created: "2022-04-04T07:51:30.585238404Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 259e1ceb4bf21e451105741b49a68d17df637559d9ed24836c3886df409d7baa
@@ -272,6 +310,53 @@ entries:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-0.0.1/openmetadata-0.0.1.tgz
     version: 0.0.1
   openmetadata-dependencies:
+  - apiVersion: v2
+    appVersion: 0.9.0
+    created: "2022-04-04T22:52:59.495003724Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.23
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.10.2
+    description: Helm Dependencies for OpenMetadata
+    digest: b47e1f6b1e2addadd5545fc97f0b54b5d28f3e7a23f045bf1fb1ef6f13ac4992
+    home: https://open-metadata.org/
+    icon: https://open-metadata.org/images/favicon.png
+    keywords:
+    - metadata
+    - data-science
+    - data
+    - machine-learning
+    - automation
+    - big-data
+    - bigdata
+    - artificial-intelligence
+    - datascience
+    - data-engineering
+    - data-catalog
+    - metadata-api
+    - governance
+    - data-profiling
+    - metadata-management
+    - dataengineering
+    - dataquality
+    - bigdataanalytics
+    - datadiscovery
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata-dependencies
+    sources:
+    - https://github.com/open-metadata/OpenMetadata
+    - https://github.com/open-metadata/openmetadata-helm-charts
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.14/openmetadata-dependencies-0.0.14.tgz
+    version: 0.0.14
   - apiVersion: v2
     appVersion: 0.9.0
     created: "2022-04-04T07:51:30.726214573Z"
@@ -650,4 +735,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2022-04-04T07:51:30.726451574Z"
+generated: "2022-04-04T22:52:59.495155122Z"
