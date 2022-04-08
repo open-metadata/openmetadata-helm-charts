@@ -89,7 +89,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.9.0` |
+| image.tag | string | `0.9.1` |
 | imagePullSecrets | list | `[]` |
 | livenessProbe.initialDelaySeconds | int | `80` |
 | livenessProbe.periodSeconds | int | `30` |
