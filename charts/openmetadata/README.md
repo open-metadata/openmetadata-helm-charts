@@ -59,10 +59,12 @@ This is achieved by Helm Hooks currently.
 | global.airflow.openmetadata.authProvider | string | `no-auth` |
 | global.airflow.openmetadata.authConfig.auth0.clientId | string | `Empty String` |
 | global.airflow.openmetadata.authConfig.auth0.domain | string | `Empty String` |
-| global.airflow.openmetadata.authConfig.auth0.secretKey | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.auth0.secretKey.secretKey | string | `auth0-client-key-secret` |
+| global.airflow.openmetadata.authConfig.auth0.secretKey.secretRef | string | `auth0-client-key-secret` |
 | global.airflow.openmetadata.authConfig.azure.authority | string | `Empty String` |
 | global.airflow.openmetadata.authConfig.azure.clientId | string | `Empty String` |
-| global.airflow.openmetadata.authConfig.azure.clientSecret | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.azure.clientSecret.secretKey | string | `azure-client-secret` |
+| global.airflow.openmetadata.authConfig.azure.clientSecret.secretRef | string | `azure-client-secret` |
 | global.airflow.openmetadata.authConfig.azure.scopes | list | `[]` |
 | global.airflow.openmetadata.authConfig.customOidc.clientId | string | `Empty String` |
 | global.airflow.openmetadata.authConfig.customOidc.secretKeyPath | string | `Empty String` |
@@ -72,7 +74,8 @@ This is achieved by Helm Hooks currently.
 | global.airflow.openmetadata.authConfig.okta.clientId | string | `Empty String` |
 | global.airflow.openmetadata.authConfig.okta.email | string | `Empty String` |
 | global.airflow.openmetadata.authConfig.okta.orgUrl | string | `Empty String` |
-| global.airflow.openmetadata.authConfig.okta.privateKey | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.okta.privateKey.secretKey | string | `okta-client-private-key-secret` |
+| global.airflow.openmetadata.authConfig.okta.privateKey.secretRef | string | `okta-client-private-key-secret` |
 | global.airflow.openmetadata.authConfig.okta.scopes | list | `[]` |
 | global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata/api` |
 | global.elasticsearch.auth.enabled | bool | `false` |

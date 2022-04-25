@@ -51,26 +51,32 @@ global:
       serverHostApiUrl: "http://openmetadata/api" # this will be the api endpoint url of OpenMetadata Server
       authConfig:
         azure:
-          clientSecret: ""
+          clientSecret:
+            secretRef: azure-client-secret
+            secretKey: azure-client-secret
           authority: ""
           scopes: []
           clientId: ""
         google:
-          secretKeyPath: ""
+          secretKeyPath: "" # absolute path of secret file on airflow instance
           audience: "https://www.googleapis.com/oauth2/v4/token"
         okta:
           clientId: ""
           orgUrl: ""
-          privateKey: ""
+          privateKey:
+            secretRef: okta-client-private-key-secret
+            secretKey: okta-client-private-key-secret
           email: ""
           scopes: []
         auth0:
           clientId: ""
-          secretKey: ""
+          secretKey:
+            secretRef: auth0-client-key-secret
+            secretKey: auth0-client-key-secret
           domain: ""
         customOidc:
           clientId: ""
-          secretKeyPath: ""
+          secretKeyPath: "" # absolute path of secret file on airflow instance
           tokenEndpoint: ""
   authorizer:
     className: "org.openmetadata.catalog.security.NoopAuthorizer"

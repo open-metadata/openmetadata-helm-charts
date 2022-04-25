@@ -65,8 +65,13 @@ Create the name of the service account to use
 {{- if eq .Values.global.airflow.openmetadata.authProvider "azure" -}}
 - name: OM_AUTH_AIRFLOW_AZURE_CLIENT_ID
   value: "{{ .Values.global.airflow.openmetadata.authConfig.azure.clientId }}"
+{{- with .Values.global.airflow.openmetadata.authConfig.azure.clientSecret }}
 - name: OM_AUTH_AIRFLOW_AZURE_CLIENT_SECRET
-  value: "{{ .Values.global.airflow.openmetadata.authConfig.azure.clientSecret }}"
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
 - name: OM_AUTH_AIRFLOW_AZURE_AUTHORITY_URL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.azure.authority }}"
 - name: OM_AUTH_AIRFLOW_AZURE_SCOPES
@@ -81,8 +86,13 @@ Create the name of the service account to use
   value: "{{ .Values.global.airflow.openmetadata.authConfig.okta.clientId }}"
 - name: OM_AUTH_AIRFLOW_OKTA_ORGANIZATION_URL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.okta.orgUrl }}"
+{{- with .Values.global.airflow.openmetadata.authConfig.okta.privateKey }}
 - name: OM_AUTH_AIRFLOW_OKTA_PRIVATE_KEY
-  value: "{{ .Values.global.airflow.openmetadata.authConfig.okta.privateKey }}"
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
 - name: OM_AUTH_AIRFLOW_OKTA_SA_EMAIL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.okta.email }}"
 - name: OM_AUTH_AIRFLOW_OKTA_SCOPES
@@ -90,8 +100,13 @@ Create the name of the service account to use
 {{- else if eq .Values.global.airflow.openmetadata.authProvider "auth0" -}}
 - name: OM_AUTH_AIRFLOW_AUTH0_CLIENT_ID
   value: "{{ .Values.global.airflow.openmetadata.authConfig.auth0.clientId }}"
+{{- with .Values.global.airflow.openmetadata.authConfig.auth0.secretKey }}
 - name: OM_AUTH_AIRFLOW_AUTH0_CLIENT_SECRET
-  value: "{{ .Values.global.airflow.openmetadata.authConfig.auth0.secretKey }}"
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
 - name: OM_AUTH_AIRFLOW_AUTH0_DOMAIN_URL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.auth0.domain }}"
 {{- else if eq .Values.global.airflow.openmetadata.authProvider "customOidc" -}}
