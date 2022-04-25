@@ -40,15 +40,18 @@ global:
         secretKey: openmetadata-mysql-password
   airflow:
     enabled: false
-    host: http://airflow # endpoint url for airflow
+    # endpoint url for airflow
+    host: http://airflow
     auth:
       username: admin
       password:
         secretRef: airflow-secrets
         secretKey: openmetadata-airflow-password
     openmetadata:
-      authProvider: "no-auth" # possible values are "no-auth", "azure", "google", "okta", "auth0", "customOidc"
-      serverHostApiUrl: "http://openmetadata/api" # this will be the api endpoint url of OpenMetadata Server
+      # possible values are "no-auth", "azure", "google", "okta", "auth0", "customOidc"
+      authProvider: "no-auth"
+      # this will be the api endpoint url of OpenMetadata Server
+      serverHostApiUrl: "http://openmetadata/api"
       authConfig:
         azure:
           clientSecret:
@@ -58,7 +61,8 @@ global:
           scopes: []
           clientId: ""
         google:
-          secretKeyPath: "" # absolute path of secret file on airflow instance
+          # absolute path of secret file on airflow instance
+          secretKeyPath: ""
           audience: "https://www.googleapis.com/oauth2/v4/token"
         okta:
           clientId: ""
@@ -76,19 +80,20 @@ global:
           domain: ""
         customOidc:
           clientId: ""
-          secretKeyPath: "" # absolute path of secret file on airflow instance
+          # absolute path of secret file on airflow instance
+          secretKeyPath: ""
           tokenEndpoint: ""
   authorizer:
     className: "org.openmetadata.catalog.security.NoopAuthorizer"
     containerRequestFilter: "org.openmetadata.catalog.security.NoopFilter"
-    initialAdmins: 
+    initialAdmins:
     - "admin"
-    botPrincipals: 
+    botPrincipals:
     - "ingestion-bot"
     principalDomain: "open-metadata.org"
   authentication:
     provider: "no-auth"
-    publicKeys: 
+    publicKeys:
     - ""
     authority: ""
     clientId: ""
@@ -98,14 +103,14 @@ global:
   # authorizer:
   #   className: "org.openmetadata.catalog.security.DefaultAuthorizer"
   #   containerRequestFilter: "org.openmetadata.catalog.security.JwtFilter"
-  #   initialAdmins: 
+  #   initialAdmins:
   #   - "suresh"
-  #   botPrincipal: 
+  #   botPrincipal:
   #   - "ingestion-bot"
   #   principalDomain: "open-metadata.org"
   # authentication:
   #   provider: "google"
-  #   publicKeys: 
+  #   publicKeys:
   #   - "https://www.googleapis.com/oauth2/v3/certs"
   #   authority: "https://accounts.google.com"
   #   clientId: "<client_id>"
