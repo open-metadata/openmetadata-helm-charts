@@ -42,21 +42,42 @@ This is achieved by Helm Hooks currently.
 | Key | Type | Default |
 |-----|------|---------|
 | global.authentication.provider | string | `no-auth` |
-| global.authentication.publicKey | string | `Empty String` |
+| global.authentication.publicKeys | list | `[]` |
 | global.authentication.authority | string | `Empty String` |
 | global.authentication.clientId | string | `Empty String` |
 | global.authentication.callbackUrl | string | `Empty String` |
 | global.authorizer.className | string | `org.openmetadata.catalog.security.NoopAuthorizer` |
 | global.authorizer.containerRequestFilter | string | `org.openmetadata.catalog.security.NoopFilter` |
-| global.authorizer.initialAdmin | string | `admin` |
-| global.authorizer.botPrincipal | string | `ingestion-bot` |
+| global.authorizer.initialAdmins | list | `[admin]` |
+| global.authorizer.botPrincipals | list | `[ingestion-bot]` |
 | global.authorizer.principalDomain | string | `open-metadata.org` |
 | global.airflow.auth.password.secretRef | string | `airflow-secrets` |
 | global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` |
 | global.airflow.auth.username | string | `admin` |
 | global.airflow.enabled | bool | `true` |
 | global.airflow.host | string | `airflow` |
-| global.airflow.port | int | 8080 |
+| global.airflow.openmetadata.authProvider | string | `no-auth` |
+| global.airflow.openmetadata.authConfig.auth0.clientId | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.auth0.domain | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.auth0.secretKey.secretKey | string | `auth0-client-key-secret` |
+| global.airflow.openmetadata.authConfig.auth0.secretKey.secretRef | string | `auth0-client-key-secret` |
+| global.airflow.openmetadata.authConfig.azure.authority | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.azure.clientId | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.azure.clientSecret.secretKey | string | `azure-client-secret` |
+| global.airflow.openmetadata.authConfig.azure.clientSecret.secretRef | string | `azure-client-secret` |
+| global.airflow.openmetadata.authConfig.azure.scopes | list | `[]` |
+| global.airflow.openmetadata.authConfig.customOidc.clientId | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.customOidc.secretKeyPath | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.customOidc.tokenEndpoint | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.google.audience | string | `https://www.googleapis.com/oauth2/v4/token` |
+| global.airflow.openmetadata.authConfig.google.secretKeyPath | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.okta.clientId | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.okta.email | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.okta.orgUrl | string | `Empty String` |
+| global.airflow.openmetadata.authConfig.okta.privateKey.secretKey | string | `okta-client-private-key-secret` |
+| global.airflow.openmetadata.authConfig.okta.privateKey.secretRef | string | `okta-client-private-key-secret` |
+| global.airflow.openmetadata.authConfig.okta.scopes | list | `[]` |
+| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata/api` |
 | global.elasticsearch.auth.enabled | bool | `false` |
 | global.elasticsearch.auth.username | string | `elasticsearch` |
 | global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` |
@@ -89,16 +110,16 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.9.1` |
+| image.tag | string | `0.10.0` |
 | imagePullSecrets | list | `[]` |
-| livenessProbe.initialDelaySeconds | int | `80` |
+| livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |
 | livenessProbe.failureThreshold | int | `5` |
 | nameOverride | string | `""` |
 | nodeSelector | object | `{}` |
 | podAnnotations | object | `{}` |
 | podSecurityContext | object | `{}` |
-| readinessProbe.initialDelaySeconds | int | `80` |
+| readinessProbe.initialDelaySeconds | int | `60` |
 | readinessProbe.periodSeconds | int | `30` |
 | readinessProbe.failureThreshold | int | `5` |
 | replicaCount | int | `1` |
