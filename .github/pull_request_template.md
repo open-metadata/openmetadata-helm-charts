@@ -19,7 +19,7 @@ I worked on the ..... because ...
 #
 ### Checklist:
 <!-- add an x in [] if done, don't mark items that you didn't do !-->
-- [x] I have read the [**CONTRIBUTING**](https://docs.open-metadata.org/open-source-community/developer) document.
+- [x] I have read the [**CONTRIBUTING**](https://docs.open-metadata.org/developer) document.
 - [ ] I have performed a self-review of my own. 
 - [ ] I have tagged my reviewers below.
 - [ ] I have commented on my code, particularly in hard-to-understand areas.
