@@ -40,22 +40,50 @@ global:
         secretKey: openmetadata-mysql-password
   airflow:
     enabled: false
-    host: airflow
-    port: 8080
+    host: http://airflow # endpoint url for airflow
     auth:
       username: admin
       password:
         secretRef: airflow-secrets
         secretKey: openmetadata-airflow-password
+    openmetadata:
+      authProvider: "no-auth" # possible values are "no-auth", "azure", "google", "okta", "auth0", "customOidc"
+      serverHostApiUrl: "http://openmetadata/api" # this will be the api endpoint url of OpenMetadata Server
+      authConfig:
+        azure:
+          clientSecret: ""
+          authority: ""
+          scopes: []
+          clientId: ""
+        google:
+          secretKeyPath: ""
+          audience: "https://www.googleapis.com/oauth2/v4/token"
+        okta:
+          clientId: ""
+          orgUrl: ""
+          privateKey: ""
+          email: ""
+          scopes: []
+        auth0:
+          clientId: ""
+          secretKey: ""
+          domain: ""
+        customOidc:
+          clientId: ""
+          secretKeyPath: ""
+          tokenEndpoint: ""
   authorizer:
     className: "org.openmetadata.catalog.security.NoopAuthorizer"
     containerRequestFilter: "org.openmetadata.catalog.security.NoopFilter"
-    initialAdmin: "admin"
-    botPrincipal: "ingestion-bot"
+    initialAdmins: 
+    - "admin"
+    botPrincipals: 
+    - "ingestion-bot"
     principalDomain: "open-metadata.org"
   authentication:
     provider: "no-auth"
-    publicKey: ""
+    publicKeys: 
+    - ""
     authority: ""
     clientId: ""
     callbackUrl: ""
@@ -64,12 +92,15 @@ global:
   # authorizer:
   #   className: "org.openmetadata.catalog.security.DefaultAuthorizer"
   #   containerRequestFilter: "org.openmetadata.catalog.security.JwtFilter"
-  #   initialAdmin: "suresh"
-  #   botPrincipal: "ingestion-bot"
+  #   initialAdmins: 
+  #   - "suresh"
+  #   botPrincipal: 
+  #   - "ingestion-bot"
   #   principalDomain: "open-metadata.org"
   # authentication:
   #   provider: "google"
-  #   publicKey: "https://www.googleapis.com/oauth2/v3/certs"
+  #   publicKeys: 
+  #   - "https://www.googleapis.com/oauth2/v3/certs"
   #   authority: "https://accounts.google.com"
   #   clientId: "<client_id>"
   #   callbackUrl: "<callback_url>"
@@ -158,11 +189,11 @@ tolerations: []
 affinity: {}
 
 livenessProbe:
-  initialDelaySeconds: 80
+  initialDelaySeconds: 60
   periodSeconds: 30
   failureThreshold: 5
 
 readinessProbe:
-  initialDelaySeconds: 80
+  initialDelaySeconds: 60
   periodSeconds: 30
   failureThreshold: 5

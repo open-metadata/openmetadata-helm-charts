@@ -69,8 +69,8 @@ spec:
             value: "{{ .Values.global.openmetadata.adminPort }}"
           - name: AUTHENTICATION_PROVIDER
             value: "{{ .Values.global.authentication.provider }}"
-          - name: AUTHENTICATION_PUBLIC_KEY
-            value: "{{ .Values.global.authentication.publicKey }}"
+          - name: AUTHENTICATION_PUBLIC_KEYS
+            value: "{{ .Values.global.authentication.publicKeys | toStrings }}"
           - name: AUTHENTICATION_AUTHORITY
             value: "{{ .Values.global.authentication.authority }}"
           - name: AUTHENTICATION_CLIENT_ID
@@ -82,9 +82,9 @@ spec:
           - name: AUTHORIZER_REQUEST_FILTER
             value: "{{ .Values.global.authorizer.containerRequestFilter }}"
           - name: AUTHORIZER_ADMIN_PRINCIPALS
-            value: "{{ .Values.global.authorizer.initialAdmin }}"
-          - name: AUTHORIZER_INGESTION_PRINCIPAL
-            value: "{{ .Values.global.authorizer.botPrincipal }}"
+            value: "{{ .Values.global.authorizer.initialAdmins | toStrings }}"
+          - name: AUTHORIZER_INGESTION_PRINCIPALS
+            value: "{{ .Values.global.authorizer.botPrincipals | toStrings }}"
           - name: AUTHORIZER_PRINCIPAL_DOMAIN
             value: "{{ .Values.global.authorizer.principalDomain }}"
           - name: ELASTICSEARCH_HOST
@@ -133,8 +133,6 @@ spec:
           {{- if .Values.global.airflow.enabled }}
           - name: AIRFLOW_HOST
             value: "{{ .Values.global.airflow.host }}"
-          - name: AIRFLOW_PORT
-            value: "{{ .Values.global.airflow.port }}"
           {{- with .Values.global.airflow.auth }}
           - name: AIRFLOW_USERNAME
             value: "{{ .username }}"
@@ -144,6 +142,11 @@ spec:
                 name: {{ .password.secretRef }}
                 key: {{ .password.secretKey }}
           {{- end }}
+          - name: SERVER_HOST_API_URL
+            value: "{{ .Values.global.airflow.openmetadata.serverHostApiUrl }}"
+          {{- if ne .Values.global.airflow.openmetadata.authProvider "no-auth" }}
+            {{- include "OpenMetadata.Airflow.authProviderConfig" . | nindent 10 }}
+          {{- end -}}
           {{- end }}
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
