@@ -16,7 +16,7 @@ spec:
       protocol: TCP
       name: http
     - port: {{ .Values.service.adminPort }}
-      targetPort: http
+      targetPort: http-admin
       protocol: TCP
       name: http-admin
   selector:
