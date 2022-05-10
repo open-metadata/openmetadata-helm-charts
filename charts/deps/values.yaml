@@ -103,12 +103,14 @@ airflow:
   dags:
     persistence:
       enabled: true
-      storageClass: "" # NOTE: "" means cluster-default
+      # NOTE: "" means cluster-default
+      storageClass: ""
       size: 1Gi
       accessMode: ReadOnlyMany
   logs:
     persistence:
       enabled: true
-      storageClass: "" ## empty string means cluster-default
+      # empty string means cluster-default
+      storageClass: ""
       accessMode: ReadWriteMany
       size: 1Gi
