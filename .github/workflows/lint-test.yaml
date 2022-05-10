@@ -39,6 +39,7 @@ jobs:
         run: |
           helm repo add elasticsearch https://helm.elastic.co
           helm repo add mysql https://charts.bitnami.com/bitnami
+          helm repo add airflow https://airflow-helm.github.io/charts
 
       - uses: actions/setup-python@v2
         with:

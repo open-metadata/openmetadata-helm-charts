@@ -55,7 +55,7 @@ This is achieved by Helm Hooks currently.
 | global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` |
 | global.airflow.auth.username | string | `admin` |
 | global.airflow.enabled | bool | `true` |
-| global.airflow.host | string | `airflow` |
+| global.airflow.host | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` |
 | global.airflow.openmetadata.authProvider | string | `no-auth` |
 | global.airflow.openmetadata.authConfig.auth0.clientId | string | `Empty String` |
 | global.airflow.openmetadata.authConfig.auth0.domain | string | `Empty String` |
@@ -77,7 +77,7 @@ This is achieved by Helm Hooks currently.
 | global.airflow.openmetadata.authConfig.okta.privateKey.secretKey | string | `okta-client-private-key-secret` |
 | global.airflow.openmetadata.authConfig.okta.privateKey.secretRef | string | `okta-client-private-key-secret` |
 | global.airflow.openmetadata.authConfig.okta.scopes | list | `[]` |
-| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata/api` |
+| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
 | global.elasticsearch.auth.enabled | bool | `false` |
 | global.elasticsearch.auth.username | string | `elasticsearch` |
 | global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` |

@@ -41,7 +41,7 @@ global:
   airflow:
     enabled: false
     # endpoint url for airflow
-    host: http://airflow
+    host: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
     auth:
       username: admin
       password:
@@ -51,7 +51,7 @@ global:
       # possible values are "no-auth", "azure", "google", "okta", "auth0", "customOidc"
       authProvider: "no-auth"
       # this will be the api endpoint url of OpenMetadata Server
-      serverHostApiUrl: "http://openmetadata/api"
+      serverHostApiUrl: "http://openmetadata.default.svc.cluster.local:8585/api"
       authConfig:
         azure:
           clientSecret:
