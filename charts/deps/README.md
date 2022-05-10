@@ -4,7 +4,13 @@ A Helm chart for installing components required to run Open Metadata.
 
 ## Install OpenMetadata
 
-Run the following command to install openmetadata with default configuration.
+Assuming kubectl context points to the correct kubernetes cluster, first create kubernetes secrets that contain airflow mysql password as secrets.
+
+```
+kubectl create secret generic airflow-mysql-secrets --from-literal=airflow-mysql-password=airflow_pass
+```
+
+Next, we run the following command to install openmetadata with default configuration.
 
 ```
 helm repo add open-metadata https://helm.open-metadata.org

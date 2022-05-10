@@ -5,5 +5,8 @@ dependencies:
 - name: elasticsearch
   repository: https://helm.elastic.co
   version: 7.10.2
-digest: sha256:f4e538fb891692267b032c4add5f7e19703a542293402f885ed46255034b69e7
-generated: "2022-01-31T17:08:01.838281+05:30"
+- name: airflow
+  repository: https://airflow-helm.github.io/charts
+  version: 8.5.3
+digest: sha256:b37d7e0a68462e9f3552c04f30ce395e12b29263292e0eae6da233d5bb4eb7ef
+generated: "2022-05-09T19:20:11.901889+05:30"
