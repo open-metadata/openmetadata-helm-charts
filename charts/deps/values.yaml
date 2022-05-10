@@ -106,7 +106,7 @@ airflow:
       # NOTE: "" means cluster-default
       storageClass: ""
       size: 1Gi
-      accessMode: ReadOnlyMany
+      accessMode: ReadWriteMany
   logs:
     persistence:
       enabled: true
