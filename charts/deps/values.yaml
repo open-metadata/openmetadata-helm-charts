@@ -56,7 +56,7 @@ airflow:
     config:
       AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth
       AIRFLOW__LINEAGE__BACKEND: airflow_provider_openmetadata.lineage.openmetadata.OpenMetadataLineageBackend
-      AIRFLOW__LINEAGE__AIRFLOW_SERVICE_NAME: airflow_helm_test
+      AIRFLOW__LINEAGE__AIRFLOW_SERVICE_NAME: airflow_helm
       AIRFLOW__LINEAGE__OPENMETADATA_API_ENDPOINT: http://openmetadata.default.svc.cluster.local:8585/api
       AIRFLOW__LINEAGE__AUTH_PROVIDER_TYPE: no-auth
       AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_RUNNER_TEMPLATE: "/opt/airflow/dag_templates/dag_runner.j2"
