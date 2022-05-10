@@ -39,7 +39,7 @@ global:
         secretRef: mysql-secrets
         secretKey: openmetadata-mysql-password
   airflow:
-    enabled: false
+    enabled: true
     # endpoint url for airflow
     host: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
     auth:
