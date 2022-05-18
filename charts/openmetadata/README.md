@@ -89,6 +89,11 @@ This is achieved by Helm Hooks currently.
 | global.elasticsearch.trustStore.path | string | `Empty String` |
 | global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` |
 | global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` |
+| global.jwtTokenConfiguration.enabled | bool | `false` |
+| global.jwtTokenConfiguration.rsapublicKeyFilePath | string | `Empty String` |
+| global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `Empty String` |
+| global.jwtTokenConfiguration.jwtissuer | string | `open-metadata.org` |
+| global.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` |
 | global.mysql.auth.password.secretRef | string | `mysql-secrets` |
 | global.mysql.auth.password.secretKey | string | `openmetadata-mysql-password` |
 | global.mysql.auth.username | string | `openmetadata_user` |
@@ -110,7 +115,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.10.0` |
+| image.tag | string | `0.10.1` |
 | imagePullSecrets | list | `[]` |
 | livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |

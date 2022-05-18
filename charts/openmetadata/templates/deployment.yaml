@@ -87,6 +87,16 @@ spec:
             value: "{{ .Values.global.authorizer.botPrincipals | toStrings }}"
           - name: AUTHORIZER_PRINCIPAL_DOMAIN
             value: "{{ .Values.global.authorizer.principalDomain }}"
+          {{- if .Values.global.jwtTokenConfiguration.enabled }}
+          - name: RSA_PUBLIC_KEY_FILE_PATH
+            value: "{{ .Values.global.jwtTokenConfiguration.rsapublicKeyFilePath }}"
+          - name: RSA_PRIVATE_KEY_FILE_PATH
+            value: "{{ .Values.global.jwtTokenConfiguration.rsaprivateKeyFilePath }}"
+          - name: JWT_ISSUER
+            value: "{{ .Values.global.jwtTokenConfiguration.jwtissuer }}"
+          - name: JWT_KEY_ID
+            value: "{{ .Values.global.jwtTokenConfiguration.keyId }}"
+          {{- end }}
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.global.elasticsearch.host }}"
           - name: ELASTICSEARCH_PORT

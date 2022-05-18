@@ -98,6 +98,14 @@ global:
     authority: ""
     clientId: ""
     callbackUrl: ""
+  jwtTokenConfiguration:
+    enabled: false
+    # File Path on Airflow Container
+    rsapublicKeyFilePath: ""
+    # File Path on Airflow Container
+    rsaprivateKeyFilePath: ""
+    jwtissuer: "open-metadata.org"
+    keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
 
   # Example Google SSO Auth Config
   # authorizer:
