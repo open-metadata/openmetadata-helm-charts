@@ -87,13 +87,7 @@ spec:
             value: "{{ .Values.global.authorizer.botPrincipals | toStrings }}"
           - name: AUTHORIZER_PRINCIPAL_DOMAIN
             value: "{{ .Values.global.authorizer.principalDomain }}"
-          - name: ELASTICSEARCH_HOST
-            value: "{{ .Values.global.elasticsearch.host }}"
-          - name: ELASTICSEARCH_PORT
-            value: "{{ .Values.global.elasticsearch.port }}"
-          - name: ELASTICSEARCH_SCHEME
-            value: "{{ .Values.global.elasticsearch.scheme }}"
-          {{- if .Values.global.jwtTokenConfiguration.enabled -}}
+          {{- if .Values.global.jwtTokenConfiguration.enabled }}
           - name: RSA_PUBLIC_KEY_FILE_PATH
             value: "{{ .Values.global.jwtTokenConfiguration.rsapublicKeyFilePath }}"
           - name: RSA_PRIVATE_KEY_FILE_PATH
@@ -103,6 +97,12 @@ spec:
           - name: JWT_KEY_ID
             value: "{{ .Values.global.jwtTokenConfiguration.keyId }}"
           {{- end }}
+          - name: ELASTICSEARCH_HOST
+            value: "{{ .Values.global.elasticsearch.host }}"
+          - name: ELASTICSEARCH_PORT
+            value: "{{ .Values.global.elasticsearch.port }}"
+          - name: ELASTICSEARCH_SCHEME
+            value: "{{ .Values.global.elasticsearch.scheme }}"
           {{- if .Values.global.elasticsearch.auth.enabled -}}
           {{- with .Values.global.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER
