@@ -93,6 +93,16 @@ spec:
             value: "{{ .Values.global.elasticsearch.port }}"
           - name: ELASTICSEARCH_SCHEME
             value: "{{ .Values.global.elasticsearch.scheme }}"
+          {{- if .Values.global.jwtTokenConfiguration.enabled -}}
+          - name: RSA_PUBLIC_KEY_FILE_PATH
+            value: "{{ .Values.global.jwtTokenConfiguration.rsapublicKeyFilePath }}"
+          - name: RSA_PRIVATE_KEY_FILE_PATH
+            value: "{{ .Values.global.jwtTokenConfiguration.rsaprivateKeyFilePath }}"
+          - name: JWT_ISSUER
+            value: "{{ .Values.global.jwtTokenConfiguration.jwtissuer }}"
+          - name: JWT_KEY_ID
+            value: "{{ .Values.global.jwtTokenConfiguration.keyId }}"
+          {{- end }}
           {{- if .Values.global.elasticsearch.auth.enabled -}}
           {{- with .Values.global.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER
