@@ -70,7 +70,7 @@ spec:
           - name: AUTHENTICATION_PROVIDER
             value: "{{ .Values.global.authentication.provider }}"
           - name: AUTHENTICATION_PUBLIC_KEYS
-            value: "{{ .Values.global.authentication.publicKeys | toStrings }}"
+            value: "[{{ .Values.global.authentication.publicKeys | join "," }}]"
           - name: AUTHENTICATION_AUTHORITY
             value: "{{ .Values.global.authentication.authority }}"
           - name: AUTHENTICATION_CLIENT_ID
@@ -82,9 +82,9 @@ spec:
           - name: AUTHORIZER_REQUEST_FILTER
             value: "{{ .Values.global.authorizer.containerRequestFilter }}"
           - name: AUTHORIZER_ADMIN_PRINCIPALS
-            value: "{{ .Values.global.authorizer.initialAdmins | toStrings }}"
+            value: "[{{ .Values.global.authorizer.initialAdmins | join "," }}]"
           - name: AUTHORIZER_INGESTION_PRINCIPALS
-            value: "{{ .Values.global.authorizer.botPrincipals | toStrings }}"
+            value: "[{{ .Values.global.authorizer.botPrincipals | join "," }}]"
           - name: AUTHORIZER_PRINCIPAL_DOMAIN
             value: "{{ .Values.global.authorizer.principalDomain }}"
           {{- if .Values.global.jwtTokenConfiguration.enabled }}
@@ -154,6 +154,8 @@ spec:
           {{- end }}
           - name: SERVER_HOST_API_URL
             value: "{{ .Values.global.airflow.openmetadata.serverHostApiUrl }}"
+          - name: AIRFLOW_AUTH_PROVIDER
+            value: "{{ .Values.global.airflow.openmetadata.authProvider }}"
           {{- if ne .Values.global.airflow.openmetadata.authProvider "no-auth" }}
             {{- include "OpenMetadata.Airflow.authProviderConfig" . | nindent 10 }}
           {{- end -}}
