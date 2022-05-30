@@ -75,7 +75,7 @@ Create the name of the service account to use
 - name: OM_AUTH_AIRFLOW_AZURE_AUTHORITY_URL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.azure.authority }}"
 - name: OM_AUTH_AIRFLOW_AZURE_SCOPES
-  value: "{{ .Values.global.airflow.openmetadata.authConfig.azure.scopes | toStrings }}"
+  value: "[{{ .Values.global.airflow.openmetadata.authConfig.azure.scopes | join "," }}]"
 {{- else if eq .Values.global.airflow.openmetadata.authProvider "google" -}}
 - name: OM_AUTH_AIRFLOW_GOOGLE_SECRET_KEY_PATH
   value: "{{ .Values.global.airflow.openmetadata.authConfig.google.secretKeyPath }}"
@@ -96,7 +96,7 @@ Create the name of the service account to use
 - name: OM_AUTH_AIRFLOW_OKTA_SA_EMAIL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.okta.email }}"
 - name: OM_AUTH_AIRFLOW_OKTA_SCOPES
-  value: "{{ .Values.global.airflow.openmetadata.authConfig.okta.scopes | toStrings }}"
+  value: "[{{ .Values.global.airflow.openmetadata.authConfig.okta.scopes | join "," }}]"
 {{- else if eq .Values.global.airflow.openmetadata.authProvider "auth0" -}}
 - name: OM_AUTH_AIRFLOW_AUTH0_CLIENT_ID
   value: "{{ .Values.global.airflow.openmetadata.authConfig.auth0.clientId }}"
