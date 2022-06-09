@@ -109,7 +109,7 @@ Create the name of the service account to use
 {{- end }}
 - name: OM_AUTH_AIRFLOW_AUTH0_DOMAIN_URL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.auth0.domain }}"
-{{- else if eq .Values.global.airflow.openmetadata.authProvider "customOidc" -}}
+{{- else if eq .Values.global.airflow.openmetadata.authProvider "custom-oidc" -}}
 - name: OM_AUTH_AIRFLOW_CUSTOM_OIDC_CLIENT_ID
   value: "{{ .Values.global.airflow.openmetadata.authConfig.customOidc.clientId }}"
 - name: OM_AUTH_AIRFLOW_CUSTOM_OIDC_SECRET_KEY_PATH

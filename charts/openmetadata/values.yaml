@@ -48,7 +48,7 @@ global:
         secretRef: airflow-secrets
         secretKey: openmetadata-airflow-password
     openmetadata:
-      # possible values are "no-auth", "azure", "google", "okta", "auth0", "customOidc"
+      # possible values are "no-auth", "azure", "google", "okta", "auth0", "custom-oidc"
       authProvider: "no-auth"
       # this will be the api endpoint url of OpenMetadata Server
       serverHostApiUrl: "http://openmetadata.default.svc.cluster.local:8585/api"

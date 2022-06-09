@@ -54,6 +54,12 @@ NAME        	URL
 open-metadata	https://helm.open-metadata.org/
 ```
 
+Assuming kubectl context points to the correct kubernetes cluster, first create kubernetes secrets that contain airflow mysql password as secrets.
+
+```
+kubectl create secret generic airflow-mysql-secrets --from-literal=airflow-mysql-password=airflow_pass
+```
+
 Deploy the dependencies by running
 
 ```
