@@ -29,9 +29,12 @@ global:
       password:
         secretRef: elasticsearch-secrets
         secretKey: openmetadata-elasticsearch-password
-  mysql:
+  database:
     host: mysql
     port: 3306
+    driverClass: com.mysql.cj.jdbc.Driver
+    dbScheme: mysql
+    dbUseSSL: false
     databaseName: openmetadata_db
     auth:
       username: openmetadata_user
@@ -48,7 +51,7 @@ global:
         secretRef: airflow-secrets
         secretKey: openmetadata-airflow-password
     openmetadata:
-      # possible values are "no-auth", "azure", "google", "okta", "auth0", "custom-oidc"
+      # possible values are "no-auth", "azure", "google", "okta", "auth0", "custom-oidc", "openmetadata"
       authProvider: "no-auth"
       # this will be the api endpoint url of OpenMetadata Server
       serverHostApiUrl: "http://openmetadata.default.svc.cluster.local:8585/api"
@@ -83,6 +86,10 @@ global:
           # absolute path of secret file on airflow instance
           secretKeyPath: ""
           tokenEndpoint: ""
+        openMetadataJWT:
+          jwtToken:
+            secretRef: openmetadata-jwt-secret
+            secretKey: openmetadata-jwt-secret
   authorizer:
     className: "org.openmetadata.catalog.security.NoopAuthorizer"
     containerRequestFilter: "org.openmetadata.catalog.security.NoopFilter"
