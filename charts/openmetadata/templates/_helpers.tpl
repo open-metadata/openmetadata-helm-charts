@@ -116,5 +116,13 @@ Create the name of the service account to use
   value: "{{ .Values.global.airflow.openmetadata.authConfig.customOidc.secretKeyPath }}"
 - name: OM_AUTH_AIRFLOW_CUSTOM_OIDC_TOKEN_ENDPOINT_URL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.customOidc.tokenEndpoint }}"
+{{- else if eq .Values.global.airflow.openmetadata.authProvider "openmetadata" -}}
+{{- with .Values.global.airflow.openmetadata.authConfig.openMetadataJWT.jwtToken }}
+- name: OM_AUTH_JWT_TOKEN
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
 {{- end -}}
 {{- end -}}

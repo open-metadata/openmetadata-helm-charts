@@ -77,6 +77,8 @@ This is achieved by Helm Hooks currently.
 | global.airflow.openmetadata.authConfig.okta.privateKey.secretKey | string | `okta-client-private-key-secret` |
 | global.airflow.openmetadata.authConfig.okta.privateKey.secretRef | string | `okta-client-private-key-secret` |
 | global.airflow.openmetadata.authConfig.okta.scopes | list | `[]` |
+| global.airflow.openmetadata.authConfig.openMetadataJWT.jwtToken.secretKey| string | `openmetadata-jwt-secret` |
+| global.airflow.openmetadata.authConfig.openMetadataJWT.jwtToken.secretRef| string | `openmetadata-jwt-secret` |
 | global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
 | global.elasticsearch.auth.enabled | bool | `false` |
 | global.elasticsearch.auth.username | string | `elasticsearch` |
@@ -94,12 +96,15 @@ This is achieved by Helm Hooks currently.
 | global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `Empty String` |
 | global.jwtTokenConfiguration.jwtissuer | string | `open-metadata.org` |
 | global.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` |
-| global.mysql.auth.password.secretRef | string | `mysql-secrets` |
-| global.mysql.auth.password.secretKey | string | `openmetadata-mysql-password` |
-| global.mysql.auth.username | string | `openmetadata_user` |
-| global.mysql.databaseName | string | `openmetadata_db` |
-| global.mysql.host | string | `mysql` |
-| global.mysql.port | int | 3306 |
+| global.database.auth.password.secretRef | string | `mysql-secrets` |
+| global.database.auth.password.secretKey | string | `openmetadata-mysql-password` |
+| global.database.auth.username | string | `openmetadata_user` |
+| global.database.databaseName | string | `openmetadata_db` |
+| global.database.dbScheme| string | `mysql` |
+| global.database.dbUseSSL| bool | `false` |
+| global.database.driverClass| string | `com.mysql.cj.jdbc.Driver` |
+| global.database.host | string | `mysql` |
+| global.database.port | int | 3306 |
 | global.openmetadata.adminPort | int | 8586 |
 | global.openmetadata.host | string | `openmetadata` |
 | global.openmetadata.port | int | 8585 |
