@@ -51,8 +51,8 @@ spec:
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
             httpGet:
-              path: /api/v1/health-check
-              port: http
+              path: /healthcheck
+              port: http-admin
           readinessProbe:
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
@@ -79,6 +79,8 @@ spec:
             value: "{{ .Values.global.authentication.clientId }}"
           - name: AUTHENTICATION_CALLBACK_URL
             value: "{{ .Values.global.authentication.callbackUrl }}"
+          - name: AUTHENTICATION_JWT_PRINCIPAL_CLAIMS
+            value: "[{{ .Values.global.authentication.jwtPrincipalClaims| join "," }}]"
           - name: AUTHORIZER_CLASS_NAME
             value: "{{ .Values.global.authorizer.className }}"
           - name: AUTHORIZER_REQUEST_FILTER
@@ -89,6 +91,10 @@ spec:
             value: "[{{ .Values.global.authorizer.botPrincipals | join "," }}]"
           - name: AUTHORIZER_PRINCIPAL_DOMAIN
             value: "{{ .Values.global.authorizer.principalDomain }}"
+          - name: AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN
+            value: "{{ .Values.global.authorizer.enforcePrincipalDomain }}"
+          - name: AUTHORIZER_ENABLE_SECURE_SOCKET
+            value: "{{ .Values.global.authorizer.enableSecureSocketConnection }}"
           {{- if .Values.global.jwtTokenConfiguration.enabled }}
           - name: RSA_PUBLIC_KEY_FILE_PATH
             value: "{{ .Values.global.jwtTokenConfiguration.rsapublicKeyFilePath }}"

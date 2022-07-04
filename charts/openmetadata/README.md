@@ -46,8 +46,11 @@ This is achieved by Helm Hooks currently.
 | global.authentication.authority | string | `Empty String` |
 | global.authentication.clientId | string | `Empty String` |
 | global.authentication.callbackUrl | string | `Empty String` |
+| global.authentication.jwtPrincipalClaims | list | `[email,preferred_username,sub]` |
 | global.authorizer.className | string | `org.openmetadata.catalog.security.NoopAuthorizer` |
 | global.authorizer.containerRequestFilter | string | `org.openmetadata.catalog.security.NoopFilter` |
+| global.authorizer.enforcePrincipalDomain | bool | `false` |
+| global.authorizer.enableSecureSocketConnection | bool | `false` |
 | global.authorizer.initialAdmins | list | `[admin]` |
 | global.authorizer.botPrincipals | list | `[ingestion-bot]` |
 | global.authorizer.principalDomain | string | `open-metadata.org` |
@@ -77,8 +80,8 @@ This is achieved by Helm Hooks currently.
 | global.airflow.openmetadata.authConfig.okta.privateKey.secretKey | string | `okta-client-private-key-secret` |
 | global.airflow.openmetadata.authConfig.okta.privateKey.secretRef | string | `okta-client-private-key-secret` |
 | global.airflow.openmetadata.authConfig.okta.scopes | list | `[]` |
-| global.airflow.openmetadata.authConfig.openMetadataJWT.jwtToken.secretKey| string | `openmetadata-jwt-secret` |
-| global.airflow.openmetadata.authConfig.openMetadataJWT.jwtToken.secretRef| string | `openmetadata-jwt-secret` |
+| global.airflow.openmetadata.authConfig.openMetadata.jwtToken.secretKey| string | `openmetadata-jwt-secret` |
+| global.airflow.openmetadata.authConfig.openMetadata.jwtToken.secretRef| string | `openmetadata-jwt-secret` |
 | global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
 | global.database.auth.password.secretRef | string | `mysql-secrets` |
 | global.database.auth.password.secretKey | string | `openmetadata-mysql-password` |
@@ -121,7 +124,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.10.4` |
+| image.tag | string | `0.11.0` |
 | imagePullSecrets | list | `[]` |
 | livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |
