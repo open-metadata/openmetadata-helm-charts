@@ -80,6 +80,15 @@ This is achieved by Helm Hooks currently.
 | global.airflow.openmetadata.authConfig.openMetadataJWT.jwtToken.secretKey| string | `openmetadata-jwt-secret` |
 | global.airflow.openmetadata.authConfig.openMetadataJWT.jwtToken.secretRef| string | `openmetadata-jwt-secret` |
 | global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
+| global.database.auth.password.secretRef | string | `mysql-secrets` |
+| global.database.auth.password.secretKey | string | `openmetadata-mysql-password` |
+| global.database.auth.username | string | `openmetadata_user` |
+| global.database.databaseName | string | `openmetadata_db` |
+| global.database.dbScheme| string | `mysql` |
+| global.database.dbUseSSL| bool | `false` |
+| global.database.driverClass| string | `com.mysql.cj.jdbc.Driver` |
+| global.database.host | string | `mysql` |
+| global.database.port | int | 3306 |
 | global.elasticsearch.auth.enabled | bool | `false` |
 | global.elasticsearch.auth.username | string | `elasticsearch` |
 | global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` |
@@ -96,15 +105,7 @@ This is achieved by Helm Hooks currently.
 | global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `Empty String` |
 | global.jwtTokenConfiguration.jwtissuer | string | `open-metadata.org` |
 | global.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` |
-| global.database.auth.password.secretRef | string | `mysql-secrets` |
-| global.database.auth.password.secretKey | string | `openmetadata-mysql-password` |
-| global.database.auth.username | string | `openmetadata_user` |
-| global.database.databaseName | string | `openmetadata_db` |
-| global.database.dbScheme| string | `mysql` |
-| global.database.dbUseSSL| bool | `false` |
-| global.database.driverClass| string | `com.mysql.cj.jdbc.Driver` |
-| global.database.host | string | `mysql` |
-| global.database.port | int | 3306 |
+| global.logLevel | string | `INFO` |
 | global.openmetadata.adminPort | int | 8586 |
 | global.openmetadata.host | string | `openmetadata` |
 | global.openmetadata.port | int | 8585 |
@@ -120,7 +121,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.10.2` |
+| image.tag | string | `0.10.4` |
 | imagePullSecrets | list | `[]` |
 | livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |
