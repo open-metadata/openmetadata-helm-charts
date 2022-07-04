@@ -51,8 +51,8 @@ spec:
             periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
             failureThreshold: {{ .Values.livenessProbe.failureThreshold }}
             httpGet:
-              path: /api/v1/health-check
-              port: http
+              path: /healthcheck
+              port: http-admin
           readinessProbe:
             initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
             periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
