@@ -100,7 +100,7 @@ openmetadata-5566f4d8b9-544gb   1/1     Running   0          98s
 To expose the Openmetadata UI locally, run the below command -
 
 ```
-kubectl port-forward <openmetadata-front end pod name> 8585:8585
+kubectl port-forward deployment/openmetadata 8585:8585
 ```
 
 ## Documentation and Support
