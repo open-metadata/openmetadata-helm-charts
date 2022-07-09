@@ -190,6 +190,21 @@ service:
   adminPort: 8586
   annotations: {}
 
+ingress:
+  enabled: false
+  className: nginx
+  annotations: {}
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: open-metadata.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+    # - secretName: tls-open-metadata.local
+    #   hosts:
+    #     - open-metadata.local
+
 extraEnvs: []
 # - name: MY_ENVIRONMENT_VAR
 #   value: the_value_goes_here
