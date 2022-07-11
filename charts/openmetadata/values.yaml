@@ -85,8 +85,9 @@ global:
           domain: ""
         customOidc:
           clientId: ""
-          # absolute path of secret file on airflow instance
-          secretKeyPath: ""
+          secretKey:
+            secretRef: custom-oidc-key-secret
+            secretKey: custom-oidc-key-secret
           tokenEndpoint: ""
         openMetadata:
           jwtToken:
