@@ -112,8 +112,13 @@ Create the name of the service account to use
 {{- else if eq .Values.global.airflow.openmetadata.authProvider "custom-oidc" -}}
 - name: OM_AUTH_AIRFLOW_CUSTOM_OIDC_CLIENT_ID
   value: "{{ .Values.global.airflow.openmetadata.authConfig.customOidc.clientId }}"
-- name: OM_AUTH_AIRFLOW_CUSTOM_OIDC_SECRET_KEY_PATH
-  value: "{{ .Values.global.airflow.openmetadata.authConfig.customOidc.secretKeyPath }}"
+{{- with .Values.global.airflow.openmetadata.authConfig.customOidc.secretKey }}
+- name: OM_AUTH_AIRFLOW_CUSTOM_OIDC_SECRET_KEY
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
 - name: OM_AUTH_AIRFLOW_CUSTOM_OIDC_TOKEN_ENDPOINT_URL
   value: "{{ .Values.global.airflow.openmetadata.authConfig.customOidc.tokenEndpoint }}"
 {{- else if eq .Values.global.airflow.openmetadata.authProvider "openmetadata" -}}
