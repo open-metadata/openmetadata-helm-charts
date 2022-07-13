@@ -126,6 +126,12 @@ This is achieved by Helm Hooks currently.
 | image.repository | string | `"openmetadata/server"` |
 | image.tag | string | `0.11.2` |
 | imagePullSecrets | list | `[]` |
+| ingress.annotations | object | `{}` |
+| ingress.className | string | `""` |
+| ingress.enabled | bool | `false` |
+| ingress.hosts[0].host | string | `"open-metadata.local"` |
+| ingress.hosts[0].paths[0].path | string | `"/"` |
+| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |
 | livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |
 | livenessProbe.failureThreshold | int | `5` |
