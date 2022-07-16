@@ -141,6 +141,10 @@ This is achieved by Helm Hooks currently.
 | securityContext | object | `{}` |
 | service.port | int | `8585` |
 | service.type | string | `"ClusterIP"` |
+| ingress.enabled | bool | `false` |
+| ingress.className | string | `""` |
+| ingress.annotations | object | `"{}"` |
+| ingress.host | string | `"catalog.openmetadata.com"` |
 | serviceAccount.annotations | object | `{}` |
 | serviceAccount.create | bool | `true` |
 | serviceAccount.name | string | `nil` |
