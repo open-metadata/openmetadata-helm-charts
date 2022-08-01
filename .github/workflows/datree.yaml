@@ -1,0 +1,63 @@
+name: Config Validation Open Metadata Helm Charts
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
+  # pull_request:
+  #   paths-ignore:
+  #     - '**.md'
+  #     - 'LICENSE'
+  #     - 'NOTICE'
+  pull_request_target:
+    types:
+      - labeled
+      - opened
+      - synchronize
+      - reopened
+    paths-ignore:
+      - '**.md'
+      - 'LICENSE'
+      - 'NOTICE'
+
+jobs:
+  configs-validation:
+    name: Kubernetes API versions Matrix
+    runs-on: ubuntu-latest
+    environment: datree
+    env:
+      DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # list whatever Kubernetes API versions here you would like to support
+        api_version:
+          - '1.13.0'
+          - '1.14.0'
+          - '1.15.0'
+          - '1.16.0'
+          - '1.17.0'
+          - '1.18.0'
+          - '1.19.0'
+          - '1.20.0'
+          - '1.21.0'
+          - '1.22.0'
+          - '1.23.0'
+          - '1.24.0'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run Datree Policy Check
+        uses: datreeio/action-datree@main
+        with:
+          path: 'charts/openmetadata'
+          cliArguments: '--no-record --schema-version ${{ matrix.api_version }}'
+          isHelmChart: true
+          helmArguments: '--values .github/workflows/test/openmetadata-values.yaml'
