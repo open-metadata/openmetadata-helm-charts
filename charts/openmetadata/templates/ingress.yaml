@@ -21,6 +21,9 @@ metadata:
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
+    {{- if semverCompare "=<1.13-0" $.Capabilities.KubeVersion.GitVersion }}
+    datree.skip/K8S_DEPRECATED_APIVERSION_1.16: "Ignore that deprecation in old kubernetes instances"
+    {{- end -}}
   {{- end }}
 spec:
   {{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
