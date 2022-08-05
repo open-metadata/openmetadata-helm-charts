@@ -25,8 +25,8 @@ on:
       - 'NOTICE'
 
 jobs:
-  configs-validation:
-    name: Kubernetes API versions Matrix
+  configs-validation-old:
+    name: Old Kubernetes API versions Matrix
     runs-on: ubuntu-latest
     environment: datree
     env:
@@ -39,6 +39,31 @@ jobs:
         api_version:
           - '1.13.0'
           - '1.14.0'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Run Datree Policy Check
+        uses: datreeio/action-datree@main
+        with:
+          path: 'charts/openmetadata'
+          cliArguments: "--no-record --schema-version ${{ matrix.api_version }} --schema-location 'https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/{{.NormalizedKubernetesVersion}}-standalone{{.StrictSuffix}}/{{.ResourceKind}}{{.KindSuffix}}.json'"
+          isHelmChart: true
+          helmArguments: '--values .github/workflows/test/openmetadata-values.yaml --kube-version ${{ matrix.api_version }}'
+
+  configs-validation:
+    name: Kubernetes API versions Matrix
+    runs-on: ubuntu-latest
+    environment: datree
+    env:
+      DATREE_TOKEN: ${{ secrets.DATREE_TOKEN }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        # list whatever Kubernetes API versions here you would like to support
+        api_version:
           - '1.15.0'
           - '1.16.0'
           - '1.17.0'

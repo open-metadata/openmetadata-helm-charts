@@ -10,3 +10,5 @@ resources:
 
 ingress:
   enabled: true
+  annotations:
+    test: value
