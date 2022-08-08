@@ -48,7 +48,7 @@ jobs:
         uses: datreeio/action-datree@main
         with:
           path: 'charts/openmetadata'
-          cliArguments: "--no-record --schema-version ${{ matrix.api_version }} --schema-location 'https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/{{.NormalizedKubernetesVersion}}-standalone{{.StrictSuffix}}/{{.ResourceKind}}{{.KindSuffix}}.json'"
+          cliArguments: "--no-record\ --schema-version=${{ matrix.api_version }}\ --schema-location=https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/{{.NormalizedKubernetesVersion}}-standalone{{.StrictSuffix}}/{{.ResourceKind}}{{.KindSuffix}}.json"
           isHelmChart: true
           helmArguments: '--values .github/workflows/test/openmetadata-values.yaml --kube-version ${{ matrix.api_version }}'
 
