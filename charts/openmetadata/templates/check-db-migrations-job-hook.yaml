@@ -44,6 +44,8 @@ spec:
           - name: JWT_KEY_ID
             value: "{{ .Values.global.jwtTokenConfiguration.keyId }}"
           {{- end }}
+          - name: FERNET_KEY
+            value: "{{ .Values.global.fernetKey }}"
            {{- if .Values.global.elasticsearch.auth.enabled -}}
           {{- with .Values.global.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER

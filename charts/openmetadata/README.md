@@ -103,6 +103,7 @@ This is achieved by Helm Hooks currently.
 | global.elasticsearch.trustStore.path | string | `Empty String` |
 | global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` |
 | global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` |
+| global.fernetKey | string | `jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=` |
 | global.jwtTokenConfiguration.enabled | bool | `false` |
 | global.jwtTokenConfiguration.rsapublicKeyFilePath | string | `Empty String` |
 | global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `Empty String` |

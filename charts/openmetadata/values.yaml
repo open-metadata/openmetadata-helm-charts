@@ -122,6 +122,7 @@ global:
     rsaprivateKeyFilePath: ""
     jwtissuer: "open-metadata.org"
     keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
+  fernetKey: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
 
   # Example Google SSO Auth Config
   # authorizer:
