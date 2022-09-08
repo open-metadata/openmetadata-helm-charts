@@ -67,7 +67,7 @@ airflow:
       # OpenMetadata Airflow Secrets Manager Configuration
       AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_REGION: ""
       AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY_ID: ""
-      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY: "" 
+      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY: ""
     users:
     - username: admin
       password: admin
