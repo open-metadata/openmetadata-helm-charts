@@ -8,6 +8,7 @@ replicaCount: 1
 global:
   # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
   logLevel: INFO
+  clusterName: openmetadata
   openmetadata:
     host: openmetadata
     port: 8585
@@ -123,6 +124,22 @@ global:
     jwtissuer: "open-metadata.org"
     keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
   fernetKey: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
+  secretsManager:
+    # Possible values are noop, aws, aws-ssm
+    provider: noop
+    additionalParameters:
+      enabled: false
+      region: ""
+      accessKeyId:
+        secretRef: aws-access-key-secret
+        secretKey: aws-key-secret
+      secretAccessKey:
+        secretRef: aws-secret-access-key-secret
+        secretKey: aws-key-secret
+    # You can create Kubernetes secrets from AWS Credentials with the below command
+    # kubectl create secret generic aws-key-secret \
+    # --from-literal=aws-access-key-secret=<access_key_id_value> \
+    # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
 
   # Example Google SSO Auth Config
   # authorizer:
@@ -140,7 +157,6 @@ global:
   #   authority: "https://accounts.google.com"
   #   clientId: "<client_id>"
   #   callbackUrl: "<callback_url>"
-
 
 image:
   repository: openmetadata/server

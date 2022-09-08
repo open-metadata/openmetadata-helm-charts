@@ -51,7 +51,7 @@ airflow:
   airflow:
     image:
       repository: openmetadata/airflow
-      tag: 0.11.5
+      tag: 0.12.0
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
@@ -63,8 +63,11 @@ airflow:
       AIRFLOW__LINEAGE__OPENMETADATA_API_ENDPOINT: http://openmetadata.default.svc.cluster.local:8585/api
       AIRFLOW__LINEAGE__AUTH_PROVIDER_TYPE: no-auth
       # OpenMetadata Airflow Apis Plugin DAGs Configuration
-      AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_RUNNER_TEMPLATE: "/opt/airflow/dag_templates/dag_runner.j2"
       AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dags"
+      # OpenMetadata Airflow Secrets Manager Configuration
+      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_REGION: ""
+      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY_ID: ""
+      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY: "" 
     users:
     - username: admin
       password: admin
