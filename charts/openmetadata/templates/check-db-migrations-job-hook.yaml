@@ -68,20 +68,20 @@ spec:
                 key: {{ .password.secretKey }}
           {{- end }}
           {{- end }}
-          - name: MYSQL_HOST
+          - name: DB_HOST
             value: "{{ .Values.global.database.host }}"
-          - name: MYSQL_PORT
+          - name: DB_PORT
             value: "{{ .Values.global.database.port }}"
           {{- with .Values.global.database.auth }}
-          - name: MYSQL_USER
+          - name: DB_USER
             value: "{{ .username }}"
-          - name: MYSQL_USER_PASSWORD
+          - name: DB_USER_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ .password.secretRef }}
                 key: {{ .password.secretKey }}
           {{- end }}
-          - name: MYSQL_DATABASE
+          - name: OM_DATABASE
             value: "{{ .Values.global.database.databaseName }}"
           - name: DB_DRIVER_CLASS
             value: "{{ .Values.global.database.driverClass }}"

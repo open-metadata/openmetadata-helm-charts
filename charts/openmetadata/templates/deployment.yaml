@@ -61,6 +61,8 @@ spec:
               path: /
               port: http
           env:
+          - name: OPENMETADATA_CLUSTER_NAME
+            value: "{{ .Values.global.clusterName }}"
           - name: LOG_LEVEL
             value: "{{ .Values.global.logLevel }}"
           - name: SERVER_HOST
@@ -135,20 +137,20 @@ spec:
                 key: {{ .password.secretKey }}
           {{- end }}
           {{- end }}
-          - name: MYSQL_HOST
+          - name: DB_HOST
             value: "{{ .Values.global.database.host }}"
-          - name: MYSQL_PORT
+          - name: DB_PORT
             value: "{{ .Values.global.database.port }}"
           {{- with .Values.global.database.auth }}
-          - name: MYSQL_USER
+          - name: DB_USER
             value: "{{ .username }}"
-          - name: MYSQL_USER_PASSWORD
+          - name: DB_USER_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: {{ .password.secretRef }}
                 key: {{ .password.secretKey }}
           {{- end }}
-          - name: MYSQL_DATABASE
+          - name: OM_DATABASE
             value: "{{ .Values.global.database.databaseName }}"
           - name: DB_DRIVER_CLASS
             value: "{{ .Values.global.database.driverClass }}"
@@ -176,6 +178,26 @@ spec:
             {{- include "OpenMetadata.Airflow.authProviderConfig" . | nindent 10 }}
           {{- end -}}
           {{- end }}
+          - name: SECRET_MANAGER
+            value: "{{ .Values.global.secretsManager.provider }}"
+          {{- if .Values.global.secretsManager.additionalParameters.enabled }}
+          - name: OM_SM_REGION
+            value: "{{ .Values.global.secretsManager.additionalParameters.region }}"
+          {{- with .Values.global.secretsManager.additionalParameters.accessKeyId }}
+          - name: OM_SM_ACCESS_KEY_ID
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          {{- with .Values.global.secretsManager.additionalParameters.secretAccessKey }}
+          - name: OM_SM_ACCESS_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          {{- end -}}
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
           {{- end }}

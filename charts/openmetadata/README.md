@@ -83,6 +83,7 @@ This is achieved by Helm Hooks currently.
 | global.airflow.openmetadata.authConfig.openMetadata.jwtToken.secretKey| string | `openmetadata-jwt-secret` |
 | global.airflow.openmetadata.authConfig.openMetadata.jwtToken.secretRef| string | `openmetadata-jwt-secret` |
 | global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
+| global.clusterName | string | `openmetadata` |
 | global.database.auth.password.secretRef | string | `mysql-secrets` |
 | global.database.auth.password.secretKey | string | `openmetadata-mysql-password` |
 | global.database.auth.username | string | `openmetadata_user` |
@@ -113,6 +114,13 @@ This is achieved by Helm Hooks currently.
 | global.openmetadata.adminPort | int | 8586 |
 | global.openmetadata.host | string | `openmetadata` |
 | global.openmetadata.port | int | 8585 |
+| global.secretsManager.provider | string | `noop` |
+| global.secretsManager.additionalParameters.enabled | bool | `false` |
+| global.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` |
+| global.secretsManager.additionalParameters.accessKeyId.secretKey | string | `aws-key-secret` |
+| global.secretsManager.additionalParameters.region | string | `Empty String` |
+| global.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` |
+| global.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` |
 
 ## Chart Values
 
