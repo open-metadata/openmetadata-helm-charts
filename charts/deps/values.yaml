@@ -107,6 +107,9 @@ airflow:
   serviceAccount:
     create: true
     name: "airflow"
+  scheduler:
+    logCleanup:
+      enabled: false
   dags:
     persistence:
       enabled: true
