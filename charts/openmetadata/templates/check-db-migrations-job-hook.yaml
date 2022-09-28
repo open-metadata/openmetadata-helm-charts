@@ -7,6 +7,24 @@ metadata:
     "helm.sh/hook": pre-upgrade 
     "helm.sh/hook-weight": "-1" # we use a smaller weight so it's created before the job  
     "helm.sh/hook-delete-policy": hook-succeeded, hook-failed
+    {{- if .Values.annotations }}
+    {{- range $key, $val := fromYaml .Values.annotations }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end}}
+    {{- end}}
+  labels:
+    app.kubernetes.io/name: '{{ include "OpenMetadata.name" .}}'
+    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    app.kubernetes.io/managed-by: "{{ .Release.Service }}"
+    app.kubernetes.io/instance: "{{ .Release.Name }}"
+    app.kubernetes.io/component: "openmetadata"
+    {{- if .Values.labels }}
+    {{- range $key, $val := fromYaml .Values.labels }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end}}
+    {{- end}}
+
 spec:
   template:
     metadata:
