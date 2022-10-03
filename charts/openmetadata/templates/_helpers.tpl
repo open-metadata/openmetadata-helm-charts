@@ -35,11 +35,19 @@ Common labels
 */}}
 {{- define "OpenMetadata.labels" -}}
 helm.sh/chart: {{ include "OpenMetadata.chart" . }}
+app.kubernetes.io/name: '{{ include "OpenMetadata.name" .}}'
+app.kubernetes.io/instance: "{{ .Release.Name }}"
+app.kubernetes.io/component: "{{ .Chart.Name }}"
 {{ include "OpenMetadata.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- if .Values.labels }}
+{{- range $key, $val := fromYaml .Values.labels }}
+{{ $key }}: {{ $val | quote }}
+{{- end}}
+{{- end}}
 {{- end }}
 
 {{/*
