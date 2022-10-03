@@ -12,6 +12,8 @@ mysql:
   auth:
     rootPassword: password    # provided by CI/CD
   primary:
+    persistence:
+      size: 50Gi
     service:
       nodePort: 3306
   initdbScripts:
@@ -35,6 +37,7 @@ elasticsearch:
   fullnameOverride: "elasticsearch"
   imagePullPolicy: "Always"
   esJavaOpts: "-Xmx128m -Xms128m"
+  maxUnavailable: 0
   clusterHealthCheckParams: "wait_for_status=yellow&timeout=20s"
   resources:
     requests:
