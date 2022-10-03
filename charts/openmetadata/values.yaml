@@ -51,7 +51,7 @@ global:
     # possible values are "no-ssl", "ignore", "validate"
     verifySsl: "no-ssl"
     # Local path in Airflow Pod
-    sslCertificatePath: ""
+    sslCertificatePath: "/wrong/path"
     auth:
       username: admin
       password:
@@ -127,7 +127,7 @@ global:
     # in seconds
     accessBlockTime: 600
   jwtTokenConfiguration:
-    enabled: false
+    enabled: true
     # File Path on Airflow Container
     rsapublicKeyFilePath: "./conf/public_key.der"
     # File Path on Airflow Container
