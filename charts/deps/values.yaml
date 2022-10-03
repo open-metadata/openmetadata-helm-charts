@@ -53,18 +53,13 @@ airflow:
   enabled: true
   airflow:
     image:
-      repository: openmetadata/airflow
-      tag: 0.12.0
+      repository: openmetadata/ingestion
+      tag: 0.12.1
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
       # This is required for OpenMetadata UI to fetch status of DAGs
       AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth
-      # OpenMetadata Airflow Lineage Backend Configurations
-      AIRFLOW__LINEAGE__BACKEND: airflow_provider_openmetadata.lineage.openmetadata.OpenMetadataLineageBackend
-      AIRFLOW__LINEAGE__AIRFLOW_SERVICE_NAME: airflow_helm
-      AIRFLOW__LINEAGE__OPENMETADATA_API_ENDPOINT: http://openmetadata.default.svc.cluster.local:8585/api
-      AIRFLOW__LINEAGE__AUTH_PROVIDER_TYPE: no-auth
       # OpenMetadata Airflow Apis Plugin DAGs Configuration
       AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dags"
       # OpenMetadata Airflow Secrets Manager Configuration
