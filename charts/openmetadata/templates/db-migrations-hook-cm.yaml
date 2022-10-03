@@ -13,18 +13,7 @@ metadata:
     {{- end}}
     {{- end}}
   labels:
-    app.kubernetes.io/name: '{{ include "OpenMetadata.name" .}}'
-    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
-    app.kubernetes.io/managed-by: "{{ .Release.Service }}"
-    app.kubernetes.io/instance: "{{ .Release.Name }}"
-    app.kubernetes.io/component: "openmetadata"
-    {{- if .Values.labels }}
-    {{- range $key, $val := fromYaml .Values.labels }}
-    {{ $key }}: {{ $val | quote }}
-    {{- end}}
-    {{- end}}
-
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
 data:
   check_db_migrations.sh: |
 {{- include "check-db-migrations-script" . | indent 4 -}}
