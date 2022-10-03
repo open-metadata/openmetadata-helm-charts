@@ -22,18 +22,50 @@ spec:
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ .Chart.Name }}-db-migrations-hook
         env:
+          - name: OPENMETADATA_CLUSTER_NAME
+            value: "{{ .Values.global.clusterName }}"
+          - name: LOG_LEVEL
+            value: "{{ .Values.global.logLevel }}"
           - name: SERVER_HOST
             value: "{{ .Values.global.openmetadata.host }}"
           - name: SERVER_PORT
             value: "{{ .Values.global.openmetadata.port }}"
           - name: SERVER_ADMIN_PORT
             value: "{{ .Values.global.openmetadata.adminPort }}"
-          - name: ELASTICSEARCH_HOST
-            value: "{{ .Values.global.elasticsearch.host }}"
-          - name: ELASTICSEARCH_PORT
-            value: "{{ .Values.global.elasticsearch.port }}"
-          - name: ELASTICSEARCH_SCHEME
-            value: "{{ .Values.global.elasticsearch.scheme }}"
+          - name: AUTHENTICATION_PROVIDER
+            value: "{{ .Values.global.authentication.provider }}"
+          - name: AUTHENTICATION_PUBLIC_KEYS
+            value: "[{{ .Values.global.authentication.publicKeys | join "," }}]"
+          - name: AUTHENTICATION_AUTHORITY
+            value: "{{ .Values.global.authentication.authority }}"
+          - name: AUTHENTICATION_CLIENT_ID
+            value: "{{ .Values.global.authentication.clientId }}"
+          - name: AUTHENTICATION_CALLBACK_URL
+            value: "{{ .Values.global.authentication.callbackUrl }}"
+          - name: AUTHENTICATION_JWT_PRINCIPAL_CLAIMS
+            value: "[{{ .Values.global.authentication.jwtPrincipalClaims| join "," }}]"
+          - name: AUTHENTICATION_ENABLE_SELF_SIGNUP
+            value: "{{ .Values.global.authentication.enableSelfSignup }}"
+          - name: OM_MAX_FAILED_LOGIN_ATTEMPTS
+            value: "{{ .Values.global.basicLogin.maxLoginFailAttempts }}"
+          - name: OM_LOGIN_ACCESS_BLOCKTIME
+            value: "{{ .Values.global.basicLogin.accessBlockTime }}"
+          - name: AUTHORIZER_CLASS_NAME
+            value: "{{ .Values.global.authorizer.className }}"
+          - name: AUTHORIZER_REQUEST_FILTER
+            value: "{{ .Values.global.authorizer.containerRequestFilter }}"
+          - name: AUTHORIZER_ADMIN_PRINCIPALS
+            value: "[{{ .Values.global.authorizer.initialAdmins | join "," }}]"
+          - name: AUTHORIZER_INGESTION_PRINCIPALS
+            value: "[{{ .Values.global.authorizer.botPrincipals | join "," }}]"
+          - name: AUTHORIZER_PRINCIPAL_DOMAIN
+            value: "{{ .Values.global.authorizer.principalDomain }}"
+          - name: AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN
+            value: "{{ .Values.global.authorizer.enforcePrincipalDomain }}"
+          - name: AUTHORIZER_ENABLE_SECURE_SOCKET
+            value: "{{ .Values.global.authorizer.enableSecureSocketConnection }}"
+          - name: AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN
+            value: "[{{ .Values.global.authorizer.allowedEmailRegistrationDomains | join "," }}]"
           {{- if .Values.global.jwtTokenConfiguration.enabled }}
           - name: RSA_PUBLIC_KEY_FILE_PATH
             value: "{{ .Values.global.jwtTokenConfiguration.rsapublicKeyFilePath }}"
@@ -46,7 +78,13 @@ spec:
           {{- end }}
           - name: FERNET_KEY
             value: "{{ .Values.global.fernetKey }}"
-           {{- if .Values.global.elasticsearch.auth.enabled -}}
+          - name: ELASTICSEARCH_HOST
+            value: "{{ .Values.global.elasticsearch.host }}"
+          - name: ELASTICSEARCH_PORT
+            value: "{{ .Values.global.elasticsearch.port }}"
+          - name: ELASTICSEARCH_SCHEME
+            value: "{{ .Values.global.elasticsearch.scheme }}"
+          {{- if .Values.global.elasticsearch.auth.enabled -}}
           {{- with .Values.global.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER
             value: "{{ .username }}"

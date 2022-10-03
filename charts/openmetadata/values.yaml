@@ -48,6 +48,10 @@ global:
     enabled: true
     # endpoint url for airflow
     host: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
+    # possible values are "no-ssl", "ignore", "validate"
+    verifySsl: "no-ssl"
+    # Local path in Airflow Pod
+    sslCertificatePath: "/no/path"
     auth:
       username: admin
       password:
@@ -95,35 +99,54 @@ global:
             secretRef: openmetadata-jwt-secret
             secretKey: openmetadata-jwt-secret
   authorizer:
-    className: "org.openmetadata.catalog.security.NoopAuthorizer"
-    containerRequestFilter: "org.openmetadata.catalog.security.NoopFilter"
+    className: "org.openmetadata.service.security.DefaultAuthorizer"
+    containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
     initialAdmins:
     - "admin"
     botPrincipals:
     - "ingestion-bot"
+    allowedEmailRegistrationDomains:
+    - "all"
     principalDomain: "open-metadata.org"
     enforcePrincipalDomain: false
     enableSecureSocketConnection: false
   authentication:
-    provider: "no-auth"
+    provider: "basic"
     publicKeys:
-    - ""
-    authority: ""
+    - "http://openmetadata:8585/api/v1/config/jwks"
+    authority: "https://accounts.google.com"
     clientId: ""
     callbackUrl: ""
     jwtPrincipalClaims:
     - "email"
     - "preferred_username"
     - "sub"
+    enableSelfSignup: true
+  basicLogin:
+    maxLoginFailAttempts: 3
+    # in seconds
+    accessBlockTime: 600
   jwtTokenConfiguration:
-    enabled: false
+    enabled: true
     # File Path on Airflow Container
-    rsapublicKeyFilePath: ""
+    rsapublicKeyFilePath: "./conf/public_key.der"
     # File Path on Airflow Container
-    rsaprivateKeyFilePath: ""
+    rsaprivateKeyFilePath: "./conf/private_key.der"
     jwtissuer: "open-metadata.org"
     keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
   fernetKey: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
+  smtpConfig:
+    enableSmtpServer: false
+    emailingEntity: "OpenMetadata"
+    supportUrl: "https://slack.open-metadata.org"
+    transportationStrategy: "SMTP_TLS"
+    openMetadataUrl: ""
+    serverEndpoint: ""
+    serverPort: ""
+    username: ""
+    password:
+      secretRef: ""
+      secretKey: ""
   secretsManager:
     # Possible values are noop, aws, aws-ssm
     provider: noop
