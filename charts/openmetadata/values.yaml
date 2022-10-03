@@ -145,8 +145,8 @@ global:
     serverPort: ""
     username: ""
     password:
-        secretRef: ""
-        secretKey: ""
+      secretRef: ""
+      secretKey: ""
   secretsManager:
     # Possible values are noop, aws, aws-ssm
     provider: noop
