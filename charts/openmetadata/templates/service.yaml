@@ -20,5 +20,4 @@ spec:
       protocol: TCP
       name: http-admin
   selector:
-    {{- include "OpenMetadata.selectorLabels" . | nindent 4 }}
     {{- include "OpenMetadata.labels" . | nindent 4 }} 
