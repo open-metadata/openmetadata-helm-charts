@@ -19,9 +19,10 @@ metadata:
   labels:
     {{- include "OpenMetadata.labels" . | nindent 4 }} 
   annotations:
+    {{- include "OpenMetadata.annotations" . | nindent 4 }}
     {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
-    {{- if semverCompare "=<1.13-0" $.Capabilities.KubeVersion.GitVersion }}
+        {{- if semverCompare "=<1.13-0" $.Capabilities.KubeVersion.GitVersion }}
     datree.skip/K8S_DEPRECATED_APIVERSION_1.16: "Ignore that deprecation in old kubernetes instances"
     {{- end -}}
   {{- end }}
