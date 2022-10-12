@@ -42,11 +42,20 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- if .Values.labels }}
-{{- range $key, $val := fromYaml .Values.labels }}
+{{- range $key, $val :=  .Values.labels }}
 {{ $key }}: {{ $val | quote }}
 {{- end}}
 {{- end}}
 {{- end }}
+
+ {{- if .Values.annotations }}
+ {{- define "OpenMetadata.annotations" -}}
+ {{- if .Values.annotations }}
+ {{- range $key, $val := .Values.annotations }}
+ {{ $key }}: {{ $val | quote }}
+ {{- end}}
+ {{- end}}
+ {{- end }}
 
 {{/*
 Selector labels
