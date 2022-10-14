@@ -48,7 +48,6 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end}}
 {{- end }}
 
- {{- if .Values.annotations }}
  {{- define "OpenMetadata.annotations" -}}
  {{- if .Values.annotations }}
  {{- range $key, $val := .Values.annotations }}
