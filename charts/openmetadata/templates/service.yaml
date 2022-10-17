@@ -3,11 +3,12 @@ kind: Service
 metadata:
   name: {{ include "OpenMetadata.fullname" . }}
   labels:
-    {{- include "OpenMetadata.labels" . | nindent 4 }}
-  {{- with .Values.service.annotations }}
+    {{- include "OpenMetadata.labels" . | nindent 4 }} 
   annotations:
+    {{- include "OpenMetadata.annotations" . | nindent 4 }}
+    {{- with .Values.service.annotations }}
     {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- end }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -20,4 +21,4 @@ spec:
       protocol: TCP
       name: http-admin
   selector:
-    {{- include "OpenMetadata.selectorLabels" . | nindent 4 }}
+    {{- include "OpenMetadata.labels" . | nindent 4 }} 
