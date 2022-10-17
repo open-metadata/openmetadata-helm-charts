@@ -2,21 +2,28 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ include "OpenMetadata.fullname" . }}
+  annotations:
+   {{- include "OpenMetadata.annotations" . | nindent 4 }}
   labels:
-    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    {{- include "OpenMetadata.labels" . | nindent 4 }}  
+
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "OpenMetadata.selectorLabels" . | nindent 6 }}
+      {{- include "OpenMetadata.labels" . | nindent 6 }} 
+
   template:
     metadata:
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
-      {{- end }}
+        {{- end }}
+        {{- include "OpenMetadata.annotations" . | nindent 8 }}
+
       labels:
-        {{- include "OpenMetadata.selectorLabels" . | nindent 8 }}
+        {{- include "OpenMetadata.labels" . | nindent 8 }} 
+
     spec:
       {{- with .Values.imagePullSecrets  }}
       imagePullSecrets:
@@ -83,12 +90,6 @@ spec:
             value: "{{ .Values.global.authentication.callbackUrl }}"
           - name: AUTHENTICATION_JWT_PRINCIPAL_CLAIMS
             value: "[{{ .Values.global.authentication.jwtPrincipalClaims| join "," }}]"
-          - name: AUTHENTICATION_ENABLE_SELF_SIGNUP
-            value: "{{ .Values.global.authentication.enableSelfSignup }}"
-          - name: OM_MAX_FAILED_LOGIN_ATTEMPTS
-            value: "{{ .Values.global.basicLogin.maxLoginFailAttempts }}"
-          - name: OM_LOGIN_ACCESS_BLOCKTIME
-            value: "{{ .Values.global.basicLogin.accessBlockTime }}"
           - name: AUTHORIZER_CLASS_NAME
             value: "{{ .Values.global.authorizer.className }}"
           - name: AUTHORIZER_REQUEST_FILTER
@@ -103,8 +104,6 @@ spec:
             value: "{{ .Values.global.authorizer.enforcePrincipalDomain }}"
           - name: AUTHORIZER_ENABLE_SECURE_SOCKET
             value: "{{ .Values.global.authorizer.enableSecureSocketConnection }}"
-          - name: AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN
-            value: "[{{ .Values.global.authorizer.allowedEmailRegistrationDomains | join "," }}]"
           {{- if .Values.global.jwtTokenConfiguration.enabled }}
           - name: RSA_PUBLIC_KEY_FILE_PATH
             value: "{{ .Values.global.jwtTokenConfiguration.rsapublicKeyFilePath }}"
@@ -178,10 +177,6 @@ spec:
                 name: {{ .password.secretRef }}
                 key: {{ .password.secretKey }}
           {{- end }}
-          - name: AIRFLOW_VERIFY_SSL
-            value: "{{ .Values.global.airflow.verifySsl }}"
-          - name: AIRFLOW_SSL_CERT_PATH
-            value: "{{ .Values.global.airflow.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL
             value: "{{ .Values.global.airflow.openmetadata.serverHostApiUrl }}"
           - name: AIRFLOW_AUTH_PROVIDER
@@ -209,32 +204,7 @@ spec:
                 name: {{ .secretRef }}
                 key: {{ .secretKey }}
           {{- end }}
-          {{- end }}
-          {{- if .Values.global.smtpConfig.enableSmtpServer }}
-          - name: OM_EMAIL_ENTITY
-            value: "{{ .Values.global.smtpConfig.emailingEntity }}"
-          - name: OM_SUPPORT_URL
-            value: "{{ .Values.global.smtpConfig.supportUrl }}"
-          - name: AUTHORIZER_ENABLE_SMTP
-            value: "{{ .Values.global.smtpConfig.enableSmtpServer }}"
-          - name: OPENMETADATA_SERVER_URL
-            value: "{{ .Values.global.smtpConfig.openMetadataUrl }}"
-          - name: SMTP_SERVER_ENDPOINT
-            value: "{{ .Values.global.smtpConfig.serverEndpoint }}"
-          - name: SMTP_SERVER_PORT
-            value: "{{ .Values.global.smtpConfig.serverPort }}"
-          - name: SMTP_SERVER_USERNAME
-            value: "{{ .Values.global.smtpConfig.username }}"
-          {{- with .Values.global.smtpConfig.password }}
-          - name: SMTP_SERVER_PWD
-            valueFrom:
-              secretKeyRef:
-                name: {{ .secretRef }}
-                key: {{ .secretKey }}
-          {{- end }}
-          - name: SMTP_SERVER_STRATEGY
-            value: "{{ .Values.global.smtpConfig.transportationStrategy }}"
-          {{- end }}
+          {{- end -}}
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
