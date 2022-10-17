@@ -71,6 +71,7 @@ spec:
             value: "{{ .Values.global.openmetadata.port }}"
           - name: SERVER_ADMIN_PORT
             value: "{{ .Values.global.openmetadata.adminPort }}"
+            {{- include "check_provider_value" . }}
           - name: AUTHENTICATION_PROVIDER
             value: "{{ .Values.global.authentication.provider }}"
           - name: AUTHENTICATION_PUBLIC_KEYS
