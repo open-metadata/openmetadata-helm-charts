@@ -19,7 +19,9 @@ metadata:
   labels:
     {{- include "OpenMetadata.labels" . | nindent 4 }} 
   annotations:
+  {{- if .Values.annotations }}
     {{- include "OpenMetadata.annotations" . | nindent 4 }}
+    {{- end }}
     {{- with .Values.ingress.annotations }}
     {{- toYaml . | nindent 4 }}
         {{- if semverCompare "=<1.13-0" $.Capabilities.KubeVersion.GitVersion }}
