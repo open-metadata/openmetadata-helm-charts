@@ -10,8 +10,7 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "OpenMetadata.selectorLabels" . | nindent 6 }}
-      {{- include "OpenMetadata.labels" . | nindent 6 }} 
+       {{- include "OpenMetadata.labels" . | nindent 6 }} 
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -20,7 +19,6 @@ spec:
       {{- end }}
       {{- include "OpenMetadata.annotations" . | nindent 8 }}
       labels:
-        {{- include "OpenMetadata.selectorLabels" . | nindent 8 }}
         {{- include "OpenMetadata.labels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets  }}
