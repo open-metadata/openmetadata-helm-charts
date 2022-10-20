@@ -54,7 +54,7 @@ airflow:
   airflow:
     image:
       repository: openmetadata/ingestion
-      tag: 0.12.1
+      tag: 0.12.2
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
