@@ -3,7 +3,9 @@ kind: Deployment
 metadata:
   name: {{ include "OpenMetadata.fullname" . }}
   annotations:
+  {{- if .Values.annotations }}
     {{- include "OpenMetadata.annotations" . | nindent 4 }}
+    {{- end }}
   labels:
     {{- include "OpenMetadata.labels" . | nindent 4 }}
 spec:
@@ -17,7 +19,9 @@ spec:
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.annotations }}
       {{- include "OpenMetadata.annotations" . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "OpenMetadata.labels" . | nindent 8 }}
     spec:
