@@ -1300,6 +1300,57 @@ entries:
   openmetadata-dependencies:
   - apiVersion: v2
     appVersion: 0.12.2
+    created: "2022-10-27T20:31:28.194499966Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 8.8.23
+    - condition: elasticsearch.enabled
+      name: elasticsearch
+      repository: https://helm.elastic.co
+      version: 7.10.2
+    - condition: airflow.enabled
+      name: airflow
+      repository: https://airflow-helm.github.io/charts
+      version: 8.6.1
+    description: Helm Dependencies for OpenMetadata
+    digest: d2c00eea366c27cf5d5e5c176c44e171f138a5b53f4f3fc876aab23600f900f5
+    home: https://open-metadata.org/
+    icon: https://open-metadata.org/images/favicon.png
+    keywords:
+    - metadata
+    - data-science
+    - data
+    - machine-learning
+    - automation
+    - big-data
+    - bigdata
+    - artificial-intelligence
+    - datascience
+    - data-engineering
+    - data-catalog
+    - metadata-api
+    - governance
+    - data-profiling
+    - metadata-management
+    - dataengineering
+    - dataquality
+    - bigdataanalytics
+    - datadiscovery
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata-dependencies
+    sources:
+    - https://github.com/open-metadata/OpenMetadata
+    - https://github.com/open-metadata/openmetadata-helm-charts
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.41/openmetadata-dependencies-0.0.41.tgz
+    version: 0.0.41
+  - apiVersion: v2
+    appVersion: 0.12.2
     created: "2022-10-20T13:24:01.946971302Z"
     dependencies:
     - condition: mysql.enabled
@@ -2986,4 +3037,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2022-10-27T18:48:39.397560814Z"
+generated: "2022-10-27T20:31:28.195320525Z"
