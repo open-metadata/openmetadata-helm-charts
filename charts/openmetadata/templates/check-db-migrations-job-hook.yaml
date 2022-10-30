@@ -95,10 +95,10 @@ spec:
                 key: {{ .password.secretKey }}
           {{- end }}
           {{- end }}
-          {{- if .Values.global.elasticsearch.trustStore.enabled -}}
+          {{- if .Values.global.elasticsearch.trustStore.enabled }}
           - name: ELASTICSEARCH_TRUST_STORE_PATH
             value: {{.Values.global.elasticsearch.trustStore.path }}
-          {{- with .Values.global.elasticsearch.trustStore.password }}
+          {{- with .Values.global.elasticsearch.trustStore }}
           - name: ELASTICSEARCH_TRUST_STORE_PASSWORD
             valueFrom:
               secretKeyRef:
