@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "OpenMetadata.fullname" . }}
   annotations:
-  {{- if .Values.annotations }}
+    {{- if .Values.annotations }}
     {{- include "OpenMetadata.annotations" . | nindent 4 }}
     {{- end }}
   labels:
