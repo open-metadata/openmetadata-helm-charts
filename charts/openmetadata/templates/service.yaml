@@ -5,9 +5,6 @@ metadata:
   labels:
     {{- include "OpenMetadata.labels" . | nindent 4 }} 
   annotations:
-  {{- if .Values.annotations }}
-    {{- include "OpenMetadata.annotations" . | nindent 4 }}
-    {{- end }}
     {{- with .Values.service.annotations }}
     {{- toYaml . | nindent 4 }}
     {{- end }}
