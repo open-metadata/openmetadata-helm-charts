@@ -131,3 +131,14 @@ Create the name of the service account to use
 {{- end }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Quoted Array of strings
+*/}}
+{{- define "OpenMetadata.commaJoinedQuotedList" }}
+{{- $list := list }}
+{{- range .value }}
+{{- $list = append $list (. | quote) }}
+{{- end }}
+{{- join "," $list }}
+{{- end -}}
