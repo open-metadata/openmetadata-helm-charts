@@ -35,7 +35,7 @@ spec:
           - name: AUTHENTICATION_PROVIDER
             value: "{{ .Values.global.authentication.provider }}"
           - name: AUTHENTICATION_PUBLIC_KEYS
-            value: "[{{ .Values.global.authentication.publicKeys | join "," }}]"
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authentication.publicKeys) }}]'
           - name: AUTHENTICATION_AUTHORITY
             value: "{{ .Values.global.authentication.authority }}"
           - name: AUTHENTICATION_CLIENT_ID
@@ -43,7 +43,7 @@ spec:
           - name: AUTHENTICATION_CALLBACK_URL
             value: "{{ .Values.global.authentication.callbackUrl }}"
           - name: AUTHENTICATION_JWT_PRINCIPAL_CLAIMS
-            value: "[{{ .Values.global.authentication.jwtPrincipalClaims| join "," }}]"
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authentication.jwtPrincipalClaims) }}]'
           - name: AUTHENTICATION_ENABLE_SELF_SIGNUP
             value: "{{ .Values.global.authentication.enableSelfSignup }}"
           - name: OM_MAX_FAILED_LOGIN_ATTEMPTS
@@ -55,9 +55,9 @@ spec:
           - name: AUTHORIZER_REQUEST_FILTER
             value: "{{ .Values.global.authorizer.containerRequestFilter }}"
           - name: AUTHORIZER_ADMIN_PRINCIPALS
-            value: "[{{ .Values.global.authorizer.initialAdmins | join "," }}]"
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authorizer.initialAdmins) }}]'
           - name: AUTHORIZER_INGESTION_PRINCIPALS
-            value: "[{{ .Values.global.authorizer.botPrincipals | join "," }}]"
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authorizer.botPrincipals) }}]'
           - name: AUTHORIZER_PRINCIPAL_DOMAIN
             value: "{{ .Values.global.authorizer.principalDomain }}"
           - name: AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN
@@ -65,7 +65,7 @@ spec:
           - name: AUTHORIZER_ENABLE_SECURE_SOCKET
             value: "{{ .Values.global.authorizer.enableSecureSocketConnection }}"
           - name: AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN
-            value: "[{{ .Values.global.authorizer.allowedEmailRegistrationDomains | join "," }}]"
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authorizer.allowedEmailRegistrationDomains) }}]'
           {{- if .Values.global.jwtTokenConfiguration.enabled }}
           - name: RSA_PUBLIC_KEY_FILE_PATH
             value: "{{ .Values.global.jwtTokenConfiguration.rsapublicKeyFilePath }}"
