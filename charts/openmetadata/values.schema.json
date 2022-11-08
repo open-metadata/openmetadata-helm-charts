@@ -473,7 +473,8 @@
                             }
                         },
                         "provider": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["noop", "aws", "aws-ssm"]
                         }
                     }
                 },

@@ -145,7 +145,6 @@ global:
       secretRef: ""
       secretKey: ""
   secretsManager:
-    # Possible values are noop, aws, aws-ssm
     provider: noop
     additionalParameters:
       enabled: false
