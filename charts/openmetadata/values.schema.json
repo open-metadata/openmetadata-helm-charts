@@ -419,7 +419,8 @@
                     }
                 },
                 "logLevel": {
-                    "type": "string"
+                    "type": "string",
+                    "enum": ["OFF", "ERROR", "WARN", "INFO", "DEBUG", "TRACE", "ALL"]
                 },
                 "openmetadata": {
                     "type": "object",
