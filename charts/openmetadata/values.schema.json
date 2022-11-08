@@ -184,7 +184,8 @@
                                     }
                                 },
                                 "authProvider": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "enum": ["no-auth", "azure", "google", "okta", "auth0", "custom-oidc", "openmetadata"]
                                 },
                                 "serverHostApiUrl": {
                                     "type": "string"
