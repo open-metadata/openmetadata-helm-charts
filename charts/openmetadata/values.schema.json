@@ -196,7 +196,8 @@
                             "type": "string"
                         },
                         "verifySsl": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["no-ssl", "ignore", "validate"]
                         }
                     }
                 },
