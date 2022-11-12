@@ -250,7 +250,8 @@
                             }
                         },
                         "className": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["org.openmetadata.service.security.DefaultAuthorizer"]
                         },
                         "containerRequestFilter": {
                             "type": "string"
