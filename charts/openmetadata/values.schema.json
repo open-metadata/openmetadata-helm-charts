@@ -254,7 +254,8 @@
                             "enum": ["org.openmetadata.service.security.DefaultAuthorizer"]
                         },
                         "containerRequestFilter": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["org.openmetadata.service.security.JwtFilter"]
                         },
                         "enableSecureSocketConnection": {
                             "type": "boolean"
