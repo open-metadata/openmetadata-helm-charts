@@ -518,6 +518,24 @@
                         "username": {
                             "type": "string"
                         }
+                    },
+                    "if": {
+                        "properties": {
+                            "enableSmtpServer": { "const": true }
+                        },
+                        "required": ["enableSmtpServer"]
+                    },
+                    "then": {
+                        "required": [
+                            "emailingEntity",
+                            "openMetadataUrl",
+                            "password",
+                            "serverEndpoint",
+                            "serverPort",
+                            "supportUrl",
+                            "transportationStrategy",
+                            "username"
+                        ]
                     }
                 }
             }
