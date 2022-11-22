@@ -138,6 +138,24 @@ spec:
       {{- if .Values.sidecars }}
         {{- include "tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 6 }}
       {{- end }}
+      resources:
+        {{- toYaml .Values.resources | nindent 8 }}
+      livenessProbe:
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        failureThreshold: 5
+        exec:
+          command:
+            - cat
+            - /tmp/healthy
+      readinessProbe:
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        failureThreshold: 5
+        exec:
+          command:
+            - cat
+            - /tmp/healthy
       restartPolicy: Never
       volumes:
       - name: migration-script
