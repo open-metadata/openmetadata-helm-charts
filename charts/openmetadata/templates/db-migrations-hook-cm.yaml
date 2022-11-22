@@ -5,7 +5,7 @@ metadata:
   annotations:
     "helm.sh/hook": pre-upgrade 
     "helm.sh/hook-weight": "-10" # we use a smaller weight so it's created before the job  
-    "helm.sh/hook-delete-policy": hook-succeeded, hook-failed
+    "helm.sh/hook-delete-policy": before-hook-creation, hook-succeeded
 data:
   check_db_migrations.sh: |
 {{- include "check-db-migrations-script" . | indent 4 -}}
