@@ -1,4 +1,3 @@
-{{- if .Release.IsUpgrade -}}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -10,4 +9,3 @@ metadata:
 data:
   check_db_migrations.sh: |
 {{- include "check-db-migrations-script" . | indent 4 -}}
-{{- end -}}
