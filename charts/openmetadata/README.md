@@ -54,7 +54,6 @@ This is achieved by Helm Hooks currently.
 | global.authorizer.enforcePrincipalDomain | bool | `false` |
 | global.authorizer.enableSecureSocketConnection | bool | `false` |
 | global.authorizer.initialAdmins | list | `[admin]` |
-| global.authorizer.botPrincipals | list | `[ingestion-bot]` |
 | global.authorizer.principalDomain | string | `open-metadata.org` |
 | global.airflow.auth.password.secretRef | string | `airflow-secrets` |
 | global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` |
@@ -150,7 +149,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.12.3` |
+| image.tag | string | `0.13.0` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
