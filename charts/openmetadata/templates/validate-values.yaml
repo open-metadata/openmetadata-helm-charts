@@ -7,7 +7,7 @@
       (empty .Values.global.airflow.openmetadata.authConfig.azure.clientSecret.secretRef)
       (empty .Values.global.airflow.openmetadata.authConfig.azure.clientSecret.secretKey)
       (empty .Values.global.airflow.openmetadata.authConfig.azure.authority)
-      (empty .Values.global.airflow.openmetadata.authConfig.azure.clientId )
+      (empty .Values.global.airflow.openmetadata.authConfig.azure.clientId)
       (empty .Values.global.airflow.openmetadata.authConfig.azure.scopes)
     )
 ) }}
