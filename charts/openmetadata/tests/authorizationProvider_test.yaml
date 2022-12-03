@@ -1,0 +1,226 @@
+suite: Test authorization provider
+templates:
+  - validate-values.yaml
+tests:
+# == Azure
+  - it: should fail when authorization provider is azure but there are no config provided for airflow (1)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: azure
+      global.airflow.openmetadata.authConfig.azure.clientSecret.secretRef: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider azure must be configured in .global.airflow.openmetadata.authConfig.azure
+
+  - it: should fail when authorization provider is azure but there are no config provided for airflow (2)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: azure
+      global.airflow.openmetadata.authConfig.azure.clientSecret.secretKey: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider azure must be configured in .global.airflow.openmetadata.authConfig.azure
+
+  - it: should fail when authorization provider is azure but there are no config provided for airflow (3)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: azure
+      global.airflow.openmetadata.authConfig.azure.authority: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider azure must be configured in .global.airflow.openmetadata.authConfig.azure
+
+  - it: should fail when authorization provider is azure but there are no config provided for airflow (4)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: azure
+      global.airflow.openmetadata.authConfig.azure.clientId: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider azure must be configured in .global.airflow.openmetadata.authConfig.azure
+
+  - it: should fail when authorization provider is azure but there are no config provided for airflow (5)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: azure
+      global.airflow.openmetadata.authConfig.azure.scopes: []
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider azure must be configured in .global.airflow.openmetadata.authConfig.azure
+
+  # It not work, need deeper investigation
+  # - it: should not fail when authorization provider is azure, there are no config provided for airflow but ariflow is disabled
+  #   set:
+  #     global.airflow.enabled: false
+  #     global.authentication.provider: azure
+  #     global.airflow.openmetadata.authConfig.azure.clientSecret.secretRef: ""
+  #   asserts:
+  #     - notFailedTemplate:
+  #         errorMessage: The authentication provider azure must be configured in .global.airflow.openmetadata.authConfig.azure
+
+# == Google
+  - it: should fail when authorization provider is goole but there are no config provided for airflow (1)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: google
+      global.airflow.openmetadata.authConfig.google.secretKeyPath: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider google must be configured in .global.airflow.openmetadata.authConfig.google
+
+  - it: should fail when authorization provider is goole but there are no config provided for airflow (2)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: google
+      global.airflow.openmetadata.authConfig.google.audience: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: "The authentication provider google must be configured in .global.airflow.openmetadata.authConfig.google"
+
+# == Okta
+  - it: should fail when authorization provider is okta but there are no config provided for airflow (1)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: okta
+      global.airflow.openmetadata.authConfig.okta.privateKey.secretRef: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider okta must be configured in .global.airflow.openmetadata.authConfig.okta
+
+  - it: should fail when authorization provider is okta but there are no config provided for airflow (2)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: okta
+      global.airflow.openmetadata.authConfig.okta.privateKey.secretKey: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider okta must be configured in .global.airflow.openmetadata.authConfig.okta
+
+  - it: should fail when authorization provider is okta but there are no config provided for airflow (3)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: okta
+      global.airflow.openmetadata.authConfig.okta.email: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider okta must be configured in .global.airflow.openmetadata.authConfig.okta
+
+  - it: should fail when authorization provider is okta but there are no config provided for airflow (4)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: okta
+      global.airflow.openmetadata.authConfig.okta.clientId: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider okta must be configured in .global.airflow.openmetadata.authConfig.okta
+
+  - it: should fail when authorization provider is okta but there are no config provided for airflow (4)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: okta
+      global.airflow.openmetadata.authConfig.okta.orgUrl: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider okta must be configured in .global.airflow.openmetadata.authConfig.okta
+
+  - it: should fail when authorization provider is okta but there are no config provided for airflow (5)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: okta
+      global.airflow.openmetadata.authConfig.okta.scopes: []
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider okta must be configured in .global.airflow.openmetadata.authConfig.okta
+
+# == Auth0
+  - it: should fail when authorization provider is azure but there are no config provided for airflow (1)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: auth0
+      global.airflow.openmetadata.authConfig.auth0.secretKey.secretRef: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider auth0 must be configured in .global.airflow.openmetadata.authConfig.auth0
+
+  - it: should fail when authorization provider is auth0 but there are no config provided for airflow (2)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: auth0
+      global.airflow.openmetadata.authConfig.auth0.secretKey.secretKey: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider auth0 must be configured in .global.airflow.openmetadata.authConfig.auth0
+
+  - it: should fail when authorization provider is auth0 but there are no config provided for airflow (3)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: auth0
+      global.airflow.openmetadata.authConfig.auth0.domain: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider auth0 must be configured in .global.airflow.openmetadata.authConfig.auth0
+
+  - it: should fail when authorization provider is auth0 but there are no config provided for airflow (4)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: auth0
+      global.airflow.openmetadata.authConfig.auth0.clientId: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider auth0 must be configured in .global.airflow.openmetadata.authConfig.auth0
+
+# == openmetadata
+  - it: should fail when authorization provider is openmetadata but there are no config provided for airflow (3)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: openmetadata
+      global.airflow.openmetadata.authConfig.openmetadata.jwtToken.secretRef: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider openmetadata must be configured in .global.airflow.openmetadata.authConfig.openmetadata
+
+  - it: should fail when authorization provider is openmetadata but there are no config provided for airflow (4)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: openmetadata
+      global.airflow.openmetadata.authConfig.openmetadata.jwtToken.secretKey: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider openmetadata must be configured in .global.airflow.openmetadata.authConfig.openmetadata
+
+# == custom-oidc
+  - it: should fail when authorization provider is azure but there are no config provided for airflow (1)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: custom-oidc
+      global.airflow.openmetadata.authConfig.customOidc.secretKey.secretRef: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider custom-oidc must be configured in .global.airflow.openmetadata.authConfig.customOidc
+
+  - it: should fail when authorization provider is custom-oidc but there are no config provided for airflow (2)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: custom-oidc
+      global.airflow.openmetadata.authConfig.customOidc.secretKey.secretKey: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider custom-oidc must be configured in .global.airflow.openmetadata.authConfig.customOidc
+
+  - it: should fail when authorization provider is custom-oidc but there are no config provided for airflow (3)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: custom-oidc
+      global.airflow.openmetadata.authConfig.customOidc.tokenEndpoint: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider custom-oidc must be configured in .global.airflow.openmetadata.authConfig.customOidc
+
+  - it: should fail when authorization provider is custom-oidc but there are no config provided for airflow (4)
+    set:
+      global.airflow.enabled: true
+      global.authentication.provider: custom-oidc
+      global.airflow.openmetadata.authConfig.customOidc.clientId: ""
+    asserts:
+      - failedTemplate:
+          errorMessage: The authentication provider custom-oidc must be configured in .global.airflow.openmetadata.authConfig.customOidc

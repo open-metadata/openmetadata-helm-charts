@@ -1,0 +1,20 @@
+apiVersion: v1
+suite: Test ingress
+templates:
+  - ingress.yaml
+capabilities:
+  majorVersion: 1.19
+tests:
+  - it: Do not expose throught ingress if not enabled
+    set:
+      ingress.enabled: false
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: Expose throught ingress if enabled
+    set:
+      ingress.enabled: true
+    asserts:
+      - containsDocument:
+          kind: Ingress
+          apiVersion: networking.k8s.io/v1
