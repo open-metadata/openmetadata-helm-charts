@@ -58,3 +58,10 @@ jobs:
 
       - name: Run chart-testing (lint)
         run: ct lint --target-branch=${{ env.default_branch }}
+
+      - name: Instal the helm unittest plugin
+        run: |
+          plugin install https://github.com/quintush/helm-unittest
+
+      - name: Run helm unittest (test)
+        run: helm unittest --helm3 charts/openmetadata
