@@ -33,7 +33,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.4.0
+          version: v3.10.2
       
       - name: Add Helm repos
         run: |
@@ -57,11 +57,11 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --target-branch=${{ env.default_branch }}
+        run: ct lint --target-branch=${{ env.default_branch }} --debug
 
       - name: Instal the helm unittest plugin
         run: |
-          plugin install https://github.com/quintush/helm-unittest
+          helm plugin install https://github.com/quintush/helm-unittest
 
       - name: Run helm unittest (test)
         run: helm unittest --helm3 charts/openmetadata

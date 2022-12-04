@@ -1,4 +1,4 @@
-{{- if (
+{{- if and (
   and
     (eq .Values.global.authentication.provider "azure")
     (.Values.global.airflow.enabled)
@@ -10,9 +10,9 @@
       (empty .Values.global.airflow.openmetadata.authConfig.azure.clientId)
       (empty .Values.global.airflow.openmetadata.authConfig.azure.scopes)
     )
-) }}
+) -}}
   {{ required "The authentication provider azure must be configured in .global.airflow.openmetadata.authConfig.azure" nil }}
-{{- end }}
+{{- end -}}
 
 {{- if (
   and
@@ -23,9 +23,9 @@
       (empty .Values.global.airflow.openmetadata.authConfig.google.secretKeyPath)
       (empty .Values.global.airflow.openmetadata.authConfig.google.audience)
     )
-) }}
+) -}}
   {{ required "The authentication provider google must be configured in .global.airflow.openmetadata.authConfig.google" nil }}
-{{- end }}
+{{- end -}}
 
 {{- if (
   and
@@ -40,9 +40,9 @@
       (empty .Values.global.airflow.openmetadata.authConfig.okta.orgUrl)
       (empty .Values.global.airflow.openmetadata.authConfig.okta.scope)
     )
-) }}
+) -}}
   {{ required "The authentication provider okta must be configured in .global.airflow.openmetadata.authConfig.okta" nil }}
-{{- end }}
+{{- end -}}
 
 {{- if (
   and
@@ -55,9 +55,9 @@
       (empty .Values.global.airflow.openmetadata.authConfig.auth0.domain)
       (empty .Values.global.airflow.openmetadata.authConfig.auth0.clientId)
     )
-) }}
+) -}}
   {{ required "The authentication provider auth0 must be configured in .global.airflow.openmetadata.authConfig.auth0" nil }}
-{{- end }}
+{{- end -}}
 
 {{- if (
   and
@@ -68,9 +68,9 @@
       (empty .Values.global.airflow.openmetadata.authConfig.openmetadata.jwtToken.secretRef)
       (empty .Values.global.airflow.openmetadata.authConfig.openmetadata.jwtToken.secretKey)
     )
-) }}
+) -}}
   {{ required "The authentication provider openmetadata must be configured in .global.airflow.openmetadata.authConfig.openmetadata" nil }}
-{{- end }}
+{{- end -}}
 
 {{- if (
  and
@@ -83,6 +83,6 @@
       (empty .Values.global.airflow.openmetadata.authConfig.customOidc.tokenEndpoint)
       (empty .Values.global.airflow.openmetadata.authConfig.customOidc.clientId)
     )
-) }}
+) -}}
   {{ required "The authentication provider custom-oidc must be configured in .global.airflow.openmetadata.authConfig.customOidc" nil }}
-{{- end }}
+{{- end -}}
