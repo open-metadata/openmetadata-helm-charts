@@ -47,9 +47,9 @@ spec:
               containerPort: {{ .Values.global.openmetadata.adminPort }}
               protocol: TCP
           livenessProbe:
-              {{.Values.monitorConfig.livenessProbe  | toYaml | indent 8 | trim}}
+              {{.Values.livenessProbe}}
           readinessProbe:
-              {{.Values.monitorConfig.readinessProbe | toYaml | indent 8 | trim }}
+              {{.Values.readinessProbe}}
           env:
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
