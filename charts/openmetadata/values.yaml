@@ -65,8 +65,6 @@ global:
     containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
     initialAdmins:
     - "admin"
-    botPrincipals:
-    - "ingestion-bot"
     allowedEmailRegistrationDomains:
     - "all"
     principalDomain: "open-metadata.org"
