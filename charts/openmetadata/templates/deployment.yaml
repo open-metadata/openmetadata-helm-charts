@@ -172,6 +172,7 @@ spec:
             value: "{{ .Values.global.airflow.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL
             value: "{{ .Values.global.airflow.openmetadata.serverHostApiUrl }}"
+          {{- end }}
           - name: SECRET_MANAGER
             value: "{{ .Values.global.secretsManager.provider }}"
           {{- if .Values.global.secretsManager.additionalParameters.enabled }}
