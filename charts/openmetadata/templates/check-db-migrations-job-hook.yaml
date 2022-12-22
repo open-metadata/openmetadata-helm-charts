@@ -55,8 +55,6 @@ spec:
             value: "{{ .Values.global.authorizer.containerRequestFilter }}"
           - name: AUTHORIZER_ADMIN_PRINCIPALS
             value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authorizer.initialAdmins) }}]'
-          - name: AUTHORIZER_INGESTION_PRINCIPALS
-            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authorizer.botPrincipals) }}]'
           - name: AUTHORIZER_PRINCIPAL_DOMAIN
             value: "{{ .Values.global.authorizer.principalDomain }}"
           - name: AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN

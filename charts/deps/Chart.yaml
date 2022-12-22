@@ -15,13 +15,13 @@ type: application
 # This is the chart version. This version number should be incremented each time you make changes
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
-version: 0.0.48
+version: 0.0.49
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "0.13.0"
+appVersion: "0.13.1"
 
 home: https://open-metadata.org/
 
@@ -59,7 +59,7 @@ icon: https://open-metadata.org/images/favicon.png
 # Add Dependencies of other charts
 dependencies:
 - name: mysql
-  version: "8.8.23"
+  version: "9.2.1"
   repository: "https://charts.bitnami.com/bitnami"
   condition: mysql.enabled
 - name: elasticsearch

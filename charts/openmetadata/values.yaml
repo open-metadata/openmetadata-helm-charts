@@ -58,53 +58,13 @@ global:
         secretRef: airflow-secrets
         secretKey: openmetadata-airflow-password
     openmetadata:
-      # possible values are "no-auth", "azure", "google", "okta", "auth0", "custom-oidc", "openmetadata"
-      authProvider: "no-auth"
       # this will be the api endpoint url of OpenMetadata Server
       serverHostApiUrl: "http://openmetadata.default.svc.cluster.local:8585/api"
-      authConfig:
-        azure:
-          clientSecret:
-            secretRef: azure-client-secret
-            secretKey: azure-client-secret
-          authority: ""
-          scopes: []
-          clientId: ""
-        google:
-          # absolute path of secret file on airflow instance
-          secretKeyPath: ""
-          audience: "https://www.googleapis.com/oauth2/v4/token"
-        okta:
-          clientId: ""
-          orgUrl: ""
-          privateKey:
-            secretRef: okta-client-private-key-secret
-            secretKey: okta-client-private-key-secret
-          email: ""
-          scopes: []
-        auth0:
-          clientId: ""
-          secretKey:
-            secretRef: auth0-client-key-secret
-            secretKey: auth0-client-key-secret
-          domain: ""
-        customOidc:
-          clientId: ""
-          secretKey:
-            secretRef: custom-oidc-key-secret
-            secretKey: custom-oidc-key-secret
-          tokenEndpoint: ""
-        openMetadata:
-          jwtToken:
-            secretRef: openmetadata-jwt-secret
-            secretKey: openmetadata-jwt-secret
   authorizer:
     className: "org.openmetadata.service.security.DefaultAuthorizer"
     containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
     initialAdmins:
     - "admin"
-    botPrincipals:
-    - "ingestion-bot"
     allowedEmailRegistrationDomains:
     - "all"
     principalDomain: "open-metadata.org"
