@@ -174,12 +174,6 @@ spec:
             value: "{{ .Values.global.airflow.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL
             value: "{{ .Values.global.airflow.openmetadata.serverHostApiUrl }}"
-          - name: AIRFLOW_AUTH_PROVIDER
-            value: "{{ .Values.global.airflow.openmetadata.authProvider }}"
-          {{- if ne .Values.global.airflow.openmetadata.authProvider "no-auth" }}
-            {{- include "OpenMetadata.Airflow.authProviderConfig" . | nindent 10 }}
-          {{- end -}}
-          {{- end }}
           - name: SECRET_MANAGER
             value: "{{ .Values.global.secretsManager.provider }}"
           {{- if .Values.global.secretsManager.additionalParameters.enabled }}
