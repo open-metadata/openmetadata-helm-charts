@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: "{{ include "OpenMetadata.fullname" . }}-test-connection"
   labels:
-    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    {{- include "OpenMetadata.labels" . | indent 4 }}
   annotations:
     "helm.sh/hook": test
     "helm.sh/hook-delete-policy": hook-succeeded

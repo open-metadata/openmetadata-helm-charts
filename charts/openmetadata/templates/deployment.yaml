@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: {{ include "OpenMetadata.fullname" . }}
   labels:
-    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    {{- include "OpenMetadata.labels" . | indent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -16,7 +16,7 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "OpenMetadata.selectorLabels" . | nindent 8 }}
+        {{- include "OpenMetadata.labels" . | indent 8 }}
     spec:
       {{- with .Values.imagePullSecrets  }}
       imagePullSecrets:

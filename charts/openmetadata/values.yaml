@@ -252,3 +252,6 @@ readinessProbe:
   httpGet:
     path: /
     port: http
+
+commonLabels: {}
+podAnnotations: {}
