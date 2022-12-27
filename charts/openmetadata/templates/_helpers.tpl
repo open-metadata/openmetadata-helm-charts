@@ -34,6 +34,9 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "OpenMetadata.labels" -}}
+{{- with .Values.commonLabels }}
+{{ toYaml .}}
+{{- end }}
 helm.sh/chart: {{ include "OpenMetadata.chart" . }}
 {{ include "OpenMetadata.selectorLabels" . }}
 {{- if .Chart.AppVersion }}

@@ -2,6 +2,8 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: {{ .Chart.Name }}-db-migrations-hook
+  labels:
+    {{- include "OpenMetadata.labels" . | indent 4 }}
   annotations:
     "helm.sh/hook": pre-upgrade 
     "helm.sh/hook-weight": "-1" # we use a smaller weight so it's created before the job  
@@ -9,6 +11,12 @@ metadata:
 spec:
   template:
     metadata:
+      labels:
+        {{- include "OpenMetadata.labels" . | indent 8 }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{ toYaml .}}
+      {{- end }}
       creationTimestamp: null
     spec:
       containers:

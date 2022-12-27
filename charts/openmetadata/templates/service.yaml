@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: {{ include "OpenMetadata.fullname" . }}
   labels:
-    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    {{- include "OpenMetadata.labels" . | indent 4 }}
   {{- with .Values.service.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
