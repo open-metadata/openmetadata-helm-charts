@@ -59,8 +59,8 @@ icon: https://open-metadata.org/images/favicon.png
 # Add Dependencies of other charts
 dependencies:
 - name: mysql
-  version: "9.2.1"
-  repository: "https://charts.bitnami.com/bitnami"
+  version: "8.8.23"
+  repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
   condition: mysql.enabled
 - name: elasticsearch
   version: "7.10.2"
