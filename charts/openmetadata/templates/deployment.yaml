@@ -51,6 +51,19 @@ spec:
           readinessProbe:
             {{ .Values.readinessProbe | toYaml | indent 12 | trim }}
           env:
+          {{- if .Values.global.fernetkey.secretKey }}
+          - name: FERNET_KEY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.global.fernetkey.secretRef }}
+                key: {{ .Values.global.fernetkey.secretKey }}
+          {{ else }}
+          - name: SECRET_VALUE_ENV
+            valueFrom:
+              secretKeyRef:
+                name: {{ include "OpenMetadata.fullname" . }}-secret 
+                key: FERNET_KEY
+          {{- end }}
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
           - name: LOG_LEVEL
@@ -103,8 +116,6 @@ spec:
           - name: JWT_KEY_ID
             value: "{{ .Values.global.jwtTokenConfiguration.keyId }}"
           {{- end }}
-          - name: FERNET_KEY
-            value: "{{ .Values.global.fernetKey }}"
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.global.elasticsearch.host }}"
           - name: ELASTICSEARCH_PORT

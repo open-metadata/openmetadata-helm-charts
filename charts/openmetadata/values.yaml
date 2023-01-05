@@ -94,7 +94,10 @@ global:
     rsaprivateKeyFilePath: "./conf/private_key.der"
     jwtissuer: "open-metadata.org"
     keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
-  fernetKey: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
+  fernetkey:
+    value: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
+    secretRef: "fernet"
+    secretKey: "fernetKey"
   smtpConfig:
     enableSmtpServer: false
     emailingEntity: "OpenMetadata"
