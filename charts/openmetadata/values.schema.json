@@ -467,9 +467,6 @@
         "nodeSelector": {
             "type": "object"
         },
-        "podAnnotations": {
-            "type": "object"
-        },
         "podSecurityContext": {
             "type": "object"
         },
@@ -532,6 +529,12 @@
         },
         "tolerations": {
             "type": "array"
+        },
+        "commonLabels": {
+            "type": "object"
+        },
+        "podAnnotations": {
+            "type": "object"
         }
     }
 }
