@@ -51,7 +51,7 @@ spec:
           readinessProbe:
             {{ .Values.readinessProbe | toYaml | indent 12 | trim }}
           env:
-          {{- if .Values.global.fernetkey.secretKey }}
+          {{- if .Values.global.fernetkey.secretRef }}
           - name: FERNET_KEY
             valueFrom:
               secretKeyRef:
