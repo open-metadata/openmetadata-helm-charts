@@ -255,7 +255,7 @@
                     }
                 },
                 "fernetkey": {
-                    "type": "string",
+                    "type": "object",
                     "properties": {
                         "value": {
                             "type" : "string"
