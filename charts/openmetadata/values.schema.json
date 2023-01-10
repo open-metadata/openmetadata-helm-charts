@@ -254,8 +254,19 @@
                         }
                     }
                 },
-                "fernetKey": {
-                    "type": "string"
+                "fernetkey": {
+                    "type": "object",
+                    "properties": {
+                        "value": {
+                            "type" : "string"
+                        },
+                        "secretRef": {
+                            "type" : "string"
+                        },
+                        "secretKey": {
+                            "type" : "string"
+                        }
+                    }
                 },
                 "jwtTokenConfiguration": {
                     "type": "object",
@@ -456,9 +467,6 @@
         "nodeSelector": {
             "type": "object"
         },
-        "podAnnotations": {
-            "type": "object"
-        },
         "podSecurityContext": {
             "type": "object"
         },
@@ -521,6 +529,12 @@
         },
         "tolerations": {
             "type": "array"
+        },
+        "commonLabels": {
+            "type": "object"
+        },
+        "podAnnotations": {
+            "type": "object"
         }
     }
 }
