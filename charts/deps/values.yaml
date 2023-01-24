@@ -96,7 +96,7 @@ airflow:
     enabled: false
   externalDatabase:
     type: mysql
-    host: mysql.default.svc.cluster.local
+    host: mysql
     port: 3306
     database: airflow_db
     user: airflow_user
