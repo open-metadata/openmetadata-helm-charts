@@ -145,7 +145,7 @@ global:
   #   callbackUrl: "<callback_url>"
 
 image:
-  repository: openmetadata/server
+  repository: docker.getcollate.io/openmetadata/server
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   pullPolicy: "Always"
