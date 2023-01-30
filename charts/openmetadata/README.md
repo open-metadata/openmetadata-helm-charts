@@ -127,8 +127,8 @@ This is achieved by Helm Hooks currently.
 | extraVolumeMounts | Templatable string of additional `volumeMounts` to be passed to the `tpl` function | "" |
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
-| image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.13.1` |
+| image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
+| image.tag | string | `0.13.2` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
