@@ -20,6 +20,7 @@ global:
     connectionTimeoutSecs: 5
     socketTimeoutSecs: 60
     batchSize: 10
+    searchIndexMappingLanguage: "EN"
     trustStore:
       enabled: false
       path: ""
@@ -98,6 +99,10 @@ global:
     value: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
     secretRef: ""
     secretKey: ""
+  eventMonitor:
+    # Possible values are prometheus and cloudwatch
+    type: prometheus
+    batchSize: 10
   smtpConfig:
     enableSmtpServer: false
     emailingEntity: "OpenMetadata"

@@ -58,12 +58,16 @@ spec:
                 name: {{ .Values.global.fernetkey.secretRef }}
                 key: {{ .Values.global.fernetkey.secretKey }}
           {{ else }}
-          - name: SECRET_VALUE_ENV
+          - name: FERNET_KEY
             valueFrom:
               secretKeyRef:
                 name: {{ include "OpenMetadata.fullname" . }}-secret 
                 key: FERNET_KEY
           {{- end }}
+          - name: EVENT_MONITOR
+            value: "{{ .Values.global.eventMonitor.type }}"
+          - name: EVENT_MONITOR_BATCH_SIZE
+            value: "{{ .Values.global.eventMonitor.batchSize }}"
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
           - name: LOG_LEVEL
@@ -122,6 +126,8 @@ spec:
             value: "{{ .Values.global.elasticsearch.port }}"
           - name: ELASTICSEARCH_SCHEME
             value: "{{ .Values.global.elasticsearch.scheme }}"
+          - name: ELASTICSEARCH_INDEX_MAPPING_LANG
+            values: "{{ .Values.global.elasticsearch.searchIndexMappingLanguage }}"
           {{- if .Values.global.elasticsearch.auth.enabled -}}
           {{- with .Values.global.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER
