@@ -230,6 +230,9 @@
                         "socketTimeoutSecs": {
                             "type": "integer"
                         },
+                        "searchIndexMappingLanguage": {
+                            "type": "string"
+                        },
                         "trustStore": {
                             "type": "object",
                             "properties": {
@@ -253,6 +256,23 @@
                             }
                         }
                     }
+                },
+                "eventMonitor": {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum" : ["prometheus", "cloudwatch"]
+                        },
+                        "batchSize": {
+                            "type": "integer"
+                        }
+                    },
+                    "required": [
+                        "batchSize",
+                        "type"
+                    ],
+                    "title": "eventMonitor"
                 },
                 "fernetkey": {
                     "type": "object",

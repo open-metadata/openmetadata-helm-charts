@@ -82,10 +82,13 @@ This is achieved by Helm Hooks currently.
 | global.elasticsearch.host | string | `elasticsearch` |
 | global.elasticsearch.port | int | 9200 |
 | global.elasticsearch.scheme | string | `http` |
+| global.elasticsearch.searchIndexMappingLanguage | string | `EN`|
 | global.elasticsearch.trustStore.enabled | bool | `false` |
 | global.elasticsearch.trustStore.path | string | `Empty String` |
 | global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` |
 | global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` |
+| global.eventMonitor.type | string | `prometheus` |
+| global.eventMonitor.batchSize | int | `10` |
 | global.fernetkey.value | string | `jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=` |
 | global.fernetkey.secretRef | string | `` |
 | global.fernetkey.secretKef | string | `` |
@@ -127,8 +130,8 @@ This is achieved by Helm Hooks currently.
 | extraVolumeMounts | Templatable string of additional `volumeMounts` to be passed to the `tpl` function | "" |
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
-| image.repository | string | `"openmetadata/server"` |
-| image.tag | string | `0.13.1` |
+| image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
+| image.tag | string | `0.13.2` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
