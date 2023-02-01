@@ -127,7 +127,7 @@ spec:
           - name: ELASTICSEARCH_SCHEME
             value: "{{ .Values.global.elasticsearch.scheme }}"
           - name: ELASTICSEARCH_INDEX_MAPPING_LANG
-            values: "{{ .Values.global.elasticsearch.searchIndexMappingLanguage }}"
+            value: "{{ .Values.global.elasticsearch.searchIndexMappingLanguage }}"
           {{- if .Values.global.elasticsearch.auth.enabled -}}
           {{- with .Values.global.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER
