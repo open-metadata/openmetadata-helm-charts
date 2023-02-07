@@ -149,6 +149,23 @@ global:
   #   clientId: "<client_id>"
   #   callbackUrl: "<callback_url>"
 
+  # Example LDAP Auth Config
+  # authentication:
+  #   provider: "ldap"
+  #   publicKeys:
+  #   - "http://openmetadata:8585/api/v1/config/jwks"
+  #   authority: "https://accounts.google.com"
+  #   clientId: "<client_id>"
+  #   callbackUrl: "<callback_url>"
+  #   enableSelfSignup: false
+  #   ldapConfiguration:
+  #     host: "example.ldap.server.com"
+  #     port: 10636
+  #     dnAdminPrincipal: "cn=admin,dc=example,dc=com"
+  #     dnAdminPassword: "secret"
+  #     userBaseDN: "ou=people,dc=example,dc=com"
+  #     mailAttributeName: email
+
 image:
   repository: docker.getcollate.io/openmetadata/server
   # Overrides the image tag whose default is the chart appVersion.
