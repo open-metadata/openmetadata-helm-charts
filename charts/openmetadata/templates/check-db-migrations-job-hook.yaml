@@ -53,6 +53,32 @@ spec:
             value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authentication.jwtPrincipalClaims) }}]'
           - name: AUTHENTICATION_ENABLE_SELF_SIGNUP
             value: "{{ .Values.global.authentication.enableSelfSignup }}"
+          {{- if and (eq .Values.global.authentication.provider "ldap") (.Values.global.authentication.ldapConfiguration) }}
+          - name: AUTHENTICATION_LDAP_HOST
+            value: "{{ .Values.global.authentication.ldapConfiguration.host }}"
+          - name: AUTHENTICATION_LDAP_PORT
+            value: "{{ .Values.global.authentication.ldapConfiguration.port }}"
+          - name: AUTHENTICATION_LOOKUP_ADMIN_DN
+            value: "{{ .Values.global.authentication.ldapConfiguration.dnAdminPrincipal }}"
+          - name: AUTHENTICATION_LOOKUP_ADMIN_PWD
+            value: "{{ .Values.global.authentication.ldapConfiguration.dnAdminPassword }}"
+          - name: AUTHENTICATION_USER_LOOKUP_BASEDN
+            value: "{{ .Values.global.authentication.ldapConfiguration.userBaseDN }}"
+          - name: AUTHENTICATION_USER_MAIL_ATTR
+            value: "{{ .Values.global.authentication.ldapConfiguration.mailAttributeName }}"
+          - name: AUTHENTICATION_LDAP_POOL_SIZE
+            value: "{{ .Values.global.authentication.ldapConfiguration.maxPoolSize }}"
+          - name: AUTHENTICATION_LDAP_SSL_ENABLED
+            value: "{{ .Values.global.authentication.ldapConfiguration.sslEnabled }}"
+          - name: AUTHENTICATION_LDAP_KEYSTORE_PATH
+            value: "{{ .Values.global.authentication.ldapConfiguration.keyStorePath }}"
+          - name: AUTHENTICATION_LDAP_KEYSTORE_PWD
+            value: "{{ .Values.global.authentication.ldapConfiguration.keyStorePath }}"
+          - name: AUTHENTICATION_LDAP_SSL_KEY_FORMAT
+            value: "{{ .Values.global.authentication.ldapConfiguration.truststoreFormat }}"
+          - name: AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST
+            value: "{{ .Values.global.authentication.ldapConfiguration.verifyCertificateHostname }}"
+          {{- end }}
           - name: OM_MAX_FAILED_LOGIN_ATTEMPTS
             value: "{{ .Values.global.basicLogin.maxLoginFailAttempts }}"
           - name: OM_LOGIN_ACCESS_BLOCKTIME
