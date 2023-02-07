@@ -112,7 +112,7 @@ spec:
           - name: AUTHENTICATION_LDAP_KEYSTORE_PATH
             value: "{{ .Values.global.authentication.ldapConfiguration.keyStorePath }}"
           - name: AUTHENTICATION_LDAP_KEYSTORE_PWD
-            value: "{{ .Values.global.authentication.ldapConfiguration.keyStorePath }}"
+            value: "{{ .Values.global.authentication.ldapConfiguration.keyStorePassword }}"
           - name: AUTHENTICATION_LDAP_SSL_KEY_FORMAT
             value: "{{ .Values.global.authentication.ldapConfiguration.truststoreFormat }}"
           - name: AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST
