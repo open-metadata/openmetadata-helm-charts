@@ -48,6 +48,18 @@ This is achieved by Helm Hooks currently.
 | global.authentication.callbackUrl | string | `Empty String` |
 | global.authentication.enableSelfSignup | bool | `true` |
 | global.authentication.jwtPrincipalClaims | list | `[email,preferred_username,sub]` |
+| global.authentication.ldapConfiguration.host | string | `localhost` |
+| global.authentication.ldapConfiguration.port | int | 10636 |
+| global.authentication.ldapConfiguration.dnAdminPrincipal | string | `cn=admin,dc=example,dc=com` |
+| global.authentication.ldapConfiguration.dnAdminPassword | string | `secret` |
+| global.authentication.ldapConfiguration.userBaseDN | string | `ou=people,dc=example,dc=com` |
+| global.authentication.ldapConfiguration.mailAttributeName | string | `email` |
+| global.authentication.ldapConfiguration.maxPoolSize | int | 3 |
+| global.authentication.ldapConfiguration.sslEnabled | bool | `true` |
+| global.authentication.ldapConfiguration.keyStorePath | string | `/Users/mohityadav/sslTest/client/keystore.ks` |
+| global.authentication.ldapConfiguration.keyStorePassword | string | `secret` |
+| global.authentication.ldapConfiguration.truststoreFormat | string | `JKS` |
+| global.authentication.ldapConfiguration.verifyCertificateHostname | bool | `false` |
 | global.authorizer.allowedEmailRegistrationDomains | list | `[all]` |
 | global.authorizer.className | string | `org.openmetadata.service.security.DefaultAuthorizer` |
 | global.authorizer.containerRequestFilter | string | `org.openmetadata.service.security.JwtFilter` |
