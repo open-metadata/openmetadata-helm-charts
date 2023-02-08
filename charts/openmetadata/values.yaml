@@ -97,8 +97,8 @@ global:
     keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
   fernetkey:
     value: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
-    secretRef: "av"
-    secretKey: "assdsda"
+    secretRef: ""
+    secretKey: ""
   eventMonitor:
     # Possible values are prometheus and cloudwatch
     type: prometheus
