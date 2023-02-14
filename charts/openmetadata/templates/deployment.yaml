@@ -92,7 +92,7 @@ spec:
             value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.authentication.jwtPrincipalClaims) }}]'
           - name: AUTHENTICATION_ENABLE_SELF_SIGNUP
             value: "{{ .Values.global.authentication.enableSelfSignup }}"
-          {{- if and (eq .Values.global.authentication.provider "ldap") (.Values.global.authentication.ldapConfiguration) }}
+          {{- if eq .Values.global.authentication.provider "ldap" }}
           - name: AUTHENTICATION_LDAP_HOST
             value: "{{ .Values.global.authentication.ldapConfiguration.host }}"
           - name: AUTHENTICATION_LDAP_PORT
