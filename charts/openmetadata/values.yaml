@@ -134,8 +134,8 @@ global:
 
   # Example Google SSO Auth Config
   # authorizer:
-  #   className: "org.openmetadata.catalog.security.DefaultAuthorizer"
-  #   containerRequestFilter: "org.openmetadata.catalog.security.JwtFilter"
+  #   className: "org.openmetadata.service.security.DefaultAuthorizer"
+  #   containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
   #   initialAdmins:
   #   - "suresh"
   #   botPrincipal:
