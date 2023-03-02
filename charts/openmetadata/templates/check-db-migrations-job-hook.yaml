@@ -19,6 +19,10 @@ spec:
       {{- end }}
       creationTimestamp: null
     spec:
+      {{- with .Values.imagePullSecrets  }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - command:
         - /bin/bash
