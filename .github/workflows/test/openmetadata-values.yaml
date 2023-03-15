@@ -1,5 +1,9 @@
 replicaCount: 3
 
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+
 resources:
   limits:
     cpu: 100m
