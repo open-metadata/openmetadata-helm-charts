@@ -23,6 +23,8 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
       - command:
         - /bin/bash
@@ -32,6 +34,8 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         name: {{ .Chart.Name }}-db-migrations-hook
+        securityContext:
+          {{- toYaml .Values.securityContext | nindent 10 }}
         env:
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"

@@ -1,20 +1,14 @@
 name: Release Open Metadata Charts
 
 on:
-  push:
-    branches:
-      - main
-    paths-ignore:
-      - '**.md'
-      - 'LICENSE'
-      - 'NOTICE'
+  workflow_dispatch:
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
@@ -27,6 +21,7 @@ jobs:
         uses: azure/setup-helm@v1
         with:
           version: v3.4.0
+          token: "${{ secrets.GITHUB_TOKEN }}"
       
       - name: Add Helm repos
         run: |
