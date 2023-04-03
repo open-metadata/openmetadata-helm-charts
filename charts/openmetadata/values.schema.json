@@ -89,7 +89,8 @@
                             }
                         },
                         "provider": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["basic", "azure", "auth0", "custom-oidc", "google", "okta", "aws-cognito"]
                         },
                         "publicKeys": {
                             "type": "array",
@@ -109,10 +110,12 @@
                             }
                         },
                         "className": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["org.openmetadata.service.security.DefaultAuthorizer"]
                         },
                         "containerRequestFilter": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["org.openmetadata.service.security.JwtFilter"]
                         },
                         "enableSecureSocketConnection": {
                             "type": "boolean"
@@ -362,7 +365,8 @@
                             }
                         },
                         "provider": {
-                            "type": "string"
+                            "type": "string",
+                            "enum": ["noop", "aws", "aws-ssm"]
                         }
                     }
                 },
@@ -404,6 +408,24 @@
                         "username": {
                             "type": "string"
                         }
+                    },
+                    "if": {
+                        "properties": {
+                            "enableSmtpServer": { "const": true }
+                        },
+                        "required": ["enableSmtpServer"]
+                    },
+                    "then": {
+                        "required": [
+                            "emailingEntity",
+                            "openMetadataUrl",
+                            "password",
+                            "serverEndpoint",
+                            "serverPort",
+                            "supportUrl",
+                            "transportationStrategy",
+                            "username"
+                        ]
                     }
                 }
             }
