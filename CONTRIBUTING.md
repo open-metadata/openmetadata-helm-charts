@@ -16,7 +16,6 @@ All submissions, including submissions by project members, require review. We us
 
 ## Documentation
 
------ Rewrite
 The documentation is updated [here](https://docs.open-metadata.org/deployment/kubernetes). This ensures that the values are consistent with the chart documentation.
 
 
