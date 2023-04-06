@@ -1,0 +1,24 @@
+{{- if .Values.global.networkPolicy.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "OpenMetadata.fullname" . }}-network-policy
+  labels:
+    {{- include "OpenMetadata.labels" . | indent 4 }}
+# spec:
+#   podSelector:
+#     matchLabels:
+#       app.kubernetes.io/name: {{ include "OpenMetadata.name" . }}
+#       app.kubernetes.io/instance: {{ .Release.Name }}
+#   ingress:
+#   - from:
+#     - podSelector:
+#         matchLabels:
+#           app.kubernetes.io/name: {{ include "OpenMetadata.name" . }}
+#           app.kubernetes.io/instance: {{ .Release.Name }}
+#     ports:
+#     - protocol: TCP
+#       port: 8080
+  policyTypes:
+  - {{ .Values.global.networkPolicy.policyType }}
+{{- end }}

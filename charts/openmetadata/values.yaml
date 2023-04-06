@@ -131,6 +131,9 @@ global:
     # kubectl create secret generic aws-key-secret \
     # --from-literal=aws-access-key-secret=<access_key_id_value> \
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
+  networkPolicy:
+    enabled: true
+    template: test-network-policy.yaml
 
   # Example Google SSO Auth Config
   # authorizer:
