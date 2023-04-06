@@ -131,7 +131,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `0.13.2` |
+| image.tag | string | `0.13.3` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
@@ -159,4 +159,3 @@ This is achieved by Helm Hooks currently.
 | serviceAccount.name | string | `nil` |
 | sidecars | list | `[]` |
 | tolerations | list | `[]` |
-
