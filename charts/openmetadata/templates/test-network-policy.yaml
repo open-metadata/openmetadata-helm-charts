@@ -1,24 +1,20 @@
 {{- if .Values.global.networkPolicy.enabled }}
-apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
 metadata:
-  name: {{ include "OpenMetadata.fullname" . }}-network-policy
+  name: {{ include "OpenMetadata.fullname" . }}-networkpolicy
+  namespace: {{ .Release.Namespace | quote }}
   labels:
     {{- include "OpenMetadata.labels" . | indent 4 }}
-# spec:
-#   podSelector:
-#     matchLabels:
-#       app.kubernetes.io/name: {{ include "OpenMetadata.name" . }}
-#       app.kubernetes.io/instance: {{ .Release.Name }}
-#   ingress:
-#   - from:
-#     - podSelector:
-#         matchLabels:
-#           app.kubernetes.io/name: {{ include "OpenMetadata.name" . }}
-#           app.kubernetes.io/instance: {{ .Release.Name }}
-#     ports:
-#     - protocol: TCP
-#       port: 8080
-  policyTypes:
-  - {{ .Values.global.networkPolicy.policyType }}
+  {{- with .Values.service.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  podSelector:
+    matchLabels: {{- include "OpenMetadata.selectorLabels" . | nindent 4 }}
+  ingress:
+    # Allow inbound connections
+    - ports:
+        - port: {{ .Values.service.port }}
 {{- end }}

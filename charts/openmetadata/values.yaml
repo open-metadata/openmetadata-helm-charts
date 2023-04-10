@@ -133,8 +133,12 @@ global:
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
   networkPolicy:
     enabled: true
-    template: test-network-policy.yaml
-
+    #template: test-network-policy.yaml
+    # # If networkPolicy is true, following values can be set
+    # denyAllPolicy: false
+    # allowPolicy: true
+    # allowDifferentNamespacePolicy: true
+    # defaultIngressEgressDeny: false
   # Example Google SSO Auth Config
   # authorizer:
   #   className: "org.openmetadata.service.security.DefaultAuthorizer"
