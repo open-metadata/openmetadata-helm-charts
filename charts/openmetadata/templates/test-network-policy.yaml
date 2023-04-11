@@ -1,4 +1,4 @@
-{{- if .Values.global.networkPolicy.enabled }}
+{{- if .Values.networkPolicy.enabled }}
 kind: NetworkPolicy
 apiVersion: networking.k8s.io/v1
 metadata:
@@ -15,12 +15,11 @@ spec:
     matchLabels: {{- include "OpenMetadata.selectorLabels" . | nindent 4 }}
   ingress:
     # Allow inbound connections
-    # Allow inbound connections from pods in a different namespace
-    - from:
-        - namespaceSelector:
-            matchLabels:
-              name: {{ .Values.networkPolicy.additionalIngressRules.ingressNamespace | default .Release.Namespace }}
     - ports:
-        - port: {{ .Values.service.port }}
-        - adminPort: {{ .Values.service.adminPort }} 
+      - port: {{ .Values.service.port }}
+        adminPort: {{ .Values.service.adminPort }}
+  {{- if .Values.networkPolicy.additionalIngressRules }}
+    {{- include "tplvalues.render" (dict "value" .Values.networkPolicy.additionalIngressRules "context" $) | nindent 4 }}
+  {{- end }}
+    # Allow inbound connections from pods in a different namespace
 {{- end }}
