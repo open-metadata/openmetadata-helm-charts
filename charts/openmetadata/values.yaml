@@ -45,22 +45,22 @@ global:
       password:
         secretRef: mysql-secrets
         secretKey: openmetadata-mysql-password
-  airflow:
+  pipelineServiceClientConfig:
     enabled: true
+    className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
     # endpoint url for airflow
-    host: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
+    apiEndpoint: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
+    # this will be the api endpoint url of OpenMetadata Server
+    metadataApiEndpoint: http://openmetadata.default.svc.cluster.local:8585/api
     # possible values are "no-ssl", "ignore", "validate"
     verifySsl: "no-ssl"
-    # Local path in Airflow Pod
+    # local path in Airflow Pod
     sslCertificatePath: "/no/path"
     auth:
       username: admin
       password:
         secretRef: airflow-secrets
         secretKey: openmetadata-airflow-password
-    openmetadata:
-      # this will be the api endpoint url of OpenMetadata Server
-      serverHostApiUrl: "http://openmetadata.default.svc.cluster.local:8585/api"
   authorizer:
     className: "org.openmetadata.service.security.DefaultAuthorizer"
     containerRequestFilter: "org.openmetadata.service.security.JwtFilter"

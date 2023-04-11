@@ -171,10 +171,12 @@ spec:
             value: "{{ .Values.global.database.dbScheme }}"
           - name: DB_USE_SSL
             value: "{{ .Values.global.database.dbUseSSL }}"
-          {{- if .Values.global.airflow.enabled }}
-          - name: AIRFLOW_HOST
-            value: "{{ .Values.global.airflow.host }}"
-          {{- with .Values.global.airflow.auth }}
+          {{- if .Values.global.pipelineServiceClientConfig.enabled }}
+          - name: PIPELINE_SERVICE_CLIENT_CLASS_NAME
+            value: "{{ .Values.global.pipelineServiceClientConfig.className }}"
+          - name: PIPELINE_SERVICE_CLIENT_ENDPOINT
+            value: "{{ .Values.global.pipelineServiceClientConfig.apiEndpoint }}"
+          {{- with .Values.global.pipelineServiceClientConfig.auth }}
           - name: AIRFLOW_USERNAME
             value: "{{ .username }}"
           - name: AIRFLOW_PASSWORD
@@ -183,12 +185,12 @@ spec:
                 name: {{ .password.secretRef }}
                 key: {{ .password.secretKey }}
           {{- end }}
-          - name: AIRFLOW_VERIFY_SSL
-            value: "{{ .Values.global.airflow.verifySsl }}"
-          - name: AIRFLOW_SSL_CERT_PATH
-            value: "{{ .Values.global.airflow.sslCertificatePath }}"
+          - name: PIPELINE_SERVICE_CLIENT_VERIFY_SSL
+            value: "{{ .Values.global.pipelineServiceClientConfig.verifySsl }}"
+          - name: PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH
+            value: "{{ .Values.global.pipelineServiceClientConfig.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL
-            value: "{{ .Values.global.airflow.openmetadata.serverHostApiUrl }}"
+            value: "{{ .Values.global.pipelineServiceClientConfig.openmetadata.serverHostApiUrl }}"
           {{- end }}
           - name: SECRET_MANAGER
             value: "{{ .Values.global.secretsManager.provider }}"
