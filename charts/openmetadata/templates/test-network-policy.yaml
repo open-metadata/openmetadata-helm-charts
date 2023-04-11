@@ -19,8 +19,8 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: {{ .Values.global.networkPolicy.ingressNamespace | default .Release.Namespace }}
+              name: {{ .Values.networkPolicy.additionalIngressRules.ingressNamespace | default .Release.Namespace }}
     - ports:
-        - port: {{ .Values.global.networkPolicy.port }}
-        - adminPort: {{ .Values.global.networkPolicy.adminPort }} 
+        - port: {{ .Values.service.port }}
+        - adminPort: {{ .Values.service.adminPort }} 
 {{- end }}
