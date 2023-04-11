@@ -133,6 +133,10 @@ global:
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
   networkPolicy:
     enabled: true
+    #port for ingress
+    ingressNamespace: ""
+    port: 8585
+    adminPort: 8586
     #template: test-network-policy.yaml
     # # If networkPolicy is true, following values can be set
     # denyAllPolicy: false
