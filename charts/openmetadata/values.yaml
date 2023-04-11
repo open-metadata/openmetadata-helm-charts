@@ -74,7 +74,7 @@ global:
   authentication:
     provider: "basic"
     publicKeys:
-    - "http://openmetadata:8585/api/v1/config/jwks"
+    - "http://openmetadata:8585/api/v1/system/config/jwks"
     authority: "https://accounts.google.com"
     clientId: ""
     callbackUrl: ""

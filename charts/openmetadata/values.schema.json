@@ -96,7 +96,8 @@
                             "type": "array",
                             "items": {
                                 "type": "string"
-                            }
+                            },
+                            "default": ["http://openmetadata:8585/api/v1/system/config/jwks"]
                         }
                     }
                 },
