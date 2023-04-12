@@ -103,6 +103,14 @@ global:
     # Possible values are prometheus and cloudwatch
     type: prometheus
     batchSize: 10
+    pathPattern: 
+    - "/api/v1/tables/*"
+    - "/api/v1/health-check"
+    # For value p99=0.99, p90=0.90, p50=0.50 etc.
+    latency: []
+    # - "p99=0.99"
+    # - "p90=0.90"
+    # - "p50=0.50"
   smtpConfig:
     enableSmtpServer: false
     emailingEntity: "OpenMetadata"

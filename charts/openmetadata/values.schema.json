@@ -269,6 +269,12 @@
                         },
                         "batchSize": {
                             "type": "integer"
+                        },
+                        "pathPattern": {
+                            "type": "array"
+                        },
+                        "latency": {
+                            "type": "array"
                         }
                     },
                     "required": [

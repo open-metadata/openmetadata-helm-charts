@@ -68,6 +68,10 @@ spec:
             value: "{{ .Values.global.eventMonitor.type }}"
           - name: EVENT_MONITOR_BATCH_SIZE
             value: "{{ .Values.global.eventMonitor.batchSize }}"
+          - name: EVENT_MONITOR_PATH_PATTERN
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.eventMonitor.pathPattern) }}]'
+          - name: EVENT_MONITOR_LATENCY
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.eventMonitor.latency) }}]'
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
           - name: LOG_LEVEL
