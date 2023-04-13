@@ -131,21 +131,12 @@ global:
     # kubectl create secret generic aws-key-secret \
     # --from-literal=aws-access-key-secret=<access_key_id_value> \
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
-networkPolicy:
-  enabled: true
-  additionalIngressRules: []
-  # - from:
-  #   - namespaceSelector:
-  #       matchLabels:
-  #         name: "testanuj"
-  #for ingress
 
-  #template: test-network-policy.yaml
-  # # If networkPolicy is true, following values can be set
-  # denyAllPolicy: false
-  # allowPolicy: true
-  # allowDifferentNamespacePolicy: true
-  # defaultIngressEgressDeny: false
+networkPolicy:
+# If networkPolicy is true, following values can be set
+#for ingress on port 8585 and 8586
+  enabled: false
+
   # Example Google SSO Auth Config
   # authorizer:
   #   className: "org.openmetadata.service.security.DefaultAuthorizer"
