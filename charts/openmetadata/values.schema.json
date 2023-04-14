@@ -562,6 +562,14 @@
         },
         "podAnnotations": {
             "type": "object"
+        },
+        "networkPolicy": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
         }
     }
 }
