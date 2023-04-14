@@ -135,7 +135,7 @@ global:
 networkPolicy:
 # If networkPolicy is true, following values can be set
 #for ingress on port 8585 and 8586
-  enabled: true
+  enabled: false
 
   # Example Google SSO Auth Config
   # authorizer:
