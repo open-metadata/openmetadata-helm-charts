@@ -159,3 +159,4 @@ This is achieved by Helm Hooks currently.
 | serviceAccount.name | string | `nil` |
 | sidecars | list | `[]` |
 | tolerations | list | `[]` |
+| networkPolicy.enabled | bool |`false` |
