@@ -393,6 +393,9 @@
                                 }
                             }
                         },
+                        "senderMail": {
+                            "type": "string"
+                        },
                         "serverEndpoint": {
                             "type": "string"
                         },
