@@ -102,7 +102,7 @@ spec:
             value: "{{ .Values.global.authentication.enableSelfSignup }}"
           - name: OM_MAX_FAILED_LOGIN_ATTEMPTS
             value: "{{ .Values.global.basicLogin.maxLoginFailAttempts }}"
-          - name: OM_LOGIN_ACCESS_BLOCKTIME
+          - name: OM_LOGIN_ACCESS_BLOCK_TIME
             value: "{{ .Values.global.basicLogin.accessBlockTime }}"
           - name: AUTHORIZER_CLASS_NAME
             value: "{{ .Values.global.authorizer.className }}"
