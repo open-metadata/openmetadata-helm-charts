@@ -182,6 +182,8 @@ spec:
           {{- if .Values.global.pipelineServiceClientConfig.enabled }}
           - name: PIPELINE_SERVICE_CLIENT_CLASS_NAME
             value: "{{ .Values.global.pipelineServiceClientConfig.className }}"
+          - name: PIPELINE_SERVICE_IP_INFO_ENABLED
+            value: "{{ .Values.global.pipelineServiceClientConfig.ingestionIpInfoEnabled }}"
           - name: PIPELINE_SERVICE_CLIENT_ENDPOINT
             value: "{{ .Values.global.pipelineServiceClientConfig.apiEndpoint }}"
           {{- with .Values.global.pipelineServiceClientConfig.auth }}

@@ -55,6 +55,9 @@
                             "type": "string",
                             "enum": ["org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"]
                         },
+                        "ingestionIpInfoEnabled": {
+                            "type": "boolean"
+                        },
                         "metadataApiEndpoint": {
                             "type": "string"
                         },
