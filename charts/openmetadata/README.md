@@ -55,14 +55,16 @@ This is achieved by Helm Hooks currently.
 | global.authorizer.enableSecureSocketConnection | bool | `false` |
 | global.authorizer.initialAdmins | list | `[admin]` |
 | global.authorizer.principalDomain | string | `open-metadata.org` |
-| global.airflow.auth.password.secretRef | string | `airflow-secrets` |
-| global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` |
-| global.airflow.auth.username | string | `admin` |
-| global.airflow.enabled | bool | `true` |
-| global.airflow.host | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` |
-| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
-| global.airflow.sslCertificatePath | string | `/no/path` |
-| global.airflow.verifySsl | string | `no-ssl` |
+| global.pipelineServiceClientConfig.auth.password.secretRef | string | `airflow-secrets` |
+| global.pipelineServiceClientConfig.auth.password.secretKey | string | `openmetadata-airflow-password` |
+| global.pipelineServiceClientConfig.auth.username | string | `admin` |
+| global.pipelineServiceClientConfig.apiEndpoint | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` |
+| global.pipelineServiceClientConfig.className | string | `org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient` |
+| global.pipelineServiceClientConfig.enabled | bool | `true` |
+| global.pipelineServiceClientConfig.ingestionIpInfoEnabled | bool | `false` |
+| global.pipelineServiceClientConfig.metadataApiEndpoint | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
+| global.pipelineServiceClientConfig.sslCertificatePath | string | `/no/path` |
+| global.pipelineServiceClientConfig.verifySsl | string | `no-ssl` |
 | global.basicLogin.maxLoginFailAttempts | int | 3 |
 | global.basicLogin.accessBlockTime | int | 600 |
 | global.clusterName | string | `openmetadata` |
@@ -89,6 +91,8 @@ This is achieved by Helm Hooks currently.
 | global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` |
 | global.eventMonitor.type | string | `prometheus` |
 | global.eventMonitor.batchSize | int | `10` |
+| global.eventMonitor.pathPattern | list | `[/api/v1/tables/*,/api/v1/health-check]` |
+| global.eventMonitor.latency | list | `[]` |
 | global.fernetkey.value | string | `jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=` |
 | global.fernetkey.secretRef | string | `` |
 | global.fernetkey.secretKef | string | `` |
@@ -98,8 +102,10 @@ This is achieved by Helm Hooks currently.
 | global.jwtTokenConfiguration.jwtissuer | string | `open-metadata.org` |
 | global.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` |
 | global.logLevel | string | `INFO` |
+| global.maskPasswordsApi | bool | `false` |
 | global.openmetadata.adminPort | int | 8586 |
 | global.openmetadata.host | string | `openmetadata` |
+| globale.openmetadata.uri | string | `http://openmetadata:8585` |
 | global.openmetadata.port | int | 8585 |
 | global.secretsManager.provider | string | `noop` |
 | global.secretsManager.additionalParameters.enabled | bool | `false` |
@@ -125,9 +131,11 @@ This is achieved by Helm Hooks currently.
 | Key | Type | Default |
 |-----|------|---------|
 | affinity | object | `{}` |
+| commonLabels | object | `{}` |
 | extraEnvs | Extra [environment variables][] which will be appended to the `env:` definition for the container | `[]` |
-| extraVolumes | Templatable string of additional `volumes` to be passed to the `tpl` function | "" |
-| extraVolumeMounts | Templatable string of additional `volumeMounts` to be passed to the `tpl` function | "" |
+| extraInitContainers | Templatable string of additional `initContainers` to be passed to `tpl` function | `[]` |
+| extraVolumes | Templatable string of additional `volumes` to be passed to the `tpl` function | `[]` |
+| extraVolumeMounts | Templatable string of additional `volumeMounts` to be passed to the `tpl` function | `[]` |
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
@@ -139,9 +147,12 @@ This is achieved by Helm Hooks currently.
 | ingress.hosts[0].host | string | `"open-metadata.local"` |
 | ingress.hosts[0].paths[0].path | string | `"/"` |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |
+| ingress.tls | list | `[]` |
 | livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |
 | livenessProbe.failureThreshold | int | `5` |
+| livenessProbe.httpGet.path | string | `/healthcheck` |
+| livenessProbe.httpGet.port | string | `http-admin` |
 | nameOverride | string | `""` |
 | nodeSelector | object | `{}` |
 | podAnnotations | object | `{}` |
@@ -149,9 +160,13 @@ This is achieved by Helm Hooks currently.
 | readinessProbe.initialDelaySeconds | int | `60` |
 | readinessProbe.periodSeconds | int | `30` |
 | readinessProbe.failureThreshold | int | `5` |
+| readinessProbe.httpGet.path | string | `/` |
+| readinessProbe.httpGet.port | string | `http` |
 | replicaCount | int | `1` |
 | resources | object | `{}` |
 | securityContext | object | `{}` |
+| service.adminPort | string | `8586` |
+| service.annotations | object | `{}` |
 | service.port | int | `8585` |
 | service.type | string | `"ClusterIP"` |
 | serviceAccount.annotations | object | `{}` |
