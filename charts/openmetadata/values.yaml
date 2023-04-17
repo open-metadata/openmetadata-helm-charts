@@ -9,6 +9,7 @@ global:
   # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
   logLevel: INFO
   clusterName: openmetadata
+  maskPasswordsApi: false
   openmetadata:
     host: openmetadata
     port: 8585

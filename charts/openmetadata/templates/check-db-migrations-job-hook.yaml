@@ -38,6 +38,8 @@ spec:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 10 }}
         env:
+          - name: MASK_PASSWORDS_API
+            value: '{{ .Values.global.maskPasswordsApi }}'
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
           - name: LOG_LEVEL

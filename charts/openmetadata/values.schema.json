@@ -58,6 +58,9 @@
                         "metadataApiEndpoint": {
                             "type": "string"
                         },
+                        "maskPasswordsApi" : {
+                            "type": "boolean"
+                        },
                         "sslCertificatePath": {
                             "type": "string"
                         },
