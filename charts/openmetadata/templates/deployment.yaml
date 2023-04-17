@@ -200,7 +200,7 @@ spec:
           - name: PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH
             value: "{{ .Values.global.pipelineServiceClientConfig.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL
-            value: "{{ .Values.global.pipelineServiceClientConfig.openmetadata.serverHostApiUrl }}"
+            value: "{{ .Values.global.pipelineServiceClientConfig.metadataApiEndpoint }}"
           {{- end }}
           - name: SECRET_MANAGER
             value: "{{ .Values.global.secretsManager.provider }}"
