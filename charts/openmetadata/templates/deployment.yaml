@@ -76,6 +76,8 @@ spec:
             value: '{{ .Values.global.maskPasswordsApi }}'
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
+          - name: OM_URI
+            value: "{{ .Values.global.openmetadata.uri }}"
           - name: LOG_LEVEL
             value: "{{ .Values.global.logLevel }}"
           - name: SERVER_HOST

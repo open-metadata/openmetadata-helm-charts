@@ -12,6 +12,8 @@ global:
   maskPasswordsApi: false
   openmetadata:
     host: openmetadata
+    # URI to use with OpenMetadata Alerts Integrations
+    uri: "http://openmetadata:8585/"
     port: 8585
     adminPort: 8586
   elasticsearch:

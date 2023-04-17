@@ -334,6 +334,9 @@
                         },
                         "port": {
                             "type": "integer"
+                        },
+                        "uri": {
+                            "type": "string"
                         }
                     }
                 },
