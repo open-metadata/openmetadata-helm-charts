@@ -39,87 +39,85 @@ This is achieved by Helm Hooks currently.
 
 ## Global Chart Values
 
-| Key | Type | Default |
-|-----|------|---------|
-| global.authentication.provider | string | `basic` |
-| global.authentication.publicKeys | list | `[http://openmetadata:8585/api/v1/config/jwks]` |
-| global.authentication.authority | string | `https://accounts.google.com` |
-| global.authentication.clientId | string | `Empty String` |
-| global.authentication.callbackUrl | string | `Empty String` |
-| global.authentication.enableSelfSignup | bool | `true` |
-| global.authentication.jwtPrincipalClaims | list | `[email,preferred_username,sub]` |
-| global.authorizer.allowedEmailRegistrationDomains | list | `[all]` |
-| global.authorizer.className | string | `org.openmetadata.service.security.DefaultAuthorizer` |
-| global.authorizer.containerRequestFilter | string | `org.openmetadata.service.security.JwtFilter` |
-| global.authorizer.enforcePrincipalDomain | bool | `false` |
-| global.authorizer.enableSecureSocketConnection | bool | `false` |
-| global.authorizer.initialAdmins | list | `[admin]` |
-| global.authorizer.principalDomain | string | `open-metadata.org` |
-| global.airflow.auth.password.secretRef | string | `airflow-secrets` |
-| global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` |
-| global.airflow.auth.username | string | `admin` |
-| global.airflow.enabled | bool | `true` |
-| global.airflow.host | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` |
-| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` |
-| global.airflow.sslCertificatePath | string | `/no/path` |
-| global.airflow.verifySsl | string | `no-ssl` |
-| global.basicLogin.maxLoginFailAttempts | int | 3 |
-| global.basicLogin.accessBlockTime | int | 600 |
-| global.clusterName | string | `openmetadata` |
-| global.database.auth.password.secretRef | string | `mysql-secrets` |
-| global.database.auth.password.secretKey | string | `openmetadata-mysql-password` |
-| global.database.auth.username | string | `openmetadata_user` |
-| global.database.databaseName | string | `openmetadata_db` |
-| global.database.dbScheme| string | `mysql` |
-| global.database.dbUseSSL| bool | `false` |
-| global.database.driverClass| string | `com.mysql.cj.jdbc.Driver` |
-| global.database.host | string | `mysql` |
-| global.database.port | int | 3306 |
-| global.elasticsearch.auth.enabled | bool | `false` |
-| global.elasticsearch.auth.username | string | `elasticsearch` |
-| global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` |
-| global.elasticsearch.auth.password.secretKey | string | `openmetadata-elasticsearch-password` |
-| global.elasticsearch.host | string | `elasticsearch` |
-| global.elasticsearch.port | int | 9200 |
-| global.elasticsearch.scheme | string | `http` |
-| global.elasticsearch.searchIndexMappingLanguage | string | `EN`|
-| global.elasticsearch.trustStore.enabled | bool | `false` |
-| global.elasticsearch.trustStore.path | string | `Empty String` |
-| global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` |
-| global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` |
-| global.eventMonitor.type | string | `prometheus` |
-| global.eventMonitor.batchSize | int | `10` |
-| global.fernetkey.value | string | `jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=` |
-| global.fernetkey.secretRef | string | `` |
-| global.fernetkey.secretKef | string | `` |
-| global.jwtTokenConfiguration.enabled | bool | `true` |
-| global.jwtTokenConfiguration.rsapublicKeyFilePath | string | `./conf/public_key.der` |
-| global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `./conf/private_key.der` |
-| global.jwtTokenConfiguration.jwtissuer | string | `open-metadata.org` |
-| global.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` |
-| global.logLevel | string | `INFO` |
-| global.openmetadata.adminPort | int | 8586 |
-| global.openmetadata.host | string | `openmetadata` |
-| global.openmetadata.port | int | 8585 |
-| global.secretsManager.provider | string | `noop` |
-| global.secretsManager.additionalParameters.enabled | bool | `false` |
-| global.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` |
-| global.secretsManager.additionalParameters.accessKeyId.secretKey | string | `aws-key-secret` |
-| global.secretsManager.additionalParameters.region | string | `Empty String` |
-| global.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` |
-| global.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` |
-| global.smtpConfig.enableSmtpServer | bool | `false` |
-| global.smtpConfig.emailingEntity | string | `OpenMetadata` |
-| global.smtpConfig.openMetadataUrl | string | `Empty String` |
-| global.smtpConfig.password.secretKey | string | `Empty String` |
-| global.smtpConfig.password.secretRef | string | `Empty String` |
-| global.smtpConfig.serverEndpoint | string | `Empty String` |
-| global.smtpConfig.serverPort | string | `Empty String` |
-| global.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` |
-| global.smtpConfig.transportationStrategy | string | `SMTP_TLS` |
-| global.smtpConfig.username | string | `Empty String` |
-| global.smtpConfig.senderMail | string | `Empty String` |
-
+| Key | Type | Default | Conf/Openmetadata.yaml | 
+|-----|------|---------| ---------------------- |
+| global.authentication.provider | string | `basic` | AUTHENTICATION_PROVIDER |
+| global.authentication.publicKeys | list | `[http://openmetadata:8585/api/v1/config/jwks]` | AUTHENTICATION_PUBLIC_KEYS |
+| global.authentication.authority | string | `https://accounts.google.com` | AUTHENTICATION_AUTHORITY |
+| global.authentication.clientId | string | `Empty String` | AUTHENTICATION_CLIENT_ID |
+| global.authentication.callbackUrl | string | `Empty String` | AUTHENTICATION_CALLBACK_URL |
+| global.authentication.enableSelfSignup | bool | `true` | AUTHENTICATION_ENABLE_SELF_SIGNUP |
+| global.authentication.jwtPrincipalClaims | list | `[email,preferred_username,sub]` | AUTHENTICATION_JWT_PRINCIPAL_CLAIMS |
+| global.authorizer.allowedEmailRegistrationDomains | list | `[all]` | AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN |
+| global.authorizer.className | string | `org.openmetadata.service.security.DefaultAuthorizer` | AUTHORIZER_CLASS_NAME |
+| global.authorizer.containerRequestFilter | string | `org.openmetadata.service.security.JwtFilter` | AUTHORIZER_REQUEST_FILTER |
+| global.authorizer.enforcePrincipalDomain | bool | `false` | AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN |
+| global.authorizer.enableSecureSocketConnection | bool | `false` | AUTHORIZER_ENABLE_SECURE_SOCKET |
+| global.authorizer.initialAdmins | list | `[admin]` | AUTHORIZER_ADMIN_PRINCIPALS |
+| global.authorizer.principalDomain | string | `open-metadata.org` | AUTHORIZER_PRINCIPAL_DOMAIN |
+| global.airflow.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
+| global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
+| global.airflow.auth.username | string | `admin` | AIRFLOW_USERNAME |
+| global.airflow.enabled | bool | `true` | |
+| global.airflow.host | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
+| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` | SERVER_HOST_API_URL |
+| global.airflow.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
+| global.airflow.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
+| global.basicLogin.maxLoginFailAttempts | int | 3 | OM_MAX_FAILED_LOGIN_ATTEMPTS |
+| global.basicLogin.accessBlockTime | int | 600 | OM_LOGIN_ACCESS_BLOCK_TIME |
+| global.clusterName | string | `openmetadata` | OPENMETADATA_CLUSTER_NAME |
+| global.database.auth.password.secretRef | string | `mysql-secrets` | DB_USER_PASSWORD |
+| global.database.auth.password.secretKey | string | `openmetadata-mysql-password` | DB_USER_PASSWORD |
+| global.database.auth.username | string | `openmetadata_user` | DB_USER|
+| global.database.databaseName | string | `openmetadata_db` | OM_DATABASE |
+| global.database.dbScheme| string | `mysql` | DB_SCHEME |
+| global.database.dbUseSSL| bool | `false` | DB_USE_SSL |
+| global.database.driverClass| string | `com.mysql.cj.jdbc.Driver` | DB_DRIVER_CLASS |
+| global.database.host | string | `mysql` | DB_HOST |
+| global.database.port | int | 3306 | DB_PORT |
+| global.elasticsearch.auth.enabled | bool | `false` | |
+| global.elasticsearch.auth.username | string | `elasticsearch` | ELASTICSEARCH_USER |
+| global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` | ELASTICSEARCH_PASSWORD |
+| global.elasticsearch.auth.password.secretKey | string | `openmetadata-elasticsearch-password` | ELASTICSEARCH_PASSWORD |
+| global.elasticsearch.host | string | `elasticsearch` | ELASTICSEARCH_HOST |
+| global.elasticsearch.port | int | 9200 | ELASTICSEARCH_PORT |
+| global.elasticsearch.scheme | string | `http` | ELASTICSEARCH_SCHEME |
+| global.elasticsearch.searchIndexMappingLanguage | string | `EN`| ELASTICSEARCH_INDEX_MAPPING_LANG |
+| global.elasticsearch.trustStore.enabled | bool | `false` | |
+| global.elasticsearch.trustStore.path | string | `Empty String` | ELASTICSEARCH_TRUST_STORE_PATH |
+| global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` | ELASTICSEARCH_TRUST_STORE_PASSWORD |
+| global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` | ELASTICSEARCH_TRUST_STORE_PASSWORD |
+| global.eventMonitor.type | string | `prometheus` | EVENT_MONITOR |
+| global.eventMonitor.batchSize | int | `10` | EVENT_MONITOR_BATCH_SIZE |
+| global.fernetkey.value | string | `jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=` | FERNET_KEY |
+| global.fernetkey.secretRef | string | `` | FERNET_KEY |
+| global.fernetkey.secretKef | string | `` | FERNET_KEY |
+| global.jwtTokenConfiguration.enabled | bool | `true` | |
+| global.jwtTokenConfiguration.rsapublicKeyFilePath | string | `./conf/public_key.der` | RSA_PUBLIC_KEY_FILE_PATH |
+| global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `./conf/private_key.der` | RSA_PRIVATE_KEY_FILE_PATH |
+| global.jwtTokenConfiguration.jwtissuer | string | `open-metadata.org` | JWT_ISSUER |
+| global.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` | JWT_KEY_ID |
+| global.logLevel | string | `INFO` | LOG_LEVEL |
+| global.openmetadata.adminPort | int | 8586 | SERVER_ADMIN_PORT |
+| global.openmetadata.host | string | `openmetadata` | OPENMETADATA_SERVER_URL |
+| global.openmetadata.port | int | 8585 | SERVER_PORT |
+| global.secretsManager.provider | string | `noop` | SECRET_MANAGER |
+| global.secretsManager.additionalParameters.enabled | bool | `false` | |
+| global.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` | OM_SM_ACCESS_KEY_ID |
+| global.secretsManager.additionalParameters.accessKeyId.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY_ID |
+| global.secretsManager.additionalParameters.region | string | `Empty String` | OM_SM_REGION |
+| global.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` | OM_SM_ACCESS_KEY |
+| global.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY |
+| global.smtpConfig.enableSmtpServer | bool | `false` | AUTHORIZER_ENABLE_SMTP |
+| global.smtpConfig.emailingEntity | string | `OpenMetadata` | OM_EMAIL_ENTITY |
+| global.smtpConfig.openMetadataUrl | string | `Empty String` | OPENMETADATA_SERVER_URL |
+| global.smtpConfig.password.secretKey | string | `Empty String` | SMTP_SERVER_PWD |
+| global.smtpConfig.password.secretRef | string | `Empty String` | SMTP_SERVER_PWD |
+| global.smtpConfig.serverEndpoint | string | `Empty String` | SMTP_SERVER_ENDPOINT |
+| global.smtpConfig.serverPort | string | `Empty String` | SMTP_SERVER_PORT |
+| global.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` | OM_SUPPORT_URL |
+| global.smtpConfig.transportationStrategy | string | `SMTP_TLS` | SMTP_SERVER_STRATEGY |
+| global.smtpConfig.username | string | `Empty String` | SMTP_SERVER_USERNAME |
 
 ## Chart Values
 
