@@ -118,6 +118,7 @@ This is achieved by Helm Hooks currently.
 | global.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` |
 | global.smtpConfig.transportationStrategy | string | `SMTP_TLS` |
 | global.smtpConfig.username | string | `Empty String` |
+| global.smtpConfig.senderMail | string | `Empty String` |
 
 
 ## Chart Values
