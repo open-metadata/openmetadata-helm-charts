@@ -119,7 +119,6 @@ This is achieved by Helm Hooks currently.
 | global.smtpConfig.transportationStrategy | string | `SMTP_TLS` | SMTP_SERVER_STRATEGY |
 | global.smtpConfig.username | string | `Empty String` | SMTP_SERVER_USERNAME |
 
-
 ## Chart Values
 
 | Key | Type | Default |
@@ -131,7 +130,7 @@ This is achieved by Helm Hooks currently.
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `0.13.2` |
+| image.tag | string | `0.13.3` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
@@ -159,4 +158,4 @@ This is achieved by Helm Hooks currently.
 | serviceAccount.name | string | `nil` |
 | sidecars | list | `[]` |
 | tolerations | list | `[]` |
-
+| networkPolicy.enabled | bool |`false` |

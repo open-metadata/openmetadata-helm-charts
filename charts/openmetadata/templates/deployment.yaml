@@ -234,6 +234,8 @@ spec:
           {{- end }}
           - name: SMTP_SERVER_STRATEGY
             value: "{{ .Values.global.smtpConfig.transportationStrategy }}"
+          - name: OPENMETADATA_SMTP_SENDER_MAIL
+            value: "{{ .Values.global.smtpConfig.senderMail }}"
           {{- end }}
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
