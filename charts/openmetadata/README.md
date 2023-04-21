@@ -55,7 +55,7 @@ This is achieved by Helm Hooks currently.
 | global.authorizer.enableSecureSocketConnection | bool | `false` | AUTHORIZER_ENABLE_SECURE_SOCKET |
 | global.authorizer.initialAdmins | list | `[admin]` | AUTHORIZER_ADMIN_PRINCIPALS |
 | global.authorizer.principalDomain | string | `open-metadata.org` | AUTHORIZER_PRINCIPAL_DOMAIN |
-| global.airflow.auth.password.secretRef | string | `airflow-secrets` | |
+| global.airflow.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
 | global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
 | global.airflow.auth.username | string | `admin` | AIRFLOW_USERNAME |
 | global.airflow.enabled | bool | `true` | |
@@ -66,7 +66,7 @@ This is achieved by Helm Hooks currently.
 | global.basicLogin.maxLoginFailAttempts | int | 3 | OM_MAX_FAILED_LOGIN_ATTEMPTS |
 | global.basicLogin.accessBlockTime | int | 600 | OM_LOGIN_ACCESS_BLOCK_TIME |
 | global.clusterName | string | `openmetadata` | OPENMETADATA_CLUSTER_NAME |
-| global.database.auth.password.secretRef | string | `mysql-secrets` | |
+| global.database.auth.password.secretRef | string | `mysql-secrets` | DB_USER_PASSWORD |
 | global.database.auth.password.secretKey | string | `openmetadata-mysql-password` | DB_USER_PASSWORD |
 | global.database.auth.username | string | `openmetadata_user` | DB_USER|
 | global.database.databaseName | string | `openmetadata_db` | OM_DATABASE |
@@ -77,7 +77,7 @@ This is achieved by Helm Hooks currently.
 | global.database.port | int | 3306 | DB_PORT |
 | global.elasticsearch.auth.enabled | bool | `false` | |
 | global.elasticsearch.auth.username | string | `elasticsearch` | ELASTICSEARCH_USER |
-| global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` |  |
+| global.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` | ELASTICSEARCH_PASSWORD |
 | global.elasticsearch.auth.password.secretKey | string | `openmetadata-elasticsearch-password` | ELASTICSEARCH_PASSWORD |
 | global.elasticsearch.host | string | `elasticsearch` | ELASTICSEARCH_HOST |
 | global.elasticsearch.port | int | 9200 | ELASTICSEARCH_PORT |
@@ -85,7 +85,7 @@ This is achieved by Helm Hooks currently.
 | global.elasticsearch.searchIndexMappingLanguage | string | `EN`| ELASTICSEARCH_INDEX_MAPPING_LANG |
 | global.elasticsearch.trustStore.enabled | bool | `false` | |
 | global.elasticsearch.trustStore.path | string | `Empty String` | ELASTICSEARCH_TRUST_STORE_PATH |
-| global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` |  |
+| global.elasticsearch.trustStore.password.secretRef | string | `elasticsearch-truststore-secrets` | ELASTICSEARCH_TRUST_STORE_PASSWORD |
 | global.elasticsearch.trustStore.password.secretKey | string | `openmetadata-elasticsearch-truststore-password` | ELASTICSEARCH_TRUST_STORE_PASSWORD |
 | global.eventMonitor.type | string | `prometheus` | EVENT_MONITOR |
 | global.eventMonitor.batchSize | int | `10` | EVENT_MONITOR_BATCH_SIZE |
@@ -103,16 +103,16 @@ This is achieved by Helm Hooks currently.
 | global.openmetadata.port | int | 8585 | SERVER_PORT |
 | global.secretsManager.provider | string | `noop` | SECRET_MANAGER |
 | global.secretsManager.additionalParameters.enabled | bool | `false` | |
-| global.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` | |
+| global.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` | OM_SM_ACCESS_KEY_ID |
 | global.secretsManager.additionalParameters.accessKeyId.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY_ID |
 | global.secretsManager.additionalParameters.region | string | `Empty String` | OM_SM_REGION |
-| global.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` | |
+| global.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` | OM_SM_ACCESS_KEY |
 | global.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY |
 | global.smtpConfig.enableSmtpServer | bool | `false` | AUTHORIZER_ENABLE_SMTP |
 | global.smtpConfig.emailingEntity | string | `OpenMetadata` | OM_EMAIL_ENTITY |
 | global.smtpConfig.openMetadataUrl | string | `Empty String` | OPENMETADATA_SERVER_URL |
 | global.smtpConfig.password.secretKey | string | `Empty String` | SMTP_SERVER_PWD |
-| global.smtpConfig.password.secretRef | string | `Empty String` | |
+| global.smtpConfig.password.secretRef | string | `Empty String` | SMTP_SERVER_PWD |
 | global.smtpConfig.serverEndpoint | string | `Empty String` | SMTP_SERVER_ENDPOINT |
 | global.smtpConfig.serverPort | string | `Empty String` | SMTP_SERVER_PORT |
 | global.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` | OM_SUPPORT_URL |
