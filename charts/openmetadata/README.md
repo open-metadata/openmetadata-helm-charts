@@ -59,10 +59,10 @@ This is achieved by Helm Hooks currently.
 | global.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
 | global.airflow.auth.username | string | `admin` | AIRFLOW_USERNAME |
 | global.airflow.enabled | bool | `true` | |
-| global.airflow.host | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` | |
-| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` | |
-| global.airflow.sslCertificatePath | string | `/no/path` | |
-| global.airflow.verifySsl | string | `no-ssl` | |
+| global.airflow.host | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
+| global.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` | SERVER_HOST_API_URL |
+| global.airflow.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
+| global.airflow.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
 | global.basicLogin.maxLoginFailAttempts | int | 3 | OM_MAX_FAILED_LOGIN_ATTEMPTS |
 | global.basicLogin.accessBlockTime | int | 600 | OM_LOGIN_ACCESS_BLOCK_TIME |
 | global.clusterName | string | `openmetadata` | OPENMETADATA_CLUSTER_NAME |
@@ -71,7 +71,7 @@ This is achieved by Helm Hooks currently.
 | global.database.auth.username | string | `openmetadata_user` | DB_USER|
 | global.database.databaseName | string | `openmetadata_db` | OM_DATABASE |
 | global.database.dbScheme| string | `mysql` | DB_SCHEME |
-| global.database.dbUseSSL| bool | `false` | |
+| global.database.dbUseSSL| bool | `false` | DB_USE_SSL |
 | global.database.driverClass| string | `com.mysql.cj.jdbc.Driver` | DB_DRIVER_CLASS |
 | global.database.host | string | `mysql` | DB_HOST |
 | global.database.port | int | 3306 | DB_PORT |
@@ -90,8 +90,8 @@ This is achieved by Helm Hooks currently.
 | global.eventMonitor.type | string | `prometheus` | EVENT_MONITOR |
 | global.eventMonitor.batchSize | int | `10` | EVENT_MONITOR_BATCH_SIZE |
 | global.fernetkey.value | string | `jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=` | FERNET_KEY |
-| global.fernetkey.secretRef | string | `` | |
-| global.fernetkey.secretKef | string | `` | |
+| global.fernetkey.secretRef | string | `` | FERNET_KEY |
+| global.fernetkey.secretKef | string | `` | FERNET_KEY |
 | global.jwtTokenConfiguration.enabled | bool | `true` | |
 | global.jwtTokenConfiguration.rsapublicKeyFilePath | string | `./conf/public_key.der` | RSA_PUBLIC_KEY_FILE_PATH |
 | global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `./conf/private_key.der` | RSA_PRIVATE_KEY_FILE_PATH |
@@ -99,7 +99,7 @@ This is achieved by Helm Hooks currently.
 | global.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` | JWT_KEY_ID |
 | global.logLevel | string | `INFO` | LOG_LEVEL |
 | global.openmetadata.adminPort | int | 8586 | SERVER_ADMIN_PORT |
-| global.openmetadata.host | string | `openmetadata` | |
+| global.openmetadata.host | string | `openmetadata` | OPENMETADATA_SERVER_URL |
 | global.openmetadata.port | int | 8585 | SERVER_PORT |
 | global.secretsManager.provider | string | `noop` | SECRET_MANAGER |
 | global.secretsManager.additionalParameters.enabled | bool | `false` | |
