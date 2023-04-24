@@ -72,7 +72,7 @@ global:
     enforcePrincipalDomain: false
     enableSecureSocketConnection: false
   authentication:
-    provider: "ldap"
+    provider: "basic"
     publicKeys:
     - "http://openmetadata:8585/api/v1/config/jwks"
     authority: "https://accounts.google.com"
@@ -95,7 +95,7 @@ global:
       # Optional
       maxPoolSize: 3
       sslEnabled: true
-      truststoreConfigType: CustomTrustStore # {CustomTrustStore, HostName, JVMDefault, TrustAll}
+      truststoreConfigType: TrustAll # {CustomTrustStore, HostName, JVMDefault, TrustAll}
       trustStoreConfig:
         customTrustManagerConfig:
           trustStoreFilePath: ""
