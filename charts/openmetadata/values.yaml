@@ -141,6 +141,7 @@ global:
     openMetadataUrl: ""
     serverEndpoint: ""
     serverPort: ""
+    senderMail: ""
     username: ""
     password:
       secretRef: ""
@@ -161,6 +162,11 @@ global:
     # kubectl create secret generic aws-key-secret \
     # --from-literal=aws-access-key-secret=<access_key_id_value> \
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
+
+networkPolicy:
+# If networkPolicy is true, following values can be set
+#for ingress on port 8585 and 8586
+  enabled: false
 
   # Example Google SSO Auth Config
   # authorizer:
