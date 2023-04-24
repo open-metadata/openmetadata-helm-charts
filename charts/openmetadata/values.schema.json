@@ -90,14 +90,82 @@
                         },
                         "provider": {
                             "type": "string",
-                            "enum": ["basic", "azure", "auth0", "custom-oidc", "google", "okta", "aws-cognito"]
+                            "enum": ["basic", "azure", "auth0", "custom-oidc", "google", "okta", "aws-cognito", "ldap"]
                         },
                         "publicKeys": {
                             "type": "array",
                             "items": {
                                 "type": "string"
                             }
+                        },
+                        "ldapConfiguration": {
+                            "type": "object",
+                            "properties": {
+                              "host": {"type": "string"},
+                              "port": {"type": "integer"},
+                              "dnAdminPrincipal": {"type": "string"},
+                              "dnAdminPassword": {
+                                "type": "object",
+                                "properties": {
+                                  "secretRef": {
+                                    "type": "string"
+                                  },
+                                  "secretKey": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "userBaseDN": {"type": "string"},
+                              "mailAttributeName": {"type": "string"},
+                              "maxPoolSize": {"type": "integer"},
+                              "sslEnabled": {"type": "boolean"},
+                              "truststoreConfigType": {"type": "string", "enum": ["CustomTrustStore", "HostName", "JVMDefault", "TrustAll"]},
+                              "trustStoreConfig": {
+                                "type": "object",
+                                "properties": {
+                                  "customTrustManagerConfig": {
+                                    "type": "object",
+                                    "properties": {
+                                      "trustStoreFilePath": {"type": "string"},
+                                      "trustStoreFilePassword": {
+                                        "type": "object",
+                                        "properties": {
+                                          "secretRef": {
+                                            "type": "string"
+                                          },
+                                          "secretKey": {
+                                            "type": "string"
+                                          }
+                                        }
+                                      },
+                                      "trustStoreFileFormat": {"type": "string"},
+                                      "verifyHostname": {"type": "boolean"},
+                                      "examineValidityDates": {"type": "boolean"}
+                                    }
+                                  },
+                                  "hostNameConfig": {
+                                    "type": "object",
+                                    "properties": {
+                                      "allowWildCards": {"type": "boolean"},
+                                      "acceptableHostNames": {"type": "array", "items": {"type": "string"}}
+                                    }
+                                  },
+                                  "jvmDefaultConfig": {
+                                    "type": "object",
+                                    "properties": {
+                                      "verifyHostname": {"type": "boolean"}
+                                    }
+                                  },
+                                  "trustAllConfig": {
+                                    "type": "object",
+                                    "properties": {
+                                      "examineValidityDates": {"type": "boolean"}
+                                    }
+                                  }
+                                }
+                            }
                         }
+                    }
                     }
                 },
                 "authorizer": {

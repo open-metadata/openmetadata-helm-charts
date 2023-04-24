@@ -83,6 +83,36 @@ global:
     - "preferred_username"
     - "sub"
     enableSelfSignup: true
+    ldapConfiguration:
+      host: localhost
+      port: 10636
+      dnAdminPrincipal: "cn=admin,dc=example,dc=com"
+      dnAdminPassword: 
+        secretRef: ldap-secret
+        secretKey: openmetadata-ldap-secret
+      userBaseDN: "ou=people,dc=example,dc=com"
+      mailAttributeName: email
+      # Optional
+      maxPoolSize: 3
+      sslEnabled: true
+      truststoreConfigType: TrustAll # {CustomTrustStore, HostName, JVMDefault, TrustAll}
+      trustStoreConfig:
+        customTrustManagerConfig:
+          trustStoreFilePath: ""
+          trustStoreFilePassword:
+            secretRef: ""
+            secretKey: ""
+          trustStoreFileFormat: ""
+          verifyHostname: true
+          examineValidityDates: true
+        hostNameConfig:
+          allowWildCards: false
+          acceptableHostNames: []
+        jvmDefaultConfig:
+          verifyHostname: true
+        trustAllConfig:
+          examineValidityDates: true
+
   basicLogin:
     maxLoginFailAttempts: 3
     # in seconds
