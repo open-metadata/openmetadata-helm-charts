@@ -87,6 +87,35 @@ global:
     - "preferred_username"
     - "sub"
     enableSelfSignup: true
+    ldapConfiguration:
+      host: localhost
+      port: 10636
+      dnAdminPrincipal: "cn=admin,dc=example,dc=com"
+      dnAdminPassword: 
+        secretRef: ldap-admin-secret
+        secretKey: openmetadata-ldap-secret
+      userBaseDN: "ou=people,dc=example,dc=com"
+      mailAttributeName: email
+      maxPoolSize: 3
+      sslEnabled: false
+      truststoreConfigType: TrustAll # {CustomTrustStore, HostName, JVMDefault, TrustAll}
+      trustStoreConfig:
+        customTrustManagerConfig:
+          trustStoreFilePath: ""
+          trustStoreFilePassword:
+            secretRef: ""
+            secretKey: ""
+          trustStoreFileFormat: ""
+          verifyHostname: true
+          examineValidityDates: true
+        hostNameConfig:
+          allowWildCards: false
+          acceptableHostNames: []
+        jvmDefaultConfig:
+          verifyHostname: true
+        trustAllConfig:
+          examineValidityDates: true
+
   basicLogin:
     maxLoginFailAttempts: 3
     # in seconds
@@ -123,6 +152,7 @@ global:
     openMetadataUrl: ""
     serverEndpoint: ""
     serverPort: ""
+    senderMail: ""
     username: ""
     password:
       secretRef: ""
@@ -143,6 +173,11 @@ global:
     # kubectl create secret generic aws-key-secret \
     # --from-literal=aws-access-key-secret=<access_key_id_value> \
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
+
+networkPolicy:
+# If networkPolicy is true, following values can be set
+#for ingress on port 8585 and 8586
+  enabled: false
 
   # Example Google SSO Auth Config
   # authorizer:

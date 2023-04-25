@@ -128,6 +128,64 @@ spec:
           - name: JWT_KEY_ID
             value: "{{ .Values.global.jwtTokenConfiguration.keyId }}"
           {{- end }}
+
+          {{- if eq .Values.global.authentication.provider "ldap" }}
+          - name: AUTHENTICATION_LDAP_HOST
+            value: "{{ .Values.global.authentication.ldapConfiguration.host }}"
+          - name: AUTHENTICATION_LDAP_PORT
+            value: "{{ .Values.global.authentication.ldapConfiguration.port }}"
+          - name: AUTHENTICATION_LOOKUP_ADMIN_DN
+            value: "{{ .Values.global.authentication.ldapConfiguration.dnAdminPrincipal }}"
+          {{- with .Values.global.authentication.ldapConfiguration.dnAdminPassword }}
+          - name: AUTHENTICATION_LOOKUP_ADMIN_PWD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          - name: AUTHENTICATION_USER_LOOKUP_BASEDN
+            value: "{{ .Values.global.authentication.ldapConfiguration.userBaseDN }}"
+          - name: AUTHENTICATION_USER_MAIL_ATTR
+            value: "{{ .Values.global.authentication.ldapConfiguration.mailAttributeName }}"
+          - name: AUTHENTICATION_LDAP_POOL_SIZE
+            value: "{{ .Values.global.authentication.ldapConfiguration.maxPoolSize }}"
+          - name: AUTHENTICATION_LDAP_SSL_ENABLED
+            value: "{{ .Values.global.authentication.ldapConfiguration.sslEnabled }}"
+          - name: AUTHENTICATION_LDAP_TRUSTSTORE_TYPE
+            value: "{{ .Values.global.authentication.ldapConfiguration.truststoreConfigType }}"
+          {{- if eq .Values.global.authentication.ldapConfiguration.truststoreConfigType "CustomTrustStore" }}
+          - name: AUTHENTICATION_LDAP_TRUSTSTORE_PATH
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePath }}"
+          {{- with .Values.global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePassword }}
+          - name: AUTHENTICATION_LDAP_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          - name: AUTHENTICATION_LDAP_SSL_KEY_FORMAT
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFileFormat }}"
+          - name: AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.verifyHostname }}"
+          - name: AUTHENTICATION_LDAP_EXAMINE_VALIDITY_DATES
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.examineValidityDates }}"
+          {{- end }}
+          {{- if eq .Values.global.authentication.ldapConfiguration.truststoreConfigType "HostName" }}
+          - name: AUTHENTICATION_LDAP_ALLOW_WILDCARDS
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.hostNameConfig.allowWildCards }}"
+          - name: AUTHENTICATION_LDAP_ALLOWED_HOSTNAMES
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.hostNameConfig.acceptableHostNames }}"
+          {{- end }}
+          {{- if eq .Values.global.authentication.ldapConfiguration.truststoreConfigType "JVMDefault" }}          
+          - name: AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.jvmDefaultConfig.verifyHostname }}"
+          {{- end }}
+          {{- if eq .Values.global.authentication.ldapConfiguration.truststoreConfigType "TrustAll" }}  
+          - name: AUTHENTICATION_LDAP_EXAMINE_VALIDITY_DATES
+            value: "{{ .Values.global.authentication.ldapConfiguration.trustStoreConfig.trustAllConfig.examineValidityDates }}"
+          {{- end }}
+          {{- end }}
+
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.global.elasticsearch.host }}"
           - name: ELASTICSEARCH_PORT
@@ -246,6 +304,8 @@ spec:
           {{- end }}
           - name: SMTP_SERVER_STRATEGY
             value: "{{ .Values.global.smtpConfig.transportationStrategy }}"
+          - name: OPENMETADATA_SMTP_SENDER_MAIL
+            value: "{{ .Values.global.smtpConfig.senderMail }}"
           {{- end }}
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
