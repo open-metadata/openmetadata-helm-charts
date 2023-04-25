@@ -88,13 +88,12 @@ global:
       port: 10636
       dnAdminPrincipal: "cn=admin,dc=example,dc=com"
       dnAdminPassword: 
-        secretRef: ldap-secret
+        secretRef: ldap-admin-secret
         secretKey: openmetadata-ldap-secret
       userBaseDN: "ou=people,dc=example,dc=com"
       mailAttributeName: email
-      # Optional
       maxPoolSize: 3
-      sslEnabled: true
+      sslEnabled: false
       truststoreConfigType: TrustAll # {CustomTrustStore, HostName, JVMDefault, TrustAll}
       trustStoreConfig:
         customTrustManagerConfig:
