@@ -48,6 +48,26 @@ This is achieved by Helm Hooks currently.
 | global.authentication.callbackUrl | string | `Empty String` | AUTHENTICATION_CALLBACK_URL |
 | global.authentication.enableSelfSignup | bool | `true` | AUTHENTICATION_ENABLE_SELF_SIGNUP |
 | global.authentication.jwtPrincipalClaims | list | `[email,preferred_username,sub]` | AUTHENTICATION_JWT_PRINCIPAL_CLAIMS |
+| global.authentication.ldapConfiguration.host | string | `localhost` | AUTHENTICATION_LDAP_HOST |
+| global.authentication.ldapConfiguration.port |int | 10636 | AUTHENTICATION_LDAP_PORT |
+| global.authentication.ldapConfiguration.dnAdminPrincipal | string | `cn=admin,dc=example,dc=com` | AUTHENTICATION_LOOKUP_ADMIN_DN |
+| global.authentication.ldapConfiguration.dnAdminPassword.secretRef | string | `ldap-secret` | AUTHENTICATION_LOOKUP_ADMIN_PWD |
+| global.authentication.ldapConfiguration.dnAdminPassword.secretKey | string | `openmetadata-ldap-secret` | AUTHENTICATION_LOOKUP_ADMIN_PWD |
+| global.authentication.ldapConfiguration.userBaseDN | string | `ou=people,dc=example,dc=com` | AUTHENTICATION_USER_LOOKUP_BASEDN |
+| global.authentication.ldapConfiguration.mailAttributeName | string | `email` | AUTHENTICATION_USER_MAIL_ATTR |
+| global.authentication.ldapConfiguration.maxPoolSize | int | 3 | AUTHENTICATION_LDAP_POOL_SIZE |
+| global.authentication.ldapConfiguration.sslEnabled | bool | `true` | AUTHENTICATION_LDAP_SSL_ENABLED |
+| global.authentication.ldapConfiguration.truststoreConfigType | string | `TrustAll` | AUTHENTICATION_LDAP_TRUSTSTORE_TYPE |
+| global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePath | string | `Empty String` | AUTHENTICATION_LDAP_TRUSTSTORE_PATH |
+| global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePassword.secretRef | string | `Empty String` | AUTHENTICATION_LDAP_KEYSTORE_PASSWORD |
+| global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePassword.secretKey | string | `Empty String` | AUTHENTICATION_LDAP_KEYSTORE_PASSWORD |
+| global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFileFormat | string | `Empty String` | AUTHENTICATION_LDAP_SSL_KEY_FORMAT |
+| global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.verifyHostname | string | `Empty String` | AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST |
+| global.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.examineValidityDate | bool | `true` | AUTHENTICATION_LDAP_EXAMINE_VALIDITY_DATES |
+| global.authentication.ldapConfiguration.trustStoreConfig.hostNameConfig.allowWildCards | bool | `false` | AUTHENTICATION_LDAP_ALLOW_WILDCARDS |
+| global.authentication.ldapConfiguration.trustStoreConfig.hostNameConfig.acceptableHostNames | string | `[Empty String]` | AUTHENTICATION_LDAP_ALLOWED_HOSTNAMES |
+| global.authentication.ldapConfiguration.trustStoreConfig.jvmDefaultConfig.verifyHostname | string | `Empty String` | AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST |
+| global.authentication.ldapConfiguration.trustStoreConfig.trustAllConfig.examineValidityDates | bool | `true` | AUTHENTICATION_LDAP_EXAMINE_VALIDITY_DATES |
 | global.authorizer.allowedEmailRegistrationDomains | list | `[all]` | AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN |
 | global.authorizer.className | string | `org.openmetadata.service.security.DefaultAuthorizer` | AUTHORIZER_CLASS_NAME |
 | global.authorizer.containerRequestFilter | string | `org.openmetadata.service.security.JwtFilter` | AUTHORIZER_REQUEST_FILTER |
