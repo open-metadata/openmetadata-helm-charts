@@ -91,14 +91,15 @@ global:
       host: localhost
       port: 10636
       dnAdminPrincipal: "cn=admin,dc=example,dc=com"
-      dnAdminPassword: 
+      dnAdminPassword:
         secretRef: ldap-admin-secret
         secretKey: openmetadata-ldap-secret
       userBaseDN: "ou=people,dc=example,dc=com"
       mailAttributeName: email
       maxPoolSize: 3
       sslEnabled: false
-      truststoreConfigType: TrustAll # {CustomTrustStore, HostName, JVMDefault, TrustAll}
+      # Possible values are CustomTrustStore, HostName, JVMDefault, TrustAll
+      truststoreConfigType: TrustAll
       trustStoreConfig:
         customTrustManagerConfig:
           trustStoreFilePath: ""
@@ -136,7 +137,7 @@ global:
     # Possible values are prometheus and cloudwatch
     type: prometheus
     batchSize: 10
-    pathPattern: 
+    pathPattern:
     - "/api/v1/tables/*"
     - "/api/v1/health-check"
     # For value p99=0.99, p90=0.90, p50=0.50 etc.
@@ -175,8 +176,8 @@ global:
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
 
 networkPolicy:
-# If networkPolicy is true, following values can be set
-#for ingress on port 8585 and 8586
+  # If networkPolicy is true, following values can be set
+  # for ingress on port 8585 and 8586
   enabled: false
 
   # Example Google SSO Auth Config
