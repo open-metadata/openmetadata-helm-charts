@@ -9,8 +9,11 @@ global:
   # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
   logLevel: INFO
   clusterName: openmetadata
+  maskPasswordsApi: false
   openmetadata:
     host: openmetadata
+    # URI to use with OpenMetadata Alerts Integrations
+    uri: "http://openmetadata:8585"
     port: 8585
     adminPort: 8586
   elasticsearch:
@@ -45,22 +48,23 @@ global:
       password:
         secretRef: mysql-secrets
         secretKey: openmetadata-mysql-password
-  airflow:
+  pipelineServiceClientConfig:
     enabled: true
+    className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
     # endpoint url for airflow
-    host: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
+    apiEndpoint: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
+    # this will be the api endpoint url of OpenMetadata Server
+    metadataApiEndpoint: http://openmetadata.default.svc.cluster.local:8585/api
     # possible values are "no-ssl", "ignore", "validate"
     verifySsl: "no-ssl"
-    # Local path in Airflow Pod
+    ingestionIpInfoEnabled: false
+    # local path in Airflow Pod
     sslCertificatePath: "/no/path"
     auth:
       username: admin
       password:
         secretRef: airflow-secrets
         secretKey: openmetadata-airflow-password
-    openmetadata:
-      # this will be the api endpoint url of OpenMetadata Server
-      serverHostApiUrl: "http://openmetadata.default.svc.cluster.local:8585/api"
   authorizer:
     className: "org.openmetadata.service.security.DefaultAuthorizer"
     containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
@@ -74,7 +78,7 @@ global:
   authentication:
     provider: "basic"
     publicKeys:
-    - "http://openmetadata:8585/api/v1/config/jwks"
+    - "http://openmetadata:8585/api/v1/system/config/jwks"
     authority: "https://accounts.google.com"
     clientId: ""
     callbackUrl: ""
@@ -87,14 +91,15 @@ global:
       host: localhost
       port: 10636
       dnAdminPrincipal: "cn=admin,dc=example,dc=com"
-      dnAdminPassword: 
+      dnAdminPassword:
         secretRef: ldap-admin-secret
         secretKey: openmetadata-ldap-secret
       userBaseDN: "ou=people,dc=example,dc=com"
       mailAttributeName: email
       maxPoolSize: 3
       sslEnabled: false
-      truststoreConfigType: TrustAll # {CustomTrustStore, HostName, JVMDefault, TrustAll}
+      # Possible values are CustomTrustStore, HostName, JVMDefault, TrustAll
+      truststoreConfigType: TrustAll
       trustStoreConfig:
         customTrustManagerConfig:
           trustStoreFilePath: ""
@@ -132,6 +137,14 @@ global:
     # Possible values are prometheus and cloudwatch
     type: prometheus
     batchSize: 10
+    pathPattern:
+    - "/api/v1/tables/*"
+    - "/api/v1/health-check"
+    # For value p99=0.99, p90=0.90, p50=0.50 etc.
+    latency: []
+    # - "p99=0.99"
+    # - "p90=0.90"
+    # - "p50=0.50"
   smtpConfig:
     enableSmtpServer: false
     emailingEntity: "OpenMetadata"
@@ -163,8 +176,8 @@ global:
     # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
 
 networkPolicy:
-# If networkPolicy is true, following values can be set
-#for ingress on port 8585 and 8586
+  # If networkPolicy is true, following values can be set
+  # for ingress on port 8585 and 8586
   enabled: false
 
   # Example Google SSO Auth Config

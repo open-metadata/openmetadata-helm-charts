@@ -38,8 +38,12 @@ spec:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 10 }}
         env:
+          - name: MASK_PASSWORDS_API
+            value: '{{ .Values.global.maskPasswordsApi }}'
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
+          - name: OM_URI
+            value: "{{ .Values.global.openmetadata.uri }}"
           - name: LOG_LEVEL
             value: "{{ .Values.global.logLevel }}"
           - name: SERVER_HOST
@@ -64,7 +68,7 @@ spec:
             value: "{{ .Values.global.authentication.enableSelfSignup }}"
           - name: OM_MAX_FAILED_LOGIN_ATTEMPTS
             value: "{{ .Values.global.basicLogin.maxLoginFailAttempts }}"
-          - name: OM_LOGIN_ACCESS_BLOCKTIME
+          - name: OM_LOGIN_ACCESS_BLOCK_TIME
             value: "{{ .Values.global.basicLogin.accessBlockTime }}"
           - name: AUTHORIZER_CLASS_NAME
             value: "{{ .Values.global.authorizer.className }}"

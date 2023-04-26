@@ -68,8 +68,16 @@ spec:
             value: "{{ .Values.global.eventMonitor.type }}"
           - name: EVENT_MONITOR_BATCH_SIZE
             value: "{{ .Values.global.eventMonitor.batchSize }}"
+          - name: EVENT_MONITOR_PATH_PATTERN
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.eventMonitor.pathPattern) }}]'
+          - name: EVENT_MONITOR_LATENCY
+            value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.global.eventMonitor.latency) }}]'
+          - name: MASK_PASSWORDS_API
+            value: '{{ .Values.global.maskPasswordsApi }}'
           - name: OPENMETADATA_CLUSTER_NAME
             value: "{{ .Values.global.clusterName }}"
+          - name: OM_URI
+            value: "{{ .Values.global.openmetadata.uri }}"
           - name: LOG_LEVEL
             value: "{{ .Values.global.logLevel }}"
           - name: SERVER_HOST
@@ -94,7 +102,7 @@ spec:
             value: "{{ .Values.global.authentication.enableSelfSignup }}"
           - name: OM_MAX_FAILED_LOGIN_ATTEMPTS
             value: "{{ .Values.global.basicLogin.maxLoginFailAttempts }}"
-          - name: OM_LOGIN_ACCESS_BLOCKTIME
+          - name: OM_LOGIN_ACCESS_BLOCK_TIME
             value: "{{ .Values.global.basicLogin.accessBlockTime }}"
           - name: AUTHORIZER_CLASS_NAME
             value: "{{ .Values.global.authorizer.className }}"
@@ -229,10 +237,14 @@ spec:
             value: "{{ .Values.global.database.dbScheme }}"
           - name: DB_USE_SSL
             value: "{{ .Values.global.database.dbUseSSL }}"
-          {{- if .Values.global.airflow.enabled }}
-          - name: AIRFLOW_HOST
-            value: "{{ .Values.global.airflow.host }}"
-          {{- with .Values.global.airflow.auth }}
+          {{- if .Values.global.pipelineServiceClientConfig.enabled }}
+          - name: PIPELINE_SERVICE_CLIENT_CLASS_NAME
+            value: "{{ .Values.global.pipelineServiceClientConfig.className }}"
+          - name: PIPELINE_SERVICE_IP_INFO_ENABLED
+            value: "{{ .Values.global.pipelineServiceClientConfig.ingestionIpInfoEnabled }}"
+          - name: PIPELINE_SERVICE_CLIENT_ENDPOINT
+            value: "{{ .Values.global.pipelineServiceClientConfig.apiEndpoint }}"
+          {{- with .Values.global.pipelineServiceClientConfig.auth }}
           - name: AIRFLOW_USERNAME
             value: "{{ .username }}"
           - name: AIRFLOW_PASSWORD
@@ -241,12 +253,12 @@ spec:
                 name: {{ .password.secretRef }}
                 key: {{ .password.secretKey }}
           {{- end }}
-          - name: AIRFLOW_VERIFY_SSL
-            value: "{{ .Values.global.airflow.verifySsl }}"
-          - name: AIRFLOW_SSL_CERT_PATH
-            value: "{{ .Values.global.airflow.sslCertificatePath }}"
+          - name: PIPELINE_SERVICE_CLIENT_VERIFY_SSL
+            value: "{{ .Values.global.pipelineServiceClientConfig.verifySsl }}"
+          - name: PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH
+            value: "{{ .Values.global.pipelineServiceClientConfig.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL
-            value: "{{ .Values.global.airflow.openmetadata.serverHostApiUrl }}"
+            value: "{{ .Values.global.pipelineServiceClientConfig.metadataApiEndpoint }}"
           {{- end }}
           - name: SECRET_MANAGER
             value: "{{ .Values.global.secretsManager.provider }}"
