@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# MQSQL configurations for helm dependency
+# MySQL configurations for helm dependency
 # you can find more details about this here https://artifacthub.io/packages/helm/bitnami/mysql
 mysql:
   enabled: true
@@ -54,7 +54,7 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 0.13.2
+      tag: 1.0.0
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
