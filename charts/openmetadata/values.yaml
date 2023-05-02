@@ -116,7 +116,7 @@ global:
           verifyHostname: true
         trustAllConfig:
           examineValidityDates: true
-    samlConfiguration:
+    saml:
       debugMode: false
       idp:
         entityId: ""
@@ -124,15 +124,15 @@ global:
         idpX509Certificate:
           secretRef: ""
           secretKey: ""
-        authorityUrl: "http://localhost:8585/api/v1/saml/login"
+        authorityUrl: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/login"
         nameId: "urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
       sp:
-        entityId: "http://localhost:8585/api/v1/saml/metadata"
-        acs: "http://localhost:8585/api/v1/saml/acs"
+        entityId: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/metadata"
+        acs: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/acs"
         spX509Certificate: 
           secretRef: ""
           secretKey: ""
-        callback: "http://localhost:8585/saml/callback"
+        callback: "http://openmetadata.default.svc.cluster.local:8585/saml/callback"
       security:
         strictMode: false
         tokenValidity: 3600
@@ -144,7 +144,9 @@ global:
         wantAssertionEncrypted: false
         wantNameIdEncrypted: false
         keyStoreFilePath: ""
-        keyStoreAlias: ""
+        keyStoreAlias:
+          secretRef: ""
+          secretKey: ""          
         keyStorePassword:
           secretRef: ""
           secretKey: ""

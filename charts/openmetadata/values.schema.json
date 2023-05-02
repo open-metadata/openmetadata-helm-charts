@@ -235,8 +235,9 @@
                                 }
                             }
                         },
-                        "samlConfiguration": {
+                        "saml": {
                             "type": "object",
+                            "additionalProperties": false,
                             "properties": {
                               "debugMode": {
                                 "type": "boolean"
@@ -252,11 +253,12 @@
                                   },
                                   "idpX509Certificate": {
                                     "type": "object",
+                                    "additionalProperties": false,
                                     "properties": {
-                                      "certFilePath": {
+                                      "secretRef": {
                                         "type": "string"
                                       },
-                                      "keyFilePath": {
+                                      "secretKey": {
                                         "type": "string"
                                       }
                                     }
@@ -271,6 +273,7 @@
                               },
                               "sp": {
                                 "type": "object",
+                                "additionalProperties": false,
                                 "properties": {
                                   "entityId": {
                                     "type": "string"
@@ -281,10 +284,10 @@
                                   "spX509Certificate": {
                                     "type": "object",
                                     "properties": {
-                                      "certFilePath": {
+                                      "secretRef": {
                                         "type": "string"
                                       },
-                                      "keyFilePath": {
+                                      "secretKey": {
                                         "type": "string"
                                       }
                                     }
@@ -296,6 +299,7 @@
                               },
                               "security": {
                                 "type": "object",
+                                "additionalProperties": false,
                                 "properties": {
                                   "strictMode": {
                                     "type": "boolean"
@@ -328,10 +332,20 @@
                                     "type": "string"
                                   },
                                   "keyStoreAlias": {
-                                    "type": "string"
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                      "secretRef": {
+                                        "type": "string"
+                                      },
+                                      "secretKey": {
+                                        "type": "string"
+                                      }
+                                    }
                                   },
                                   "keyStorePassword": {
                                     "type": "object",
+                                    "additionalProperties": false,
                                     "properties": {
                                       "secretRef": {
                                         "type": "string"
