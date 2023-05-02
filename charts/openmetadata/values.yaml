@@ -76,7 +76,7 @@ global:
     enforcePrincipalDomain: false
     enableSecureSocketConnection: false
   authentication:
-    provider: "saml"
+    provider: "basic"
     publicKeys:
     - "http://openmetadata:8585/api/v1/system/config/jwks"
     authority: "https://accounts.google.com"
