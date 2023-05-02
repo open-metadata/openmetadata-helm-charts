@@ -186,6 +186,68 @@ spec:
           {{- end }}
           {{- end }}
 
+          {{- if eq .Values.global.authentication.provider "saml" }}
+          - name: SAML_DEBUG_MODE
+            value: "{{ .Values.global.authentication.samlConfiguration.debugMode }}"
+          - name: SAML_IDP_ENTITY_ID
+            value: "{{ .Values.global.authentication.samlConfiguration.idp.entityId }}"
+          - name: SAML_IDP_SSO_LOGIN_URL          
+            value: "{{ .Values.global.authentication.samlConfiguration.idp.ssoLoginUrl }}"
+          {{- with .Values.global.authentication.samlConfiguration.idp.idpX509Certificate }}
+          - name: SAML_IDP_CERTIFICATE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          - name: SAML_AUTHORITY_URL
+            value: "{{ .Values.global.authentication.samlConfiguration.idp.authorityUrl }}"
+          - name: SAML_IDP_NAME_ID
+            value: "{{ .Values.global.authentication.samlConfiguration.idp.nameId }}"
+          - name: SAML_SP_ENTITY_ID
+            value: "{{ .Values.global.authentication.samlConfiguration.sp.entityId }}"
+          - name: SAML_SP_ACS
+            value: "{{ .Values.global.authentication.samlConfiguration.sp.acs }}"
+          {{- with .Values.global.authentication.samlConfiguration.sp.spX509Certificate }}
+          - name: SAML_SP_CERTIFICATE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}            
+          - name: SAML_SP_CALLBACK
+            value: "{{ .Values.global.authentication.samlConfiguration.sp.callback }}"
+          - name: SAML_STRICT_MODE
+            value: "{{ .Values.global.authentication.samlConfiguration.security.strictMode }}"
+          - name: SAML_SP_TOKEN_VALIDITY
+            value: "{{ .Values.global.authentication.samlConfiguration.security.tokenValidity }}"
+          - name: SAML_SEND_ENCRYPTED_NAME_ID
+            value: "{{ .Values.global.authentication.samlConfiguration.security.sendEncryptedNameId }}"
+          - name: SAML_SEND_SIGNED_AUTH_REQUEST
+            value: "{{ .Values.global.authentication.samlConfiguration.security.sendSignedAuthRequest }}"
+          - name: SAML_SIGNED_SP_METADATA
+            value: "{{ .Values.global.authentication.samlConfiguration.security.signSpMetadata }}"
+          - name: SAML_WANT_MESSAGE_SIGNED
+            value: "{{ .Values.global.authentication.samlConfiguration.security.wantMessagesSigned }}"
+          - name: SAML_WANT_ASSERTION_SIGNED
+            value: "{{ .Values.global.authentication.samlConfiguration.security.wantAssertionsSigned }}"
+          - name: SAML_WANT_ASSERTION_ENCRYPTED
+            value: "{{ .Values.global.authentication.samlConfiguration.security.wantAssertionEncrypted }}"
+          - name: SAML_WANT_NAME_ID_ENCRYPTED
+            value: "{{ .Values.global.authentication.samlConfiguration.security.wantNameIdEncrypted }}"
+          - name: SAML_KEYSTORE_FILE_PATH
+            value: "{{ .Values.global.authentication.samlConfiguration.security.keyStoreFilePath }}"
+          - name: SAML_KEYSTORE_ALIAS
+            value: "{{ .Values.global.authentication.samlConfiguration.security.keyStoreAlias }}"
+          {{- with .Values.global.authentication.samlConfiguration.security.keyStorePassword }}
+          - name: SAML_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          {{- end }}
+
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.global.elasticsearch.host }}"
           - name: ELASTICSEARCH_PORT

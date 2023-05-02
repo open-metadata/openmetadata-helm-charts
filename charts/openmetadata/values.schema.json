@@ -108,7 +108,8 @@
                                 "google",
                                 "okta",
                                 "aws-cognito",
-                                "ldap"
+                                "ldap",
+                                "saml"
                             ]
                         },
                         "publicKeys": {
@@ -232,6 +233,116 @@
                                         }
                                     }
                                 }
+                            }
+                        },
+                        "samlConfiguration": {
+                            "type": "object",
+                            "properties": {
+                              "debugMode": {
+                                "type": "boolean"
+                              },
+                              "idp": {
+                                "type": "object",
+                                "properties": {
+                                  "entityId": {
+                                    "type": "string"
+                                  },
+                                  "ssoLoginUrl": {
+                                    "type": "string"
+                                  },
+                                  "idpX509Certificate": {
+                                    "type": "object",
+                                    "properties": {
+                                      "certFilePath": {
+                                        "type": "string"
+                                      },
+                                      "keyFilePath": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  "authorityUrl": {
+                                    "type": "string"
+                                  },
+                                  "nameId": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "sp": {
+                                "type": "object",
+                                "properties": {
+                                  "entityId": {
+                                    "type": "string"
+                                  },
+                                  "acs": {
+                                    "type": "string"
+                                  },
+                                  "spX509Certificate": {
+                                    "type": "object",
+                                    "properties": {
+                                      "certFilePath": {
+                                        "type": "string"
+                                      },
+                                      "keyFilePath": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  },                                  
+                                  "callback": {
+                                    "type": "string"
+                                  }
+                                }
+                              },
+                              "security": {
+                                "type": "object",
+                                "properties": {
+                                  "strictMode": {
+                                    "type": "boolean"
+                                  },
+                                  "tokenValidity": {
+                                    "type": "integer"
+                                  },
+                                  "sendEncryptedNameId": {
+                                    "type": "boolean"
+                                  },
+                                  "sendSignedAuthRequest": {
+                                    "type": "boolean"
+                                  },
+                                  "signSpMetadata": {
+                                    "type": "boolean"
+                                  },
+                                  "wantMessagesSigned": {
+                                    "type": "boolean"
+                                  },
+                                  "wantAssertionsSigned": {
+                                    "type": "boolean"
+                                  },
+                                  "wantAssertionEncrypted": {
+                                    "type": "boolean"
+                                  },
+                                  "wantNameIdEncrypted": {
+                                    "type": "boolean"
+                                  },
+                                  "keyStoreFilePath": {
+                                    "type": "string"
+                                  },
+                                  "keyStoreAlias": {
+                                    "type": "string"
+                                  },
+                                  "keyStorePassword": {
+                                    "type": "object",
+                                    "properties": {
+                                      "secretRef": {
+                                        "type": "string"
+                                      },
+                                      "secretKey": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                }
+                              }
                             }
                         }
                     }

@@ -76,7 +76,7 @@ global:
     enforcePrincipalDomain: false
     enableSecureSocketConnection: false
   authentication:
-    provider: "basic"
+    provider: "saml"
     publicKeys:
     - "http://openmetadata:8585/api/v1/system/config/jwks"
     authority: "https://accounts.google.com"
@@ -116,6 +116,38 @@ global:
           verifyHostname: true
         trustAllConfig:
           examineValidityDates: true
+    samlConfiguration:
+      debugMode: false
+      idp:
+        entityId: ""
+        ssoLoginUrl: ""
+        idpX509Certificate:
+          secretRef: ""
+          secretKey: ""
+        authorityUrl: "http://localhost:8585/api/v1/saml/login"
+        nameId: "urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
+      sp:
+        entityId: "http://localhost:8585/api/v1/saml/metadata"
+        acs: "http://localhost:8585/api/v1/saml/acs"
+        spX509Certificate: 
+          secretRef: ""
+          secretKey: ""
+        callback: "http://localhost:8585/saml/callback"
+      security:
+        strictMode: false
+        tokenValidity: 3600
+        sendEncryptedNameId: false
+        sendSignedAuthRequest: false
+        signSpMetadata: false
+        wantMessagesSigned: false
+        wantAssertionsSigned: false
+        wantAssertionEncrypted: false
+        wantNameIdEncrypted: false
+        keyStoreFilePath: ""
+        keyStoreAlias: ""
+        keyStorePassword:
+          secretRef: ""
+          secretKey: ""
 
   basicLogin:
     maxLoginFailAttempts: 3

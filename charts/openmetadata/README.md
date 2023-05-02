@@ -68,6 +68,31 @@ This is achieved by Helm Hooks currently.
 | global.authentication.ldapConfiguration.trustStoreConfig.hostNameConfig.acceptableHostNames | string | `[Empty String]` | AUTHENTICATION_LDAP_ALLOWED_HOSTNAMES |
 | global.authentication.ldapConfiguration.trustStoreConfig.jvmDefaultConfig.verifyHostname | string | `Empty String` | AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST |
 | global.authentication.ldapConfiguration.trustStoreConfig.trustAllConfig.examineValidityDates | bool | `true` | AUTHENTICATION_LDAP_EXAMINE_VALIDITY_DATES |
+| global.authentication.samlConfiguration.debugMode | bool | false | SAML_DEBUG_MODE |
+| global.authentication.samlConfiguration.idp.entityId | string | `Empty` | SAML_IDP_ENTITY_ID |
+| global.authentication.samlConfiguration.idp.ssoLoginUrl |  string | `Empty` | SAML_IDP_SSO_LOGIN_URL |
+| global.authentication.samlConfiguration.idp.idpX509Certificate.certFilePath | string | `Empty` | SAML_IDP_CERTIFICATE |
+| global.authentication.samlConfiguration.idp.idpX509Certificate.keyFilePath |  string | `Empty` | SAML_IDP_CERTIFICATE | 
+| global.authentication.samlConfiguration.idp.authorityUrl | string | `http://localhost:8585/api/v1/saml/login` | SAML_AUTHORITY_URL |
+| global.authentication.samlConfiguration.idp.nameId | string | `urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress` | SAML_IDP_NAME_ID |
+| global.authentication.samlConfiguration.sp.entityId | string | `http://localhost:8585/api/v1/saml/metadata` | SAML_SP_ENTITY_ID |
+| global.authentication.samlConfiguration.sp.acs | string | `http://localhost:8585/api/v1/saml/acs` | SAML_SP_ACS |
+| global.authentication.samlConfiguration.sp.spX509Certificate.certFilePath | string | `Empty`  | SAML_SP_CERTIFICATE |
+| global.authentication.samlConfiguration.sp.spX509Certificate.keyFilePath | string | `Empty`  | SAML_SP_CERTIFICATE |
+| global.authentication.samlConfiguration.sp.callback | string | `http://localhost:8585/saml/callback` | SAML_SP_CALLBACK |
+| global.authentication.samlConfiguration.security.strictMode |  bool | false | SAML_STRICT_MODE |
+| global.authentication.samlConfiguration.security.tokenValidity | int | 3600 | SAML_SP_TOKEN_VALIDITY |
+| global.authentication.samlConfiguration.security.sendEncryptedNameId | bool | false | SAML_SEND_ENCRYPTED_NAME_ID |
+| global.authentication.samlConfiguration.security.sendSignedAuthRequest | bool | false | SAML_SEND_SIGNED_AUTH_REQUEST |
+| global.authentication.samlConfiguration.security.signSpMetadata | bool  | false | SAML_SIGNED_SP_METADATA |
+| global.authentication.samlConfiguration.security.wantMessagesSigned | bool  | false | SAML_WANT_MESSAGE_SIGNED |
+| global.authentication.samlConfiguration.security.wantAssertionsSigned | bool  | false | SAML_WANT_ASSERTION_SIGNED |
+| global.authentication.samlConfiguration.security.wantAssertionEncrypted | bool  | false | SAML_WANT_ASSERTION_ENCRYPTED |
+| global.authentication.samlConfiguration.security.wantNameIdEncrypted | bool  | false | SAML_WANT_NAME_ID_ENCRYPTED |
+| global.authentication.samlConfiguration.security.keyStoreFilePath |  string | `Empty` | SAML_KEYSTORE_FILE_PATH |
+| global.authentication.samlConfiguration.security.keyStoreAlias | string  | `Empty` | SAML_KEYSTORE_ALIAS |
+| global.authentication.samlConfiguration.security.keyStorePassword.secretRef | string  | `Empty` | SAML_KEYSTORE_PASSWORD |
+| global.authentication.samlConfiguration.security.keyStorePasswordsecretKey | string  | `Empty` | SAML_KEYSTORE_PASSWORD |
 | global.authorizer.allowedEmailRegistrationDomains | list | `[all]` | AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN |
 | global.authorizer.className | string | `org.openmetadata.service.security.DefaultAuthorizer` | AUTHORIZER_CLASS_NAME |
 | global.authorizer.containerRequestFilter | string | `org.openmetadata.service.security.JwtFilter` | AUTHORIZER_REQUEST_FILTER |
