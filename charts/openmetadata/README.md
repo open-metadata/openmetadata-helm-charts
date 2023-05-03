@@ -93,7 +93,8 @@ This is achieved by Helm Hooks currently.
 | global.authentication.saml.security.keyStoreAlias.secretRef | string  | `Empty` | SAML_KEYSTORE_ALIAS |
 | global.authentication.saml.security.keyStoreAlias.secretKey | string  | `Empty` | SAML_KEYSTORE_ALIAS |
 | global.authentication.saml.security.keyStorePassword.secretRef | string  | `Empty` | SAML_KEYSTORE_PASSWORD |
-| global.authentication.saml.security.keyStorePassword.secretKey | string  | `Empty` | SAML_KEYSTORE_PASSWORD || global.authorizer.allowedEmailRegistrationDomains | list | `[all]` | AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN |
+| global.authentication.saml.security.keyStorePassword.secretKey | string  | `Empty` | SAML_KEYSTORE_PASSWORD |
+| global.authorizer.allowedEmailRegistrationDomains | list | `[all]` | AUTHORIZER_ALLOWED_REGISTRATION_DOMAIN |
 | global.authorizer.className | string | `org.openmetadata.service.security.DefaultAuthorizer` | AUTHORIZER_CLASS_NAME |
 | global.authorizer.containerRequestFilter | string | `org.openmetadata.service.security.JwtFilter` | AUTHORIZER_REQUEST_FILTER |
 | global.authorizer.enforcePrincipalDomain | bool | `false` | AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN |
