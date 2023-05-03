@@ -152,6 +152,72 @@ spec:
           {{- end }}
           {{- end }}
 
+          {{- if eq .Values.global.authentication.provider "saml" }}
+          - name: SAML_DEBUG_MODE
+            value: "{{ .Values.global.authentication.saml.debugMode }}"
+          - name: SAML_IDP_ENTITY_ID
+            value: "{{ .Values.global.authentication.saml.idp.entityId }}"
+          - name: SAML_IDP_SSO_LOGIN_URL          
+            value: "{{ .Values.global.authentication.saml.idp.ssoLoginUrl }}"
+          {{- with .Values.global.authentication.saml.idp.idpX509Certificate }}
+          - name: SAML_IDP_CERTIFICATE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          - name: SAML_AUTHORITY_URL
+            value: "{{ .Values.global.authentication.saml.idp.authorityUrl }}"
+          - name: SAML_IDP_NAME_ID
+            value: "{{ .Values.global.authentication.saml.idp.nameId }}"
+          - name: SAML_SP_ENTITY_ID
+            value: "{{ .Values.global.authentication.saml.sp.entityId }}"
+          - name: SAML_SP_ACS
+            value: "{{ .Values.global.authentication.saml.sp.acs }}"
+          {{- with .Values.global.authentication.saml.sp.spX509Certificate }}
+          - name: SAML_SP_CERTIFICATE
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}            
+          - name: SAML_SP_CALLBACK
+            value: "{{ .Values.global.authentication.saml.sp.callback }}"
+          - name: SAML_STRICT_MODE
+            value: "{{ .Values.global.authentication.saml.security.strictMode }}"
+          - name: SAML_SP_TOKEN_VALIDITY
+            value: "{{ .Values.global.authentication.saml.security.tokenValidity }}"
+          - name: SAML_SEND_ENCRYPTED_NAME_ID
+            value: "{{ .Values.global.authentication.saml.security.sendEncryptedNameId }}"
+          - name: SAML_SEND_SIGNED_AUTH_REQUEST
+            value: "{{ .Values.global.authentication.saml.security.sendSignedAuthRequest }}"
+          - name: SAML_SIGNED_SP_METADATA
+            value: "{{ .Values.global.authentication.saml.security.signSpMetadata }}"
+          - name: SAML_WANT_MESSAGE_SIGNED
+            value: "{{ .Values.global.authentication.saml.security.wantMessagesSigned }}"
+          - name: SAML_WANT_ASSERTION_SIGNED
+            value: "{{ .Values.global.authentication.saml.security.wantAssertionsSigned }}"
+          - name: SAML_WANT_ASSERTION_ENCRYPTED
+            value: "{{ .Values.global.authentication.saml.security.wantAssertionEncrypted }}"
+          - name: SAML_WANT_NAME_ID_ENCRYPTED
+            value: "{{ .Values.global.authentication.saml.security.wantNameIdEncrypted }}"
+          - name: SAML_KEYSTORE_FILE_PATH
+            value: "{{ .Values.global.authentication.saml.security.keyStoreFilePath }}"
+          {{- with .Values.global.authentication.saml.security.keyStoreAlias }}
+          - name: SAML_KEYSTORE_ALIAS
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}            
+          {{- with .Values.global.authentication.saml.security.keyStorePassword }}
+          - name: SAML_KEYSTORE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .secretRef }}
+                key: {{ .secretKey }}
+          {{- end }}
+          {{- end }}
 
           {{- if .Values.global.fernetkey.secretRef }}
           - name: FERNET_KEY
