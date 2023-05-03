@@ -117,6 +117,40 @@ global:
           verifyHostname: true
         trustAllConfig:
           examineValidityDates: true
+    saml:
+      debugMode: false
+      idp:
+        entityId: ""
+        ssoLoginUrl: ""
+        idpX509Certificate:
+          secretRef: ""
+          secretKey: ""
+        authorityUrl: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/login"
+        nameId: "urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
+      sp:
+        entityId: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/metadata"
+        acs: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/acs"
+        spX509Certificate: 
+          secretRef: ""
+          secretKey: ""
+        callback: "http://openmetadata.default.svc.cluster.local:8585/saml/callback"
+      security:
+        strictMode: false
+        tokenValidity: 3600
+        sendEncryptedNameId: false
+        sendSignedAuthRequest: false
+        signSpMetadata: false
+        wantMessagesSigned: false
+        wantAssertionsSigned: false
+        wantAssertionEncrypted: false
+        wantNameIdEncrypted: false
+        keyStoreFilePath: ""
+        keyStoreAlias:
+          secretRef: ""
+          secretKey: ""          
+        keyStorePassword:
+          secretRef: ""
+          secretKey: ""
 
   basicLogin:
     maxLoginFailAttempts: 3
