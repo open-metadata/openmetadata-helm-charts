@@ -73,13 +73,13 @@ This is achieved by Helm Hooks currently.
 | global.authentication.saml.idp.ssoLoginUrl |  string | `Empty` | SAML_IDP_SSO_LOGIN_URL |
 | global.authentication.saml.idp.idpX509Certificate.secretRef | string | `Empty` | SAML_IDP_CERTIFICATE |
 | global.authentication.saml.idp.idpX509Certificate.secretKey |  string | `Empty` | SAML_IDP_CERTIFICATE | 
-| global.authentication.saml.idp.authorityUrl | string | `http://localhost:8585/api/v1/saml/login` | SAML_AUTHORITY_URL |
+| global.authentication.saml.idp.authorityUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/login` | SAML_AUTHORITY_URL |
 | global.authentication.saml.idp.nameId | string | `urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress` | SAML_IDP_NAME_ID |
-| global.authentication.saml.sp.entityId | string | `http://localhost:8585/api/v1/saml/metadata` | SAML_SP_ENTITY_ID |
-| global.authentication.saml.sp.acs | string | `http://localhost:8585/api/v1/saml/acs` | SAML_SP_ACS |
+| global.authentication.saml.sp.entityId | string | `http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/metadata` | SAML_SP_ENTITY_ID |
+| global.authentication.saml.sp.acs | string | `http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/acs` | SAML_SP_ACS |
 | global.authentication.saml.sp.spX509Certificate.secretRef | string | `Empty`  | SAML_SP_CERTIFICATE |
 | global.authentication.saml.sp.spX509Certificate.secretKey | string | `Empty`  | SAML_SP_CERTIFICATE |
-| global.authentication.saml.sp.callback | string | `http://localhost:8585/saml/callback` | SAML_SP_CALLBACK |
+| global.authentication.saml.sp.callback | string | `http://openmetadata.default.svc.cluster.local:8585/saml/callback` | SAML_SP_CALLBACK |
 | global.authentication.saml.security.strictMode |  bool | false | SAML_STRICT_MODE |
 | global.authentication.saml.security.tokenValidity | int | 3600 | SAML_SP_TOKEN_VALIDITY |
 | global.authentication.saml.security.sendEncryptedNameId | bool | false | SAML_SEND_ENCRYPTED_NAME_ID |
@@ -160,7 +160,7 @@ This is achieved by Helm Hooks currently.
 | global.pipelineServiceClientConfig.metadataApiEndpoint | string | `http://openmetadata.default.svc.cluster.local:8585/api` | SERVER_HOST_API_URL |
 | global.pipelineServiceClientConfig.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
 | global.pipelineServiceClientConfig.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL | 
-| global.pipelineServiceClientConfig.hostIp | string | `Empty` | PIPELINE_SERVICE_CLIENT_HOST_IP | 
+| global.pipelineServiceClientConfig.hostIp | string | `Empty` | PIPELINE_SERVICE_CLIENT_HOST_IP |
 | global.secretsManager.provider | string | `noop` | SECRET_MANAGER |
 | global.secretsManager.additionalParameters.enabled | bool | `false` | |
 | global.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` | OM_SM_ACCESS_KEY_ID |
