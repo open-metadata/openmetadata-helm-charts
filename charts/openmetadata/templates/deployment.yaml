@@ -255,6 +255,8 @@ spec:
           {{- end }}
           - name: PIPELINE_SERVICE_CLIENT_VERIFY_SSL
             value: "{{ .Values.global.pipelineServiceClientConfig.verifySsl }}"
+          - name: PIPELINE_SERVICE_CLIENT_HOST_IP
+            value: "{{ .Values.global.pipelineServiceClientConfig.hostIp }}"            
           - name: PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH
             value: "{{ .Values.global.pipelineServiceClientConfig.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL

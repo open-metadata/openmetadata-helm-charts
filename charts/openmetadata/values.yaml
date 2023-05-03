@@ -57,6 +57,7 @@ global:
     metadataApiEndpoint: http://openmetadata.default.svc.cluster.local:8585/api
     # possible values are "no-ssl", "ignore", "validate"
     verifySsl: "no-ssl"
+    hostIp: ""
     ingestionIpInfoEnabled: false
     # local path in Airflow Pod
     sslCertificatePath: "/no/path"
