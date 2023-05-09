@@ -27,14 +27,6 @@ If the default configuration is not applicable, you can update the values listed
 ```
 helm install openmetadata open-metadata/openmetadata --values <<path-to-values-file>>
 ```
-
----
-**NOTE**
-
-Starting from version `0.0.6` openmetadata Helm charts supports automatic repair and migration of Databases. This will ONLY be handle on Helm chart upgrades to latest versions here-forward.
-
-This is achieved by Helm Hooks currently.
-
 ---
 
 ## Global Chart Values
