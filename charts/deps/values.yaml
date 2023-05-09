@@ -74,15 +74,24 @@ airflow:
       firstName: Peter
       lastName: Parker
   web:
+    extraVolumes:
+      - name: pod-template
+        configMap:
+          name: openmetadata-dependencies-pod-template
+          defaultMode: 420
+    extraVolumeMounts:
+      - name: pod-template
+        readOnly: true
+        mountPath: /opt/airflow/pod_templates/pod_template.yaml
     readinessProbe:
       enabled: true
-      initialDelaySeconds: 360
+      initialDelaySeconds: 60
       periodSeconds: 30
       timeoutSeconds: 10
       failureThreshold: 10
     livenessProbe:
       enabled: true
-      initialDelaySeconds: 360
+      initialDelaySeconds: 60
       periodSeconds: 30
       timeoutSeconds: 10
       failureThreshold: 10
