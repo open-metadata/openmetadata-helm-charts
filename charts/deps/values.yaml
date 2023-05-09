@@ -54,7 +54,7 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.0.0
+      tag: 1.0.1
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
@@ -86,13 +86,13 @@ airflow:
         mountPath: /opt/airflow/pod_templates/pod_template.yaml
     readinessProbe:
       enabled: true
-      initialDelaySeconds: 360
+      initialDelaySeconds: 60
       periodSeconds: 30
       timeoutSeconds: 10
       failureThreshold: 10
     livenessProbe:
       enabled: true
-      initialDelaySeconds: 360
+      initialDelaySeconds: 60
       periodSeconds: 30
       timeoutSeconds: 10
       failureThreshold: 10
