@@ -82,7 +82,8 @@ airflow:
     extraVolumeMounts:
       - name: pod-template
         readOnly: true
-        mountPath: /opt/airflow/pod_templates/
+        subPath: pod_template.yaml
+        mountPath: /opt/airflow/pod_templates/pod_template.yaml
     readinessProbe:
       enabled: true
       initialDelaySeconds: 360
