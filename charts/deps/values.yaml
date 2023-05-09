@@ -74,6 +74,15 @@ airflow:
       firstName: Peter
       lastName: Parker
   web:
+    extraVolumes:
+    - name: pod-template
+      configMap:
+        name: openmetadata-pod-template
+        defaultMode: 420
+    extraVolumeMounts:
+      - name: pod-template
+        readOnly: true
+        mountPath: /opt/airflow/pod_templates/
     readinessProbe:
       enabled: true
       initialDelaySeconds: 360
