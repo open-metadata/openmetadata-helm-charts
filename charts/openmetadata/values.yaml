@@ -130,7 +130,7 @@ global:
       sp:
         entityId: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/metadata"
         acs: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/acs"
-        spX509Certificate: 
+        spX509Certificate:
           secretRef: ""
           secretKey: ""
         callback: "http://openmetadata.default.svc.cluster.local:8585/saml/callback"
@@ -147,7 +147,7 @@ global:
         keyStoreFilePath: ""
         keyStoreAlias:
           secretRef: ""
-          secretKey: ""          
+          secretKey: ""
         keyStorePassword:
           secretRef: ""
           secretKey: ""
