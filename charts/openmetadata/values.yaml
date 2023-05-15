@@ -5,211 +5,212 @@ replicaCount: 1
 
 # Overrides the openmetadata config file with the help of Environment Variables
 # Below are defaults as per openmetadata-dependencies Helm Chart Values
-global:
-  # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
-  logLevel: INFO
-  clusterName: openmetadata
-  maskPasswordsApi: false
-  openmetadata:
-    host: openmetadata
-    # URI to use with OpenMetadata Alerts Integrations
-    uri: "http://openmetadata:8585"
-    port: 8585
-    adminPort: 8586
-  elasticsearch:
-    host: elasticsearch
-    port: 9200
-    scheme: http
-    connectionTimeoutSecs: 5
-    socketTimeoutSecs: 60
-    batchSize: 10
-    searchIndexMappingLanguage: "EN"
-    trustStore:
-      enabled: false
-      path: ""
-      password:
-        secretRef: "elasticsearch-truststore-secrets"
-        secretKey: "openmetadata-elasticsearch-truststore-password"
-    auth:
-      enabled: false
-      username: "elasticsearch"
-      password:
-        secretRef: elasticsearch-secrets
-        secretKey: openmetadata-elasticsearch-password
-  database:
-    host: mysql
-    port: 3306
-    driverClass: com.mysql.cj.jdbc.Driver
-    dbScheme: mysql
-    dbUseSSL: false
-    databaseName: openmetadata_db
-    auth:
-      username: openmetadata_user
-      password:
-        secretRef: mysql-secrets
-        secretKey: openmetadata-mysql-password
-  pipelineServiceClientConfig:
-    enabled: true
-    className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-    # endpoint url for airflow
-    apiEndpoint: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
-    # this will be the api endpoint url of OpenMetadata Server
-    metadataApiEndpoint: http://openmetadata.default.svc.cluster.local:8585/api
-    # possible values are "no-ssl", "ignore", "validate"
-    verifySsl: "no-ssl"
-    hostIp: ""
-    ingestionIpInfoEnabled: false
-    # local path in Airflow Pod
-    sslCertificatePath: "/no/path"
-    auth:
-      username: admin
-      password:
-        secretRef: airflow-secrets
-        secretKey: openmetadata-airflow-password
-  authorizer:
-    className: "org.openmetadata.service.security.DefaultAuthorizer"
-    containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
-    initialAdmins:
-    - "admin"
-    allowedEmailRegistrationDomains:
-    - "all"
-    principalDomain: "open-metadata.org"
-    enforcePrincipalDomain: false
-    enableSecureSocketConnection: false
-  authentication:
-    provider: "basic"
-    publicKeys:
-    - "http://openmetadata:8585/api/v1/system/config/jwks"
-    authority: "https://accounts.google.com"
-    clientId: ""
-    callbackUrl: ""
-    jwtPrincipalClaims:
-    - "email"
-    - "preferred_username"
-    - "sub"
-    enableSelfSignup: true
-    ldapConfiguration:
-      host: localhost
-      port: 10636
-      dnAdminPrincipal: "cn=admin,dc=example,dc=com"
-      dnAdminPassword:
-        secretRef: ldap-admin-secret
-        secretKey: openmetadata-ldap-secret
-      userBaseDN: "ou=people,dc=example,dc=com"
-      mailAttributeName: email
-      maxPoolSize: 3
-      sslEnabled: false
-      # Possible values are CustomTrustStore, HostName, JVMDefault, TrustAll
-      truststoreConfigType: TrustAll
-      trustStoreConfig:
-        customTrustManagerConfig:
-          trustStoreFilePath: ""
-          trustStoreFilePassword:
+openmetadata:
+  config:
+    # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
+    logLevel: INFO
+    clusterName: openmetadata
+    maskPasswordsApi: false
+    openmetadata:
+      host: openmetadata
+      # URI to use with OpenMetadata Alerts Integrations
+      uri: "http://openmetadata:8585"
+      port: 8585
+      adminPort: 8586
+    elasticsearch:
+      host: elasticsearch
+      port: 9200
+      scheme: http
+      connectionTimeoutSecs: 5
+      socketTimeoutSecs: 60
+      batchSize: 10
+      searchIndexMappingLanguage: "EN"
+      trustStore:
+        enabled: false
+        path: ""
+        password:
+          secretRef: "elasticsearch-truststore-secrets"
+          secretKey: "openmetadata-elasticsearch-truststore-password"
+      auth:
+        enabled: false
+        username: "elasticsearch"
+        password:
+          secretRef: elasticsearch-secrets
+          secretKey: openmetadata-elasticsearch-password
+    database:
+      host: mysql
+      port: 3306
+      driverClass: com.mysql.cj.jdbc.Driver
+      dbScheme: mysql
+      dbUseSSL: false
+      databaseName: openmetadata_db
+      auth:
+        username: openmetadata_user
+        password:
+          secretRef: mysql-secrets
+          secretKey: openmetadata-mysql-password
+    pipelineServiceClientConfig:
+      enabled: true
+      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+      # endpoint url for airflow
+      apiEndpoint: http://openmetadata-dependencies-web.default.svc.cluster.local:8080
+      # this will be the api endpoint url of OpenMetadata Server
+      metadataApiEndpoint: http://openmetadata.default.svc.cluster.local:8585/api
+      # possible values are "no-ssl", "ignore", "validate"
+      verifySsl: "no-ssl"
+      hostIp: ""
+      ingestionIpInfoEnabled: false
+      # local path in Airflow Pod
+      sslCertificatePath: "/no/path"
+      auth:
+        username: admin
+        password:
+          secretRef: airflow-secrets
+          secretKey: openmetadata-airflow-password
+    authorizer:
+      className: "org.openmetadata.service.security.DefaultAuthorizer"
+      containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
+      initialAdmins:
+      - "admin"
+      allowedEmailRegistrationDomains:
+      - "all"
+      principalDomain: "open-metadata.org"
+      enforcePrincipalDomain: false
+      enableSecureSocketConnection: false
+    authentication:
+      provider: "basic"
+      publicKeys:
+      - "http://openmetadata:8585/api/v1/system/config/jwks"
+      authority: "https://accounts.google.com"
+      clientId: ""
+      callbackUrl: ""
+      jwtPrincipalClaims:
+      - "email"
+      - "preferred_username"
+      - "sub"
+      enableSelfSignup: true
+      ldapConfiguration:
+        host: localhost
+        port: 10636
+        dnAdminPrincipal: "cn=admin,dc=example,dc=com"
+        dnAdminPassword:
+          secretRef: ldap-admin-secret
+          secretKey: openmetadata-ldap-secret
+        userBaseDN: "ou=people,dc=example,dc=com"
+        mailAttributeName: email
+        maxPoolSize: 3
+        sslEnabled: false
+        # Possible values are CustomTrustStore, HostName, JVMDefault, TrustAll
+        truststoreConfigType: TrustAll
+        trustStoreConfig:
+          customTrustManagerConfig:
+            trustStoreFilePath: ""
+            trustStoreFilePassword:
+              secretRef: ""
+              secretKey: ""
+            trustStoreFileFormat: ""
+            verifyHostname: true
+            examineValidityDates: true
+          hostNameConfig:
+            allowWildCards: false
+            acceptableHostNames: []
+          jvmDefaultConfig:
+            verifyHostname: true
+          trustAllConfig:
+            examineValidityDates: true
+      saml:
+        debugMode: false
+        idp:
+          entityId: ""
+          ssoLoginUrl: ""
+          idpX509Certificate:
             secretRef: ""
             secretKey: ""
-          trustStoreFileFormat: ""
-          verifyHostname: true
-          examineValidityDates: true
-        hostNameConfig:
-          allowWildCards: false
-          acceptableHostNames: []
-        jvmDefaultConfig:
-          verifyHostname: true
-        trustAllConfig:
-          examineValidityDates: true
-    saml:
-      debugMode: false
-      idp:
-        entityId: ""
-        ssoLoginUrl: ""
-        idpX509Certificate:
-          secretRef: ""
-          secretKey: ""
-        authorityUrl: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/login"
-        nameId: "urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
-      sp:
-        entityId: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/metadata"
-        acs: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/acs"
-        spX509Certificate:
-          secretRef: ""
-          secretKey: ""
-        callback: "http://openmetadata.default.svc.cluster.local:8585/saml/callback"
-      security:
-        strictMode: false
-        tokenValidity: 3600
-        sendEncryptedNameId: false
-        sendSignedAuthRequest: false
-        signSpMetadata: false
-        wantMessagesSigned: false
-        wantAssertionsSigned: false
-        wantAssertionEncrypted: false
-        wantNameIdEncrypted: false
-        keyStoreFilePath: ""
-        keyStoreAlias:
-          secretRef: ""
-          secretKey: ""
-        keyStorePassword:
-          secretRef: ""
-          secretKey: ""
-
-  basicLogin:
-    maxLoginFailAttempts: 3
-    # in seconds
-    accessBlockTime: 600
-  jwtTokenConfiguration:
-    enabled: true
-    # File Path on Airflow Container
-    rsapublicKeyFilePath: "./conf/public_key.der"
-    # File Path on Airflow Container
-    rsaprivateKeyFilePath: "./conf/private_key.der"
-    jwtissuer: "open-metadata.org"
-    keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
-  fernetkey:
-    value: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
-    secretRef: ""
-    secretKey: ""
-  eventMonitor:
-    # Possible values are prometheus and cloudwatch
-    type: prometheus
-    batchSize: 10
-    pathPattern:
-    - "/api/v1/tables/*"
-    - "/api/v1/health-check"
-    # For value p99=0.99, p90=0.90, p50=0.50 etc.
-    latency: []
-    # - "p99=0.99"
-    # - "p90=0.90"
-    # - "p50=0.50"
-  smtpConfig:
-    enableSmtpServer: false
-    emailingEntity: "OpenMetadata"
-    supportUrl: "https://slack.open-metadata.org"
-    transportationStrategy: "SMTP_TLS"
-    openMetadataUrl: ""
-    serverEndpoint: ""
-    serverPort: ""
-    senderMail: ""
-    username: ""
-    password:
+          authorityUrl: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/login"
+          nameId: "urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
+        sp:
+          entityId: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/metadata"
+          acs: "http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/acs"
+          spX509Certificate:
+            secretRef: ""
+            secretKey: ""
+          callback: "http://openmetadata.default.svc.cluster.local:8585/saml/callback"
+        security:
+          strictMode: false
+          tokenValidity: 3600
+          sendEncryptedNameId: false
+          sendSignedAuthRequest: false
+          signSpMetadata: false
+          wantMessagesSigned: false
+          wantAssertionsSigned: false
+          wantAssertionEncrypted: false
+          wantNameIdEncrypted: false
+          keyStoreFilePath: ""
+          keyStoreAlias:
+            secretRef: ""
+            secretKey: ""
+          keyStorePassword:
+            secretRef: ""
+            secretKey: ""
+  
+    basicLogin:
+      maxLoginFailAttempts: 3
+      # in seconds
+      accessBlockTime: 600
+    jwtTokenConfiguration:
+      enabled: true
+      # File Path on Airflow Container
+      rsapublicKeyFilePath: "./conf/public_key.der"
+      # File Path on Airflow Container
+      rsaprivateKeyFilePath: "./conf/private_key.der"
+      jwtissuer: "open-metadata.org"
+      keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
+    fernetkey:
+      value: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
       secretRef: ""
       secretKey: ""
-  secretsManager:
-    # Possible values are noop, aws, aws-ssm
-    provider: noop
-    additionalParameters:
-      enabled: false
-      region: ""
-      accessKeyId:
-        secretRef: aws-access-key-secret
-        secretKey: aws-key-secret
-      secretAccessKey:
-        secretRef: aws-secret-access-key-secret
-        secretKey: aws-key-secret
-    # You can create Kubernetes secrets from AWS Credentials with the below command
-    # kubectl create secret generic aws-key-secret \
-    # --from-literal=aws-access-key-secret=<access_key_id_value> \
-    # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
-
+    eventMonitor:
+      # Possible values are prometheus and cloudwatch
+      type: prometheus
+      batchSize: 10
+      pathPattern:
+      - "/api/v1/tables/*"
+      - "/api/v1/health-check"
+      # For value p99=0.99, p90=0.90, p50=0.50 etc.
+      latency: []
+      # - "p99=0.99"
+      # - "p90=0.90"
+      # - "p50=0.50"
+    smtpConfig:
+      enableSmtpServer: false
+      emailingEntity: "OpenMetadata"
+      supportUrl: "https://slack.open-metadata.org"
+      transportationStrategy: "SMTP_TLS"
+      openMetadataUrl: ""
+      serverEndpoint: ""
+      serverPort: ""
+      senderMail: ""
+      username: ""
+      password:
+        secretRef: ""
+        secretKey: ""
+    secretsManager:
+      # Possible values are noop, aws, aws-ssm
+      provider: noop
+      additionalParameters:
+        enabled: false
+        region: ""
+        accessKeyId:
+          secretRef: aws-access-key-secret
+          secretKey: aws-key-secret
+        secretAccessKey:
+          secretRef: aws-secret-access-key-secret
+          secretKey: aws-key-secret
+      # You can create Kubernetes secrets from AWS Credentials with the below command
+      # kubectl create secret generic aws-key-secret \
+      # --from-literal=aws-access-key-secret=<access_key_id_value> \
+      # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
+  
 networkPolicy:
   # If networkPolicy is true, following values can be set
   # for ingress on port 8585 and 8586
