@@ -1,8 +1,11 @@
 {
     "$schema": "http://json-schema.org/schema#",
     "type": "object",
-    "additionalProperties": false,
     "properties": {
+        "messages": {
+            "type": "object",
+            "errorMessage": "Global keyword has been replaced by openmetadata.config"
+          },
         "affinity": {
             "type": "object"
         },
@@ -28,6 +31,10 @@
                     "config": {
                     "type": "object",
                     "additionalProperties": false,
+                    "messages": {
+                        "type": "object",
+                        "errorMessage": "Global keyword has been replaced by openmetadata.config"
+                      },
                     "properties": {
                         "pipelineServiceClientConfig": {
                             "type": "object",
