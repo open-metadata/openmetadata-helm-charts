@@ -3,5 +3,5 @@
 {{- end }}
 
 {{- if .Values.global.openmetadata }}
-{{- include "error-message" "Global key has been replaced by openmetadata.config" }}
+{{- include "error-message" "Global key has been replaced by openmetadata.config. Please refer docs for the further explaination." }}
 {{- end }}
