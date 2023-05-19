@@ -131,7 +131,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | global.eventMonitor.latency | list | `[]` | EVENT_MONITOR_LATENCY |
 | global.fernetkey.value | string | `jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA=` | FERNET_KEY |
 | global.fernetkey.secretRef | string | `` | FERNET_KEY |
-| global.fernetkey.secretKef | string | `` | FERNET_KEY |
+| global.fernetkey.secretKey | string | `` | FERNET_KEY |
 | global.jwtTokenConfiguration.enabled | bool | `true` | |
 | global.jwtTokenConfiguration.rsapublicKeyFilePath | string | `./conf/public_key.der` | RSA_PUBLIC_KEY_FILE_PATH |
 | global.jwtTokenConfiguration.rsaprivateKeyFilePath | string | `./conf/private_key.der` | RSA_PRIVATE_KEY_FILE_PATH |
