@@ -8,8 +8,12 @@ metadata:
     "helm.sh/hook": test
     "helm.sh/hook-delete-policy": hook-succeeded
 spec:
+  securityContext:
+    {{- toYaml .Values.podSecurityContext | nindent 4 }}
   containers:
     - name: wget
+      securityContext:
+        {{- toYaml .Values.securityContext | nindent 8 }}
       image: busybox
       command: ['wget']
       args: ['{{ include "OpenMetadata.fullname" . }}:{{ .Values.service.port }}']
