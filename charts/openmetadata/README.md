@@ -33,6 +33,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 
 | Key | Type | Default | Conf/Openmetadata.yaml | 
 |-----|------|---------| ---------------------- |
+
 | openmetadata.config.authentication.provider | string | `basic` | AUTHENTICATION_PROVIDER |
 | openmetadata.config.authentication.publicKeys | list | `[http://openmetadata:8585/api/v1/system/config/jwks]` | AUTHENTICATION_PUBLIC_KEYS |
 | openmetadata.config.authentication.authority | string | `https://accounts.google.com` | AUTHENTICATION_AUTHORITY |
