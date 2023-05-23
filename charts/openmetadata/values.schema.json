@@ -23,7 +23,7 @@
         },
         "global": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "pipelineServiceClientConfig": {
                     "type": "object",
@@ -247,7 +247,7 @@
                               },
                               "idp": {
                                 "type": "object",
-                                "additionalProperties": false,                                
+                                "additionalProperties": false,
                                 "properties": {
                                   "entityId": {
                                     "type": "string"
@@ -295,7 +295,7 @@
                                         "type": "string"
                                       }
                                     }
-                                  },                                  
+                                  },
                                   "callback": {
                                     "type": "string"
                                   }
