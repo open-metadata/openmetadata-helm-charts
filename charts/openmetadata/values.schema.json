@@ -501,6 +501,9 @@
                         "host": {
                             "type": "string"
                         },
+                        "keepAliveTimeoutSecs": {
+                            "type": "integer"
+                        },
                         "port": {
                             "type": "integer"
                         },

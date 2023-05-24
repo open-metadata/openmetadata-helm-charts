@@ -22,6 +22,7 @@ global:
     scheme: http
     connectionTimeoutSecs: 5
     socketTimeoutSecs: 60
+    keepAliveTimeoutSecs: 600
     batchSize: 10
     searchIndexMappingLanguage: "EN"
     trustStore:
