@@ -235,6 +235,8 @@ spec:
             value: "{{ .Values.global.authentication.saml.security.wantAssertionEncrypted }}"
           - name: SAML_WANT_NAME_ID_ENCRYPTED
             value: "{{ .Values.global.authentication.saml.security.wantNameIdEncrypted }}"
+          {{- if or .Values.global.authentication.saml.security.wantAssertionEncrypted .Values.global.authentication.saml.security.wantNameIdEncrypted }}
+          # Key Store should only be considered if either wantAssertionEncrypted or wantNameIdEncrypted will be true
           - name: SAML_KEYSTORE_FILE_PATH
             value: "{{ .Values.global.authentication.saml.security.keyStoreFilePath }}"
           {{- with .Values.global.authentication.saml.security.keyStoreAlias }}
@@ -252,7 +254,7 @@ spec:
                 key: {{ .secretKey }}
           {{- end }}
           {{- end }}
-
+          {{- end }}
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.global.elasticsearch.host }}"
           - name: ELASTICSEARCH_PORT
