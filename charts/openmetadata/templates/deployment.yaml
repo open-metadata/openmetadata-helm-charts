@@ -327,7 +327,9 @@ spec:
           - name: PIPELINE_SERVICE_CLIENT_VERIFY_SSL
             value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.verifySsl }}"
           - name: PIPELINE_SERVICE_CLIENT_HOST_IP
-            value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.hostIp }}"            
+            value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.hostIp }}"
+          - name: PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL
+            value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.healthCheckInterval }}"      
           - name: PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH
             value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL

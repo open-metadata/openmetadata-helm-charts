@@ -61,6 +61,8 @@ openmetadata:
       verifySsl: "no-ssl"
       hostIp: ""
       ingestionIpInfoEnabled: false
+      # healthCheckInterval in seconds
+      healthCheckInterval: 300
       # local path in Airflow Pod
       sslCertificatePath: "/no/path"
       auth:

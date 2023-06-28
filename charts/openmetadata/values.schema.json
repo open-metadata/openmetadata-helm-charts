@@ -73,6 +73,9 @@
                                 "ingestionIpInfoEnabled": {
                                     "type": "boolean"
                                 },
+                                "healthCheckInterval": {
+                                    "type": "integer"
+                                },
                                 "metadataApiEndpoint": {
                                     "type": "string"
                                 },
