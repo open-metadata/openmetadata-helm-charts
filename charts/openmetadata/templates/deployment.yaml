@@ -235,7 +235,7 @@ spec:
             value: "{{ .Values.openmetadata.config.authentication.saml.security.wantAssertionEncrypted }}"
           - name: SAML_WANT_NAME_ID_ENCRYPTED
             value: "{{ .Values.openmetadata.config.authentication.saml.security.wantNameIdEncrypted }}"
-          {{- if or .Values.global.authentication.saml.security.wantAssertionEncrypted .Values.global.authentication.saml.security.wantNameIdEncrypted }}
+          {{- if or .Values.openmetadata.config.authentication.saml.security.wantAssertionEncrypted .Values.openmetadata.config.authentication.saml.security.wantNameIdEncrypted }}
           # Key Store should only be considered if either wantAssertionEncrypted or wantNameIdEncrypted will be true
           - name: SAML_KEYSTORE_FILE_PATH
             value: "{{ .Values.openmetadata.config.authentication.saml.security.keyStoreFilePath }}"
