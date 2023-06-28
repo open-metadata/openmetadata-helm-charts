@@ -675,7 +675,11 @@
                                     "enum": [
                                         "noop",
                                         "aws",
-                                        "aws-ssm"
+                                        "aws-ssm",
+                                        "managed-aws",
+                                        "managed-aws-ssm", 
+                                        "in-memory"
+                                        
                                     ]
                                 }
                             }
