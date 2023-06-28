@@ -4,9 +4,9 @@ dependencies:
   version: 8.8.23
 - name: elasticsearch
   repository: https://helm.elastic.co
-  version: 7.10.2
+  version: 7.16.1
 - name: airflow
   repository: https://airflow-helm.github.io/charts
   version: 8.6.1
-digest: sha256:69ca7632aa4e00b14d164572d6e1a97b89069bf6e78d8961e7d58aa3c0c4c790
-generated: "2023-01-05T19:14:37.793166+05:30"
+digest: sha256:16071d1a31db33ee5f88bdf570d1da830c5eb3511956deba5323767c0e2a9514
+generated: "2023-06-28T19:40:12.402595+05:30"
