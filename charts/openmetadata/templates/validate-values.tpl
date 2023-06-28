@@ -2,6 +2,6 @@
   {{ required "The authentication provider must be basic, azure, auth0, custom-oidc, google, okta, aws-cognito, ldap, saml" nil }}
 {{- end }}
 
-{{- if .Values.global.openmetadata }}
+{{- if not .Values.openmetadata.config.openmetadata }}
 {{- include "error-message" "Global key has been replaced by openmetadata.config. Please refer docs for the further explaination." }}
 {{- end }}
