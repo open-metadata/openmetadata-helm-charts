@@ -257,6 +257,8 @@ spec:
           {{- end }}
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.openmetadata.config.elasticsearch.host }}"
+          - name: SEARCH_TYPE
+            value: "{{ .Values.openmetadata.config.elasticsearch.searchType }}"
           - name: ELASTICSEARCH_PORT
             value: "{{ .Values.openmetadata.config.elasticsearch.port }}"
           - name: ELASTICSEARCH_SCHEME
