@@ -263,6 +263,8 @@ spec:
             value: "{{ .Values.openmetadata.config.elasticsearch.scheme }}"
           - name: ELASTICSEARCH_INDEX_MAPPING_LANG
             value: "{{ .Values.openmetadata.config.elasticsearch.searchIndexMappingLanguage }}"
+          - name: ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS
+            value: "{{ .Values.openmetadata.config.elasticsearch.keepAliveTimeoutSecs }}"
           {{- if .Values.openmetadata.config.elasticsearch.auth.enabled -}}
           {{- with .Values.openmetadata.config.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER

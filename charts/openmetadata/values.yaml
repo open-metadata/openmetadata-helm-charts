@@ -25,6 +25,7 @@ openmetadata:
       socketTimeoutSecs: 60
       batchSize: 10
       searchIndexMappingLanguage: "EN"
+      keepAliveTimeoutSecs: 600
       trustStore:
         enabled: false
         path: ""
