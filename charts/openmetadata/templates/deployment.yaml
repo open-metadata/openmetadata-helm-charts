@@ -252,7 +252,7 @@ spec:
                 key: {{ .secretKey }}
           {{- end }}
           {{- end }}
-
+          {{- end }}
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.openmetadata.config.elasticsearch.host }}"
           - name: ELASTICSEARCH_PORT
