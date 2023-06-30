@@ -119,7 +119,9 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.elasticsearch.auth.password.secretRef | string | `elasticsearch-secrets` | ELASTICSEARCH_PASSWORD |
 | openmetadata.config.elasticsearch.auth.password.secretKey | string | `openmetadata-elasticsearch-password` | ELASTICSEARCH_PASSWORD |
 | openmetadata.config.elasticsearch.host | string | `elasticsearch` | ELASTICSEARCH_HOST |
+| openmetadata.config.elasticsearch.keepAliveTimeoutSecs | int | `600` | ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS |
 | openmetadata.config.elasticsearch.port | int | 9200 | ELASTICSEARCH_PORT |
+| openmetadata.config.elasticsearch.searchType | string | `ElasticSearch` | SEARCH_TYPE |
 | openmetadata.config.elasticsearch.scheme | string | `http` | ELASTICSEARCH_SCHEME |
 | openmetadata.config.elasticsearch.searchIndexMappingLanguage | string | `EN`| ELASTICSEARCH_INDEX_MAPPING_LANG |
 | openmetadata.config.elasticsearch.trustStore.enabled | bool | `false` | |
@@ -149,6 +151,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.pipelineServiceClientConfig.apiEndpoint | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
 | openmetadata.config.pipelineServiceClientConfig.className | string | `org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient` | PIPELINE_SERVICE_CLIENT_CLASS_NAME |
 | openmetadata.config.pipelineServiceClientConfig.enabled | bool | `true` | |
+| openmetadata.config.pipelineServiceClientConfig.healthCheckInterval | int | `300` | PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL |
 | openmetadata.config.pipelineServiceClientConfig.ingestionIpInfoEnabled | bool | `false` | PIPELINE_SERVICE_IP_INFO_ENABLED |
 | openmetadata.config.pipelineServiceClientConfig.metadataApiEndpoint | string | `http://openmetadata.default.svc.cluster.local:8585/api` | SERVER_HOST_API_URL |
 | openmetadata.config.pipelineServiceClientConfig.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |

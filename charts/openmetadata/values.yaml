@@ -19,12 +19,14 @@ openmetadata:
       adminPort: 8586
     elasticsearch:
       host: elasticsearch
+      searchType: ElasticSearch
       port: 9200
       scheme: http
       connectionTimeoutSecs: 5
       socketTimeoutSecs: 60
       batchSize: 10
       searchIndexMappingLanguage: "EN"
+      keepAliveTimeoutSecs: 600
       trustStore:
         enabled: false
         path: ""
@@ -60,6 +62,8 @@ openmetadata:
       verifySsl: "no-ssl"
       hostIp: ""
       ingestionIpInfoEnabled: false
+      # healthCheckInterval in seconds
+      healthCheckInterval: 300
       # local path in Airflow Pod
       sslCertificatePath: "/no/path"
       auth:

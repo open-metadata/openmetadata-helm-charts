@@ -257,12 +257,16 @@ spec:
           {{- end }}
           - name: ELASTICSEARCH_HOST
             value: "{{ .Values.openmetadata.config.elasticsearch.host }}"
+          - name: SEARCH_TYPE
+            value: "{{ .Values.openmetadata.config.elasticsearch.searchType }}"
           - name: ELASTICSEARCH_PORT
             value: "{{ .Values.openmetadata.config.elasticsearch.port }}"
           - name: ELASTICSEARCH_SCHEME
             value: "{{ .Values.openmetadata.config.elasticsearch.scheme }}"
           - name: ELASTICSEARCH_INDEX_MAPPING_LANG
             value: "{{ .Values.openmetadata.config.elasticsearch.searchIndexMappingLanguage }}"
+          - name: ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS
+            value: "{{ .Values.openmetadata.config.elasticsearch.keepAliveTimeoutSecs }}"
           {{- if .Values.openmetadata.config.elasticsearch.auth.enabled -}}
           {{- with .Values.openmetadata.config.elasticsearch.auth }}
           - name: ELASTICSEARCH_USER
@@ -325,7 +329,9 @@ spec:
           - name: PIPELINE_SERVICE_CLIENT_VERIFY_SSL
             value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.verifySsl }}"
           - name: PIPELINE_SERVICE_CLIENT_HOST_IP
-            value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.hostIp }}"            
+            value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.hostIp }}"
+          - name: PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL
+            value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.healthCheckInterval }}"      
           - name: PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH
             value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.sslCertificatePath }}"
           - name: SERVER_HOST_API_URL
