@@ -74,3 +74,10 @@ Quoted Array of strings
 {{- end }}
 {{- join "," $list }}
 {{- end -}}
+
+
+{{/* 
+Warning to update openmetadata global keyword to openmetadata.config */}}
+{{- define "error-message" }}
+{{- printf "Error: %s" . | fail }}
+{{- end }}
