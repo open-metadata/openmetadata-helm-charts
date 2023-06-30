@@ -120,7 +120,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.elasticsearch.host | string | `elasticsearch` | ELASTICSEARCH_HOST |
 | openmetadata.config.elasticsearch.keepAliveTimeoutSecs | int | `600` | ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS |
 | openmetadata.config.elasticsearch.port | int | 9200 | ELASTICSEARCH_PORT |
-| openmetadata.config.elasticsearch.searchType | string | `ElasticSearch` | SEARCH_TYPE |
+| openmetadata.config.elasticsearch.searchType | string | `elasticsearch` | SEARCH_TYPE |
 | openmetadata.config.elasticsearch.scheme | string | `http` | ELASTICSEARCH_SCHEME |
 | openmetadata.config.elasticsearch.searchIndexMappingLanguage | string | `EN`| ELASTICSEARCH_INDEX_MAPPING_LANG |
 | openmetadata.config.elasticsearch.trustStore.enabled | bool | `false` | |
