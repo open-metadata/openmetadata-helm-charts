@@ -526,10 +526,10 @@
                                 },
                                 "searchType": {
                                     "type": "string",
-                                    "default": "ElasticSearch",
+                                    "default": "elasticsearch",
                                     "enum": [
-                                        "ElasticSearch",
-                                        "OpenSearch"
+                                        "elasticsearch",
+                                        "opensearch"
                                     ]
                                 },
                                 "socketTimeoutSecs": {
