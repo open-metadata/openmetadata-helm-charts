@@ -221,5 +221,10 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | serviceAccount.create | bool | `true` |
 | serviceAccount.name | string | `nil` |
 | sidecars | list | `[]` |
+| startupProbe.periodSeconds | int | `60` |
+| startupProbe.failureThreshold | int | `60` |
+| startupProbe.httpGet.path | string | `/healthcheck` |
+| startupProbe.httpGet.port | string | `http-admin` |
+| startupProbe.successThreshold | int | `5` |
 | tolerations | list | `[]` |
 | networkPolicy.enabled | bool |`false` |

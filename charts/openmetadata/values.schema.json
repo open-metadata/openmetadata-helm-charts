@@ -812,7 +812,6 @@
         },
         "livenessProbe": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
                 "failureThreshold": {
                     "type": "integer"
@@ -825,7 +824,6 @@
                 },
                 "httpGet": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                         "path": {
                             "type": "string"
@@ -848,7 +846,6 @@
         },
         "readinessProbe": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
                 "failureThreshold": {
                     "type": "integer"
@@ -861,7 +858,6 @@
                 },
                 "httpGet": {
                     "type": "object",
-                    "additionalProperties": false,
                     "properties": {
                         "path": {
                             "type": "string"
@@ -917,6 +913,32 @@
         },
         "sidecars": {
             "type": "array"
+        },
+        "startupProbe": {
+            "type": "object",
+            "properties": {
+                "failureThreshold": {
+                    "type": "integer"
+                },
+                "periodSeconds": {
+                    "type": "integer"
+                },
+                "httpGet": {
+                    "type": "object",
+                    
+                    "properties": {
+                        "path": {
+                            "type": "string"
+                        },
+                        "port": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "successThreshold": {
+                    "type": "integer"
+                }
+            }
         },
         "tolerations": {
             "type": "array"

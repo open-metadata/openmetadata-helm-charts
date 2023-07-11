@@ -348,6 +348,17 @@ readinessProbe:
   httpGet:
     path: /
     port: http
+# This is added to tackle and provide more duration for openmetadata migrations with 1.1.0 and above.
+# This will give us 3600 seconds of initial time to run migrations.
+# The initial time is calculated by periodSeconds * failureThreshold
+# This means that application will continue running till 3600 seconds without probes from kubernetes
+startupProbe:
+  periodSeconds: 60
+  failureThreshold: 60
+  successThreshold: 1
+  httpGet:
+    path: /healthcheck
+    port: http-admin
 
 commonLabels: {}
 podAnnotations: {}
