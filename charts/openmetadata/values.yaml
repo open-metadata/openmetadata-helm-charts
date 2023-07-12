@@ -348,6 +348,13 @@ readinessProbe:
   httpGet:
     path: /
     port: http
+startupProbe:
+  periodSeconds: 60
+  failureThreshold: 5
+  successThreshold: 1
+  httpGet:
+    path: /healthcheck
+    port: http-admin
 
 commonLabels: {}
 podAnnotations: {}

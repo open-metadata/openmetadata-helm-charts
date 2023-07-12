@@ -50,6 +50,8 @@ spec:
             {{ .Values.livenessProbe | toYaml | indent 12 | trim }}
           readinessProbe:
             {{ .Values.readinessProbe | toYaml | indent 12 | trim }}
+          startupProbe:
+            {{ .Values.startupProbe | toYaml | indent 12 | trim }}
           env:
           {{- if .Values.openmetadata.config.fernetkey.secretRef }}
           - name: FERNET_KEY
