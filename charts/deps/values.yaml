@@ -7,10 +7,11 @@
 mysql:
   enabled: true
   fullnameOverride: "mysql"
+  architecture: standalone
   image:
     pullPolicy: "Always"
   auth:
-    rootPassword: password    # provided by CI/CD
+    rootPassword: password    # to be provided by CI/CD
   primary:
     persistence:
       size: 50Gi
