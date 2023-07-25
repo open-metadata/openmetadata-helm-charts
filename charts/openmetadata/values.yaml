@@ -286,6 +286,12 @@ service:
   adminPort: 8586
   annotations: {}
 
+# Service monitor for Prometheus metrics
+serviceMonitor:
+  enabled: false
+  interval: 30s
+  annotations: {}
+
 ingress:
   enabled: false
   className: ""
