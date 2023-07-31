@@ -65,13 +65,13 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.saml.idp.ssoLoginUrl |  string | `Empty` | SAML_IDP_SSO_LOGIN_URL |
 | openmetadata.config.authentication.saml.idp.idpX509Certificate.secretRef | string | `Empty` | SAML_IDP_CERTIFICATE |
 | openmetadata.config.authentication.saml.idp.idpX509Certificate.secretKey |  string | `Empty` | SAML_IDP_CERTIFICATE | 
-| openmetadata.config.authentication.saml.idp.authorityUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/login` | SAML_AUTHORITY_URL |
+| openmetadata.config.authentication.saml.idp.authorityUrl | string | `http://openmetadata:8585/api/v1/saml/login` | SAML_AUTHORITY_URL |
 | openmetadata.config.authentication.saml.idp.nameId | string | `urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress` | SAML_IDP_NAME_ID |
-| openmetadata.config.authentication.saml.sp.entityId | string | `http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/metadata` | SAML_SP_ENTITY_ID |
-| openmetadata.config.authentication.saml.sp.acs | string | `http://openmetadata.default.svc.cluster.local:8585/api/v1/saml/acs` | SAML_SP_ACS |
+| openmetadata.config.authentication.saml.sp.entityId | string | `http://openmetadata:8585/api/v1/saml/metadata` | SAML_SP_ENTITY_ID |
+| openmetadata.config.authentication.saml.sp.acs | string | `http://openmetadata:8585/api/v1/saml/acs` | SAML_SP_ACS |
 | openmetadata.config.authentication.saml.sp.spX509Certificate.secretRef | string | `Empty`  | SAML_SP_CERTIFICATE |
 | openmetadata.config.authentication.saml.sp.spX509Certificate.secretKey | string | `Empty`  | SAML_SP_CERTIFICATE |
-| openmetadata.config.authentication.saml.sp.callback | string | `http://openmetadata.default.svc.cluster.local:8585/saml/callback` | SAML_SP_CALLBACK |
+| openmetadata.config.authentication.saml.sp.callback | string | `http://openmetadata:8585/saml/callback` | SAML_SP_CALLBACK |
 | openmetadata.config.authentication.saml.security.strictMode |  bool | false | SAML_STRICT_MODE |
 | openmetadata.config.authentication.saml.security.tokenValidity | int | 3600 | SAML_SP_TOKEN_VALIDITY |
 | openmetadata.config.authentication.saml.security.sendEncryptedNameId | bool | false | SAML_SEND_ENCRYPTED_NAME_ID |
@@ -97,8 +97,8 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
 | openmetadata.config.airflow.auth.username | string | `admin` | AIRFLOW_USERNAME |
 | openmetadata.config.airflow.enabled | bool | `true` | |
-| openmetadata.config.airflow.host | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
-| openmetadata.config.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata.default.svc.cluster.local:8585/api` | SERVER_HOST_API_URL |
+| openmetadata.config.airflow.host | string | `http://openmetadata-dependencies-web:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
+| openmetadata.config.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata:8585/api` | SERVER_HOST_API_URL |
 | openmetadata.config.airflow.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
 | openmetadata.config.airflow.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
 | openmetadata.config.basicLogin.maxLoginFailAttempts | int | 3 | OM_MAX_FAILED_LOGIN_ATTEMPTS |
@@ -147,12 +147,12 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
 | openmetadata.config.pipelineServiceClientConfig.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
 | openmetadata.config.pipelineServiceClientConfig.auth.username | string | `admin` | AIRFLOW_USERNAME |
-| openmetadata.config.pipelineServiceClientConfig.apiEndpoint | string | `http://openmetadata-dependencies-web.default.svc.cluster.local:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
+| openmetadata.config.pipelineServiceClientConfig.apiEndpoint | string | `http://openmetadata-dependencies-web:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
 | openmetadata.config.pipelineServiceClientConfig.className | string | `org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient` | PIPELINE_SERVICE_CLIENT_CLASS_NAME |
 | openmetadata.config.pipelineServiceClientConfig.enabled | bool | `true` | |
 | openmetadata.config.pipelineServiceClientConfig.healthCheckInterval | int | `300` | PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL |
 | openmetadata.config.pipelineServiceClientConfig.ingestionIpInfoEnabled | bool | `false` | PIPELINE_SERVICE_IP_INFO_ENABLED |
-| openmetadata.config.pipelineServiceClientConfig.metadataApiEndpoint | string | `http://openmetadata.default.svc.cluster.local:8585/api` | SERVER_HOST_API_URL |
+| openmetadata.config.pipelineServiceClientConfig.metadataApiEndpoint | string | `http://openmetadata:8585/api` | SERVER_HOST_API_URL |
 | openmetadata.config.pipelineServiceClientConfig.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
 | openmetadata.config.pipelineServiceClientConfig.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL | 
 | openmetadata.config.pipelineServiceClientConfig.hostIp | string | `Empty` | PIPELINE_SERVICE_CLIENT_HOST_IP |
