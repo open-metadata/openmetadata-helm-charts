@@ -75,6 +75,18 @@ Quoted Array of strings
 {{- join "," $list }}
 {{- end -}}
 
+{{/*
+Build the OpenMetadata Migration Command */}}
+{{- define "OpenMetadata.buildUpgradeCommand" }}
+command:
+- "/bin/bash"
+- "-c"
+{{- if .Values.openmetadata.config.upgradeMigrationConfigs.force }}
+- "/opt/openmetadata/bootstrap/bootstrap_storage.sh migrate-all debug force"
+{{- else }}
+- "/opt/openmetadata/bootstrap/bootstrap_storage.sh migrate-all"
+{{- end }}
+{{- end }}
 
 {{/* 
 Warning to update openmetadata global keyword to openmetadata.config */}}
@@ -85,7 +97,7 @@ Warning to update openmetadata global keyword to openmetadata.config */}}
 {{/*
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
-{{- if .Values.openmetadata.config.fernetkey.secretRef }}
+{{- if .Values.openmetadata.config.fernetkey.secretRef -}}
 - name: FERNET_KEY
   valueFrom:
     secretKeyRef:
@@ -416,4 +428,34 @@ OpenMetadata Configurations Environment Variables*/}}
 - name: OPENMETADATA_SMTP_SENDER_MAIL
   value: "{{ .Values.openmetadata.config.smtpConfig.senderMail }}"
 {{- end }}
+- name: WEB_CONF_URI_PATH
+  value: "{{ .Values.openmetadata.config.web.uriPath }}"
+- name: WEB_CONF_HSTS_ENABLED
+  value: "{{ .Values.openmetadata.config.web.hsts.enabled }}"
+- name: WEB_CONF_HSTS_MAX_AGE
+  value: "{{ .Values.openmetadata.config.web.hsts.maxAge }}"
+- name: WEB_CONF_HSTS_INCLUDE_SUBDOMAINS
+  value: "{{ .Values.openmetadata.config.web.hsts.includeSubDomains }}"
+- name: WEB_CONF_HSTS_PRELOAD
+  value: "{{ .Values.openmetadata.config.web.hsts.preload }}"
+- name: WEB_CONF_FRAME_OPTION_ENABLED
+  value: "{{ .Values.openmetadata.config.web.frameOptions.enabled }}"
+- name: WEB_CONF_FRAME_OPTION
+  value: "{{ .Values.openmetadata.config.web.frameOptions.option }}"
+- name: WEB_CONF_FRAME_ORIGIN
+  value: "{{ .Values.openmetadata.config.web.frameOptions.origin }}"
+- name: WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED
+  value: "{{ .Values.openmetadata.config.web.contentTypeOptions.enabled }}"
+- name: WEB_CONF_XSS_PROTECTION_ENABLED
+  value: "{{ .Values.openmetadata.config.web.xssProtection.enabled }}"
+- name: WEB_CONF_XSS_PROTECTION_ON
+  value: "{{ .Values.openmetadata.config.web.xssProtection.onXss }}"
+- name: WEB_CONF_XSS_PROTECTION_BLOCK
+  value: "{{ .Values.openmetadata.config.web.xssProtection.block }}"
+- name: WEB_CONF_XSS_CSP_ENABLED
+  value: "{{ .Values.openmetadata.config.web.csp.enabled }}"
+- name: WEB_CONF_XSS_CSP_POLICY
+  value: "{{ .Values.openmetadata.config.web.csp.policy }}"
+- name: WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY
+  value: "{{ .Values.openmetadata.config.web.csp.reportOnlyPolicy }}"
 {{- end }}

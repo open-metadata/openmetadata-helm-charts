@@ -173,6 +173,21 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` | OM_SUPPORT_URL |
 | openmetadata.config.smtpConfig.transportationStrategy | string | `SMTP_TLS` | SMTP_SERVER_STRATEGY |
 | openmetadata.config.smtpConfig.username | string | `Empty String` | SMTP_SERVER_USERNAME |
+| openmetadata.config.web.contentTypeOptions.enabled | bool | `false` | WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED |
+| openmetadata.config.web.csp.enabled | bool | `false` | WEB_CONF_XSS_CSP_ENABLED |
+| openmetadata.config.web.csp.policy | string | `default-src 'self'` | WEB_CONF_XSS_CSP_POLICY |
+| openmetadata.config.web.csp.reportOnlyPolicy | string | `Empty String` | WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY |
+| openmetadata.config.web.frameOptions.enabled | bool | `false` | WEB_CONF_FRAME_OPTION_ENABLED |
+| openmetadata.config.web.frameOptions.option | string | `SAMEORIGIN` | WEB_CONF_FRAME_OPTION |
+| openmetadata.config.web.frameOptions.origin | string | `Empty String` | WEB_CONF_FRAME_ORIGIN |
+| openmetadata.config.web.hsts.enabled | bool | `false` | WEB_CONF_HSTS_ENABLED |
+| openmetadata.config.web.hsts.includeSubDomains | bool | `true` | WEB_CONF_HSTS_INCLUDE_SUBDOMAINS |
+| openmetadata.config.web.hsts.maxAge | string | `365 days` | WEB_CONF_HSTS_MAX_AGE |
+| openmetadata.config.web.hsts.preload | bool | `true` | WEB_CONF_HSTS_PRELOAD |
+| openmetadata.config.web.uriPath | string | `/api` | WEB_CONF_URI_PATH |
+| openmetadata.config.web.xssProtection.block | bool | `true` | WEB_CONF_XSS_PROTECTION_BLOCK |
+| openmetadata.config.web.xssProtection.enabled | bool | `false` | WEB_CONF_XSS_PROTECTION_ENABLED |
+| openmetadata.config.web.xssProtection.onXss | bool | `true` | WEB_CONF_XSS_PROTECTION_ON |
 
 ## Chart Values
 
