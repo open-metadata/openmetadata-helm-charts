@@ -311,6 +311,10 @@ extraEnvs: []
 # - name: MY_ENVIRONMENT_VAR
 #   value: the_value_goes_here
 
+envFrom: []
+# - secretRef:
+#     name: secret_containing_config
+
 extraVolumes: []
 # - name: extras
 #   emptyDir: {}
