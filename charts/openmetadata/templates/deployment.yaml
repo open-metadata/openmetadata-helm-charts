@@ -29,8 +29,10 @@ spec:
       - name: run-db-migrations
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-        command: ["/bin/bash", "-c", "/opt/openmetadata/bootstrap/bootstrap_storage.sh migrate-all"]
+        {{ include "OpenMetadata.buildUpgradeCommand" .  | nindent 8 }}
         env:
+        - name: MIGRATION_LIMIT_PARAM
+          value: "{{ .Values.openmetadata.config.upgradeMigrationConfigs.migrationLimitParam }}"
         {{- include "OpenMetadata.configs" . | nindent 8 }}
         {{- with .Values.extraEnvs }}
           {{- toYaml . | nindent 8 }}

@@ -7,6 +7,9 @@ replicaCount: 1
 # Below are defaults as per openmetadata-dependencies Helm Chart Values
 openmetadata:
   config:
+    upgradeMigrationConfigs:
+      force: false
+      migrationLimitParam: 1200
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
@@ -214,7 +217,27 @@ openmetadata:
       # kubectl create secret generic aws-key-secret \
       # --from-literal=aws-access-key-secret=<access_key_id_value> \
       # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
-
+    web:
+      uriPath: "/api"
+      hsts:
+        enabled: false
+        maxAge: "365 days"
+        includeSubDomains: "true"
+        preload: "true"
+      frameOptions:
+        enabled: false
+        option: "SAMEORIGIN"
+        origin: ""
+      contentTypeOptions:
+        enabled: false
+      xssProtection:
+        enabled: false
+        onXss: true
+        block: true
+      csp:
+        enabled: false
+        policy: "default-src 'self'"
+        reportOnlyPolicy: ""
 
 networkPolicy:
   # If networkPolicy is true, following values can be set
@@ -227,8 +250,6 @@ networkPolicy:
   #   containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
   #   initialAdmins:
   #   - "suresh"
-  #   botPrincipal:
-  #   - "ingestion-bot"
   #   principalDomain: "open-metadata.org"
   # authentication:
   #   provider: "google"

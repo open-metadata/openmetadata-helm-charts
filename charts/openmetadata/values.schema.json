@@ -39,6 +39,101 @@
                         "errorMessage": "Global keyword has been replaced by openmetadata.config"
                     },
                     "properties": {
+                        "web": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "uriPath": {
+                                    "type": "string"
+                                },
+                                "hsts": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "maxAge": {
+                                            "type": "string"
+                                        },
+                                        "includeSubDomains": {
+                                            "type": "string",
+                                            "format": "boolean"
+                                        },
+                                        "preload": {
+                                            "type": "string",
+                                            "format": "boolean"
+                                        }
+                                    }
+                                },
+                                "frameOptions": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "option": {
+                                            "type": "string"
+                                        },
+                                        "origin": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "contentTypeOptions": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "csp": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "policy": {
+                                            "type": "string"
+                                        },
+                                        "reportOnlyPolicy": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "xssProtection": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "block": {
+                                            "type": "boolean"
+                                        },
+                                        "onXss": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "upgradeMigrationConfigs": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "force": {
+                                    "type": "boolean"
+                                },
+                                "migrationLimitParam": {
+                                    "type": "integer"
+                                }
+                            }
+                        },
                         "pipelineServiceClientConfig": {
                             "type": "object",
                             "additionalProperties": false,
