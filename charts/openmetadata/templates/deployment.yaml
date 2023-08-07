@@ -68,6 +68,10 @@ spec:
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
+          {{- with .Values.envFrom }}
+          envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
         {{- if .Values.sidecars }}
