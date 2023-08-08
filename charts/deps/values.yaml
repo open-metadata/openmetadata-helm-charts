@@ -38,7 +38,7 @@ elasticsearch:
   minimumMasterNodes: 1
   fullnameOverride: "elasticsearch"
   imagePullPolicy: "Always"
-  esJavaOpts: "-Xmx128m -Xms128m"
+  esJavaOpts: "-Xmx1024m -Xms1024m"
   maxUnavailable: 0
   clusterHealthCheckParams: "wait_for_status=yellow&timeout=20s"
   resources:
