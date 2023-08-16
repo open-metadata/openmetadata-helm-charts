@@ -32,6 +32,14 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         {{ include "OpenMetadata.buildUpgradeCommand" .  | nindent 8 }}
+        volumeMounts:
+          {{- with .Values.extraVolumeMounts }}
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
+        {{- with .Values.envFrom }}
+        envFrom:
+            {{- toYaml . | nindent 10 }}
+          {{- end }}
         env:
         - name: MIGRATION_LIMIT_PARAM
           value: "{{ .Values.openmetadata.config.upgradeMigrationConfigs.migrationLimitParam }}"
