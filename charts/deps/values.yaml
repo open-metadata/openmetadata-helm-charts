@@ -46,8 +46,8 @@ elasticsearch:
       cpu: "100m"
       memory: "256M"
     limits:
-      cpu: "1000m"
-      memory: "1024M"
+      cpu: "2000m"
+      memory: "2048M"
 
 # Airflow configurations for helm dependency
 # you can find more details about this here https://github.com/airflow-helm/charts
