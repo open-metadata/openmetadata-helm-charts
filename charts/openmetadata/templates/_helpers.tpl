@@ -458,4 +458,13 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.web.csp.policy }}"
 - name: WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY
   value: "{{ .Values.openmetadata.config.web.csp.reportOnlyPolicy }}"
+- name: WEB_CONF_REFERRER_POLICY_ENABLED
+  value: "{{ .Values.openmetadata.config.web.referrerPolicy.enabled }}"
+- name: WEB_CONF_REFERRER_POLICY_OPTION
+  value: "{{ .Values.openmetadata.config.web.referrerPolicy.option }}"
+- name: WEB_CONF_PERMISSION_POLICY_ENABLED
+  value: "{{ .Values.openmetadata.config.web.permissionPolicy.enabled }}"
+- name: WEB_CONF_PERMISSION_POLICY_OPTION
+  value: "{{ .Values.openmetadata.config.web.permissionPolicy.option }}"
+
 {{- end }}
