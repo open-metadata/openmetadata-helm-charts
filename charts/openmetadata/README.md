@@ -177,7 +177,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.upgradeMigrationConfigs.migrationLimitParam | int | `1200` | MIGRATION_LIMIT_PARAM |
 | openmetadata.config.web.contentTypeOptions.enabled | bool | `false` | WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED |
 | openmetadata.config.web.csp.enabled | bool | `false` | WEB_CONF_XSS_CSP_ENABLED |
-| openmetadata.config.web.csp.policy | string | `default-src 'self'` | WEB_CONF_XSS_CSP_POLICY |
+| openmetadata.config.web.csp.policy | string | `default-src 'self` | WEB_CONF_XSS_CSP_POLICY |
 | openmetadata.config.web.csp.reportOnlyPolicy | string | `Empty String` | WEB_CONF_XSS_CSP_REPORT_ONLY_POLICY |
 | openmetadata.config.web.frameOptions.enabled | bool | `false` | WEB_CONF_FRAME_OPTION_ENABLED |
 | openmetadata.config.web.frameOptions.option | string | `SAMEORIGIN` | WEB_CONF_FRAME_OPTION |
@@ -190,6 +190,10 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.web.xssProtection.block | bool | `true` | WEB_CONF_XSS_PROTECTION_BLOCK |
 | openmetadata.config.web.xssProtection.enabled | bool | `false` | WEB_CONF_XSS_PROTECTION_ENABLED |
 | openmetadata.config.web.xssProtection.onXss | bool | `true` | WEB_CONF_XSS_PROTECTION_ON |
+| openmetadata.config.web.referrer-policy.enabled | bool | `false` | WEB_CONF_REFERRER_POLICY_ENABLED |
+| openmetadata.config.web.referrer-policy.option | string | `SAME_ORIGIN'` | WEB_CONF_REFERRER_POLICY_OPTION |
+| openmetadata.config.web.permission-policy.enabled | bool | `false` | WEB_CONF_PERMISSION_POLICY_ENABLED |
+| openmetadata.config.web.permission-policy.option | string | `Empty String` | WEB_CONF_PERMISSION_POLICY_OPTION |
 
 ## Chart Values
 

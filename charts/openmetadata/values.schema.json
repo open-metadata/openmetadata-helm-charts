@@ -105,6 +105,30 @@
                                         }
                                     }
                                 },
+                                "referrerPolicy": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "option": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "permissionPolicy": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "option": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
                                 "xssProtection": {
                                     "type": "object",
                                     "additionalProperties": false,

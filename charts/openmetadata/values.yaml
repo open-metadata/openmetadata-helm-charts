@@ -238,6 +238,12 @@ openmetadata:
         enabled: false
         policy: "default-src 'self'"
         reportOnlyPolicy: ""
+      referrerPolicy:
+        enabled: false
+        option: "SAME_ORIGIN"
+      permissionPolicy:
+        enabled: false
+        option: ""
 
 networkPolicy:
   # If networkPolicy is true, following values can be set
