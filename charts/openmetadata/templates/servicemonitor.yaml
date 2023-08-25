@@ -12,7 +12,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "OpenMetadata.selectorLabels" . | indent 6 }}
+      {{- include "OpenMetadata.selectorLabels" . | nindent 6 }}
   endpoints:
     - port: http-admin
       path: /prometheus
