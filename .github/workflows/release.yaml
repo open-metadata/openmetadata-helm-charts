@@ -20,7 +20,6 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v1
         with:
-          version: v3.4.0
           token: "${{ secrets.GITHUB_TOKEN }}"
       
       - name: Add Helm repos
