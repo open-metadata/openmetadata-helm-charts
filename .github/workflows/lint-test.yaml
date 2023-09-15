@@ -31,7 +31,7 @@ jobs:
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
 
       - name: Install Helm
-        uses: azure/setup-helm@v1
+        uses: azure/setup-helm@v3
       
       - name: Add Helm repos
         run: |
