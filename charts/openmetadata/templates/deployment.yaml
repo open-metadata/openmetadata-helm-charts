@@ -73,8 +73,10 @@ spec:
             {{ .Values.livenessProbe | toYaml | indent 12 | trim }}
           readinessProbe:
             {{ .Values.readinessProbe | toYaml | indent 12 | trim }}
+{{- if (semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion) }}
           startupProbe:
             {{ .Values.startupProbe | toYaml | indent 12 | trim }}
+{{- end }}
           env:
           {{- include "OpenMetadata.configs" . | nindent 10 }}
           {{- with .Values.extraEnvs }}
