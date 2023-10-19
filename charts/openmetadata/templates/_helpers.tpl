@@ -60,7 +60,7 @@ Create the name of the service account to use
 {{- if .Values.serviceAccount.create }}
 {{- default (include "OpenMetadata.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" (tpl .Values.serviceAccount.name .) }}
 {{- end }}
 {{- end }}
 
@@ -104,6 +104,7 @@ OpenMetadata Configurations Environment Variables*/}}
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{ else }}
 - name: FERNET_KEY
   valueFrom:
