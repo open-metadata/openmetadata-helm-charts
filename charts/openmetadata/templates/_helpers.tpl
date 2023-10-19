@@ -330,7 +330,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- with .Values.openmetadata.config.elasticsearch.auth }}
 - name: ELASTICSEARCH_USER
   value: "{{ .username }}"
-{{- if .password.secretRef -}}
+{{- if .password.secretRef }}
 - name: ELASTICSEARCH_PASSWORD
   valueFrom:
     secretKeyRef:
@@ -359,7 +359,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- with .Values.openmetadata.config.database.auth }}
 - name: DB_USER
   value: "{{ .username }}"
-{{- if .password.secretRef -}}
+{{- if .password.secretRef }}
 - name: DB_USER_PASSWORD
   valueFrom:
     secretKeyRef:
@@ -387,7 +387,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth }}
 - name: AIRFLOW_USERNAME
   value: "{{ .username }}"
-{{- if .password.secretRef -}}
+{{- if .password.secretRef }}
 - name: AIRFLOW_PASSWORD
   valueFrom:
     secretKeyRef:
