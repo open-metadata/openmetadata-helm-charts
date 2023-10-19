@@ -97,7 +97,7 @@ Warning to update openmetadata global keyword to openmetadata.config */}}
 {{/*
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
-{{- if .Values.openmetadata.config.fernetkey.secretRef -}}
+{{- if .Values.openmetadata.config.fernetkey.secretRef }}
 {{- with .Values.openmetadata.config.fernetkey -}}
 - name: FERNET_KEY
   valueFrom:
@@ -184,7 +184,7 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.port }}"
 - name: AUTHENTICATION_LOOKUP_ADMIN_DN
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPrincipal }}"
-{{- if .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretRef -}}
+{{- if .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretRef }}
 {{- with .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword }}
 - name: AUTHENTICATION_LOOKUP_ADMIN_PWD
   valueFrom:
@@ -411,7 +411,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.enabled }}
 - name: OM_SM_REGION
   value: "{{ .Values.openmetadata.config.secretsManager.additionalParameters.region }}"
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef -}}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId }}
 - name: OM_SM_ACCESS_KEY_ID
   valueFrom:
@@ -420,7 +420,7 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef -}}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey }}
 - name: OM_SM_ACCESS_KEY
   valueFrom:
