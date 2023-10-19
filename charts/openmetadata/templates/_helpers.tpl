@@ -315,6 +315,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- end }}
 {{- end }}
+{{- end }}
 - name: ELASTICSEARCH_HOST
   value: "{{ .Values.openmetadata.config.elasticsearch.host }}"
 - name: SEARCH_TYPE
@@ -337,6 +338,7 @@ OpenMetadata Configurations Environment Variables*/}}
     secretKeyRef:
       name: {{ .password.secretRef }}
       key: {{ .password.secretKey }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -396,6 +398,7 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .password.secretKey }}
 {{- end }}
 {{- end }}
+{{- end }}
 - name: PIPELINE_SERVICE_CLIENT_VERIFY_SSL
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.verifySsl }}"
 - name: PIPELINE_SERVICE_CLIENT_HOST_IP
@@ -412,7 +415,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.enabled }}
 - name: OM_SM_REGION
   value: "{{ .Values.openmetadata.config.secretsManager.additionalParameters.region }}"
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef -}}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId }}
 - name: OM_SM_ACCESS_KEY_ID
   valueFrom:
@@ -498,4 +501,5 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.web.permissionPolicy.enabled }}"
 - name: WEB_CONF_PERMISSION_POLICY_OPTION
   value: "{{ .Values.openmetadata.config.web.permissionPolicy.option }}"
+
 {{- end }}
