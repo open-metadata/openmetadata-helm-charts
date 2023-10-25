@@ -108,8 +108,8 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.database.auth.password.secretKey | string | `openmetadata-mysql-password` | DB_USER_PASSWORD |
 | openmetadata.config.database.auth.username | string | `openmetadata_user` | DB_USER|
 | openmetadata.config.database.databaseName | string | `openmetadata_db` | OM_DATABASE |
+| openmetadata.config.database.dbParams| string | `allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC` | DB_PARAMS |
 | openmetadata.config.database.dbScheme| string | `mysql` | DB_SCHEME |
-| openmetadata.config.database.dbUseSSL| bool | `false` | DB_USE_SSL |
 | openmetadata.config.database.driverClass| string | `com.mysql.cj.jdbc.Driver` | DB_DRIVER_CLASS |
 | openmetadata.config.database.host | string | `mysql` | DB_HOST |
 | openmetadata.config.database.port | int | 3306 | DB_PORT |
@@ -141,6 +141,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` | JWT_KEY_ID |
 | openmetadata.config.logLevel | string | `INFO` | LOG_LEVEL |
 | openmetadata.config.maskPasswordsApi | bool | `false` | MASK_PASSWORDS_API |
+| openmetadata.config.migrationConfigs.extensionPath | string | `Empty string` | MIGRATION_EXTENSION_PATH |
 | openmetadata.config.openmetadata.adminPort | int | 8586 | SERVER_ADMIN_PORT |
 | openmetadata.config.openmetadata.host | string | `openmetadata` | OPENMETADATA_SERVER_URL |
 | openmetadata.config.openmetadata.port | int | 8585 | SERVER_PORT |
@@ -149,7 +150,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.pipelineServiceClientConfig.auth.username | string | `admin` | AIRFLOW_USERNAME |
 | openmetadata.config.pipelineServiceClientConfig.apiEndpoint | string | `http://openmetadata-dependencies-web:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
 | openmetadata.config.pipelineServiceClientConfig.className | string | `org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient` | PIPELINE_SERVICE_CLIENT_CLASS_NAME |
-| openmetadata.config.pipelineServiceClientConfig.enabled | bool | `true` | |
+| openmetadata.config.pipelineServiceClientConfig.enabled | bool | `true` | PIPELINE_SERVICE_CLIENT_ENABLED |
 | openmetadata.config.pipelineServiceClientConfig.healthCheckInterval | int | `300` | PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL |
 | openmetadata.config.pipelineServiceClientConfig.ingestionIpInfoEnabled | bool | `false` | PIPELINE_SERVICE_IP_INFO_ENABLED |
 | openmetadata.config.pipelineServiceClientConfig.metadataApiEndpoint | string | `http://openmetadata:8585/api` | SERVER_HOST_API_URL |
