@@ -873,15 +873,11 @@
         },
         "image": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
                 "pullPolicy": {
                     "type": "string"
                 },
                 "repository": {
-                    "type": "string"
-                },
-                "tag": {
                     "type": "string"
                 }
             }
