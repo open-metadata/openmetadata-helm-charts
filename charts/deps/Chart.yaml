@@ -64,7 +64,7 @@ dependencies:
   repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
   condition: mysql.enabled
 - name: elasticsearch
-  version: "7.16.3"
+  version: "8.5.1"
   repository: "https://helm.elastic.co"
   condition: elasticsearch.enabled
 - name: airflow
