@@ -39,6 +39,11 @@ elasticsearch:
   fullnameOverride: "elasticsearch"
   imagePullPolicy: "Always"
   esJavaOpts: "-Xmx1024m -Xms1024m"
+  protocol: http
+  createCert: false
+  esConfig:
+    elasticsearch.yml: |
+      xpack.security.enabled: false
   maxUnavailable: 0
   clusterHealthCheckParams: "wait_for_status=yellow&timeout=20s"
   resources:
