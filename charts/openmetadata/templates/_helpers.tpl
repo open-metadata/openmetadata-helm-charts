@@ -110,6 +110,8 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ include "OpenMetadata.fullname" . }}-secret 
       key: FERNET_KEY
 {{- end }}
+- name: MIGRATION_EXTENSION_PATH
+  value: "{{ .Values.openmetadata.config.migrationConfigs.extensionPath }}"
 - name: EVENT_MONITOR
   value: "{{ .Values.openmetadata.config.eventMonitor.type }}"
 - name: EVENT_MONITOR_BATCH_SIZE
@@ -352,9 +354,11 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.database.driverClass }}"
 - name: DB_SCHEME
   value: "{{ .Values.openmetadata.config.database.dbScheme }}"
-- name: DB_USE_SSL
-  value: "{{ .Values.openmetadata.config.database.dbUseSSL }}"
+- name: DB_PARAMS
+  value: "{{ .Values.openmetadata.config.database.dbParams }}"
 {{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
+- name: PIPELINE_SERVICE_CLIENT_ENABLED
+  value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}"
 - name: PIPELINE_SERVICE_CLIENT_CLASS_NAME
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.className }}"
 - name: PIPELINE_SERVICE_IP_INFO_ENABLED

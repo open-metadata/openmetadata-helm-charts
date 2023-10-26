@@ -39,6 +39,15 @@
                         "errorMessage": "Global keyword has been replaced by openmetadata.config"
                     },
                     "properties": {
+                        "migrationConfigs": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "extensionPath": {
+                                    "type": "string"
+                                }
+                            }
+                        },
                         "web": {
                             "type": "object",
                             "additionalProperties": false,
@@ -586,8 +595,8 @@
                                 "dbScheme": {
                                     "type": "string"
                                 },
-                                "dbUseSSL": {
-                                    "type": "boolean"
+                                "dbParams": {
+                                    "type": "string"
                                 },
                                 "driverClass": {
                                     "type": "string"
@@ -873,15 +882,11 @@
         },
         "image": {
             "type": "object",
-            "additionalProperties": false,
             "properties": {
                 "pullPolicy": {
                     "type": "string"
                 },
                 "repository": {
-                    "type": "string"
-                },
-                "tag": {
                     "type": "string"
                 }
             }

@@ -16,13 +16,13 @@ type: application
 # to the chart and its templates, including the app version.
 # Versions are expected to follow Semantic Versioning (https://semver.org/)
 
-version: 1.1.14
+version: 1.2.0
 
 # This is the version number of the application being deployed. This version number should be
 # incremented each time you make changes to the application. Versions are not expected to
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
-appVersion: "1.1.7"
+appVersion: "1.2.0"
 
 home: https://open-metadata.org/
 
@@ -64,7 +64,7 @@ dependencies:
   repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
   condition: mysql.enabled
 - name: elasticsearch
-  version: "7.16.3"
+  version: "8.5.1"
   repository: "https://helm.elastic.co"
   condition: elasticsearch.enabled
 - name: airflow

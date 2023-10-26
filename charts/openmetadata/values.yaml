@@ -7,6 +7,8 @@ replicaCount: 1
 # Below are defaults as per openmetadata-dependencies Helm Chart Values
 openmetadata:
   config:
+    migrationConfigs:
+      extensionPath: ""
     upgradeMigrationConfigs:
       force: false
       migrationLimitParam: 1200
@@ -47,13 +49,13 @@ openmetadata:
       port: 3306
       driverClass: com.mysql.cj.jdbc.Driver
       dbScheme: mysql
-      dbUseSSL: false
       databaseName: openmetadata_db
       auth:
         username: openmetadata_user
         password:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
+      dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
