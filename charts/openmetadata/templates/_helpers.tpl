@@ -97,7 +97,7 @@ Warning to update openmetadata global keyword to openmetadata.config */}}
 {{/*
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
-{{- if .Values.openmetadata.config.fernetkey.secretRef }}
+{{- if .Values.openmetadata.config.fernetkey.secretRef -}}
 {{- with .Values.openmetadata.config.fernetkey -}}
 - name: FERNET_KEY
   valueFrom:
@@ -315,7 +315,6 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- end }}
 {{- end }}
-{{- end }}
 - name: ELASTICSEARCH_HOST
   value: "{{ .Values.openmetadata.config.elasticsearch.host }}"
 - name: SEARCH_TYPE
@@ -338,7 +337,6 @@ OpenMetadata Configurations Environment Variables*/}}
     secretKeyRef:
       name: {{ .password.secretRef }}
       key: {{ .password.secretKey }}
-{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -396,7 +394,6 @@ OpenMetadata Configurations Environment Variables*/}}
     secretKeyRef:
       name: {{ .password.secretRef }}
       key: {{ .password.secretKey }}
-{{- end }}
 {{- end }}
 {{- end }}
 - name: PIPELINE_SERVICE_CLIENT_VERIFY_SSL
