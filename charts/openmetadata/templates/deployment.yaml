@@ -36,10 +36,12 @@ spec:
           {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
-        {{- with .Values.envFrom }}
         envFrom:
-            {{- toYaml . | nindent 10 }}
-          {{- end }}
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-db-secret
+        {{- with .Values.envFrom }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         env:
         - name: MIGRATION_LIMIT_PARAM
           value: "{{ .Values.openmetadata.config.upgradeMigrationConfigs.migrationLimitParam }}"
@@ -80,8 +82,10 @@ spec:
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
-          {{- with .Values.envFrom }}
           envFrom:
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-db-secret
+          {{- with .Values.envFrom }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
           resources:

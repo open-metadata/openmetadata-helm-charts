@@ -335,27 +335,13 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .password.secretKey }}
 {{- end }}
 {{- end }}
-- name: DB_HOST
-  value: "{{ .Values.openmetadata.config.database.host }}"
-- name: DB_PORT
-  value: "{{ .Values.openmetadata.config.database.port }}"
 {{- with .Values.openmetadata.config.database.auth }}
-- name: DB_USER
-  value: "{{ .username }}"
 - name: DB_USER_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ .password.secretRef }}
       key: {{ .password.secretKey }}
 {{- end }}
-- name: OM_DATABASE
-  value: "{{ .Values.openmetadata.config.database.databaseName }}"
-- name: DB_DRIVER_CLASS
-  value: "{{ .Values.openmetadata.config.database.driverClass }}"
-- name: DB_SCHEME
-  value: "{{ .Values.openmetadata.config.database.dbScheme }}"
-- name: DB_PARAMS
-  value: "{{ .Values.openmetadata.config.database.dbParams }}"
 {{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
 - name: PIPELINE_SERVICE_CLIENT_ENABLED
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}"
