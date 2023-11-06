@@ -301,22 +301,8 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- end }}
 {{- end }}
-- name: ELASTICSEARCH_HOST
-  value: "{{ .Values.openmetadata.config.elasticsearch.host }}"
-- name: SEARCH_TYPE
-  value: "{{ .Values.openmetadata.config.elasticsearch.searchType }}"
-- name: ELASTICSEARCH_PORT
-  value: "{{ .Values.openmetadata.config.elasticsearch.port }}"
-- name: ELASTICSEARCH_SCHEME
-  value: "{{ .Values.openmetadata.config.elasticsearch.scheme }}"
-- name: ELASTICSEARCH_INDEX_MAPPING_LANG
-  value: "{{ .Values.openmetadata.config.elasticsearch.searchIndexMappingLanguage }}"
-- name: ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS
-  value: "{{ .Values.openmetadata.config.elasticsearch.keepAliveTimeoutSecs }}"
 {{- if .Values.openmetadata.config.elasticsearch.auth.enabled -}}
 {{- with .Values.openmetadata.config.elasticsearch.auth }}
-- name: ELASTICSEARCH_USER
-  value: "{{ .username }}"
 - name: ELASTICSEARCH_PASSWORD
   valueFrom:
     secretKeyRef:
@@ -325,8 +311,6 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- end }}
 {{- if .Values.openmetadata.config.elasticsearch.trustStore.enabled }}
-- name: ELASTICSEARCH_TRUST_STORE_PATH
-  value: {{.Values.openmetadata.config.elasticsearch.trustStore.path }}
 {{- with .Values.openmetadata.config.elasticsearch.trustStore }}
 - name: ELASTICSEARCH_TRUST_STORE_PASSWORD
   valueFrom:
