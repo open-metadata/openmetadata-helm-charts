@@ -39,6 +39,8 @@ spec:
         envFrom:
         - secretRef:
             name: {{ include "OpenMetadata.fullname" . }}-db-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-search-secret
         {{- with .Values.envFrom }}
           {{- toYaml . | nindent 10 }}
         {{- end }}
@@ -85,6 +87,8 @@ spec:
           envFrom:
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-db-secret
+          - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-search-secret
           {{- with .Values.envFrom }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
