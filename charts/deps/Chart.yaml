@@ -60,14 +60,14 @@ icon: https://open-metadata.org/images/favicon.png
 # Add Dependencies of other charts
 dependencies:
 - name: mysql
-  version: "9.7.1"
-  repository: "https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami"
+  version: "9.7.2"
+  repository: "https://charts.bitnami.com/bitnami"
   condition: mysql.enabled
-- name: elasticsearch
-  version: "8.5.1"
-  repository: "https://helm.elastic.co"
-  condition: elasticsearch.enabled
 - name: airflow
   version: "8.8.0"
   repository: "https://airflow-helm.github.io/charts"
   condition: airflow.enabled
+- name: opensearch
+  version: "2.12.1"
+  repository: "https://opensearch-project.github.io/helm-charts/"
+  condition: opensearch.enabled

@@ -23,8 +23,8 @@ openmetadata:
       port: 8585
       adminPort: 8586
     elasticsearch:
-      host: elasticsearch
-      searchType: elasticsearch
+      host: opensearch
+      searchType: opensearch
       port: 9200
       scheme: http
       connectionTimeoutSecs: 5
