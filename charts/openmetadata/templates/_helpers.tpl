@@ -110,8 +110,6 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ include "OpenMetadata.fullname" . }}-secret 
       key: FERNET_KEY
 {{- end }}
-- name: MIGRATION_EXTENSION_PATH
-  value: "{{ .Values.openmetadata.config.migrationConfigs.extensionPath }}"
 - name: EVENT_MONITOR
   value: "{{ .Values.openmetadata.config.eventMonitor.type }}"
 - name: EVENT_MONITOR_BATCH_SIZE

@@ -7,8 +7,6 @@ replicaCount: 1
 # Below are defaults as per openmetadata-dependencies Helm Chart Values
 openmetadata:
   config:
-    migrationConfigs:
-      extensionPath: ""
     upgradeMigrationConfigs:
       force: false
       migrationLimitParam: 1200
