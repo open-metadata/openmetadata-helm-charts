@@ -159,11 +159,7 @@ openmetadata:
           keyStorePassword:
             secretRef: ""
             secretKey: ""
-
-    basicLogin:
-      maxLoginFailAttempts: 3
-      # in seconds
-      accessBlockTime: 600
+    
     jwtTokenConfiguration:
       enabled: true
       # File Path on Airflow Container

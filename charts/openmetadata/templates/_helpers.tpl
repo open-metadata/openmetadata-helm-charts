@@ -146,10 +146,6 @@ OpenMetadata Configurations Environment Variables*/}}
   value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.openmetadata.config.authentication.jwtPrincipalClaims) }}]'
 - name: AUTHENTICATION_ENABLE_SELF_SIGNUP
   value: "{{ .Values.openmetadata.config.authentication.enableSelfSignup }}"
-- name: OM_MAX_FAILED_LOGIN_ATTEMPTS
-  value: "{{ .Values.openmetadata.config.basicLogin.maxLoginFailAttempts }}"
-- name: OM_LOGIN_ACCESS_BLOCK_TIME
-  value: "{{ .Values.openmetadata.config.basicLogin.accessBlockTime }}"
 - name: AUTHORIZER_CLASS_NAME
   value: "{{ .Values.openmetadata.config.authorizer.className }}"
 - name: AUTHORIZER_REQUEST_FILTER

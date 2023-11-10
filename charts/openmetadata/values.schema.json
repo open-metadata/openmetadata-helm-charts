@@ -540,18 +540,6 @@
                                 }
                             }
                         },
-                        "basicLogin": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "accessBlockTime": {
-                                    "type": "integer"
-                                },
-                                "maxLoginFailAttempts": {
-                                    "type": "integer"
-                                }
-                            }
-                        },
                         "clusterName": {
                             "type": "string"
                         },
