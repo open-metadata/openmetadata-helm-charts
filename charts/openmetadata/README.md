@@ -101,8 +101,6 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata:8585/api` | SERVER_HOST_API_URL |
 | openmetadata.config.airflow.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
 | openmetadata.config.airflow.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
-| openmetadata.config.basicLogin.maxLoginFailAttempts | int | 3 | OM_MAX_FAILED_LOGIN_ATTEMPTS |
-| openmetadata.config.basicLogin.accessBlockTime | int | 600 | OM_LOGIN_ACCESS_BLOCK_TIME |
 | openmetadata.config.clusterName | string | `openmetadata` | OPENMETADATA_CLUSTER_NAME |
 | openmetadata.config.database.auth.password.secretRef | string | `mysql-secrets` | DB_USER_PASSWORD |
 | openmetadata.config.database.auth.password.secretKey | string | `openmetadata-mysql-password` | DB_USER_PASSWORD |
@@ -141,7 +139,6 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` | JWT_KEY_ID |
 | openmetadata.config.logLevel | string | `INFO` | LOG_LEVEL |
 | openmetadata.config.maskPasswordsApi | bool | `false` | MASK_PASSWORDS_API |
-| openmetadata.config.migrationConfigs.extensionPath | string | `Empty string` | MIGRATION_EXTENSION_PATH |
 | openmetadata.config.openmetadata.adminPort | int | 8586 | SERVER_ADMIN_PORT |
 | openmetadata.config.openmetadata.host | string | `openmetadata` | OPENMETADATA_SERVER_URL |
 | openmetadata.config.openmetadata.port | int | 8585 | SERVER_PORT |
@@ -209,7 +206,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.2.0` |
+| image.tag | string | `1.2.1` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |

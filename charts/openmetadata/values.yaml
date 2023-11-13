@@ -7,8 +7,6 @@ replicaCount: 1
 # Below are defaults as per openmetadata-dependencies Helm Chart Values
 openmetadata:
   config:
-    migrationConfigs:
-      extensionPath: ""
     upgradeMigrationConfigs:
       force: false
       migrationLimitParam: 1200
@@ -162,10 +160,6 @@ openmetadata:
             secretRef: ""
             secretKey: ""
 
-    basicLogin:
-      maxLoginFailAttempts: 3
-      # in seconds
-      accessBlockTime: 600
     jwtTokenConfiguration:
       enabled: true
       # File Path on Airflow Container

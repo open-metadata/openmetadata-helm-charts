@@ -39,15 +39,6 @@
                         "errorMessage": "Global keyword has been replaced by openmetadata.config"
                     },
                     "properties": {
-                        "migrationConfigs": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "extensionPath": {
-                                    "type": "string"
-                                }
-                            }
-                        },
                         "web": {
                             "type": "object",
                             "additionalProperties": false,
@@ -546,18 +537,6 @@
                                 },
                                 "principalDomain": {
                                     "type": "string"
-                                }
-                            }
-                        },
-                        "basicLogin": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "accessBlockTime": {
-                                    "type": "integer"
-                                },
-                                "maxLoginFailAttempts": {
-                                    "type": "integer"
                                 }
                             }
                         },
