@@ -36,10 +36,34 @@ spec:
           {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
-        {{- with .Values.envFrom }}
         envFrom:
-            {{- toYaml . | nindent 10 }}
-          {{- end }}
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-db-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-search-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-authorizer-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-omd-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-secretsmanager-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-web-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-authentication-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-config-secret
+        {{- with .Values.envFrom }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         env:
         - name: MIGRATION_LIMIT_PARAM
           value: "{{ .Values.openmetadata.config.upgradeMigrationConfigs.migrationLimitParam }}"
@@ -80,8 +104,32 @@ spec:
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
-          {{- with .Values.envFrom }}
           envFrom:
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-db-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-search-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-authorizer-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-omd-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-secretsmanager-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-web-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-authentication-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-config-secret
+          {{- with .Values.envFrom }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
           resources:
