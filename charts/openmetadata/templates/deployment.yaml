@@ -61,6 +61,8 @@ spec:
             name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
         - secretRef:
             name: {{ include "OpenMetadata.fullname" . }}-config-secret
+        - secretRef:
+            name: {{ include "OpenMetadata.fullname" . }}-fernetkey-secret
         {{- with .Values.envFrom }}
           {{- toYaml . | nindent 10 }}
         {{- end }}
@@ -129,6 +131,8 @@ spec:
               name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-config-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-fernetkey-secret
           {{- with .Values.envFrom }}
             {{- toYaml . | nindent 10 }}
           {{- end }}

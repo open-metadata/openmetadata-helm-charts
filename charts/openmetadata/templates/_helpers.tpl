@@ -100,13 +100,16 @@ Warning to update openmetadata global keyword to openmetadata.config */}}
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
 {{- if .Values.openmetadata.config.fernetkey.secretRef -}}
+{{- with .Values.openmetadata.config.fernetkey -}}
 - name: FERNET_KEY
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.openmetadata.config.fernetkey.secretRef }}
-      key: {{ .Values.openmetadata.config.fernetkey.secretKey }}
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 {{- if eq .Values.openmetadata.config.authentication.provider "ldap" }}
+{{- if .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretRef }}
 {{- with .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword }}
 - name: AUTHENTICATION_LOOKUP_ADMIN_PWD
   valueFrom:
@@ -114,7 +117,8 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ .secretRef }}
       key: {{ .secretKey }}
 {{- end }}
-{{- if eq .Values.openmetadata.config.authentication.ldapConfiguration.truststoreConfigType "CustomTrustStore" }}
+{{- end }}
+{{- if and ( eq .Values.openmetadata.config.authentication.ldapConfiguration.truststoreConfigType "CustomTrustStore" ) ( .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePassword.secretRef ) }}
 {{- with .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePassword }}
 - name: AUTHENTICATION_LDAP_KEYSTORE_PASSWORD
   valueFrom:
@@ -125,6 +129,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- end }}
 {{- if eq .Values.openmetadata.config.authentication.provider "saml" }}
+{{- if .Values.openmetadata.config.authentication.saml.idp.idpX509Certificate.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.idp.idpX509Certificate }}
 - name: SAML_IDP_CERTIFICATE
   valueFrom:
@@ -132,6 +137,8 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ .secretRef }}
       key: {{ .secretKey }}
 {{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.authentication.saml.sp.spX509Certificate.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.sp.spX509Certificate }}
 - name: SAML_SP_CERTIFICATE
   valueFrom:
@@ -139,8 +146,10 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ .secretRef }}
       key: {{ .secretKey }}
 {{- end }}
+{{- end }}
 {{- if or .Values.openmetadata.config.authentication.saml.security.wantAssertionEncrypted .Values.openmetadata.config.authentication.saml.security.wantNameIdEncrypted }}
 # Key Store should only be considered if either wantAssertionEncrypted or wantNameIdEncrypted will be true
+{{- if .Values.openmetadata.config.authentication.saml.security.keyStoreAlias.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.security.keyStoreAlias }}
 - name: SAML_KEYSTORE_ALIAS
   valueFrom:
@@ -148,6 +157,8 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ .secretRef }}
       key: {{ .secretKey }}
 {{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.authentication.saml.security.keyStorePassword.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.security.keyStorePassword }}
 - name: SAML_KEYSTORE_PASSWORD
   valueFrom:
@@ -157,41 +168,45 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.elasticsearch.auth.enabled -}}
-{{- with .Values.openmetadata.config.elasticsearch.auth }}
+{{- end }}
+{{- if and ( .Values.openmetadata.config.elasticsearch.auth.enabled ) ( .Values.openmetadata.config.elasticsearch.auth.password.secretRef ) }}
+{{- with .Values.openmetadata.config.elasticsearch.auth.password }}
 - name: ELASTICSEARCH_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ .password.secretRef }}
-      key: {{ .password.secretKey }}
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.elasticsearch.trustStore.enabled }}
-{{- with .Values.openmetadata.config.elasticsearch.trustStore }}
+{{- if and ( .Values.openmetadata.config.elasticsearch.trustStore.enabled ) ( .Values.openmetadata.config.elasticsearch.trustStore.password.secretRef ) }}
+{{- with .Values.openmetadata.config.elasticsearch.trustStore.password }}
 - name: ELASTICSEARCH_TRUST_STORE_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ .password.secretRef }}
-      key: {{ .password.secretKey }}
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- with .Values.openmetadata.config.database.auth }}
+{{- if .Values.openmetadata.config.database.auth.password.secretRef }}
+{{- with .Values.openmetadata.config.database.auth.password }}
 - name: DB_USER_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ .password.secretRef }}
-      key: {{ .password.secretKey }}
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
 {{- end }}
-{{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
-{{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth }}
+{{- end }}
+{{- if and ( .Values.openmetadata.config.pipelineServiceClientConfig.enabled ) ( .Values.openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef )}}
+{{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth.password }}
 - name: AIRFLOW_PASSWORD
   valueFrom:
     secretKeyRef:
-      name: {{ .password.secretRef }}
-      key: {{ .password.secretKey }}
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
 {{- end }}
 {{- end }}
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.enabled }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId }}
 - name: OM_SM_ACCESS_KEY_ID
   valueFrom:
@@ -199,6 +214,8 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ .secretRef }}
       key: {{ .secretKey }}
 {{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey }}
 - name: OM_SM_ACCESS_KEY
   valueFrom:
@@ -207,7 +224,8 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
+{{- end }}
+{{- if and ( .Values.openmetadata.config.smtpConfig.enableSmtpServer ) ( .Values.openmetadata.config.smtpConfig.password.secretRef )}}
 {{- with .Values.openmetadata.config.smtpConfig.password }}
 - name: SMTP_SERVER_PWD
   valueFrom:
