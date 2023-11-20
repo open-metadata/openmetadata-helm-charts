@@ -390,10 +390,10 @@ startupProbe:
     port: http-admin
 
 podDisruptionBudget:
-  enabled: true
+  enabled: false
   config:
     maxUnavailable: 1
-    # minAvailable: 1
+    minAvailable: 1
 
 commonLabels: {}
 podAnnotations: {}

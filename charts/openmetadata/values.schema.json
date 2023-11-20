@@ -1052,6 +1052,23 @@
         "commonLabels": {
             "type": "object"
         },
+        "podDisruptionBudget": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "maxUnavailable": {
+                            "type": "string"
+                        },
+                        "minAvailable": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "podAnnotations": {
             "type": "object"
         },
