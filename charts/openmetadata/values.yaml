@@ -56,7 +56,7 @@ openmetadata:
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
     pipelineServiceClientConfig:
       enabled: true
-      className: "io.collate.pipeline.argo.ArgoServiceClient"
+      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
       # endpoint url for airflow
       apiEndpoint: http://openmetadata-dependencies-web:8080
       # this will be the api endpoint url of OpenMetadata Server
