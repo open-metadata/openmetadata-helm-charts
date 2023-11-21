@@ -164,8 +164,11 @@
                             "properties": {
                                 "auth": {
                                     "type": "object",
-                                    "additionalProperties": true,
+                                    "additionalProperties": false,
                                     "properties": {
+                                        "enabled" : {
+                                            "type": "boolean"
+                                        },
                                         "password": {
                                             "type": "object",
                                             "additionalProperties": false,
