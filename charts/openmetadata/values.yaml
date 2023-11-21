@@ -389,5 +389,11 @@ startupProbe:
     path: /healthcheck
     port: http-admin
 
+podDisruptionBudget:
+  enabled: false
+  config:
+    maxUnavailable: 1
+    minAvailable: 1
+
 commonLabels: {}
 podAnnotations: {}
