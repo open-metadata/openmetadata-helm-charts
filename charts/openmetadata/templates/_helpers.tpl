@@ -359,7 +359,7 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.ingestionIpInfoEnabled }}"
 - name: PIPELINE_SERVICE_CLIENT_ENDPOINT
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.apiEndpoint }}"
-{{ if and (contains "airflow" .Values.openmetadata.config.pipelineServiceClientConfig.className) (.Values.openmetadata.config.pipelineServiceClientConfig.auth.enabled) }}
+{{ if .Values.openmetadata.config.pipelineServiceClientConfig.auth.enabled }}
 {{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth }}
 - name: AIRFLOW_USERNAME
   value: "{{ .username }}"
