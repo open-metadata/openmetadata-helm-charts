@@ -56,7 +56,7 @@ openmetadata:
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
     pipelineServiceClientConfig:
       enabled: true
-      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+      className: "io.collate.pipeline.argo.ArgoServiceClient"
       # endpoint url for airflow
       apiEndpoint: http://openmetadata-dependencies-web:8080
       # this will be the api endpoint url of OpenMetadata Server
@@ -70,6 +70,7 @@ openmetadata:
       # local path in Airflow Pod
       sslCertificatePath: "/no/path"
       auth:
+        enabled: true
         username: admin
         password:
           secretRef: airflow-secrets
@@ -392,8 +393,8 @@ startupProbe:
 podDisruptionBudget:
   enabled: false
   config:
-    maxUnavailable: 1
-    minAvailable: 1
+    maxUnavailable: "1"
+    minAvailable: "1"
 
 commonLabels: {}
 podAnnotations: {}
