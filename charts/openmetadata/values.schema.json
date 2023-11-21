@@ -166,6 +166,9 @@
                                     "type": "object",
                                     "additionalProperties": false,
                                     "properties": {
+                                        "enabled" : {
+                                            "type": "boolean"
+                                        },
                                         "password": {
                                             "type": "object",
                                             "additionalProperties": false,
@@ -1056,6 +1059,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "enabled" : {
+                    "type": "boolean"
+                },
                 "config": {
                     "type": "object",
                     "properties": {

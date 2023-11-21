@@ -70,6 +70,7 @@ openmetadata:
       # local path in Airflow Pod
       sslCertificatePath: "/no/path"
       auth:
+        enabled: true
         username: admin
         password:
           secretRef: airflow-secrets
@@ -392,8 +393,8 @@ startupProbe:
 podDisruptionBudget:
   enabled: false
   config:
-    maxUnavailable: 1
-    minAvailable: 1
+    maxUnavailable: "1"
+    minAvailable: "1"
 
 commonLabels: {}
 podAnnotations: {}
