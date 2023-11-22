@@ -166,6 +166,9 @@
                                     "type": "object",
                                     "additionalProperties": false,
                                     "properties": {
+                                        "enabled" : {
+                                            "type": "boolean"
+                                        },
                                         "password": {
                                             "type": "object",
                                             "additionalProperties": false,
@@ -1051,6 +1054,26 @@
         },
         "commonLabels": {
             "type": "object"
+        },
+        "podDisruptionBudget": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled" : {
+                    "type": "boolean"
+                },
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "maxUnavailable": {
+                            "type": "string"
+                        },
+                        "minAvailable": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         },
         "podAnnotations": {
             "type": "object"

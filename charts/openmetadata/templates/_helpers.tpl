@@ -196,13 +196,15 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if and ( .Values.openmetadata.config.pipelineServiceClientConfig.enabled ) ( .Values.openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef )}}
+{{- if and ( .Values.openmetadata.config.pipelineServiceClientConfig.enabled ) ( .Values.openmetadata.config.pipelineServiceClientConfig.auth.enabled )}}
+{{- if .Values.openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef }}
 {{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth.password }}
 - name: AIRFLOW_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.enabled }}

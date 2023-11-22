@@ -37,34 +37,42 @@ spec:
             {{- toYaml . | nindent 10 }}
           {{- end }}
         envFrom:
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-db-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-search-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-authorizer-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-omd-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-secretsmanager-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-web-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-authentication-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-config-secret
-        {{- if not .Values.openmetadata.config.fernetkey.secretRef }}
-        - secretRef:
-            name: {{ include "OpenMetadata.fullname" . }}-fernetkey-secret
-        {{- end }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-db-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-search-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-authorizer-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-omd-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-secretsmanager-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-web-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-authentication-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-config-secret
+          {{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.jwtTokenConfiguration.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
+          {{- end }}
+          {{- with .Values.openmetadata.config.fernetkey }}
+          {{- if not .secretRef }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" $ }}-fernetkey-secret
+          {{- end }}
+          {{- end }}
         {{- with .Values.envFrom }}
           {{- toYaml . | nindent 10 }}
         {{- end }}
@@ -114,17 +122,11 @@ spec:
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-search-secret
           - secretRef:
-              name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
-          - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-authorizer-secret
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-omd-secret
           - secretRef:
-              name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
-          - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-secretsmanager-secret
-          - secretRef:
-              name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-web-secret
           - secretRef:
@@ -133,9 +135,23 @@ spec:
               name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-config-secret
-          {{- if not .Values.openmetadata.config.fernetkey.secretRef }}
+          {{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
           - secretRef:
-              name: {{ include "OpenMetadata.fullname" . }}-fernetkey-secret
+              name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.jwtTokenConfiguration.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
+          {{- end }}
+          {{- with .Values.openmetadata.config.fernetkey }}
+          {{- if not .secretRef }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" $ }}-fernetkey-secret
+          {{- end }}
           {{- end }}
           {{- with .Values.envFrom }}
             {{- toYaml . | nindent 10 }}
