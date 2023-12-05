@@ -60,7 +60,7 @@ Create the name of the service account to use
 {{- if .Values.serviceAccount.create }}
 {{- default (include "OpenMetadata.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" (tpl .Values.serviceAccount.name .) }}
 {{- end }}
 {{- end }}
 
@@ -88,7 +88,7 @@ command:
 {{- end }}
 {{- end }}
 
-{{/* 
+{{/*
 Warning to update openmetadata global keyword to openmetadata.config */}}
 {{- define "error-message" }}
 {{- printf "Error: %s" . | fail }}
@@ -98,16 +98,18 @@ Warning to update openmetadata global keyword to openmetadata.config */}}
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
 {{- if .Values.openmetadata.config.fernetkey.secretRef -}}
+{{- with .Values.openmetadata.config.fernetkey -}}
 - name: FERNET_KEY
   valueFrom:
     secretKeyRef:
-      name: {{ .Values.openmetadata.config.fernetkey.secretRef }}
-      key: {{ .Values.openmetadata.config.fernetkey.secretKey }}
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
 {{ else }}
 - name: FERNET_KEY
   valueFrom:
     secretKeyRef:
-      name: {{ include "OpenMetadata.fullname" . }}-secret 
+      name: {{ include "OpenMetadata.fullname" . }}-secret
       key: FERNET_KEY
 {{- end }}
 - name: EVENT_MONITOR
@@ -121,7 +123,7 @@ OpenMetadata Configurations Environment Variables*/}}
 - name: MASK_PASSWORDS_API
   value: '{{ .Values.openmetadata.config.maskPasswordsApi }}'
 - name: OPENMETADATA_CLUSTER_NAME
-  value: "{{ .Values.openmetadata.config.clusterName }}"
+  value: "{{ tpl .Values.openmetadata.config.clusterName . }}"
 - name: OM_URI
   value: "{{ .Values.openmetadata.config.openmetadata.uri }}"
 - name: LOG_LEVEL
@@ -177,12 +179,14 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.port }}"
 - name: AUTHENTICATION_LOOKUP_ADMIN_DN
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPrincipal }}"
+{{- if .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretRef }}
 {{- with .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword }}
 - name: AUTHENTICATION_LOOKUP_ADMIN_PWD
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 - name: AUTHENTICATION_USER_LOOKUP_BASEDN
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.userBaseDN }}"
@@ -197,12 +201,14 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- if eq .Values.openmetadata.config.authentication.ldapConfiguration.truststoreConfigType "CustomTrustStore" }}
 - name: AUTHENTICATION_LDAP_TRUSTSTORE_PATH
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePath }}"
+{{- if .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePassword.secretRef }}
 {{- with .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFilePassword }}
 - name: AUTHENTICATION_LDAP_KEYSTORE_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 - name: AUTHENTICATION_LDAP_SSL_KEY_FORMAT
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.customTrustManagerConfig.trustStoreFileFormat }}"
@@ -217,11 +223,11 @@ OpenMetadata Configurations Environment Variables*/}}
 - name: AUTHENTICATION_LDAP_ALLOWED_HOSTNAMES
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.hostNameConfig.acceptableHostNames }}"
 {{- end }}
-{{- if eq .Values.openmetadata.config.authentication.ldapConfiguration.truststoreConfigType "JVMDefault" }}          
+{{- if eq .Values.openmetadata.config.authentication.ldapConfiguration.truststoreConfigType "JVMDefault" }}
 - name: AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.jvmDefaultConfig.verifyHostname }}"
 {{- end }}
-{{- if eq .Values.openmetadata.config.authentication.ldapConfiguration.truststoreConfigType "TrustAll" }}  
+{{- if eq .Values.openmetadata.config.authentication.ldapConfiguration.truststoreConfigType "TrustAll" }}
 - name: AUTHENTICATION_LDAP_EXAMINE_VALIDITY_DATES
   value: "{{ .Values.openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.trustAllConfig.examineValidityDates }}"
 {{- end }}
@@ -233,12 +239,14 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.authentication.saml.idp.entityId }}"
 - name: SAML_IDP_SSO_LOGIN_URL          
   value: "{{ .Values.openmetadata.config.authentication.saml.idp.ssoLoginUrl }}"
+{{- if .Values.openmetadata.config.authentication.saml.idp.idpX509Certificate.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.idp.idpX509Certificate }}
 - name: SAML_IDP_CERTIFICATE
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 - name: SAML_AUTHORITY_URL
   value: "{{ .Values.openmetadata.config.authentication.saml.idp.authorityUrl }}"
@@ -248,13 +256,15 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.authentication.saml.sp.entityId }}"
 - name: SAML_SP_ACS
   value: "{{ .Values.openmetadata.config.authentication.saml.sp.acs }}"
+{{- if .Values.openmetadata.config.authentication.saml.sp.spX509Certificate.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.sp.spX509Certificate }}
 - name: SAML_SP_CERTIFICATE
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
-{{- end }}            
+{{- end }}
+{{- end }}
 - name: SAML_SP_CALLBACK
   value: "{{ .Values.openmetadata.config.authentication.saml.sp.callback }}"
 - name: SAML_STRICT_MODE
@@ -279,6 +289,7 @@ OpenMetadata Configurations Environment Variables*/}}
 # Key Store should only be considered if either wantAssertionEncrypted or wantNameIdEncrypted will be true
 - name: SAML_KEYSTORE_FILE_PATH
   value: "{{ .Values.openmetadata.config.authentication.saml.security.keyStoreFilePath }}"
+{{- if .Values.openmetadata.config.authentication.saml.security.keyStoreAlias.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.security.keyStoreAlias }}
 - name: SAML_KEYSTORE_ALIAS
   valueFrom:
@@ -286,12 +297,15 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ .secretRef }}
       key: {{ .secretKey }}
 {{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.authentication.saml.security.keyStorePassword.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.security.keyStorePassword }}
 - name: SAML_KEYSTORE_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
@@ -311,6 +325,7 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- with .Values.openmetadata.config.elasticsearch.auth }}
 - name: ELASTICSEARCH_USER
   value: "{{ .username }}"
+{{- if .password.secretRef }}
 - name: ELASTICSEARCH_PASSWORD
   valueFrom:
     secretKeyRef:
@@ -318,9 +333,11 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .password.secretKey }}
 {{- end }}
 {{- end }}
+{{- end }}
 {{- if .Values.openmetadata.config.elasticsearch.trustStore.enabled }}
 - name: ELASTICSEARCH_TRUST_STORE_PATH
   value: {{.Values.openmetadata.config.elasticsearch.trustStore.path }}
+{{- if .Values.openmetadata.config.elasticsearch.trustStore.password.secretRef }}
 {{- with .Values.openmetadata.config.elasticsearch.trustStore }}
 - name: ELASTICSEARCH_TRUST_STORE_PASSWORD
   valueFrom:
@@ -329,18 +346,21 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .password.secretKey }}
 {{- end }}
 {{- end }}
+{{- end }}
 - name: DB_HOST
-  value: "{{ .Values.openmetadata.config.database.host }}"
+  value: "{{ tpl .Values.openmetadata.config.database.host . }}"
 - name: DB_PORT
   value: "{{ .Values.openmetadata.config.database.port }}"
 {{- with .Values.openmetadata.config.database.auth }}
 - name: DB_USER
   value: "{{ .username }}"
+{{- if .password.secretRef }}
 - name: DB_USER_PASSWORD
   valueFrom:
     secretKeyRef:
       name: {{ .password.secretRef }}
       key: {{ .password.secretKey }}
+{{- end }}
 {{- end }}
 - name: OM_DATABASE
   value: "{{ .Values.openmetadata.config.database.databaseName }}"
@@ -358,11 +378,12 @@ OpenMetadata Configurations Environment Variables*/}}
 - name: PIPELINE_SERVICE_IP_INFO_ENABLED
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.ingestionIpInfoEnabled }}"
 - name: PIPELINE_SERVICE_CLIENT_ENDPOINT
-  value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.apiEndpoint }}"
+   value: "{{ tpl .Values.openmetadata.config.pipelineServiceClientConfig.apiEndpoint . }}"
 {{ if .Values.openmetadata.config.pipelineServiceClientConfig.auth.enabled }}
 {{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth }}
 - name: AIRFLOW_USERNAME
   value: "{{ .username }}"
+{{- if .password.secretRef }}
 - name: AIRFLOW_PASSWORD
   valueFrom:
     secretKeyRef:
@@ -375,17 +396,18 @@ OpenMetadata Configurations Environment Variables*/}}
 - name: PIPELINE_SERVICE_CLIENT_HOST_IP
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.hostIp }}"
 - name: PIPELINE_SERVICE_CLIENT_HEALTH_CHECK_INTERVAL
-  value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.healthCheckInterval }}"      
+  value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.healthCheckInterval }}"
 - name: PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.sslCertificatePath }}"
 - name: SERVER_HOST_API_URL
-  value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.metadataApiEndpoint }}"
+  value: "{{ tpl .Values.openmetadata.config.pipelineServiceClientConfig.metadataApiEndpoint . }}"
 {{- end }}
 - name: SECRET_MANAGER
   value: "{{ .Values.openmetadata.config.secretsManager.provider }}"
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.enabled }}
 - name: OM_SM_REGION
   value: "{{ .Values.openmetadata.config.secretsManager.additionalParameters.region }}"
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef -}}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId }}
 - name: OM_SM_ACCESS_KEY_ID
   valueFrom:
@@ -393,12 +415,15 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ .secretRef }}
       key: {{ .secretKey }}
 {{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey }}
 - name: OM_SM_ACCESS_KEY
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
@@ -416,12 +441,14 @@ OpenMetadata Configurations Environment Variables*/}}
   value: "{{ .Values.openmetadata.config.smtpConfig.serverPort }}"
 - name: SMTP_SERVER_USERNAME
   value: "{{ .Values.openmetadata.config.smtpConfig.username }}"
+{{- if .Values.openmetadata.config.smtpConfig.password.secretRef }}
 {{- with .Values.openmetadata.config.smtpConfig.password }}
 - name: SMTP_SERVER_PWD
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
       key: {{ .secretKey }}
+{{- end }}
 {{- end }}
 - name: SMTP_SERVER_STRATEGY
   value: "{{ .Values.openmetadata.config.smtpConfig.transportationStrategy }}"
