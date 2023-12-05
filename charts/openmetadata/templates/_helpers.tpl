@@ -60,7 +60,7 @@ Create the name of the service account to use
 {{- if .Values.serviceAccount.create }}
 {{- default (include "OpenMetadata.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
-{{- default "default" .Values.serviceAccount.name }}
+{{- default "default" (tpl .Values.serviceAccount.name .) }}
 {{- end }}
 {{- end }}
 
@@ -90,7 +90,7 @@ command:
 {{- end }}
 {{- end }}
 
-{{/* 
+{{/*
 Warning to update openmetadata global keyword to openmetadata.config */}}
 {{- define "error-message" }}
 {{- printf "Error: %s" . | fail }}
