@@ -35,8 +35,8 @@ jobs:
       
       - name: Add Helm repos
         run: |
-          helm repo add elasticsearch https://helm.elastic.co
-          helm repo add mysql https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+          helm repo add opensearch https://opensearch-project.github.io/helm-charts/
+          helm repo add mysql https://charts.bitnami.com/bitnami
           helm repo add airflow https://airflow-helm.github.io/charts
 
       - uses: actions/setup-python@v2

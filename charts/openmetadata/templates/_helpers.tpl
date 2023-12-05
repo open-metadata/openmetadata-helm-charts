@@ -112,8 +112,6 @@ OpenMetadata Configurations Environment Variables*/}}
       name: {{ include "OpenMetadata.fullname" . }}-secret
       key: FERNET_KEY
 {{- end }}
-- name: MIGRATION_EXTENSION_PATH
-  value: "{{ .Values.openmetadata.config.migrationConfigs.extensionPath }}"
 - name: EVENT_MONITOR
   value: "{{ .Values.openmetadata.config.eventMonitor.type }}"
 - name: EVENT_MONITOR_BATCH_SIZE
@@ -150,10 +148,6 @@ OpenMetadata Configurations Environment Variables*/}}
   value: '[{{ include "OpenMetadata.commaJoinedQuotedList" (dict "value" .Values.openmetadata.config.authentication.jwtPrincipalClaims) }}]'
 - name: AUTHENTICATION_ENABLE_SELF_SIGNUP
   value: "{{ .Values.openmetadata.config.authentication.enableSelfSignup }}"
-- name: OM_MAX_FAILED_LOGIN_ATTEMPTS
-  value: "{{ .Values.openmetadata.config.basicLogin.maxLoginFailAttempts }}"
-- name: OM_LOGIN_ACCESS_BLOCK_TIME
-  value: "{{ .Values.openmetadata.config.basicLogin.accessBlockTime }}"
 - name: AUTHORIZER_CLASS_NAME
   value: "{{ .Values.openmetadata.config.authorizer.className }}"
 - name: AUTHORIZER_REQUEST_FILTER
@@ -384,7 +378,8 @@ OpenMetadata Configurations Environment Variables*/}}
 - name: PIPELINE_SERVICE_IP_INFO_ENABLED
   value: "{{ .Values.openmetadata.config.pipelineServiceClientConfig.ingestionIpInfoEnabled }}"
 - name: PIPELINE_SERVICE_CLIENT_ENDPOINT
-  value: "{{ tpl .Values.openmetadata.config.pipelineServiceClientConfig.apiEndpoint . }}"
+   value: "{{ tpl .Values.openmetadata.config.pipelineServiceClientConfig.apiEndpoint . }}"
+{{ if .Values.openmetadata.config.pipelineServiceClientConfig.auth.enabled }}
 {{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth }}
 - name: AIRFLOW_USERNAME
   value: "{{ .username }}"

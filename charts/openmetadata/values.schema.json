@@ -39,15 +39,6 @@
                         "errorMessage": "Global keyword has been replaced by openmetadata.config"
                     },
                     "properties": {
-                        "migrationConfigs": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "extensionPath": {
-                                    "type": "string"
-                                }
-                            }
-                        },
                         "web": {
                             "type": "object",
                             "additionalProperties": false,
@@ -175,6 +166,9 @@
                                     "type": "object",
                                     "additionalProperties": false,
                                     "properties": {
+                                        "enabled" : {
+                                            "type": "boolean"
+                                        },
                                         "password": {
                                             "type": "object",
                                             "additionalProperties": false,
@@ -546,18 +540,6 @@
                                 },
                                 "principalDomain": {
                                     "type": "string"
-                                }
-                            }
-                        },
-                        "basicLogin": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "accessBlockTime": {
-                                    "type": "integer"
-                                },
-                                "maxLoginFailAttempts": {
-                                    "type": "integer"
                                 }
                             }
                         },
@@ -1072,6 +1054,26 @@
         },
         "commonLabels": {
             "type": "object"
+        },
+        "podDisruptionBudget": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "enabled" : {
+                    "type": "boolean"
+                },
+                "config": {
+                    "type": "object",
+                    "properties": {
+                        "maxUnavailable": {
+                            "type": "string"
+                        },
+                        "minAvailable": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
         },
         "podAnnotations": {
             "type": "object"

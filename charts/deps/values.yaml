@@ -30,22 +30,22 @@ mysql:
       GRANT ALL PRIVILEGES ON airflow_db.* TO 'airflow_user'@'%' WITH GRANT OPTION;
       commit;
 
-# ElasticSearch configurations for helm dependency
-# you can find more details about this here https://artifacthub.io/packages/helm/elastic/elasticsearch
-elasticsearch:
+# OpenSearch Helm Dependency
+# you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/2.12.2
+opensearch:
   enabled: true
-  replicas: 1
-  minimumMasterNodes: 1
-  fullnameOverride: "elasticsearch"
-  imagePullPolicy: "Always"
-  esJavaOpts: "-Xmx1024m -Xms1024m"
+  clusterName: opensearch
+  fullnameOverride: opensearch
+  nodeGroup: ""
+  imagePullPolicy: Always
+  opensearchJavaOpts: "-Xmx1g -Xms1g"
+  persistence:
+    size: 30Gi
   protocol: http
-  createCert: false
-  esConfig:
-    elasticsearch.yml: |
-      xpack.security.enabled: false
-  maxUnavailable: 0
-  clusterHealthCheckParams: "wait_for_status=yellow&timeout=20s"
+  config:
+    opensearch.yml: |
+      plugins.security.disabled: true
+  singleNode: true
   resources:
     requests:
       cpu: "100m"
@@ -61,7 +61,7 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.2.0
+      tag: 1.2.2
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
