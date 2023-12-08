@@ -46,6 +46,9 @@
                                 "uriPath": {
                                     "type": "string"
                                 },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "hsts": {
                                     "type": "object",
                                     "additionalProperties": false,
@@ -204,9 +207,6 @@
                                 "metadataApiEndpoint": {
                                     "type": "string"
                                 },
-                                "maskPasswordsApi": {
-                                    "type": "boolean"
-                                },
                                 "sslCertificatePath": {
                                     "type": "string"
                                 },
@@ -239,6 +239,9 @@
                                     "items": {
                                         "type": "string"
                                     }
+                                },
+                                "enabled": {
+                                    "type": "boolean"
                                 },
                                 "provider": {
                                     "type": "string",
@@ -520,6 +523,9 @@
                                         "org.openmetadata.service.security.DefaultAuthorizer"
                                     ]
                                 },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "containerRequestFilter": {
                                     "type": "string",
                                     "enum": [
@@ -573,6 +579,9 @@
                                 },
                                 "databaseName": {
                                     "type": "string"
+                                },
+                                "enabled": {
+                                    "type": "boolean"
                                 },
                                 "dbScheme": {
                                     "type": "string"
@@ -645,6 +654,9 @@
                                         "opensearch"
                                     ]
                                 },
+                                "enabled": {
+                                    "type": "boolean"
+                                },
                                 "socketTimeoutSecs": {
                                     "type": "integer"
                                 },
@@ -687,6 +699,9 @@
                                         "prometheus",
                                         "cloudwatch"
                                     ]
+                                },
+                                "enabled": {
+                                    "type": "boolean"
                                 },
                                 "batchSize": {
                                     "type": "integer"
@@ -807,6 +822,9 @@
                                         "managed-aws-ssm",
                                         "in-memory"
                                     ]
+                                },
+                                "enabled": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -854,9 +872,6 @@
                                     "type": "string"
                                 }
                             }
-                        },
-                        "maskPasswordsApi": {
-                            "type": "boolean"
                         }
                     }
                 }

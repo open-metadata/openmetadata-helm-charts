@@ -36,10 +36,60 @@ spec:
           {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
-        {{- with .Values.envFrom }}
         envFrom:
-            {{- toYaml . | nindent 10 }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-config-secret
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-omd-secret
+          {{- if .Values.openmetadata.config.database.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-db-secret
           {{- end }}
+          {{- if .Values.openmetadata.config.elasticsearch.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-search-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.authorizer.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-authorizer-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.secretsManager.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-secretsmanager-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.web.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-web-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.authentication.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-authentication-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.eventMonitor.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
+          {{- end }}
+          {{- if .Values.openmetadata.config.jwtTokenConfiguration.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
+          {{- end }}
+          {{- with .Values.openmetadata.config.fernetkey }}
+          {{- if not .secretRef }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" $ }}-fernetkey-secret
+          {{- end }}
+          {{- end }}
+        {{- with .Values.envFrom }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         env:
         - name: MIGRATION_LIMIT_PARAM
           value: "{{ .Values.openmetadata.config.upgradeMigrationConfigs.migrationLimitParam }}"
@@ -80,8 +130,58 @@ spec:
           {{- with .Values.extraEnvs }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
-          {{- with .Values.envFrom }}
           envFrom:
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-config-secret
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-omd-secret
+            {{- if .Values.openmetadata.config.database.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-db-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.elasticsearch.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-search-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.authorizer.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-authorizer-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.secretsManager.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-secretsmanager-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.web.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-web-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.authentication.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-authentication-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.eventMonitor.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-eventmonitor-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
+            {{- end }}
+            {{- if .Values.openmetadata.config.jwtTokenConfiguration.enabled }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
+            {{- end }}
+            {{- with .Values.openmetadata.config.fernetkey }}
+            {{- if not .secretRef }}
+            - secretRef:
+                name: {{ include "OpenMetadata.fullname" $ }}-fernetkey-secret
+            {{- end }}
+            {{- end }}
+          {{- with .Values.envFrom }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
           resources:

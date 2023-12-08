@@ -13,7 +13,6 @@ openmetadata:
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
-    maskPasswordsApi: false
     openmetadata:
       host: openmetadata
       # URI to use with OpenMetadata Alerts Integrations
@@ -21,6 +20,7 @@ openmetadata:
       port: 8585
       adminPort: 8586
     elasticsearch:
+      enabled: true
       host: opensearch
       searchType: opensearch
       port: 9200
@@ -43,6 +43,7 @@ openmetadata:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
     database:
+      enabled: true
       host: mysql
       port: 3306
       driverClass: com.mysql.cj.jdbc.Driver
@@ -76,6 +77,7 @@ openmetadata:
           secretRef: airflow-secrets
           secretKey: openmetadata-airflow-password
     authorizer:
+      enabled: true
       className: "org.openmetadata.service.security.DefaultAuthorizer"
       containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
       initialAdmins:
@@ -86,6 +88,7 @@ openmetadata:
       enforcePrincipalDomain: false
       enableSecureSocketConnection: false
     authentication:
+      enabled: true
       provider: "basic"
       publicKeys:
       - "http://openmetadata:8585/api/v1/system/config/jwks"
@@ -174,6 +177,7 @@ openmetadata:
       secretRef: ""
       secretKey: ""
     eventMonitor:
+      enabled: true
       # Possible values are prometheus and cloudwatch
       type: prometheus
       batchSize: 10
@@ -199,6 +203,7 @@ openmetadata:
         secretRef: ""
         secretKey: ""
     secretsManager:
+      enabled: true
       # Possible values are noop, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory
       provider: noop
       additionalParameters:
@@ -215,6 +220,7 @@ openmetadata:
       # --from-literal=aws-access-key-secret=<access_key_id_value> \
       # --from-literal=aws-secret-access-key-secret=<access_key_secret_value>
     web:
+      enabled: true
       uriPath: "/api"
       hsts:
         enabled: false
