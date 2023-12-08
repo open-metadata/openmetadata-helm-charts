@@ -266,6 +266,9 @@
                                         "http://openmetadata:8585/api/v1/system/config/jwks"
                                     ]
                                 },
+                                "responseType": {
+                                    "type": "string"
+                                },
                                 "ldapConfiguration": {
                                     "type": "object",
                                     "additionalProperties": false,
