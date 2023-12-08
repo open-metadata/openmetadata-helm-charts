@@ -95,6 +95,7 @@ openmetadata:
       authority: "https://accounts.google.com"
       clientId: ""
       callbackUrl: ""
+      responseType: "id_token"
       jwtPrincipalClaims:
       - "email"
       - "preferred_username"
