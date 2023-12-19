@@ -97,6 +97,25 @@ Warning to update openmetadata global keyword to openmetadata.config */}}
 {{- end }}
 
 {{/*
+Function for setting PIPELINE_SERVICE_CLIENT_HOST_IP in pipeline-secret */}}
+{{- define "OpenMetadata.utils.setHostIP" -}}
+{{- $value := include "OpenMetadata.utils.checkEmptyString" . }}
+{{- if eq $value "true" }}
+PIPELINE_SERVICE_CLIENT_HOST_IP: {{ . | quote | b64enc }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Function to check if passed value is empty string or null value */}}
+{{- define "OpenMetadata.utils.checkEmptyString" -}}
+{{- if or (empty .) (eq . "") -}}
+{{- false -}}
+{{- else -}}
+{{- true -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
 {{- if .Values.openmetadata.config.fernetkey.secretRef -}}
