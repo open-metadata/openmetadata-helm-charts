@@ -76,6 +76,10 @@ openmetadata:
         password:
           secretRef: airflow-secrets
           secretKey: openmetadata-airflow-password
+        truststorePath: ""
+        truststorePassword:
+          secretRef: ""
+          secretKey: ""
     authorizer:
       enabled: true
       className: "org.openmetadata.service.security.DefaultAuthorizer"

@@ -186,6 +186,21 @@
                                         },
                                         "username": {
                                             "type": "string"
+                                        },
+                                        "truststorePath" : {
+                                            "type": "string"
+                                        },
+                                        "truststorePassword": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
                                         }
                                     }
                                 },

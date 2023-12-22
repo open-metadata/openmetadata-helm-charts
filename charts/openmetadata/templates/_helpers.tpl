@@ -206,6 +206,15 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
+{{- if .Values.openmetadata.config.pipelineServiceClientConfig.auth.truststorePassword.secretRef }}
+{{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth.truststorePassword }}
+- name: AIRFLOW_TRUST_STORE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
 {{- end }}
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.enabled }}
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef }}
