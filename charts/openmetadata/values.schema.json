@@ -187,10 +187,10 @@
                                         "username": {
                                             "type": "string"
                                         },
-                                        "truststorePath" : {
+                                        "trustStorePath" : {
                                             "type": "string"
                                         },
-                                        "truststorePassword": {
+                                        "trustStorePassword": {
                                             "type": "object",
                                             "additionalProperties": false,
                                             "properties": {

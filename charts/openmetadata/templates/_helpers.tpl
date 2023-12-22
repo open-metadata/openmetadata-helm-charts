@@ -206,8 +206,8 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.pipelineServiceClientConfig.auth.truststorePassword.secretRef }}
-{{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth.truststorePassword }}
+{{- if .Values.openmetadata.config.pipelineServiceClientConfig.auth.trustStorePassword.secretRef }}
+{{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth.trustStorePassword }}
 - name: AIRFLOW_TRUST_STORE_PASSWORD
   valueFrom:
     secretKeyRef:

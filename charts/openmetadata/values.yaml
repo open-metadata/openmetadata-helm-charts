@@ -76,8 +76,8 @@ openmetadata:
         password:
           secretRef: airflow-secrets
           secretKey: openmetadata-airflow-password
-        truststorePath: ""
-        truststorePassword:
+        trustStorePath: ""
+        trustStorePassword:
           secretRef: ""
           secretKey: ""
     authorizer:
