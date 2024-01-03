@@ -31,7 +31,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 
 ## Openmetadata Config Chart Values
 
-| Key | Type | Default | Conf/Openmetadata.yaml | 
+| Key | Type | Default | Conf/Openmetadata.yaml |
 |-----|------|---------| ---------------------- |
 | openmetadata.config.authentication.enabled | bool | `true` | |
 | openmetadata.config.authentication.provider | string | `basic` | AUTHENTICATION_PROVIDER |
@@ -65,7 +65,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.saml.idp.entityId | string | `Empty` | SAML_IDP_ENTITY_ID |
 | openmetadata.config.authentication.saml.idp.ssoLoginUrl |  string | `Empty` | SAML_IDP_SSO_LOGIN_URL |
 | openmetadata.config.authentication.saml.idp.idpX509Certificate.secretRef | string | `Empty` | SAML_IDP_CERTIFICATE |
-| openmetadata.config.authentication.saml.idp.idpX509Certificate.secretKey |  string | `Empty` | SAML_IDP_CERTIFICATE | 
+| openmetadata.config.authentication.saml.idp.idpX509Certificate.secretKey |  string | `Empty` | SAML_IDP_CERTIFICATE |
 | openmetadata.config.authentication.saml.idp.authorityUrl | string | `http://openmetadata:8585/api/v1/saml/login` | SAML_AUTHORITY_URL |
 | openmetadata.config.authentication.saml.idp.nameId | string | `urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress` | SAML_IDP_NAME_ID |
 | openmetadata.config.authentication.saml.sp.entityId | string | `http://openmetadata:8585/api/v1/saml/metadata` | SAML_SP_ENTITY_ID |
@@ -156,7 +156,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.pipelineServiceClientConfig.ingestionIpInfoEnabled | bool | `false` | PIPELINE_SERVICE_IP_INFO_ENABLED |
 | openmetadata.config.pipelineServiceClientConfig.metadataApiEndpoint | string | `http://openmetadata:8585/api` | SERVER_HOST_API_URL |
 | openmetadata.config.pipelineServiceClientConfig.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
-| openmetadata.config.pipelineServiceClientConfig.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL | 
+| openmetadata.config.pipelineServiceClientConfig.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
 | openmetadata.config.pipelineServiceClientConfig.hostIp | string | `Empty` | PIPELINE_SERVICE_CLIENT_HOST_IP |
 | openmetadata.config.secretsManager.enabled | bool | `true` | |
 | openmetadata.config.secretsManager.provider | string | `noop` | SECRET_MANAGER |
@@ -248,6 +248,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | serviceMonitor.annotations | object | `{}` |
 | serviceMonitor.enabled | bool | `false` |
 | serviceMonitor.interval | string | `30s` |
+| serviceMonitor.labels | object | `{}` |
 | sidecars | list | `[]` |
 | startupProbe.periodSeconds | int | `60` |
 | startupProbe.failureThreshold | int | `5` |
