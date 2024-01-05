@@ -322,6 +322,7 @@ serviceMonitor:
   enabled: false
   interval: 30s
   annotations: {}
+  labels: {}
 
 ingress:
   enabled: false
