@@ -97,6 +97,16 @@ Warning to update openmetadata global keyword to openmetadata.config */}}
 {{- end }}
 
 {{/*
+Function to check if passed value is empty string or null value */}}
+{{- define "OpenMetadata.utils.checkEmptyString" -}}
+{{- if or (empty .) (eq . "") -}}
+{{- false -}}
+{{- else -}}
+{{- true -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
 {{- if .Values.openmetadata.config.fernetkey.secretRef -}}
