@@ -23,6 +23,9 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "OpenMetadata.serviceAccountName" . }}
+      {{- if not (.Values.automountServiceAccountToken) }}
+      automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
+      {{- end }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
@@ -36,6 +39,8 @@ spec:
           {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
+        resources:
+          {{- toYaml .Values.initContainerResources | nindent 10 }}
         envFrom:
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-config-secret
