@@ -248,6 +248,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | serviceAccount.annotations | object | `{}` |
 | serviceAccount.create | bool | `true` |
 | serviceAccount.name | string | `nil` |
+| automountServiceAccountToken| bool | `true` |
 | serviceMonitor.annotations | object | `{}` |
 | serviceMonitor.enabled | bool | `false` |
 | serviceMonitor.interval | string | `30s` |

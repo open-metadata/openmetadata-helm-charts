@@ -1014,6 +1014,9 @@
         "replicaCount": {
             "type": "integer"
         },
+        "automountServiceAccountToken": {
+            "type": "boolean"
+        },
         "resources": {
             "type": "object"
         },
