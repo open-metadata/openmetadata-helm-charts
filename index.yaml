@@ -2,7 +2,7 @@ apiVersion: v1
 entries:
   openmetadata:
   - apiVersion: v2
-    appVersion: 1.2.5
+    appVersion: 1.2.4
     created: "2024-01-10T10:31:32.110484468Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 643751bf37c6851e72d2ae4cd65ace0da43af240c19f789a8241778c1cd5de48
