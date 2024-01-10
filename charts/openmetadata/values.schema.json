@@ -1017,9 +1017,6 @@
         "automountServiceAccountToken": {
             "type": "boolean"
         },
-        "initContainerResources": {
-            "type": "object"
-        },
         "resources": {
             "type": "object"
         },

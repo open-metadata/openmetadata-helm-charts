@@ -40,7 +40,7 @@ spec:
             {{- toYaml . | nindent 10 }}
           {{- end }}
         resources:
-          {{- toYaml .Values.initContainerResources | nindent 10 }}
+          {{- toYaml .Values.resources | nindent 10 }}
         envFrom:
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-config-secret

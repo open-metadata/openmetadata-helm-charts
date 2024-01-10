@@ -240,10 +240,6 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | readinessProbe.httpGet.port | string | `http` |
 | replicaCount | int | `1` |
 | resources | object | `{}` |
-| initContainerResources.limits.cpu | string | `1` |
-| initContainerResources.limits.memory | string | `2048Mi` |
-| initContainerResources.requests.cpu | string | `500m` |
-| initContainerResources.requests.memory | string | `256Mi` |
 | securityContext | object | `{}` |
 | service.adminPort | string | `8586` |
 | service.annotations | object | `{}` |
