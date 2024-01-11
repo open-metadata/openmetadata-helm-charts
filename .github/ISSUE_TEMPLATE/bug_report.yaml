@@ -1,0 +1,115 @@
+name: Bug Report
+description: Tell us something about what went wrong.
+labels: [ "kind/bug" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Bug Report
+        
+        Thanks for helping make Openmetadata better!
+        
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      description: Please check the applicable options.
+      options:
+        - label: I have checked for existing issues.
+          required: true
+        - label: This report is about the Openmetadata Helm Chart.
+          required: false
+        - label: This report is about the Openmetadata Dependencies Helm Chart.
+          required: false
+  
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: The context the problem occurred in, and an overview of what went wrong.
+      placeholder: "While trying to deploy chart..."
+      value: Bug Description
+    validations:
+      required: true
+  
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce
+      description: How can we reproduce the issue you are facing?
+      placeholder: |
+        "Step - 1: Update values.yaml as below..."
+        "Step - 2: Install Openmetadata helm chart with updated values.yaml"
+    validations:
+      required: false
+  
+  - type: input
+    id: chart-version
+    attributes:
+      label: Chart Version
+      description: "You can get it from the output of 'helm list' command"
+      placeholder: "X.X.X"
+    validations:
+      required: true
+  
+  - type: input
+    id: app-version
+    attributes:
+      label: App Version
+      description: "You can get it from the output of 'helm list' command"
+      placeholder: "X.X.X"
+    validations:
+      required: true
+  
+  - type: input
+    id: k8s-version
+    attributes:
+      label: Kubernetes Version
+      description: "Output of `kubectl version` command."
+      placeholder: |
+        {Version:"vX.X.X"}
+    validations:
+      required: true
+  
+  - type: input
+    id: helm-version
+    attributes:
+      label: Helm Version
+      description: "Output of `helm version` command."
+      placeholder: |
+        {Version:"vX.X.X"}
+    validations:
+      required: true
+  
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant Logs
+      description: "Outputs of commands like `kubectl logs podname` or `kubectl describe pods podname`."
+      placeholder: "Include any relevant Pod, container logs or events."
+      render: shell
+  
+  - type: textarea
+    id: custom-helm-values
+    attributes:
+      label: Custom Helm Values
+      description: "Non-default helm values being used (in YAML)."
+      placeholder: |
+        service:
+          type: ClusterIP
+          port: 8585
+          adminPort: 8586
+      render: yaml
+  
+  - type: dropdown
+    id: community
+    attributes:
+      label: Have you joined Openmetadata Slack community?
+      description: You can join our slack community from [here](https://open-metadata.org/community)
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+      default: 0
+    validations:
+      required: true
