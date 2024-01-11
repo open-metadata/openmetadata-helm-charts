@@ -17,9 +17,9 @@ body:
       options:
         - label: I have checked for existing issues.
           required: true
-        - label: This report is about the Openmetadata Helm Chart.
+        - label: This request is about the Openmetadata Helm Chart.
           required: false
-        - label: This report is about the Openmetadata Dependencies Helm Chart.
+        - label: This request is about the Openmetadata Dependencies Helm Chart.
           required: false
   
   - type: textarea
