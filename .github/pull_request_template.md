@@ -1,30 +1,27 @@
-### Describe your changes :
+### What this PR does / why we need it :
 <!-- Explain what you have done & tag your assigned issue !-->
-I worked on the ..... because ...
+<!-- Which issue this PR fixes (if applicable) !-->
+Fixes #
 
 #
 ### Type of change :
 <!-- You should choose 1 option and delete options that aren't relevant -->
 - [x] Bug fix
-- [x] Improvement
-- [x] New feature
-- [x] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [x] Documentation
-
-#
-### Frontend Preview (Screenshots) :
-<p align="center">For frontend related change, please link screenshots of your changes preview! Optional for backend related changes.
-</p>
+- [ ] Improvement
+- [ ] New feature
+- [ ] Documentation
 
 #
 ### Checklist:
 <!-- add an x in [] if done, don't mark items that you didn't do !-->
 - [x] I have read the [**CONTRIBUTING**](https://docs.open-metadata.org/developer) document.
-- [ ] I have performed a self-review of my own. 
-- [ ] I have tagged my reviewers below.
-- [ ] I have commented on my code, particularly in hard-to-understand areas.
-- [ ] My changes generate no new warnings.
-- [ ] I have added tests that prove my fix is effective or that my feature works.
+- [ ] Chart Version bumped
+- [ ] Variables are documented in the README.md
+- [ ] Title of the PR starts with chart name
+- [ ] My code follows the style guidelines of this project
+- [ ] I have performed a self-review of my code
+- [ ] I have commented my code, particularly in hard-to-understand areas
+- [ ] I have made corresponding changes to the documentation
 - [x] All new and existing tests passed.
 
 #
@@ -32,6 +29,4 @@ I worked on the ..... because ...
 <!-- Please see the contributing guidelines and then add your reviewer(s) !-->
 <!--- OpenMetadata community thanks you for explaining your changes in detail !-->
 <!--- If you are unsure of people to review your work, you can add anyone of these developers :) !-->
-<!--- @shahsank3t -->
-<!--- @sureshms @harshach -->
-<!--- @ayush-shah @akash-jain-10 -->
+<!--- @akash-jain-10 @tutte @dhruvinmaniar123 !-->

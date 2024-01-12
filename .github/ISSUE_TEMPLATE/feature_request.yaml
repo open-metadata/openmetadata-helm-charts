@@ -1,0 +1,54 @@
+name: Feature Request
+description: Help us with the feature you are trying to achieve.
+labels: [ "kind/enhancement" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Feature request
+        
+        Thanks for helping make Openmetadata better!
+        
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      description: Please check the applicable options.
+      options:
+        - label: I have checked for existing issues.
+          required: true
+        - label: This request is about the Openmetadata Helm Chart.
+          required: false
+        - label: This request is about the Openmetadata Dependencies Helm Chart.
+          required: false
+  
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: The context the problem occurred in, and an overview of what went wrong.
+      placeholder: "What feature you are trying to achieve?"
+    validations:
+      required: true
+  
+  - type: textarea
+    id: proposed-implementation
+    attributes:
+      label: Proposed Implementation
+      description: What is your proposed implementation?
+      placeholder: "You can leave this blank if you don't have an implementation in mind at the moment."
+    validations:
+      required: true
+  
+  - type: dropdown
+    id: community
+    attributes:
+      label: Have you joined Openmetadata Slack community?
+      description: You can join our slack community from [here](https://open-metadata.org/community)
+      multiple: false
+      options:
+        - "Yes"
+        - "No"
+      default: 0
+    validations:
+      required: true
