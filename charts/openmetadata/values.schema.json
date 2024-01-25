@@ -986,6 +986,9 @@
         "podSecurityContext": {
             "type": "object"
         },
+        "preMigrateInitContainers": {
+            "type": "array"
+        },
         "readinessProbe": {
             "type": "object",
             "properties": {

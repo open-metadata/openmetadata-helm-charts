@@ -29,6 +29,9 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
+      {{- with .Values.preMigrateInitContainers }}
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
       - name: run-db-migrations
         securityContext:
           {{- toYaml .Values.securityContext | nindent 10 }}
