@@ -29,7 +29,7 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-      {{- with .Values.extraInitContainers }}
+      {{- with .Values.preMigrateInitContainers }}
         {{- toYaml . | nindent 6 }}
       {{- end }}
       - name: run-db-migrations
@@ -105,6 +105,9 @@ spec:
         {{- with .Values.extraEnvs }}
           {{- toYaml . | nindent 8 }}
         {{- end }}
+      {{- with .Values.extraInitContainers }}
+        {{- toYaml . | nindent 6 }}
+      {{- end }}
       volumes:
       {{- include "tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
       containers:

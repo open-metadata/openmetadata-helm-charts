@@ -361,7 +361,11 @@ extraVolumeMounts: []
 #   mountPath: /usr/share/extras
 #   readOnly: true
 
+# Provision for InitContainers to be running after the `run-db-migration` InitContainer
 extraInitContainers: []
+
+# Provision for InitContainers to be running before the `run-db-migration` InitContainer
+preMigrateInitContainers: []
 
 resources: {}
 # We usually recommend not to specify default resources and to leave this as a conscious
