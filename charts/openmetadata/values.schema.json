@@ -312,6 +312,36 @@
                                         "userBaseDN": {
                                             "type": "string"
                                         },
+                                        "groupBaseDN": {
+                                            "type": "string"
+                                        },
+                                        "roleAdminName": {
+                                            "type": "string"
+                                        },
+                                        "allAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "usernameAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "groupAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "groupAttributeValue": {
+                                            "type": "string"
+                                        },
+                                        "groupMemberAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "authRolesMapping": {
+                                            "type": "string"
+                                        },
+                                        "authReassignRoles": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        },
                                         "mailAttributeName": {
                                             "type": "string"
                                         },
@@ -652,6 +682,9 @@
                                 "connectionTimeoutSecs": {
                                     "type": "integer"
                                 },
+                                "clusterAlias": {
+                                    "type": "string"
+                                },
                                 "host": {
                                     "type": "string"
                                 },
@@ -840,6 +873,15 @@
                                         "managed-aws-ssm",
                                         "in-memory"
                                     ]
+                                },
+                                "prefix": {
+                                    "type": "string"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
                                 },
                                 "enabled": {
                                     "type": "boolean"
