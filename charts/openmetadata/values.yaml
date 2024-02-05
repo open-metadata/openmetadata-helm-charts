@@ -209,8 +209,8 @@ openmetadata:
         secretKey: ""
     secretsManager:
       enabled: true
-      # Possible values are noop, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory
-      provider: noop
+      # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory
+      provider: db
       additionalParameters:
         enabled: false
         region: ""

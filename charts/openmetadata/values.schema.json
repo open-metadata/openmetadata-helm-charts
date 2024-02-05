@@ -833,7 +833,7 @@
                                 "provider": {
                                     "type": "string",
                                     "enum": [
-                                        "noop",
+                                        "db",
                                         "aws",
                                         "aws-ssm",
                                         "managed-aws",
