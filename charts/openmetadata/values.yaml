@@ -8,10 +8,8 @@ replicaCount: 1
 openmetadata:
   config:
     upgradeMigrationConfigs:
-      debug: false
-      # You can pass the additional argument flags to the openmetadata-ops.sh migrate command
-      # Example if you want to force migration runs, use additionalArgs: "--force"
-      additionalArgs: ""
+      force: false
+      migrationLimitParam: 1200
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
