@@ -99,8 +99,6 @@ spec:
           {{- toYaml . | nindent 10 }}
         {{- end }}
         env:
-        - name: MIGRATION_LIMIT_PARAM
-          value: "{{ .Values.openmetadata.config.upgradeMigrationConfigs.migrationLimitParam }}"
         {{- include "OpenMetadata.configs" . | nindent 8 }}
         {{- with .Values.extraEnvs }}
           {{- toYaml . | nindent 8 }}

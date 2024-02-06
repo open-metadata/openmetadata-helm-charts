@@ -153,11 +153,11 @@
                             "type": "object",
                             "additionalProperties": false,
                             "properties": {
-                                "force": {
-                                    "type": "boolean"
+                                "additionalArgs": {
+                                    "type": "string"
                                 },
-                                "migrationLimitParam": {
-                                    "type": "integer"
+                                "debug": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -311,6 +311,36 @@
                                         },
                                         "userBaseDN": {
                                             "type": "string"
+                                        },
+                                        "groupBaseDN": {
+                                            "type": "string"
+                                        },
+                                        "roleAdminName": {
+                                            "type": "string"
+                                        },
+                                        "allAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "usernameAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "groupAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "groupAttributeValue": {
+                                            "type": "string"
+                                        },
+                                        "groupMemberAttributeName": {
+                                            "type": "string"
+                                        },
+                                        "authRolesMapping": {
+                                            "type": "string"
+                                        },
+                                        "authReassignRoles": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
                                         },
                                         "mailAttributeName": {
                                             "type": "string"
@@ -652,6 +682,9 @@
                                 "connectionTimeoutSecs": {
                                     "type": "integer"
                                 },
+                                "clusterAlias": {
+                                    "type": "string"
+                                },
                                 "host": {
                                     "type": "string"
                                 },
@@ -833,13 +866,22 @@
                                 "provider": {
                                     "type": "string",
                                     "enum": [
-                                        "noop",
+                                        "db",
                                         "aws",
                                         "aws-ssm",
                                         "managed-aws",
                                         "managed-aws-ssm",
                                         "in-memory"
                                     ]
+                                },
+                                "prefix": {
+                                    "type": "string"
+                                },
+                                "tags": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
                                 },
                                 "enabled": {
                                     "type": "boolean"

@@ -83,10 +83,10 @@ Build the OpenMetadata Migration Command */}}
 command:
 - "/bin/bash"
 - "-c"
-{{- if .Values.openmetadata.config.upgradeMigrationConfigs.force }}
-- "/opt/openmetadata/bootstrap/bootstrap_storage.sh migrate-all debug force"
+{{- if .Values.openmetadata.config.upgradeMigrationConfigs.debug }}
+- "/opt/openmetadata/bootstrap/openmetadata-ops.sh -d migrate {{ .Values.openmetadata.config.upgradeMigrationConfigs.additionalArgs }}"
 {{- else }}
-- "/opt/openmetadata/bootstrap/bootstrap_storage.sh migrate-all"
+- "/opt/openmetadata/bootstrap/openmetadata-ops.sh migrate {{ .Values.openmetadata.config.upgradeMigrationConfigs.additionalArgs }}"
 {{- end }}
 {{- end }}
 

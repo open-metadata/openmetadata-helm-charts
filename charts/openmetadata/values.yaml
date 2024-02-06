@@ -8,8 +8,10 @@ replicaCount: 1
 openmetadata:
   config:
     upgradeMigrationConfigs:
-      force: false
-      migrationLimitParam: 1200
+      debug: false
+      # You can pass the additional argument flags to the openmetadata-ops.sh migrate command
+      # Example if you want to force migration runs, use additionalArgs: "--force"
+      additionalArgs: ""
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
@@ -25,6 +27,7 @@ openmetadata:
       searchType: opensearch
       port: 9200
       scheme: http
+      clusterAlias: ""
       connectionTimeoutSecs: 5
       socketTimeoutSecs: 60
       batchSize: 10
@@ -116,6 +119,15 @@ openmetadata:
         mailAttributeName: email
         maxPoolSize: 3
         sslEnabled: false
+        groupBaseDN: ""
+        roleAdminName: ""
+        allAttributeName: ""
+        usernameAttributeName: ""
+        groupAttributeName: ""
+        groupAttributeValue: ""
+        groupMemberAttributeName: ""
+        authRolesMapping: ""
+        authReassignRoles: []
         # Possible values are CustomTrustStore, HostName, JVMDefault, TrustAll
         truststoreConfigType: TrustAll
         trustStoreConfig:
@@ -199,7 +211,7 @@ openmetadata:
       emailingEntity: "OpenMetadata"
       supportUrl: "https://slack.open-metadata.org"
       transportationStrategy: "SMTP_TLS"
-      openMetadataUrl: ""
+      openMetadataUrl: "http://openmetadata:8585"
       serverEndpoint: ""
       serverPort: ""
       senderMail: ""
@@ -209,8 +221,12 @@ openmetadata:
         secretKey: ""
     secretsManager:
       enabled: true
-      # Possible values are noop, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory
-      provider: noop
+      # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory
+      provider: db
+      # Define the secret key ID as /<prefix>/<clusterName>/<key>
+      prefix: ""
+       # Add tags to the created resource, e.g., in AWS. Format is `[key1:value1,key2:value2,...]`
+      tags: []
       additionalParameters:
         enabled: false
         region: ""

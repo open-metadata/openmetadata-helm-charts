@@ -47,6 +47,15 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretRef | string | `ldap-secret` | AUTHENTICATION_LOOKUP_ADMIN_PWD |
 | openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretKey | string | `openmetadata-ldap-secret` | AUTHENTICATION_LOOKUP_ADMIN_PWD |
 | openmetadata.config.authentication.ldapConfiguration.userBaseDN | string | `ou=people,dc=example,dc=com` | AUTHENTICATION_USER_LOOKUP_BASEDN |
+| openmetadata.config.authentication.ldapConfiguration.groupBaseDN | string | `Empty String` | AUTHENTICATION_GROUP_LOOKUP_BASEDN |
+| openmetadata.config.authentication.ldapConfiguration.roleAdminName | string | `Empty String` | AUTHENTICATION_USER_ROLE_ADMIN_NAME |
+| openmetadata.config.authentication.ldapConfiguration.allAttributeName | string | `Empty String` | AUTHENTICATION_USER_ALL_ATTR |
+| openmetadata.config.authentication.ldapConfiguration.usernameAttributeName | string | `Empty String` | AUTHENTICATION_USER_NAME_ATTR |
+| openmetadata.config.authentication.ldapConfiguration.groupAttributeName | string | `Empty String` | AUTHENTICATION_USER_GROUP_ATTR |
+| openmetadata.config.authentication.ldapConfiguration.groupAttributeValue | string | `Empty String` | AUTHENTICATION_USER_GROUP_ATTR_VALUE |
+| openmetadata.config.authentication.ldapConfiguration.groupMemberAttributeName | string | `Empty String` | AUTHENTICATION_USER_GROUP_MEMBER_ATTR |
+| openmetadata.config.authentication.ldapConfiguration.authRolesMapping | string | `Empty String` | AUTH_ROLES_MAPPING |
+| openmetadata.config.authentication.ldapConfiguration.authReassignRoles | string | `Empty String` | AUTH_REASSIGN_ROLES |
 | openmetadata.config.authentication.ldapConfiguration.mailAttributeName | string | `email` | AUTHENTICATION_USER_MAIL_ATTR |
 | openmetadata.config.authentication.ldapConfiguration.maxPoolSize | int | 3 | AUTHENTICATION_LDAP_POOL_SIZE |
 | openmetadata.config.authentication.ldapConfiguration.sslEnabled | bool | `true` | AUTHENTICATION_LDAP_SSL_ENABLED |
@@ -124,6 +133,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.elasticsearch.port | int | 9200 | ELASTICSEARCH_PORT |
 | openmetadata.config.elasticsearch.searchType | string | `opensearch` | SEARCH_TYPE |
 | openmetadata.config.elasticsearch.scheme | string | `http` | ELASTICSEARCH_SCHEME |
+| openmetadata.config.elasticsearch.clusterAlias | string | `Empty String` | ELASTICSEARCH_CLUSTER_ALIAS |
 | openmetadata.config.elasticsearch.searchIndexMappingLanguage | string | `EN`| ELASTICSEARCH_INDEX_MAPPING_LANG |
 | openmetadata.config.elasticsearch.trustStore.enabled | bool | `false` | |
 | openmetadata.config.elasticsearch.trustStore.path | string | `Empty String` | ELASTICSEARCH_TRUST_STORE_PATH |
@@ -162,7 +172,9 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.pipelineServiceClientConfig.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
 | openmetadata.config.pipelineServiceClientConfig.hostIp | string | `Empty` | PIPELINE_SERVICE_CLIENT_HOST_IP |
 | openmetadata.config.secretsManager.enabled | bool | `true` | |
-| openmetadata.config.secretsManager.provider | string | `noop` | SECRET_MANAGER |
+| openmetadata.config.secretsManager.provider | string | `Empty String` | SECRET_MANAGER |
+| openmetadata.config.secretsManager.prefix | string | `Empty String` | SECRET_MANAGER_PREFIX |
+| openmetadata.config.secretsManager.tags | list | `[]` | SECRET_MANAGER_TAGS |
 | openmetadata.config.secretsManager.additionalParameters.enabled | bool | `false` | |
 | openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` | OM_SM_ACCESS_KEY_ID |
 | openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY_ID |
@@ -179,8 +191,8 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` | OM_SUPPORT_URL |
 | openmetadata.config.smtpConfig.transportationStrategy | string | `SMTP_TLS` | SMTP_SERVER_STRATEGY |
 | openmetadata.config.smtpConfig.username | string | `Empty String` | SMTP_SERVER_USERNAME |
-| openmetadata.config.upgradeMigrationConfigs.force | bool | `false` |  |
-| openmetadata.config.upgradeMigrationConfigs.migrationLimitParam | int | `1200` | MIGRATION_LIMIT_PARAM |
+| openmetadata.config.upgradeMigrationConfigs.debug | bool | `false` |  |
+| openmetadata.config.upgradeMigrationConfigs.additionalArgs | string | `Empty String` |  |
 | openmetadata.config.web.enabled | bool | `true` | |
 | openmetadata.config.web.contentTypeOptions.enabled | bool | `false` | WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED |
 | openmetadata.config.web.csp.enabled | bool | `false` | WEB_CONF_XSS_CSP_ENABLED |
@@ -215,7 +227,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.2.5` |
+| image.tag | string | `1.3.0` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |

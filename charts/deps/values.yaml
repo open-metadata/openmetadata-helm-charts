@@ -61,12 +61,12 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.2.5
+      tag: 1.3.0
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
       # This is required for OpenMetadata UI to fetch status of DAGs
-      AIRFLOW__API__AUTH_BACKENDS: airflow.api.auth.backend.basic_auth
+      AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.session,airflow.api.auth.backend.basic_auth"
       # OpenMetadata Airflow Apis Plugin DAGs Configuration
       AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dags"
       # OpenMetadata Airflow Secrets Manager Configuration
