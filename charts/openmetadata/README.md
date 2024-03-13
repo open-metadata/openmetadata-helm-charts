@@ -178,6 +178,14 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.secretsManager.additionalParameters.enabled | bool | `false` | |
 | openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef | string | `aws-access-key-secret` | OM_SM_ACCESS_KEY_ID |
 | openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY_ID |
+| openmetadata.config.secretsManager.additionalParameters.clientId.secretRef | string | `azure-client-id-secret` | OM_SM_CLIENT_ID |
+| openmetadata.config.secretsManager.additionalParameters.clientId.secretKey | string | `azure-key-secret` | OM_SM_CLIENT_ID |
+| openmetadata.config.secretsManager.additionalParameters.clientSecret.secretRef | string | `azure-client-secret` | OM_SM_CLIENT_SECRET |
+| openmetadata.config.secretsManager.additionalParameters.clientSecret.secretKey | string | `azure-key-secret` | OM_SM_CLIENT_SECRET |
+| openmetadata.config.secretsManager.additionalParameters.tenantId.secretRef | string | `azure-tenant-id-secret` | OM_SM_TENANT_ID |
+| openmetadata.config.secretsManager.additionalParameters.tenantId.secretKey | string | `azure-key-secret` | OM_SM_TENANT_ID |
+| openmetadata.config.secretsManager.additionalParameters.vaultName.secretRef | string | `azure-vault-name-secret` | OM_SM_VAULT_NAME |
+| openmetadata.config.secretsManager.additionalParameters.vaultName.secretKey | string | `azure-key-secret` | OM_SM_VAULT_NAME |
 | openmetadata.config.secretsManager.additionalParameters.region | string | `Empty String` | OM_SM_REGION |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` | OM_SM_ACCESS_KEY |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY |
@@ -191,8 +199,8 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` | OM_SUPPORT_URL |
 | openmetadata.config.smtpConfig.transportationStrategy | string | `SMTP_TLS` | SMTP_SERVER_STRATEGY |
 | openmetadata.config.smtpConfig.username | string | `Empty String` | SMTP_SERVER_USERNAME |
-| openmetadata.config.upgradeMigrationConfigs.force | bool | `false` |  |
-| openmetadata.config.upgradeMigrationConfigs.migrationLimitParam | int | `1200` | MIGRATION_LIMIT_PARAM |
+| openmetadata.config.upgradeMigrationConfigs.debug | bool | `false` |  |
+| openmetadata.config.upgradeMigrationConfigs.additionalArgs | string | `Empty String` |  |
 | openmetadata.config.web.enabled | bool | `true` | |
 | openmetadata.config.web.contentTypeOptions.enabled | bool | `false` | WEB_CONF_CONTENT_TYPE_OPTIONS_ENABLED |
 | openmetadata.config.web.csp.enabled | bool | `false` | WEB_CONF_XSS_CSP_ENABLED |
