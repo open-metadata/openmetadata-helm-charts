@@ -107,6 +107,71 @@ Function to check if passed value is empty string or null value */}}
 {{- end -}}
 
 {{/*
+OpenMetadata Configurations AWS Additional Parameters Environment Variables for Secret Manager*/}}
+{{- define "OpenMetadata.configs.secretManager.aws.additionalParameters" -}}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef }}
+{{- with .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId }}
+- name: OM_SM_ACCESS_KEY_ID
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef }}
+{{- with .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey }}
+- name: OM_SM_ACCESS_KEY
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+{{/*
+OpenMetadata Configurations Azure Additional Parameters Environment Variables for Secret Manager
+*/}}
+{{- define "OpenMetadata.configs.secretManager.azure.additionalParameters" -}}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.clientId.secretRef }}
+{{- with .Values.openmetadata.config.secretsManager.additionalParameters.clientId }}
+- name: OM_SM_CLIENT_ID
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.clientSecret.secretRef }}
+{{- with .Values.openmetadata.config.secretsManager.additionalParameters.clientSecret }}
+- name: OM_SM_CLIENT_SECRET
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.tenantId.secretRef }}
+{{- with .Values.openmetadata.config.secretsManager.additionalParameters.tenantId }}
+- name: OM_SM_TENANT_ID
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.secretsManager.additionalParameters.vaultName.secretRef }}
+{{- with .Values.openmetadata.config.secretsManager.additionalParameters.vaultName }}
+- name: OM_SM_VAULT_NAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- end -}}
+
+{{/*
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
 {{- if .Values.openmetadata.config.fernetkey.secretRef -}}
@@ -227,23 +292,11 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- end }}
 {{- if .Values.openmetadata.config.secretsManager.additionalParameters.enabled }}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef }}
-{{- with .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId }}
-- name: OM_SM_ACCESS_KEY_ID
-  valueFrom:
-    secretKeyRef:
-      name: {{ .secretRef }}
-      key: {{ .secretKey }}
+{{- if has .Values.openmetadata.config.secretsManager.provider (list "aws" "aws-ssm" "managed-aws" "managed-aws-ssm") }}
+{{ include "OpenMetadata.configs.secretManager.aws.additionalParameters" . }}
 {{- end }}
-{{- end }}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef }}
-{{- with .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey }}
-- name: OM_SM_ACCESS_KEY
-  valueFrom:
-    secretKeyRef:
-      name: {{ .secretRef }}
-      key: {{ .secretKey }}
-{{- end }}
+{{- if has .Values.openmetadata.config.secretsManager.provider (list "managed-azure-kv" "azure-kv") }}
+{{ include "OpenMetadata.configs.secretManager.azure.additionalParameters" . }}
 {{- end }}
 {{- end }}
 {{- if and ( .Values.openmetadata.config.smtpConfig.enableSmtpServer ) ( .Values.openmetadata.config.smtpConfig.password.secretRef )}}
@@ -255,5 +308,4 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-
 {{- end }}

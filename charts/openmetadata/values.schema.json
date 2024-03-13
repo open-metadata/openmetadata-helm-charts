@@ -843,6 +843,30 @@
                                                 }
                                             }
                                         },
+                                        "clientId": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "clientSecret": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
                                         "enabled": {
                                             "type": "boolean"
                                         },
@@ -850,6 +874,30 @@
                                             "type": "string"
                                         },
                                         "secretAccessKey": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "tenantId": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "vaultName": {
                                             "type": "object",
                                             "additionalProperties": false,
                                             "properties": {
@@ -871,7 +919,9 @@
                                         "aws-ssm",
                                         "managed-aws",
                                         "managed-aws-ssm",
-                                        "in-memory"
+                                        "in-memory",
+                                        "managed-azure-kv",
+                                        "azure-kv"
                                     ]
                                 },
                                 "prefix": {
