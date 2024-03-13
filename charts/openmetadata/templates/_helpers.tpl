@@ -88,13 +88,14 @@ command:
 {{- else }}
 - "/opt/openmetadata/bootstrap/openmetadata-ops.sh migrate {{ .Values.openmetadata.config.upgradeMigrationConfigs.additionalArgs }}"
 {{- end }}
+{{- end }}
 
 {{/*
 Warning to update openmetadata global keyword to openmetadata.config */}}
 {{- define "error-message" }}
 {{- printf "Error: %s" . | fail }}
 {{- end }}
-{{- end }}
+
 
 {{/*
 Function to check if passed value is empty string or null value */}}
