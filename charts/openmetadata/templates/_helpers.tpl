@@ -88,7 +88,6 @@ command:
 {{- else }}
 - "/opt/openmetadata/bootstrap/openmetadata-ops.sh migrate {{ .Values.openmetadata.config.upgradeMigrationConfigs.additionalArgs }}"
 {{- end }}
-{{- end }}
 
 {{/*
 Warning to update openmetadata global keyword to openmetadata.config */}}

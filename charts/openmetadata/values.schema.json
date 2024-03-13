@@ -153,11 +153,11 @@
                             "type": "object",
                             "additionalProperties": false,
                             "properties": {
-                                "force": {
-                                    "type": "boolean"
+                                "additionalArgs": {
+                                    "type": "string"
                                 },
-                                "migrationLimitParam": {
-                                    "type": "integer"
+                                "debug": {
+                                    "type": "boolean"
                                 }
                             }
                         },
