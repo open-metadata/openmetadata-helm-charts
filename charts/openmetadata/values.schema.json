@@ -153,11 +153,11 @@
                             "type": "object",
                             "additionalProperties": false,
                             "properties": {
-                                "force": {
-                                    "type": "boolean"
+                                "additionalArgs": {
+                                    "type": "string"
                                 },
-                                "migrationLimitParam": {
-                                    "type": "integer"
+                                "debug": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -246,6 +246,13 @@
                                 "clientId": {
                                     "type": "string"
                                 },
+                                "clientType": {
+                                    "type": "string",
+                                    "enum": [
+                                        "public",
+                                        "confidential"
+                                    ]
+                                },
                                 "enableSelfSignup": {
                                     "type": "boolean"
                                 },
@@ -283,6 +290,78 @@
                                 },
                                 "responseType": {
                                     "type": "string"
+                                },
+                                "oidcConfiguration": {
+                                    "type": "object",
+                                    "additionalProperties": false,
+                                    "properties": {
+                                        "enabled": {
+                                            "type": "boolean"
+                                        },
+                                        "oidcType": {
+                                            "type": "string"
+                                        },
+                                        "clientId": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretRef": {
+                                                    "type": "string"
+                                                },
+                                                "secretKey": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "clientSecret": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretRef": {
+                                                    "type": "string"
+                                                },
+                                                "secretKey": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "scope": {
+                                            "type": "string"
+                                        },
+                                        "discoveryUri": {
+                                            "type": "string"
+                                        },
+                                        "useNonce": {
+                                            "type": "boolean"
+                                        },
+                                        "preferredJwsAlgorithm": {
+                                            "type": "string"
+                                        },
+                                        "responseType": {
+                                            "type": "string"
+                                        },
+                                        "disablePkce": {
+                                            "type": "boolean"
+                                        },
+                                        "callbackUrl": {
+                                            "type": "string"
+                                        },
+                                        "serverUrl": {
+                                            "type": "string"
+                                        },
+                                        "clientAuthenticationMethod": {
+                                            "type": "string"
+                                        },
+                                        "tenant": {
+                                            "type": "string"
+                                        },
+                                        "maxClockSkew": {
+                                            "type": "string"
+                                        },
+                                        "customParams": {
+                                            "type": "string"
+                                        }
+                                    }
                                 },
                                 "ldapConfiguration": {
                                     "type": "object",
@@ -843,6 +922,30 @@
                                                 }
                                             }
                                         },
+                                        "clientId": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "clientSecret": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
                                         "enabled": {
                                             "type": "boolean"
                                         },
@@ -850,6 +953,30 @@
                                             "type": "string"
                                         },
                                         "secretAccessKey": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "tenantId": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "vaultName": {
                                             "type": "object",
                                             "additionalProperties": false,
                                             "properties": {
@@ -871,7 +998,9 @@
                                         "aws-ssm",
                                         "managed-aws",
                                         "managed-aws-ssm",
-                                        "in-memory"
+                                        "in-memory",
+                                        "managed-azure-kv",
+                                        "azure-kv"
                                     ]
                                 },
                                 "prefix": {

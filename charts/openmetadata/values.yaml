@@ -8,8 +8,10 @@ replicaCount: 1
 openmetadata:
   config:
     upgradeMigrationConfigs:
-      force: false
-      migrationLimitParam: 1200
+      debug: false
+      # You can pass the additional argument flags to the openmetadata-ops.sh migrate command
+      # Example if you want to force migration runs, use additionalArgs: "--force"
+      additionalArgs: ""
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
@@ -94,6 +96,7 @@ openmetadata:
       enableSecureSocketConnection: false
     authentication:
       enabled: true
+      clientType: public
       provider: "basic"
       publicKeys:
       - "http://openmetadata:8585/api/v1/system/config/jwks"
@@ -106,6 +109,27 @@ openmetadata:
       - "preferred_username"
       - "sub"
       enableSelfSignup: true
+      oidcConfiguration:
+        enabled: false
+        oidcType: ""
+        clientId:
+          secretRef: oidc-secrets
+          secretKey: openmetadata-oidc-client-id
+        clientSecret:
+          secretRef: oidc-secrets
+          secretKey: openmetadata-oidc-client-secret
+        scope: "openid email profile"
+        discoveryUri: ""
+        useNonce: true
+        preferredJwsAlgorithm: RS256
+        responseType: code
+        disablePkce: true
+        callbackUrl: http://openmetadata:8585/callback
+        serverUrl: http://openmetadata:8585
+        clientAuthenticationMethod: client_secret_post
+        tenant: ""
+        maxClockSkew: ""
+        customParams: ""
       ldapConfiguration:
         host: localhost
         port: 10636
@@ -219,21 +243,36 @@ openmetadata:
         secretKey: ""
     secretsManager:
       enabled: true
-      # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory
+      # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory, managed-azure-kv, azure-kv
       provider: db
-      # Define the secret key ID as /<prefix>/<clusterName>/<key>
+      # Define the secret key ID as /<prefix>/<clusterName>/<key> for AWS
+      # Define the secret key ID as <prefix>-<clusterName>-<key> for Azure
       prefix: ""
        # Add tags to the created resource, e.g., in AWS. Format is `[key1:value1,key2:value2,...]`
       tags: []
       additionalParameters:
         enabled: false
         region: ""
+        # For AWS
         accessKeyId:
           secretRef: aws-access-key-secret
           secretKey: aws-key-secret
         secretAccessKey:
           secretRef: aws-secret-access-key-secret
           secretKey: aws-key-secret
+        # For Azure
+        clientId:
+          secretRef: azure-client-id-secret
+          secretKey: azure-key-secret
+        clientSecret:
+          secretRef: azure-client-secret
+          secretKey: azure-key-secret
+        tenantId:
+          secretRef: azure-tenant-id-secret
+          secretKey: azure-key-secret
+        vaultName:
+          secretRef: azure-vault-name-secret
+          secretKey: azure-key-secret
       # You can create Kubernetes secrets from AWS Credentials with the below command
       # kubectl create secret generic aws-key-secret \
       # --from-literal=aws-access-key-secret=<access_key_id_value> \
