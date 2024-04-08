@@ -96,6 +96,7 @@ openmetadata:
       enableSecureSocketConnection: false
     authentication:
       enabled: true
+      clientType: public
       provider: "basic"
       publicKeys:
       - "http://openmetadata:8585/api/v1/system/config/jwks"
@@ -108,6 +109,27 @@ openmetadata:
       - "preferred_username"
       - "sub"
       enableSelfSignup: true
+      oidcConfiguration:
+        enabled: false
+        oidcType: ""
+        clientId:
+          secretRef: oidc-secrets
+          secretKey: openmetadata-oidc-client-id
+        clientSecret:
+          secretRef: oidc-secrets
+          secretKey: openmetadata-oidc-client-secret
+        scope: "openid email profile"
+        discoveryUri: ""
+        useNonce: true
+        preferredJwsAlgorithm: RS256
+        responseType: code
+        disablePkce: true
+        callbackUrl: http://openmetadata:8585/callback
+        serverUrl: http://openmetadata:8585
+        clientAuthenticationMethod: client_secret_post
+        tenant: ""
+        maxClockSkew: ""
+        customParams: ""
       ldapConfiguration:
         host: localhost
         port: 10636

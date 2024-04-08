@@ -184,6 +184,22 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
+{{- if and (eq .Values.openmetadata.config.authentication.clientType "confidential") (.Values.openmetadata.config.authentication.oidcConfiguration.enabled) }}
+{{- with .Values.openmetadata.config.authentication.oidcConfiguration.clientId }}
+- name: OIDC_CLIENT_ID
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- with .Values.openmetadata.config.authentication.oidcConfiguration.clientSecret }}
+- name: OIDC_CLIENT_SECRET
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
 {{- if eq .Values.openmetadata.config.authentication.provider "ldap" }}
 {{- if .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretRef }}
 {{- with .Values.openmetadata.config.authentication.ldapConfiguration.dnAdminPassword }}

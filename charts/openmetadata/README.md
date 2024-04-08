@@ -34,6 +34,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | Key | Type | Default | Conf/Openmetadata.yaml |
 |-----|------|---------| ---------------------- |
 | openmetadata.config.authentication.enabled | bool | `true` | |
+| openmetadata.config.authentication.clientType | string | `public` | AUTHENTICATION_CLIENT_TYPE |
 | openmetadata.config.authentication.provider | string | `basic` | AUTHENTICATION_PROVIDER |
 | openmetadata.config.authentication.publicKeys | list | `[http://openmetadata:8585/api/v1/system/config/jwks]` | AUTHENTICATION_PUBLIC_KEYS |
 | openmetadata.config.authentication.authority | string | `https://accounts.google.com` | AUTHENTICATION_AUTHORITY |
@@ -70,6 +71,24 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.hostNameConfig.acceptableHostNames | string | `[Empty String]` | AUTHENTICATION_LDAP_ALLOWED_HOSTNAMES |
 | openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.jvmDefaultConfig.verifyHostname | string | `Empty String` | AUTHENTICATION_LDAP_SSL_VERIFY_CERT_HOST |
 | openmetadata.config.authentication.ldapConfiguration.trustStoreConfig.trustAllConfig.examineValidityDates | bool | `true` | AUTHENTICATION_LDAP_EXAMINE_VALIDITY_DATES |
+| openmetadata.config.authentication.oidcConfiguration.callbackUrl | string | `http://openmetadata:8585/callback` | OIDC_CALLBACK |
+| openmetadata.config.authentication.oidcConfiguration.clientAuthenticationMethod | string | `client_secret_post` | OIDC_CLIENT_AUTH_METHOD |
+| openmetadata.config.authentication.oidcConfiguration.clientId.secretKey | string | `openmetadata-oidc-client-id` | OIDC_CLIENT_ID |
+| openmetadata.config.authentication.oidcConfiguration.clientId.secretRef | string | `oidc-secrets` | OIDC_CLIENT_ID |
+| openmetadata.config.authentication.oidcConfiguration.clientSecret.secretKey | string | `openmetadata-oidc-client-secret` | OIDC_CLIENT_SECRET |
+| openmetadata.config.authentication.oidcConfiguration.clientSecret.secretRef | string | `oidc-secrets` | OIDC_CLIENT_SECRET |
+| openmetadata.config.authentication.oidcConfiguration.customParams | string | `Empty` | OIDC_CUSTOM_PARAMS |
+| openmetadata.config.authentication.oidcConfiguration.disablePkce | bool | true | OIDC_DISABLE_PKCE |
+| openmetadata.config.authentication.oidcConfiguration.discoveryUri | string | `Empty` | OIDC_DISCOVERY_URI |
+| openmetadata.config.authentication.oidcConfiguration.enabled | bool | false | |
+| openmetadata.config.authentication.oidcConfiguration.maxClockSkew | string | `Empty` | OIDC_MAX_CLOCK_SKEW |
+| openmetadata.config.authentication.oidcConfiguration.oidcType | string | `Empty` | OIDC_TYPE |
+| openmetadata.config.authentication.oidcConfiguration.preferredJwsAlgorithm | string | `RS256` | OIDC_PREFERRED_JWS |
+| openmetadata.config.authentication.oidcConfiguration.responseType | string | `code` | OIDC_RESPONSE_TYPE |
+| openmetadata.config.authentication.oidcConfiguration.scope | string | `openid email profile` | OIDC_SCOPE |
+| openmetadata.config.authentication.oidcConfiguration.serverUrl | string | `http://openmetadata:8585` | OIDC_SERVER_URL |
+| openmetadata.config.authentication.oidcConfiguration.tenant | string | `Empty` | OIDC_TENANT |
+| openmetadata.config.authentication.oidcConfiguration.useNonce | bool | `true` | OIDC_USE_NONCE |
 | openmetadata.config.authentication.saml.debugMode | bool | false | SAML_DEBUG_MODE |
 | openmetadata.config.authentication.saml.idp.entityId | string | `Empty` | SAML_IDP_ENTITY_ID |
 | openmetadata.config.authentication.saml.idp.ssoLoginUrl |  string | `Empty` | SAML_IDP_SSO_LOGIN_URL |
@@ -235,7 +254,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.3.1` |
+| image.tag | string | `1.3.2` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
