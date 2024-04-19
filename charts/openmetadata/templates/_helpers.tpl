@@ -110,8 +110,8 @@ Function to check if passed value is empty string or null value */}}
 {{/*
 OpenMetadata Configurations AWS Additional Parameters Environment Variables for Secret Manager*/}}
 {{- define "OpenMetadata.configs.secretManager.aws.additionalParameters" -}}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.accessKeyId }}
+{{- if .secretRef }}
 - name: OM_SM_ACCESS_KEY_ID
   valueFrom:
     secretKeyRef:
@@ -119,8 +119,8 @@ OpenMetadata Configurations AWS Additional Parameters Environment Variables for 
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.secretAccessKey }}
+{{- if .secretRef }}
 - name: OM_SM_ACCESS_KEY
   valueFrom:
     secretKeyRef:
@@ -134,8 +134,8 @@ OpenMetadata Configurations AWS Additional Parameters Environment Variables for 
 OpenMetadata Configurations Azure Additional Parameters Environment Variables for Secret Manager
 */}}
 {{- define "OpenMetadata.configs.secretManager.azure.additionalParameters" -}}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.clientId.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.clientId }}
+{{- if .secretRef }}
 - name: OM_SM_CLIENT_ID
   valueFrom:
     secretKeyRef:
@@ -143,8 +143,8 @@ OpenMetadata Configurations Azure Additional Parameters Environment Variables fo
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.clientSecret.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.clientSecret }}
+{{- if .secretRef }}
 - name: OM_SM_CLIENT_SECRET
   valueFrom:
     secretKeyRef:
@@ -152,8 +152,8 @@ OpenMetadata Configurations Azure Additional Parameters Environment Variables fo
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.tenantId.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.tenantId }}
+{{- if .secretRef }}
 - name: OM_SM_TENANT_ID
   valueFrom:
     secretKeyRef:
@@ -161,8 +161,8 @@ OpenMetadata Configurations Azure Additional Parameters Environment Variables fo
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.secretsManager.additionalParameters.vaultName.secretRef }}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.vaultName }}
+{{- if .secretRef }}
 - name: OM_SM_VAULT_NAME
   valueFrom:
     secretKeyRef:

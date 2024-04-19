@@ -255,24 +255,42 @@ openmetadata:
         region: ""
         # For AWS
         accessKeyId:
-          secretRef: aws-access-key-secret
-          secretKey: aws-key-secret
+          secretRef: ""
+          secretKey: ""
         secretAccessKey:
-          secretRef: aws-secret-access-key-secret
-          secretKey: aws-key-secret
+          secretRef: ""
+          secretKey: ""
+        # accessKeyId:
+        #   secretRef: aws-access-key-secret
+        #   secretKey: aws-key-secret
+        # secretAccessKey:
+        #   secretRef: aws-secret-access-key-secret
+        #   secretKey: aws-key-secret
         # For Azure
         clientId:
-          secretRef: azure-client-id-secret
-          secretKey: azure-key-secret
+          secretRef: ""
+          secretKey: ""
         clientSecret:
-          secretRef: azure-client-secret
-          secretKey: azure-key-secret
+          secretRef: ""
+          secretKey: ""
         tenantId:
-          secretRef: azure-tenant-id-secret
-          secretKey: azure-key-secret
+          secretRef: ""
+          secretKey: ""
         vaultName:
-          secretRef: azure-vault-name-secret
-          secretKey: azure-key-secret
+          secretRef: ""
+          secretKey: ""
+        # clientId:
+        #   secretRef: azure-client-id-secret
+        #   secretKey: azure-key-secret
+        # clientSecret:
+        #   secretRef: azure-client-secret
+        #   secretKey: azure-key-secret
+        # tenantId:
+        #   secretRef: azure-tenant-id-secret
+        #   secretKey: azure-key-secret
+        # vaultName:
+        #   secretRef: azure-vault-name-secret
+        #   secretKey: azure-key-secret
       # You can create Kubernetes secrets from AWS Credentials with the below command
       # kubectl create secret generic aws-key-secret \
       # --from-literal=aws-access-key-secret=<access_key_id_value> \
