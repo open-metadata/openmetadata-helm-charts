@@ -254,7 +254,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.3.2` |
+| image.tag | string | `1.3.3` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
