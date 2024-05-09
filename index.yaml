@@ -7,7 +7,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 1b473d9100c7eb90af4d0db8cc74847b4f681f648db2e0353d33ade3f62973dc
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -45,7 +45,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 77b5bbfcb49f4e055d6866bd87908a769bfae64aaf99e0e9b5bd319b6efed74e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -83,7 +83,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 0adf012d65b2a8b437d7e0b528058feba9ac9c8141d61d6893c4dc0257c75d99
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -121,7 +121,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: e45a579db2e40d8580fb67146d1a56e13878081ceedcb929434b4181415eec65
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -159,7 +159,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: f74cba267083e4edc532a5d2c5febd51984dd6acf69662645eb0afe9f3c34323
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -197,7 +197,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: d1bb084ea3cdf3ed64ef377a525212e8d5df6d12fac3b46076abc5774b5b971e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -235,7 +235,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: d9356fee9512925df4ef18b39be494d5964f07c19017fafb931ebfe108b8f909
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -273,7 +273,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 97e1e4dbb873528a42887637da2092d910f99eb0ca29bdcb15333e85f5142986
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -311,7 +311,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: ed8516724afb87e41a3a731577a447699090bc29e4cb567293763692824d22ef
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -349,7 +349,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 5d4603e0db8b41e3a64c59072c539ca8b1fc4410a212e4aac4a2b3b9de0c377c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -387,7 +387,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: f09dd35e564844c386a9ca1d233693bc19979512865047a798923655173a7e91
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -425,7 +425,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 9ce98aa92367547680b891eed0c9b3c1ec449bdce2d0bbb52f9635430f07611e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -463,7 +463,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: cc4393548059508f9225711ae790f3b0d1804d474a42d33c20779d0c657ed355
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -501,7 +501,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 57f3568dd65ee530eb5e2465aa0a76b6479ecbf846cfb911bace52a123627e54
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -539,7 +539,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: ccd8cbe70360cd8f7498abcb7bb8c9a9c474b7ddcd393f8795d651b6521db9e0
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -577,7 +577,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 489ae41c3882de5e3c57c4b0cf18a7a381654997325e2528c8cae9869ea5c954
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -615,7 +615,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 30a11af16034215dc69388291301a74f7d84edcd1862b5fb42e6c57db8862225
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -653,7 +653,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 56972fd26db436fc413b877ac6d34a75b0db26a86758a4269aa5c4cc9e61238f
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -691,7 +691,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: ade9b0e95de320a3a561c6e5a701bc07fc44917240537592248fe206e3124d2d
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -729,7 +729,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 7b7d3a5f07458b5e2111ba116e784947c215ba8e45abf881776c3b91b37094da
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -767,7 +767,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: b3b15a2f2e4c582f3c2fab49e7a2dfd8860de89c766054bc51aeaf58eee0eec1
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -805,7 +805,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 13aee64c8ad6e3988092208d3e552d8bc82ecb25ef6d891b44b028010728bd0c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -843,7 +843,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 1ce183e8917385c639db04d6343e42f8f814728c1797bdf6e433f3367d167f40
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -881,7 +881,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 1bbbe233d246df1b9a035667bce5a8faaba98c6a3ccd431c506a08cff7de430c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -919,7 +919,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 34caf5300e371ce817519b9570e2a50a4d0bd8ead3e2e6b02d6102aafb900cdd
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -957,7 +957,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 74d016b305b4e0afc6bddfa26a7d11e0a28200cc5f5eb27420d22d7bd3a41adb
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -995,7 +995,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 73da35f303b621918b6be66dd6879243b8adde124846d7b2ac15d8daf63c5c02
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1033,7 +1033,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 6a103be9ed410bea81c593891ba651b74357a8617517be374753791b5f77dd83
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1071,7 +1071,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: df7f323a7e6b7869d72e29731e2ccd7ed8f19b5b81a374dc57268bdb1d0c05d0
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1109,7 +1109,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 339762fff4d8fba8e19c2afb15ddf6c9c41f894c25cdf8c72bb8ab5129bb1813
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1147,7 +1147,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 6d8f1a2750010361c7b104e12ebd02223d1d5551dfc42030d56dff12c8c5daa5
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1185,7 +1185,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: c607de2476b49355bc2e33f7328b34a1f05346471e67ffeb044d5a1350fa3452
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1223,7 +1223,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 068a48b72fbc15767076665e107486a4e4e5d2852c68bc51644c694eb894d877
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1261,7 +1261,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: be90af6e1a91d19c10888c6df621228b3eb3092f936c2b74a93a3fa3c76cb48f
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1299,7 +1299,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 653d59e966fbcc1c84658bdbae192b8e2be57f84aafdba762a738790237e0182
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1337,7 +1337,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 37744d52cd8d3bfd02069db78da144e26fcd13d82b6e2fc9840e2e2fa71f237b
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1375,7 +1375,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: b857d0b5a66e6240db9184dac5d249f6567b008464f759a0c85e1de4de6d2647
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1413,7 +1413,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 95d9ad05c56f013e2cc2fdacb5189829f4edf0b6a9a6dce73a2880c94c8d915b
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1451,7 +1451,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: a13cd14674ce141394eb3383987674de4b6954ad8196ff2bbcaec9ca5b800e6d
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1489,7 +1489,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: d9798f54a93e768ffb6eb76e339118d368e10b8bb47af33ef5bb246eeec6704c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1527,7 +1527,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: ff7c6d772d3ece9dd5230c629483943fb64d395702bec4611f8c1ac4934f6a81
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1565,7 +1565,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 6d3552f8706b07eeacd322542ee4100ef1979768565123cc0fe316948a27515d
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1603,7 +1603,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 08d160776e5043ca3b74a44a87f7fcd461c6987abe7eac377b8cb8e7c83da2b4
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1641,7 +1641,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: f903890f4633adb9424aae7d9967972acb72782b5ed7bc71aa69fbefe97ec655
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1679,7 +1679,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 168b91c07ad38d2115f5d81f3206fcb2d3798893eccf1bdea1dbde309d492eac
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1717,7 +1717,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 188cba65ba55b503ff8f9fd7162ae2c4ffaf8599dad2fc3616aed7a855c80cc6
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1755,7 +1755,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 73da60d32aff6b607b20405536644c4c952161148435c903c57f91e606383473
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1793,7 +1793,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 267fb517b4e0375aebedf96ab291b53586d9ae048292d399c554923a2386c632
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1831,7 +1831,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 12ce81c796a62d060515b803b317f452483bf9a03d0a9f250bb988595fd40c82
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1869,7 +1869,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 27cf3278dc2595bb9f200c19250c8fdc974383312f7444bed78d3c4e5c4e9d4f
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1907,7 +1907,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: d0b3b2067d75f01c210f2307e1436a9dabb015cb05d8afe74bbef8b964c88c16
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1945,7 +1945,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 0148b253069411e157f5eaf1c6df9e2eb85b496379203219be33a8ccee857a28
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -1983,7 +1983,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 8660d08085188592e38ca9584bc6fef608feecbb904d36a2e97532656595b18c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2021,7 +2021,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 445c4e667b6f78b63c15376913e40afceb9337936164b506c1421ac10e046f30
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2059,7 +2059,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 64e379e85b0410c15ef8001f6147c12cf541c332fd367ed59b3c2becddea88d5
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2097,7 +2097,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: e73ded608415b4002f09864ebc80d3423130cb48c7f9a60f90d2d2990ec8aeaa
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2135,7 +2135,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 0a525a77592019d51e816cec9f3b83c55a9446687413f2fb3298cca78aa0d65f
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2173,7 +2173,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 3b1ec2616931c3dfe56127da37c5ea8581f32927c60f2e6fd7ca65ef56bfa85c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2211,7 +2211,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: f174584ba0bdabec9b1f009d6e087437508764c46ec0f5453ee63942d6ded8b1
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2249,7 +2249,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 05c401a87035a520cace470b4d678d83fa26144937974a101c3cd97221f4681d
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2287,7 +2287,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 22656230d245c2fc2daf96911bbf5441f7d03e837da3d9db0750d565374a9d23
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2325,7 +2325,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: e5518807c5de35ad38e6e750ffc84ec157507545c5dc20a6900a8072d0aa3f6a
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2363,7 +2363,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 8c063490511d2b95fb406cc456a9315a0d9951a9d7578546d1228aa0aef2f16a
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2401,7 +2401,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: b0aea4733b8058ae71aac442c5016ec69056edb8e5c2c0dc3f831bfe3f9d60d8
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2439,7 +2439,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: ebb9870f8b9f1752506a134ca914b6ce8e09c0b9bc42cd29cb9727dcd847196b
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2477,7 +2477,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: dc085b7b415b74d56954befdfe3a9055b0c87a5ce66b2d2227a16a77b46017fb
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2515,7 +2515,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: b5fc646778c4263ac9120ca6bf051cfa8fdb4dd846072277b654cd193ede98e9
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2553,7 +2553,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 38fb59f3ea7a326cade3ecd5c1c104b7099d5b21aba6ccd612baa66c1e0187e2
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2591,7 +2591,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: ed6fab1f515f61f85912fab2e16ac0db87677cf47572f4ae429ba02e93cd5696
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2629,7 +2629,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: a3d099a74115a7a398ac55ad6e83967e63cb119b3bcc62fe0532e2b58417a3bf
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2667,7 +2667,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: dbfd5d8a1634286efaea171a37df79d772585f9453371bf9613ceebf09c89ec6
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2705,7 +2705,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: d9f36bbb9737ccd0e7004d036eba817c2c8de6a38e0e2e6bf5648eb4e60f1f7b
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2743,7 +2743,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 15dfc3697e6db545fcc9cad9e2e6bd036edb0d3b53942c85af356182d64fa0a5
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2781,7 +2781,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 960413235e821674be4cb797de285cd6560398df6992cbbb6a540ff0294bb244
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2819,7 +2819,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 45f2242652306d80fbf83924beb353a1590fd946d3e3600591bb7effd17143b3
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2857,7 +2857,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 8e8aa7cbda4634f071403c5858a5a69221905130016d49f6b5bdf8636ea5e5a0
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2895,7 +2895,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: bf2928d224f25c891dc612080c33d82abbf1ff4bdccff411b8fd2ad5309e0af3
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2933,7 +2933,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: cb34198077aea07a2fe80925eef7d03a6af2aa3304851c976c4e80d56276b724
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -2971,7 +2971,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 228f0e1f04960414e140dcd0e99de6c2dfa2d291d4620f3d0b88fd61d406a10e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3009,7 +3009,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 259e1ceb4bf21e451105741b49a68d17df637559d9ed24836c3886df409d7baa
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3047,7 +3047,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: df030a69ebddb023e452f6a167eda4d6b781af6727854fbd137e471e00593545
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3085,7 +3085,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 5b305ae966b635f28a93b221e064c54ceece2280f256f5cd67c3b736726c46fa
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3123,7 +3123,7 @@ entries:
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: a6c5c823e288627851a6fc315c22575b2adcbc92ccbac37a803db151a44f52d6
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3160,7 +3160,7 @@ entries:
     created: "2022-02-22T22:13:02.260096506Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 19f174d7568cd9c0f033fad16f7f5af157a268823f33d4d40e3630c49e484a20
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - email: support@open-metadata.org
       name: OpenMetadata
@@ -3174,7 +3174,7 @@ entries:
     created: "2022-02-21T15:30:08.504946839Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 0fb677d7227901ac89cde9e1c2e4ccd257908105647076d2ca6e2d21c02db256
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - email: support@open-metadata.org
       name: OpenMetadata
@@ -3188,7 +3188,7 @@ entries:
     created: "2022-02-16T23:58:55.015283194Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 0dfbb4ebd6f6c239c99a2a052e8b33d64d50d4d3e67c3f7c2c48772b3cf54d79
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - email: support@open-metadata.org
       name: OpenMetadata
@@ -3202,7 +3202,7 @@ entries:
     created: "2022-02-04T07:41:57.851878257Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 9901efb61dd2cf1816ea6f794347cb2d860387de2d904914675ca5fdb87157b1
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - name: OpenMetadata
     name: openmetadata
@@ -3215,7 +3215,7 @@ entries:
     created: "2022-02-01T03:16:21.318684463Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: fe537a4bb1e6803d38f36e8b9d7bd5249558aa1213ca2f19c44bbdbe32cf6ff2
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - name: OpenMetadata
     name: openmetadata
@@ -3228,7 +3228,7 @@ entries:
     created: "2022-01-26T04:50:48.745830021Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: 44d6b9b0310b252d543b81ce063e2713f8e1b793d0eb0281f3484cbe74feabe6
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - name: OpenMetadata
     name: openmetadata
@@ -3241,7 +3241,7 @@ entries:
     created: "2021-12-16T10:42:05.836554459Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: f41f4e188e0ed142e6b404bdb9ead0fca1e3cfe5e12220c1827a69110047677c
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - name: OpenMetadata
     name: openmetadata
@@ -3254,7 +3254,7 @@ entries:
     created: "2021-11-17T13:25:31.273303363Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: ade4a327e20b43f3bd8aedcb8ae108b2f35abddaf35d489f399323ca6c52a379
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     maintainers:
     - name: OpenMetadata
     name: openmetadata
@@ -3267,7 +3267,7 @@ entries:
     created: "2021-11-11T04:17:35.533478982Z"
     description: A Helm chart for OpenMetadata on Kubernetes
     digest: e941e9eedaeff540b32d780ef5561f310352e1bf084b474d11c77469d3355559
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     name: openmetadata
     type: application
     urls:
@@ -3293,7 +3293,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 9b86dcf4f5d48c56e9b5c547fde95d220ad3688e2e4c9700c4f23de0611d658c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3344,7 +3344,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 1d42d0b709d47b42ba437a5ee45a2ccbd262460f60e9e6aab2c31dac88d44c6b
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3395,7 +3395,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 7e4e3b529ca147b2f4d1c640afbf3a67fe8540db6f2f14015ec393d9229aff6e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3446,7 +3446,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 75ebfa58f1002f49614b563d8e9673588978132ae9f89700b2c8284ab7f020c7
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3497,7 +3497,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 3d28d05516df55be1cd829b5b930c3677608e0b793c431be0d2bb267c203cb7f
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3548,7 +3548,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: c241b515ef71161df4c13ddc836ae26a65e07e709a67bf135126ca113601fa6d
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3599,7 +3599,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 620cd07233a455d2e06e42e76f6f293feca6077bcf405f0ad6e66ef17a3da0e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3650,7 +3650,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 866acd2111fb0d6b9362d93d4ef171786d9010d52ac04ebb90363baa2154a1af
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3701,7 +3701,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 89ff85f0f448d0d83f1e7d6a6239599d9c97a12aa87e004f5f1c794f56cef044
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3752,7 +3752,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 25d506497689e73a19a7ced966b5872e4db1db73dfdaccfc6e75f78e43032439
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3803,7 +3803,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d940ca736c973e395ce312f0a4dffee9cdf402e48b272682013631e2ab12a7e6
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3854,7 +3854,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: ac4cc202112ae63b4daf28292cb63fe06704ae3dd6685b065d2ae2704db5387c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3905,7 +3905,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 1360e6b107bbe4e92557e0e301b3c2adadd43ae4bd754f218317121feed6ecce
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -3956,7 +3956,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d3fc990292edcab8f549552ba0ffd92f5250841ee44dd89b5415398c09c3db3c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4007,7 +4007,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: bf5786d204784ace902216ad564d03d45b97991e9b44af6ef4a3dcd1083a6c28
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4058,7 +4058,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: b6d593dac70bf36f7b720ad09fb9d931667713a856d787db5b16152ea9b861a7
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4109,7 +4109,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 9f058348288145b83bde535f089a05105e3587f6700d7c186d2b643c425c709a
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4160,7 +4160,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 5dba56014032c74a1c68aa34f9424750ed85874885b145180e99bfa88afbafea
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4211,7 +4211,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d17636db0b0fce4f6aec41933165f5bbd70d8b684c5057a103814a074f9402d4
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4262,7 +4262,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: e1692b14bb1c4218b2f0d47d63a272fdb31d9277ab9aec7183fcfa1d46fa1fce
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4313,7 +4313,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: a666a56946b08be7fdabf293bbb05bd51788dca2a6478a906e09dcb39ba25b9a
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4364,7 +4364,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 3bbb2d119fd7ba9bd48ec00697f882aecec0169280685cbf632788be416beb94
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4415,7 +4415,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: ca611045b2d1bb6a31f7c257faf792b5b9325c9416126bc0b71c8c420caef54e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4466,7 +4466,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: facb1634c7db6adff56672b464b5acf27f8ffa2beda07eb7654ce4d08fd0ffdf
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4517,7 +4517,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 935a671802d1b78def8e6a5fa711c3e58b1c8ff0052b5e3c0c8692b3638aa396
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4568,7 +4568,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 2f4191faa3c6e0978f03c3e29253f20f90c105b43212793f1da33ac44d1e7eac
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4619,7 +4619,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 0b298c3fe2d205f5d30807d8d32511c017e521c4084b93c1911f6446ed657c29
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4670,7 +4670,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d7a381473a1f75441edf70dd043b96e5dbe8f94550d6184071304ff5a748f814
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4721,7 +4721,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d3f829d1ec15b508a10012bff5074b3f8c7e1ac54bd800f985dade322442ff07
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4772,7 +4772,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 8301e3eb890b9406d032563ae817e2a55ab5c930be4f14484aa58c405cb691dd
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4823,7 +4823,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 253906973b75c719a4ecb0c3a5caf188d86050bb49c3fac012b8781956a8966d
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4874,7 +4874,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: a134002adb7cb8ece48d006b878fdb3c6f8bf8ec46774d689cd466ba82868acc
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4925,7 +4925,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: cb4bc5fabe2bb1b3e4744a1fb4465eba0c7096c757deca8269f74d862ecdfca6
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -4976,7 +4976,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d80af674d7b1889e84ea4b20b5e8cf523e3ec2fd16714c59a35393eea4d2ddd7
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5027,7 +5027,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 2e4c553dd4f313654032fb4a2ede9bbe26be2c1a8850d3728396f886b62663b8
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5078,7 +5078,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 79eaa1537b4f95f8899e1d58b72e5dd8c1d76dc99006f3557d4964efce5527d9
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5129,7 +5129,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 57fcd1bbf3676379368b652a66cf4f4d237098febe738dc18135ceed4704b1c1
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5180,7 +5180,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: de5ea4ea53d7b131937f528365fc2445defba379262e9d947839148976f532a0
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5231,7 +5231,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: a1f278369c46ab1de70a8cd8a288e8e6d262eff8cf163ab3baefe68adc6b3ce5
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5282,7 +5282,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 9ac1acee8c0341367368fa1ee64f60a9819484107e8bac330bd0f71bb9189f67
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5333,7 +5333,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: a0f9ab55becc89956428cb06fb05d0bb7d79c9088fad0d20f47564efa45159a0
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5384,7 +5384,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 676762d249a7d54ab879dc2d255cdcbae01935ec81607c650acf329a8125da04
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5435,7 +5435,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: ca6eb91964b0912926155fb6b8c3c650b291dccb804aa65e4e8d416b546c7239
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5486,7 +5486,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 3ca81d0aaed98d4f0428e60e5e6d8c6e4e2e02b9a153ebb9943684141465393a
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5537,7 +5537,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: bdda3e8b9148763193ba124e9855aa0a950b85aee13ca0d4a529498ce4e4ff98
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5588,7 +5588,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 72cb9fb01a39e5b59536d1b2040171af0089215c7698473f83eecc5fb6157a05
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5639,7 +5639,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 573dab9015e8620acbbfadc3efdb04f84ab56ecc0f664e3e2c8310da8ce2532e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5690,7 +5690,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: bece1c32ce4a0101ece85e0d66a883b83c57afa376cbe272b0e0cf34dcaf38e2
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5741,7 +5741,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 15a564ecdcd97a1f82c4194cfd7288adc62ec7ece5f788a86f196e9c3b576ec9
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5792,7 +5792,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: b6948cc2bc15cd58c3b4978a01e6eedb80d04b16c9c2c12ec710edf7d207d37e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5843,7 +5843,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 91dd46934e0144b004cad942824cd541fd9d790f245d5b15523e28a03494d5b4
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5894,7 +5894,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d2c00eea366c27cf5d5e5c176c44e171f138a5b53f4f3fc876aab23600f900f5
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5945,7 +5945,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: c8871aea74f71677aab047885536dcb2d6e96e2868be91d91c14897c433dbc30
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -5996,7 +5996,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: a8dca788a522f89c659e5c145705a03c527eab0168585484c5468a2eded3699e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6047,7 +6047,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: f30a24a72a048e329a2c381f01b4be964bc8bac6a4ffd0553c377e639e02499c
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6098,7 +6098,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 535f9f90e059fa69b53bbcd8b4186e2113bbd201be362a71249a246732e7db76
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6149,7 +6149,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: ab7ec8d6ef9bb52fbfd9d8e411b35de94c31a676237e84817171afe72a4ca6c5
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6200,7 +6200,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 16c1b491304ab44ef21fca6d48e5d827bf11c2a55383b2c5f7f8d0b1acc7071a
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6251,7 +6251,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 4f4df6a3df6f292d8b9846157c41282999076c6e1e2b5a8090fe8b732195e3fd
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6302,7 +6302,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: dcc910b235196a03bb3708b8be28c2e4924634aadfda000b96b53543b04e3b79
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6353,7 +6353,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 2bb5a46f57000196ecb7db94e2ae8f0983aa959c26e0d436659953339e7a5619
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6404,7 +6404,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: e1d62195ec6d5f95d09743731d65695bdbf166ffb9c8d552ad1ad26d7c20fc77
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6455,7 +6455,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 20dc3babcdb412cd74c130558bbc6fcff4ea9ff0fa62f01411f8642cf3cdbfea
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6506,7 +6506,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 56213ed8e47996ffccf3fa9c5367cb3c005012f682e2b9b2ea11904228e37acf
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6557,7 +6557,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 4f2c2be64f72acf8defcffaf2e54bfde7efeda37848717bf5c12c5318b036190
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6608,7 +6608,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 774189fd42caa96e65e1a3f41ba63b849da3bcb140887cbe96ea7eb995017689
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6659,7 +6659,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: d1287a4bb0563a292a933910889778ba3415f9a899b143456373d994ea659d75
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6710,7 +6710,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 0c631b9739e604be02194846b60fca85c25d138995e02a6bfccfde5c77b49f2b
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6761,7 +6761,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: aae7347fabd82d86c30055c0d2f12b7580b06f71b9611a55d8ee515353e3de89
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6812,7 +6812,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 1212ac209c503b8e4ae614f730a82833888ad397bded8fc61de031be302b0585
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6863,7 +6863,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: b627cfee8d9268d306fa86e85858a24dc0f15d4ad8dbeda76506f504eb325f7e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6914,7 +6914,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 0f4eac0c05666aa0003ed6e92683d513c19665839592e25078e7703e0996799e
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -6965,7 +6965,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 12ce71e1b096ff04930909f2d9cba9a23daa007f4f816b526d831b52a72e4aad
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7016,7 +7016,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: ae7cdbb8e533e330af696c02dcfb1ac164ca724ae59f511298fc8ff2d56da216
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7063,7 +7063,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 5a0d43f5c3e15a451bad0d4149f2e9d0ff42854ff72f1397dfa91d4ccf0ff340
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7110,7 +7110,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: a1ee965a4f8bd50e0d3e0bd1abe375a55838eaeb5d562af966874d17c9677cc1
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7157,7 +7157,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 897f69c9ed9e15443e54f850d44e28325104136016073f76ceb92621cdead4c9
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7204,7 +7204,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: b47e1f6b1e2addadd5545fc97f0b54b5d28f3e7a23f045bf1fb1ef6f13ac4992
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7251,7 +7251,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 6d190f73ddaef58f3002cd22d4537a34b3ee4aa68bb4383f13ff12bb78287860
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7298,7 +7298,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 61dc7cd02377c6d532e73e41126b81a51d28a1cc2a5f6ccf189f477a07f7bc89
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7345,7 +7345,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: aa6fd1db3a949667065579cc9263f9201b5ed85e547e75999706b6ecb83e4f35
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
@@ -7392,7 +7392,7 @@ entries:
     description: Helm Dependencies for OpenMetadata
     digest: 52c8e4f6b6ad09987b3b111769a7dd07b3db6598d679162c54112da4fd7d3bf3
     home: https://open-metadata.org/
-    icon: https://open-metadata.org/images/favicon.png
+    icon: https://open-metadata.org/assets/favicon.png
     keywords:
     - metadata
     - data-science
