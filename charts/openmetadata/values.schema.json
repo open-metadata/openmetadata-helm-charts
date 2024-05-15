@@ -673,6 +673,9 @@
                                 },
                                 "principalDomain": {
                                     "type": "string"
+                                },
+                                "useRolesFromProvider": {
+                                    "type": "boolean"
                                 }
                             }
                         },
@@ -768,6 +771,9 @@
                                     "type": "string"
                                 },
                                 "keepAliveTimeoutSecs": {
+                                    "type": "integer"
+                                },
+                                "payLoadSize": {
                                     "type": "integer"
                                 },
                                 "port": {

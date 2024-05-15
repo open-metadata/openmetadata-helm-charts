@@ -28,6 +28,8 @@ openmetadata:
       port: 9200
       scheme: http
       clusterAlias: ""
+      # Value in Bytes
+      payLoadSize: 10485760
       connectionTimeoutSecs: 5
       socketTimeoutSecs: 60
       batchSize: 10
@@ -94,6 +96,7 @@ openmetadata:
       principalDomain: "open-metadata.org"
       enforcePrincipalDomain: false
       enableSecureSocketConnection: false
+      useRolesFromProvider: false
     authentication:
       enabled: true
       clientType: public
