@@ -123,6 +123,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authorizer.enableSecureSocketConnection | bool | `false` | AUTHORIZER_ENABLE_SECURE_SOCKET |
 | openmetadata.config.authorizer.initialAdmins | list | `[admin]` | AUTHORIZER_ADMIN_PRINCIPALS |
 | openmetadata.config.authorizer.principalDomain | string | `open-metadata.org` | AUTHORIZER_PRINCIPAL_DOMAIN |
+| openmetadata.config.authorizer.useRolesFromProvider | bool | `false` | AUTHORIZER_USE_ROLES_FROM_PROVIDER |
 | openmetadata.config.airflow.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
 | openmetadata.config.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
 | openmetadata.config.airflow.auth.username | string | `admin` | AIRFLOW_USERNAME |
@@ -149,6 +150,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.elasticsearch.auth.password.secretKey | string | `openmetadata-elasticsearch-password` | ELASTICSEARCH_PASSWORD |
 | openmetadata.config.elasticsearch.host | string | `opensearch` | ELASTICSEARCH_HOST |
 | openmetadata.config.elasticsearch.keepAliveTimeoutSecs | int | `600` | ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS |
+| openmetadata.config.elasticsearch.payLoadSize | int | 10485760 | ELASTICSEARCH_PAYLOAD_BYTES_SIZE |
 | openmetadata.config.elasticsearch.port | int | 9200 | ELASTICSEARCH_PORT |
 | openmetadata.config.elasticsearch.searchType | string | `opensearch` | SEARCH_TYPE |
 | openmetadata.config.elasticsearch.scheme | string | `http` | ELASTICSEARCH_SCHEME |
@@ -254,7 +256,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.3.4` |
+| image.tag | string | `1.4.0` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
