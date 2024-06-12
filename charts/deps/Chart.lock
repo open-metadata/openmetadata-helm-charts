@@ -4,9 +4,9 @@ dependencies:
   version: 9.7.2
 - name: airflow
   repository: https://airflow-helm.github.io/charts
-  version: 8.8.0
+  version: 8.9.0
 - name: opensearch
   repository: https://opensearch-project.github.io/helm-charts/
   version: 2.12.1
-digest: sha256:ef5c9862e7107bdf2ba81ffb30b9da74b6072dec41800a80723eb08bcdac6022
-generated: "2023-11-07T16:06:28.907894+05:30"
+digest: sha256:0298930834efbe36e8d5d3f8b49f7265926b6c8e424ed13715abe08a8be53020
+generated: "2024-06-11T16:50:19.017705+05:30"
