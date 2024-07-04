@@ -42,6 +42,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.callbackUrl | string | `Empty String` | AUTHENTICATION_CALLBACK_URL |
 | openmetadata.config.authentication.enableSelfSignup | bool | `true` | AUTHENTICATION_ENABLE_SELF_SIGNUP |
 | openmetadata.config.authentication.jwtPrincipalClaims | list | `[email,preferred_username,sub]` | AUTHENTICATION_JWT_PRINCIPAL_CLAIMS |
+| openmetadata.config.authentication.jwtPrincipalClaimsMapping | list | `[]` | AUTHENTICATION_JWT_PRINCIPAL_CLAIMS_MAPPING |
 | openmetadata.config.authentication.ldapConfiguration.host | string | `localhost` | AUTHENTICATION_LDAP_HOST |
 | openmetadata.config.authentication.ldapConfiguration.port |int | 10636 | AUTHENTICATION_LDAP_PORT |
 | openmetadata.config.authentication.ldapConfiguration.dnAdminPrincipal | string | `cn=admin,dc=example,dc=com` | AUTHENTICATION_LOOKUP_ADMIN_DN |
@@ -256,7 +257,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.4.3` |
+| image.tag | string | `1.4.4` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
