@@ -136,6 +136,7 @@ openmetadata:
         clientAuthenticationMethod: client_secret_post
         tenant: ""
         maxClockSkew: ""
+        tokenValidity: "3600"
         customParams: ""
       ldapConfiguration:
         host: localhost
