@@ -89,6 +89,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.oidcConfiguration.scope | string | `openid email profile` | OIDC_SCOPE |
 | openmetadata.config.authentication.oidcConfiguration.serverUrl | string | `http://openmetadata:8585` | OIDC_SERVER_URL |
 | openmetadata.config.authentication.oidcConfiguration.tenant | string | `Empty` | OIDC_TENANT |
+| openmetadata.config.authentication.oidcConfiguration.tokenValidity | string | `3600` | OIDC_OM_REFRESH_TOKEN_VALIDITY |
 | openmetadata.config.authentication.oidcConfiguration.useNonce | bool | `true` | OIDC_USE_NONCE |
 | openmetadata.config.authentication.saml.debugMode | bool | false | SAML_DEBUG_MODE |
 | openmetadata.config.authentication.saml.idp.entityId | string | `Empty` | SAML_IDP_ENTITY_ID |
@@ -257,7 +258,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.4.5` |
+| image.tag | string | `1.4.6` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
