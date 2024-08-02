@@ -366,6 +366,9 @@
                                         },
                                         "customParams": {
                                             "type": "string"
+                                        },
+                                        "tokenValidity": {
+                                          "type": "string"
                                         }
                                     }
                                 },
