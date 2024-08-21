@@ -192,9 +192,13 @@ openmetadata:
           spX509Certificate:
             secretRef: ""
             secretKey: ""
+          spPrivateKey:
+            secretRef: ""
+            secretKey: ""
           callback: "http://openmetadata:8585/saml/callback"
         security:
           strictMode: false
+          validateXml: false
           tokenValidity: 3600
           sendEncryptedNameId: false
           sendSignedAuthRequest: false
@@ -202,7 +206,6 @@ openmetadata:
           wantMessagesSigned: false
           wantAssertionsSigned: false
           wantAssertionEncrypted: false
-          wantNameIdEncrypted: false
           keyStoreFilePath: ""
           keyStoreAlias:
             secretRef: ""
