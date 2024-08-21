@@ -574,6 +574,17 @@
                                                         }
                                                     }
                                                 },
+                                                "spPrivateKey": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "secretRef": {
+                                                            "type": "string"
+                                                        },
+                                                        "secretKey": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
                                                 "callback": {
                                                     "type": "string"
                                                 }
@@ -584,6 +595,9 @@
                                             "additionalProperties": false,
                                             "properties": {
                                                 "strictMode": {
+                                                    "type": "boolean"
+                                                },
+                                                "validateXml": {
                                                     "type": "boolean"
                                                 },
                                                 "tokenValidity": {
@@ -605,9 +619,6 @@
                                                     "type": "boolean"
                                                 },
                                                 "wantAssertionEncrypted": {
-                                                    "type": "boolean"
-                                                },
-                                                "wantNameIdEncrypted": {
                                                     "type": "boolean"
                                                 },
                                                 "keyStoreFilePath": {

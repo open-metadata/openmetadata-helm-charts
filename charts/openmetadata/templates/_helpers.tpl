@@ -239,8 +239,17 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if or .Values.openmetadata.config.authentication.saml.security.wantAssertionEncrypted .Values.openmetadata.config.authentication.saml.security.wantNameIdEncrypted }}
-# Key Store should only be considered if either wantAssertionEncrypted or wantNameIdEncrypted will be true
+{{- if .Values.openmetadata.config.authentication.saml.sp.spPrivateKey.secretRef }}
+{{- with .Values.openmetadata.config.authentication.saml.sp.spPrivateKey }}
+- name: SAML_SP_PRIVATE_KEY
+  valueFrom:
+    secretKeyRef:
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- if .Values.openmetadata.config.authentication.saml.security.wantAssertionEncrypted }}
+# Key Store should only be considered if wantAssertionEncrypted will be true
 {{- if .Values.openmetadata.config.authentication.saml.security.keyStoreAlias.secretRef }}
 {{- with .Values.openmetadata.config.authentication.saml.security.keyStoreAlias }}
 - name: SAML_KEYSTORE_ALIAS
