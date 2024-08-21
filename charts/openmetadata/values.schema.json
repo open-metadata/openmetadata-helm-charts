@@ -597,7 +597,7 @@
                                                 "strictMode": {
                                                     "type": "boolean"
                                                 },
-                                                "validatexml": {
+                                                "validateXml": {
                                                     "type": "boolean"
                                                 },
                                                 "tokenValidity": {
