@@ -179,7 +179,7 @@ OpenMetadata Configurations GCP Additional Parameters Environment Variables for 
 {{- define "OpenMetadata.configs.secretManager.gcp.additionalParameters" -}}
 {{- with .Values.openmetadata.config.secretsManager.additionalParameters.projectId }}
 {{- if .secretRef }}
-- name: OM_SM_POROJECT_ID
+- name: OM_SM_PROJECT_ID
   valueFrom:
     secretKeyRef:
       name: {{ .secretRef }}
