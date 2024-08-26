@@ -313,7 +313,7 @@ openmetadata:
         # For GCP
         projectId:
           secretRef: ""
-          secretkey: ""
+          secretKey: ""
         # projectId:
         #   secretRef: gcp-project-id-secret
         #   secretKey: gcp-key-secret
