@@ -32,7 +32,7 @@ openmetadata:
       payLoadSize: 10485760
       connectionTimeoutSecs: 5
       socketTimeoutSecs: 60
-      batchSize: 10
+      batchSize: 100
       searchIndexMappingLanguage: "EN"
       keepAliveTimeoutSecs: 600
       trustStore:
@@ -60,6 +60,13 @@ openmetadata:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+      maxSize: 50
+      minSize: 10
+      initialSize: 10
+      checkConnectionWhileIdle: true
+      checkConnectionOnBorrow: true
+      evictionInterval: 5 minutes
+      minIdleTime: 1 minute
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
@@ -254,7 +261,7 @@ openmetadata:
         secretKey: ""
     secretsManager:
       enabled: true
-      # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory, managed-azure-kv, azure-kv
+      # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory, managed-azure-kv, azure-kv, gcp
       provider: db
       # Define the secret key ID as /<prefix>/<clusterName>/<key> for AWS
       # Define the secret key ID as <prefix>-<clusterName>-<key> for Azure
@@ -302,6 +309,13 @@ openmetadata:
         # vaultName:
         #   secretRef: azure-vault-name-secret
         #   secretKey: azure-key-secret
+        # For GCP
+        projectId:
+          secretRef: ""
+          secretKey: ""
+        # projectId:
+        #   secretRef: gcp-project-id-secret
+        #   secretKey: gcp-key-secret
       # You can create Kubernetes secrets from AWS Credentials with the below command
       # kubectl create secret generic aws-key-secret \
       # --from-literal=aws-access-key-secret=<access_key_id_value> \
@@ -334,6 +348,8 @@ openmetadata:
       permissionPolicy:
         enabled: false
         option: ""
+      cacheControl: ""
+      pragma: ""
 
 networkPolicy:
   # If networkPolicy is true, following values can be set

@@ -132,6 +132,12 @@
                                         }
                                     }
                                 },
+                                "cacheControl": {
+                                    "type": "string"
+                                },
+                                "pragma": {
+                                    "type": "string"
+                                },
                                 "xssProtection": {
                                     "type": "object",
                                     "additionalProperties": false,
@@ -747,6 +753,27 @@
                                 },
                                 "port": {
                                     "type": "integer"
+                                },
+                                "maxSize": {
+                                    "type": "integer"
+                                },
+                                "minSize": {
+                                    "type": "integer"
+                                },
+                                "initialSize": {
+                                    "type": "integer"
+                                },
+                                "checkConnectionWhileIdle": {
+                                    "type": "boolean"
+                                },
+                                "checkConnectionOnBorrow": {
+                                    "type": "boolean"
+                                },
+                                "evictionInterval": {
+                                    "type": "string"
+                                },
+                                "minIdleTime": {
+                                    "type": "string"
                                 }
                             }
                         },
@@ -1003,6 +1030,18 @@
                                             }
                                         },
                                         "vaultName": {
+                                            "type": "object",
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "secretKey": {
+                                                    "type": "string"
+                                                },
+                                                "secretRef": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "projectId": {
                                             "type": "object",
                                             "additionalProperties": false,
                                             "properties": {
