@@ -1089,9 +1089,6 @@
                                 "emailingEntity": {
                                     "type": "string"
                                 },
-                                "templates": {
-                                    "type": "string"
-                                },
                                 "enableSmtpServer": {
                                     "type": "boolean"
                                 },

@@ -249,7 +249,6 @@ openmetadata:
     smtpConfig:
       enableSmtpServer: false
       emailingEntity: "OpenMetadata"
-      templates: "openmetadata"
       supportUrl: "https://slack.open-metadata.org"
       transportationStrategy: "SMTP_TLS"
       openMetadataUrl: "http://openmetadata:8585"
