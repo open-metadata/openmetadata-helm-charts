@@ -16,7 +16,7 @@ openmetadata:
     logLevel: INFO
     clusterName: openmetadata
     openmetadata:
-      host: openmetadata
+      host: "0.0.0.0"
       # URI to use with OpenMetadata Alerts Integrations
       uri: "http://openmetadata:8585"
       port: 8585
