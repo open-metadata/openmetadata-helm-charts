@@ -1065,7 +1065,8 @@
                                         "managed-aws-ssm",
                                         "in-memory",
                                         "managed-azure-kv",
-                                        "azure-kv"
+                                        "azure-kv",
+                                        "gcp"
                                     ]
                                 },
                                 "prefix": {
