@@ -27,7 +27,7 @@ jobs:
       uses: peter-evans/create-pull-request@v7
       with:
         title: 'chore(release): Prepare ${{ inputs.release_branch_name }} release'
-        body: \
+        body: |
           - Update application versions to `${{ inputs.release_branch_name }}`
-        branch: ${{ inputs.release_branch_name }}
+        branch: "release/${{ inputs.release_branch_name }}"
         commit-message: 'chore(release): Prepare Branch for release ${{ inputs.release_branch_name }}'
