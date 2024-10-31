@@ -1,0 +1,33 @@
+name: Create Release Branch
+run-name: Create Release Branch for ${{ inputs.release_branch_name }}
+on:
+  workflow_dispatch:
+    inputs:
+      release_branch_name:
+        description: "Github Release Branch Name"
+        required: true
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-release-branch:
+    name: Create Release Branch ${{ inputs.release_branch_name }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v4
+      with:
+        ref: main
+        fetch-depth: 0
+    - name: Update application versions
+      run: |
+        sed -i "s/$(cat .version)/${{ inputs.release_branch_name}}/g" charts/deps/Chart.yaml charts/deps/values.yaml charts/openmetadata/Chart.yaml charts/openmetadata/README.md charts/openmetadata/templates/tests/test-connection.yaml .version
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v7
+      with:
+        title: 'chore(release): Prepare ${{ inputs.release_branch_name }} release'
+        body: \
+          - Update application versions to `${{ inputs.release_branch_name }}`
+        branch: ${{ inputs.release_branch_name }}
+        commit-message: 'chore(release): Prepare Branch for release ${{ inputs.release_branch_name }}'
