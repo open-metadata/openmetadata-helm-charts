@@ -126,14 +126,14 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authorizer.initialAdmins | list | `[admin]` | AUTHORIZER_ADMIN_PRINCIPALS |
 | openmetadata.config.authorizer.principalDomain | string | `open-metadata.org` | AUTHORIZER_PRINCIPAL_DOMAIN |
 | openmetadata.config.authorizer.useRolesFromProvider | bool | `false` | AUTHORIZER_USE_ROLES_FROM_PROVIDER |
-| openmetadata.config.airflow.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
-| openmetadata.config.airflow.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
-| openmetadata.config.airflow.auth.username | string | `admin` | AIRFLOW_USERNAME |
-| openmetadata.config.airflow.enabled | bool | `true` | |
-| openmetadata.config.airflow.host | string | `http://openmetadata-dependencies-web:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
-| openmetadata.config.airflow.openmetadata.serverHostApiUrl | string | `http://openmetadata:8585/api` | SERVER_HOST_API_URL |
-| openmetadata.config.airflow.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
-| openmetadata.config.airflow.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
+| openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
+| openmetadata.config.pipelineServiceClientConfig.auth.password.secretKey | string | `openmetadata-airflow-password` | AIRFLOW_PASSWORD |
+| openmetadata.config.pipelineServiceClientConfig.auth.username | string | `admin` | AIRFLOW_USERNAME |
+| openmetadata.config.pipelineServiceClientConfig.enabled | bool | `true` | |
+| openmetadata.config.pipelineServiceClientConfig.host | string | `http://openmetadata-dependencies-web:8080` | PIPELINE_SERVICE_CLIENT_ENDPOINT |
+| openmetadata.config.pipelineServiceClientConfig.openmetadata.serverHostApiUrl | string | `http://openmetadata:8585/api` | SERVER_HOST_API_URL |
+| openmetadata.config.pipelineServiceClientConfig.sslCertificatePath | string | `/no/path` | PIPELINE_SERVICE_CLIENT_SSL_CERT_PATH |
+| openmetadata.config.pipelineServiceClientConfig.verifySsl | string | `no-ssl` | PIPELINE_SERVICE_CLIENT_VERIFY_SSL |
 | openmetadata.config.clusterName | string | `openmetadata` | OPENMETADATA_CLUSTER_NAME |
 | openmetadata.config.database.enabled | bool | `true` | |
 | openmetadata.config.database.auth.password.secretRef | string | `mysql-secrets` | DB_USER_PASSWORD |
