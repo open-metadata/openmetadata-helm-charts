@@ -1355,10 +1355,7 @@
             "type": "object"
         },
         "deploymentAnnotations": {
-            "type": "object",
-            "additionalProperties": {
-                "type": "string"
-            }
+            "type": "object"
         },
         "networkPolicy": {
             "type": "object",
