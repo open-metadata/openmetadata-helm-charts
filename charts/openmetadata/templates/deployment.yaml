@@ -4,6 +4,10 @@ metadata:
   name: {{ include "OpenMetadata.fullname" . }}
   labels:
     {{- include "OpenMetadata.labels" . | indent 4 }}
+  annotations:
+   {{- with .Values.deploymentAnnotations }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:

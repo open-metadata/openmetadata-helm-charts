@@ -513,3 +513,4 @@ podDisruptionBudget:
 
 commonLabels: {}
 podAnnotations: {}
+deploymentAnnotations: {}
