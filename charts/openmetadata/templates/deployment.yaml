@@ -4,11 +4,10 @@ metadata:
   name: {{ include "OpenMetadata.fullname" . }}
   labels:
     {{- include "OpenMetadata.labels" . | indent 4 }}
-  {{- if .Values.deploymentAnnotations }}
-    annotations:
-      {{- toYaml .Values.deploymentAnnotations | nindent 4 }}
-  {{- end }}
-
+    {{- with .Values.deploymentAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -16,11 +15,10 @@ spec:
       {{- include "OpenMetadata.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- if .Values.podAnnotations }}
-        annotations:
-          {{- toYaml .Values.podAnnotations | nindent 8 }}
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
       {{- end }}
-
       labels:
         {{- include "OpenMetadata.labels" . | indent 8 }}
     spec:
