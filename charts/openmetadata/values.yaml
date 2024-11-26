@@ -512,4 +512,5 @@ podDisruptionBudget:
     minAvailable: "1"
 
 commonLabels: {}
+deploymentAnnotations: {}
 podAnnotations: {}

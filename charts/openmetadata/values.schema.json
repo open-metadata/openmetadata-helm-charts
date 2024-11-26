@@ -1354,6 +1354,9 @@
         "podAnnotations": {
             "type": "object"
         },
+        "deploymentAnnotations": {
+            "type": "object"
+        },
         "networkPolicy": {
             "type": "object",
             "additionalProperties": false,
