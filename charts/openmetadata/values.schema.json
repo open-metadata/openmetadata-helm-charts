@@ -167,6 +167,18 @@
                                 }
                             }
                         },
+                        "reindexConfig": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "additionalArgs": {
+                                    "type": "string"
+                                },
+                                "debug": {
+                                    "type": "boolean"
+                                }
+                            }
+                        },
                         "pipelineServiceClientConfig": {
                             "type": "object",
                             "additionalProperties": false,
