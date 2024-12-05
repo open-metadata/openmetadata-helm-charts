@@ -13,8 +13,8 @@ openmetadata:
       # Example if you want to force migration runs, use additionalArgs: "--force"
       additionalArgs: ""
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
-    deployPipelineConfig:
-      debug: false 
+    deployPipelinesConfig:
+      debug: false
       additionalArgs: ""
     logLevel: INFO
     clusterName: openmetadata

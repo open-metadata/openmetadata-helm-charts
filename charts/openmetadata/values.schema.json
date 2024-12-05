@@ -167,7 +167,7 @@
                                 }
                             }
                         },
-                        "deployPipelineConfig": {
+                        "deployPipelinesConfig": {
                             "type": "object",
                             "additionalProperties": false,
                             "properties": {

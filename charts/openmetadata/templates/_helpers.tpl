@@ -354,13 +354,13 @@ OpenMetadata Configurations Environment Variables*/}}
 
 
 {{/*
-Build the OpenMetadata Deploy Pipelines Command using deployPipelineConfig */}}
+Build the OpenMetadata Deploy Pipelines Command using deployPipelinesConfig */}}
 {{- define "OpenMetadata.buildDeployPipelinesCommand" }}
   - "/bin/bash"
   - "-c"
-  {{- if .Values.openmetadata.config.deployPipelineConfig.debug }}
-  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh -d deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelineConfig.additionalArgs }}"
+  {{- if .Values.openmetadata.config.deployPipelinesConfig.debug }}
+  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh -d deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelinesConfig.additionalArgs }}"
   {{- else }}
-  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelineConfig.additionalArgs }}"
+  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelinesConfig.additionalArgs }}"
   {{- end }}
 {{- end }}
