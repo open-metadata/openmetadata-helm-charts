@@ -12,6 +12,9 @@ openmetadata:
       # You can pass the additional argument flags to the openmetadata-ops.sh migrate command
       # Example if you want to force migration runs, use additionalArgs: "--force"
       additionalArgs: ""
+    deployPipelinesConfig:
+      debug: false
+      additionalArgs: ""
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
@@ -410,10 +413,9 @@ securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
-  # readOnlyRootFilesystem: true
+# readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 100
-
 service:
   type: ClusterIP
   port: 8585
