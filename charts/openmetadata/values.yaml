@@ -13,6 +13,9 @@ openmetadata:
       # Example if you want to force migration runs, use additionalArgs: "--force"
       additionalArgs: ""
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
+    deployPipelineConfigs:
+      debug: false 
+      additionalArgs: ""
     logLevel: INFO
     clusterName: openmetadata
     openmetadata:
@@ -406,11 +409,12 @@ serviceAccount:
 automountServiceAccountToken: true
 podSecurityContext: {}
   # fsGroup: 2000
-securityContext: {}
+# securityContext: {}
+securityContext: 
   # capabilities:
   #   drop:
   #   - ALL
-  # readOnlyRootFilesystem: true
+  readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 100
 
