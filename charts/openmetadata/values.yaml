@@ -409,15 +409,13 @@ serviceAccount:
 automountServiceAccountToken: true
 podSecurityContext: {}
   # fsGroup: 2000
-# securityContext: {}
-securityContext: 
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
-  readOnlyRootFilesystem: true
+# readOnlyRootFilesystem: true
   # runAsNonRoot: true
   # runAsUser: 100
-
 service:
   type: ClusterIP
   port: 8585
