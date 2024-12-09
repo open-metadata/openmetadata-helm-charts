@@ -14,6 +14,9 @@ openmetadata:
       additionalArgs: ""
     deployPipelinesConfig:
       debug: false
+    reindexConfig:
+      debug: false
+      # You can pass the additional argument flags to the openmetadata-ops.sh reindex command
       additionalArgs: ""
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
