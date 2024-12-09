@@ -362,6 +362,10 @@ Build the OpenMetadata Deploy Pipelines Command using deployPipelinesConfig */}}
   - "/opt/openmetadata/bootstrap/openmetadata-ops.sh -d deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelinesConfig.additionalArgs }}"
   {{- else }}
   - "/opt/openmetadata/bootstrap/openmetadata-ops.sh deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelinesConfig.additionalArgs }}"
+  {{- end }}
+{{- end }}
+
+
 {{/*
 Build the OpenMetadata Deploy Pipelines Command using reindexConfig */}}
 {{- define "OpenMetadata.buildReindexCommand" }}
