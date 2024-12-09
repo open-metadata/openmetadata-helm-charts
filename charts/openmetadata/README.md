@@ -224,6 +224,8 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.smtpConfig.username | string | `Empty String` | SMTP_SERVER_USERNAME |
 | openmetadata.config.upgradeMigrationConfigs.debug | bool | `false` |  |
 | openmetadata.config.upgradeMigrationConfigs.additionalArgs | string | `Empty String` |  |
+| openmetadata.config.deployPipelinesConfig.debug | bool | `false` |   |
+| openmetadata.config.deployPipelinesConfig.additionalArgs | string | `Empty String` |   |
 | openmetadata.config.reindexConfig.debug | bool | `false` |  |
 | openmetadata.config.reindexConfig.additionalArgs | string | `Empty String` |  |
 | openmetadata.config.web.enabled | bool | `true` | |
@@ -246,6 +248,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.web.referrer-policy.option | string | `SAME_ORIGIN'` | WEB_CONF_REFERRER_POLICY_OPTION |
 | openmetadata.config.web.permission-policy.enabled | bool | `false` | WEB_CONF_PERMISSION_POLICY_ENABLED |
 | openmetadata.config.web.permission-policy.option | string | `Empty String` | WEB_CONF_PERMISSION_POLICY_OPTION |
+
 
 ## Chart Values
 
