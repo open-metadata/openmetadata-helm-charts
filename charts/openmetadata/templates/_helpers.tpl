@@ -340,6 +340,9 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- if has .Values.openmetadata.config.secretsManager.provider (list "managed-azure-kv" "azure-kv") }}
 {{ include "OpenMetadata.configs.secretManager.azure.additionalParameters" . }}
 {{- end }}
+{{- if has .Values.openmetadata.config.secretsManager.provider (list "gcp") }}
+{{ include "OpenMetadata.configs.secretManager.gcp.additionalParameters" . }}
+{{- end }}
 {{- end }}
 {{- if and ( .Values.openmetadata.config.smtpConfig.enableSmtpServer ) ( .Values.openmetadata.config.smtpConfig.password.secretRef )}}
 {{- with .Values.openmetadata.config.smtpConfig.password }}
