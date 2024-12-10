@@ -56,3 +56,17 @@ maintainers:
     email: support@open-metadata.org
 
 icon: https://open-metadata.org/assets/favicon.png
+
+annotations:
+  artifacthub.io/images: |
+    - name: openmetadata-server
+      image: docker.io/openmetadata/server:1.6.0
+  artifacthub.io/license: "Apache-2.0"
+  # artifacthub.io/prerelease: "false"
+  artifacthub.io/recommendations: |
+    - name: bitnami/mysql
+    - name: apache/airflow
+    - name: opensearchproject/opensearch
+  # artifacthub.io/containsSecurityUpdates: "true"
+  artifacthub.io/support: "https://github.com/open-metadata/openmetadata-helm-charts/issues"
+  kubeVersion: ">=1.24"
