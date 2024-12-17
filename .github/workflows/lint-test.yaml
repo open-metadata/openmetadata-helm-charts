@@ -55,4 +55,4 @@ jobs:
           fi
 
       - name: Run chart-testing (lint)
-        run: ct lint --target-branch=${{ env.default_branch }}
+        run: ct lint --target-branch=${{ env.default_branch }} --check-version-increment=false

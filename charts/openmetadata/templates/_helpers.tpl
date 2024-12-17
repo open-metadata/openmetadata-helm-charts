@@ -340,6 +340,9 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- if has .Values.openmetadata.config.secretsManager.provider (list "managed-azure-kv" "azure-kv") }}
 {{ include "OpenMetadata.configs.secretManager.azure.additionalParameters" . }}
 {{- end }}
+{{- if has .Values.openmetadata.config.secretsManager.provider (list "gcp") }}
+{{ include "OpenMetadata.configs.secretManager.gcp.additionalParameters" . }}
+{{- end }}
 {{- end }}
 {{- if and ( .Values.openmetadata.config.smtpConfig.enableSmtpServer ) ( .Values.openmetadata.config.smtpConfig.password.secretRef )}}
 {{- with .Values.openmetadata.config.smtpConfig.password }}
@@ -350,4 +353,30 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
+{{- end }}
+
+
+{{/*
+Build the OpenMetadata Deploy Pipelines Command using deployPipelinesConfig */}}
+{{- define "OpenMetadata.buildDeployPipelinesCommand" }}
+  - "/bin/bash"
+  - "-c"
+  {{- if .Values.openmetadata.config.deployPipelinesConfig.debug }}
+  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh -d deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelinesConfig.additionalArgs }}"
+  {{- else }}
+  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh deploy-pipelines {{ default "" .Values.openmetadata.config.deployPipelinesConfig.additionalArgs }}"
+  {{- end }}
+{{- end }}
+
+
+{{/*
+Build the OpenMetadata Deploy Pipelines Command using reindexConfig */}}
+{{- define "OpenMetadata.buildReindexCommand" }}
+  - "/bin/bash"
+  - "-c"
+  {{- if .Values.openmetadata.config.reindexConfig.debug }}
+  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh -d deploy-pipelines {{ default "" .Values.openmetadata.config.reindexConfig.additionalArgs }}"
+  {{- else }}
+  - "/opt/openmetadata/bootstrap/openmetadata-ops.sh deploy-pipelines {{ default "" .Values.openmetadata.config.reindexConfig.additionalArgs }}"
+  {{- end }}
 {{- end }}
