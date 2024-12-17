@@ -38,6 +38,10 @@ spec:
           {{- end }}
           securityContext:  
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- with .Values.preMigrateInitContainers }}
+          initContainers:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumes:
           {{- include "tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 12 }}
           containers:
