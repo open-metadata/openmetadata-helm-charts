@@ -16,9 +16,6 @@ spec:
     metadata:                    
       name: cron-deploy-pipelines
     spec:
-      selector:
-      matchLabels: 
-      {{- include "OpenMetadata.selectorLabels" . | nindent 6 }}
       template:
         metadata:
           {{- with .Values.podAnnotations }}
