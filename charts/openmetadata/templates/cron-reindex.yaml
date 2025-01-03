@@ -35,6 +35,10 @@ spec:
           {{- end }}
           securityContext:  
             {{- toYaml .Values.securityContext | nindent 12 }}
+          {{- with .Values.preMigrateInitContainers }}
+          initContainers:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           volumes:
           {{- include "tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 12 }}
           containers:
@@ -110,8 +114,8 @@ spec:
               {{- end }}
             resources:
               {{- toYaml .Values.resources | nindent 14 }}
-          {{- if .Values.sidecars }}
-            {{- include "tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 10 }}
+          {{- if .Values.extraContainers }}
+            {{- include "tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 10 }}
           {{- end }}
           {{- with .Values.nodeSelector }}
           nodeSelector:
