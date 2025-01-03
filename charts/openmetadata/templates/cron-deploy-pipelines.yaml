@@ -117,8 +117,8 @@ spec:
             {{- end }}
             resources:
               {{- toYaml .Values.resources | nindent 14 }}
-          {{- if .Values.sidecars }}
-            {{- include "tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 10 }}
+          {{- if .Values.extraContainers }}
+            {{- include "tplvalues.render" (dict "value" .Values.extraContainers "context" $) | nindent 10 }}
           {{- end }}
           {{- with .Values.nodeSelector }}
           nodeSelector:
