@@ -1320,7 +1320,7 @@
                 }
             }
         },
-        "sidecars": {
+        "extraContainers": {
             "type": "array"
         },
         "startupProbe": {
