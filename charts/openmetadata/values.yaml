@@ -14,11 +14,15 @@ openmetadata:
       additionalArgs: ""
     deployPipelinesConfig:
       debug: false
+      # You can pass the additional argument flags to the openmetadata-ops.sh reindex command
       additionalArgs: ""
     reindexConfig:
       debug: false
+      # You can choose whether to run the job on demand or on schedule.
+      suspend: true
       # You can pass the additional argument flags to the openmetadata-ops.sh reindex command
       additionalArgs: ""
+      schedule: "0/5 * * * *"
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
