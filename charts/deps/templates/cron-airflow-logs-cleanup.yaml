@@ -44,5 +44,5 @@ spec:
                 mountPath: /var/logs
           restartPolicy: OnFailure
           volumes:
-            {{- include "airflow.volumes" (dict "Release" .Release "Values" .Values.airflow "extraPipPackages" (list) "extraVolumes" (list) "extraVolumeMounts" (list)) | nindent 12 }}
+            {{- include "airflow.volumes" (dict "Release" .Release "Values" .Values.airflow "extraPipPackages" (list) "extraVolumes" (list) "extraVolumeMounts" (list)) | trim | nindent 12 }}
 {{- end }}
