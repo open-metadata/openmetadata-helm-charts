@@ -1,16 +1,16 @@
-{{- $airflow_cleanup_enabled := and 
-  (not .Values.airflow.scheduler.logCleanup.enabled) 
-  (not (and 
-    (hasKey .Values.airflow "workers") 
+{{- $airflow_cleanup_enabled := and
+  (not .Values.airflow.scheduler.logCleanup.enabled)
+  (not (and
+    (hasKey .Values.airflow "workers")
     (hasKey .Values.airflow.workers "logCleanup")
     (.Values.airflow.workers.logCleanup.enabled | default false)
   ))
 }}
-{{- $airflow_persistence_enabled := and 
-  .Values.airflow.enabled 
+{{- $airflow_persistence_enabled := and
+  .Values.airflow.enabled
   .Values.airflow.logs.persistence.enabled
 }}
-{{- if and 
+{{- if and
   (not $airflow_cleanup_enabled)
   $airflow_persistence_enabled
   .Values.airflow.logs.persistence.cleanup.enabled
