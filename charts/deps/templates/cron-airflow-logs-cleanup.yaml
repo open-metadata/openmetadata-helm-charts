@@ -1,0 +1,48 @@
+{{- $airflow_cleanup_enabled := and
+  (not .Values.airflow.scheduler.logCleanup.enabled)
+  (not (and
+    (hasKey .Values.airflow "workers")
+    (hasKey .Values.airflow.workers "logCleanup")
+    (.Values.airflow.workers.logCleanup.enabled | default false)
+  ))
+}}
+{{- $airflow_persistence_enabled := and
+  .Values.airflow.enabled
+  .Values.airflow.logs.persistence.enabled
+}}
+{{- if and
+  (not $airflow_cleanup_enabled)
+  $airflow_persistence_enabled
+  .Values.airflow.logs.persistence.cleanup.enabled
+}}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ include "airflow.fullname" . }}-airflow-logs-cleanup
+  labels:
+    app: {{ include "airflow.labels.app" . }}
+    component: logs-cleanup
+    chart: {{ include "airflow.labels.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  schedule: "{{ .Values.airflow.logs.persistence.cleanup.schedule }}"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: logs-cleanup
+            image: busybox:latest
+            command:
+              - sh
+              - -c
+              - |
+                find /var/logs -type f -mtime +{{ .Values.airflow.logs.persistence.cleanup.retainDays }} -exec rm -f {} \;
+            volumeMounts:
+              - name: logs-data
+                mountPath: /var/logs
+          restartPolicy: OnFailure
+          volumes:
+            {{- include "airflow.volumes" (dict "Release" .Release "Values" .Values.airflow "extraPipPackages" (list) "extraVolumes" (list) "extraVolumeMounts" (list)) | trim | nindent 12 }}
+{{- end }}
