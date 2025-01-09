@@ -139,3 +139,7 @@ airflow:
       storageClass: ""
       accessMode: ReadWriteMany
       size: 1Gi
+      cleanup:
+        enabled: false
+        schedule: "0 4 * * *"
+        retainDays: 180
