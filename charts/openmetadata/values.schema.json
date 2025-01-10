@@ -188,6 +188,13 @@
                                 },
                                 "debug": {
                                     "type": "boolean"
+                                },
+                                "schedule": {
+                                    "type": "string"
+                                },
+                                "suspend": {
+                                    "type": "boolean",
+                                    "default": true
                                 }
                             }
                         },
