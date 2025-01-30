@@ -61,7 +61,7 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.6.1
+      tag: 1.6.3
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
@@ -139,3 +139,7 @@ airflow:
       storageClass: ""
       accessMode: ReadWriteMany
       size: 1Gi
+      cleanup:
+        enabled: false
+        schedule: "0 4 * * *"
+        retainDays: 180

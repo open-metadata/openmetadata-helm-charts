@@ -4,10 +4,10 @@ metadata:
   name: cron-reindex
   labels: 
     {{- include "OpenMetadata.labels" . | nindent 4 }}
-    {{- with .Values.deploymentAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}  
-    {{- end }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   suspend: true
   failedJobsHistoryLimit: 1  

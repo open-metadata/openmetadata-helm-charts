@@ -4,10 +4,10 @@ metadata:
   name: cron-deploy-pipelines
   labels: 
     {{- include "OpenMetadata.labels" . | nindent 4 }}
-    {{- with .Values.deploymentAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 4 }}
-    {{- end }}
+  {{- with .Values.deploymentAnnotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   suspend: true
   failedJobsHistoryLimit: 1  
