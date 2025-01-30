@@ -151,7 +151,7 @@ openmetadata:
         tenant: ""
         maxClockSkew: ""
         tokenValidity: "3600"
-        customParams: ""
+        customParams: '{}'
       ldapConfiguration:
         host: localhost
         port: 10636
