@@ -34,13 +34,13 @@ spec:
           automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
           {{- end }}
           securityContext:  
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           volumes:
           {{- include "tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 12 }}
           containers:
           - name: cron-reindex
             securityContext:
-              {{- toYaml .Values.podSecurityContext | nindent 14 }}
+              {{- toYaml .Values.securityContext | nindent 14 }}
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
             imagePullPolicy: {{ .Values.image.pullPolicy }}
             volumeMounts:
