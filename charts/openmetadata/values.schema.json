@@ -1,1394 +1,1396 @@
 {
-    "$schema": "http://json-schema.org/schema#",
-    "type": "object",
-    "properties": {
-        "messages": {
+  "$schema": "http://json-schema.org/schema#",
+  "type": "object",
+  "properties": {
+    "messages": {
+      "type": "object",
+      "errorMessage": "Global keyword has been replaced by openmetadata.config"
+    },
+    "affinity": {
+      "type": "object"
+    },
+    "extraEnvs": {
+      "type": "array"
+    },
+    "envFrom": {
+      "type": "array"
+    },
+    "extraInitContainers": {
+      "type": "array"
+    },
+    "extraVolumeMounts": {
+      "type": "array"
+    },
+    "extraVolumes": {
+      "type": "array"
+    },
+    "fullnameOverride": {
+      "type": "string"
+    },
+    "openmetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "config": {
+          "type": "object",
+          "additionalProperties": false,
+          "messages": {
             "type": "object",
             "errorMessage": "Global keyword has been replaced by openmetadata.config"
-        },
-        "affinity": {
-            "type": "object"
-        },
-        "extraEnvs": {
-            "type": "array"
-        },
-        "envFrom": {
-            "type": "array"
-        },
-        "extraInitContainers": {
-            "type": "array"
-        },
-        "extraVolumeMounts": {
-            "type": "array"
-        },
-        "extraVolumes": {
-            "type": "array"
-        },
-        "fullnameOverride": {
-            "type": "string"
-        },
-        "openmetadata": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "config": {
-                    "type": "object",
-                    "additionalProperties": false,
-                    "messages": {
-                        "type": "object",
-                        "errorMessage": "Global keyword has been replaced by openmetadata.config"
-                    },
-                    "properties": {
-                        "web": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "uriPath": {
-                                    "type": "string"
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "hsts": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "maxAge": {
-                                            "type": "string"
-                                        },
-                                        "includeSubDomains": {
-                                            "type": "string",
-                                            "format": "boolean"
-                                        },
-                                        "preload": {
-                                            "type": "string",
-                                            "format": "boolean"
-                                        }
-                                    }
-                                },
-                                "frameOptions": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "option": {
-                                            "type": "string"
-                                        },
-                                        "origin": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "contentTypeOptions": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        }
-                                    }
-                                },
-                                "csp": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "policy": {
-                                            "type": "string"
-                                        },
-                                        "reportOnlyPolicy": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "referrerPolicy": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "option": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "permissionPolicy": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "option": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "cacheControl": {
-                                    "type": "string"
-                                },
-                                "pragma": {
-                                    "type": "string"
-                                },
-                                "xssProtection": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "block": {
-                                            "type": "boolean"
-                                        },
-                                        "onXss": {
-                                            "type": "boolean"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "upgradeMigrationConfigs": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "additionalArgs": {
-                                    "type": "string"
-                                },
-                                "debug": {
-                                    "type": "boolean"
-                                }
-                            }
-                        },
-                        "deployPipelinesConfig": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "additionalArgs": {
-                                    "type": "string"
-                                },
-                                "debug": {
-                                    "type": "boolean"
-                                }
-                            }
-                        },
-                        "reindexConfig": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "additionalArgs": {
-                                    "type": "string"
-                                },
-                                "debug": {
-                                    "type": "boolean"
-                                }
-                            }
-                        },
-                        "pipelineServiceClientConfig": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "auth": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled" : {
-                                            "type": "boolean"
-                                        },
-                                        "password": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "username": {
-                                            "type": "string"
-                                        },
-                                        "trustStorePath" : {
-                                            "type": "string"
-                                        },
-                                        "trustStorePassword": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "apiEndpoint": {
-                                    "type": "string"
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "className": {
-                                    "type": "string"
-                                },
-                                "ingestionIpInfoEnabled": {
-                                    "type": "boolean"
-                                },
-                                "healthCheckInterval": {
-                                    "type": "integer"
-                                },
-                                "metadataApiEndpoint": {
-                                    "type": "string"
-                                },
-                                "sslCertificatePath": {
-                                    "type": "string"
-                                },
-                                "verifySsl": {
-                                    "type": "string"
-                                },
-                                "hostIp": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "authentication": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "authority": {
-                                    "type": "string"
-                                },
-                                "callbackUrl": {
-                                    "type": "string"
-                                },
-                                "clientId": {
-                                    "type": "string"
-                                },
-                                "clientType": {
-                                    "type": "string",
-                                    "enum": [
-                                        "public",
-                                        "confidential"
-                                    ]
-                                },
-                                "enableSelfSignup": {
-                                    "type": "boolean"
-                                },
-                                "jwtPrincipalClaims": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "jwtPrincipalClaimsMapping": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "provider": {
-                                    "type": "string",
-                                    "enum": [
-                                        "basic",
-                                        "azure",
-                                        "auth0",
-                                        "custom-oidc",
-                                        "google",
-                                        "okta",
-                                        "aws-cognito",
-                                        "ldap",
-                                        "saml"
-                                    ]
-                                },
-                                "publicKeys": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    },
-                                    "default": [
-                                        "http://openmetadata:8585/api/v1/system/config/jwks"
-                                    ]
-                                },
-                                "responseType": {
-                                    "type": "string"
-                                },
-                                "oidcConfiguration": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "oidcType": {
-                                            "type": "string"
-                                        },
-                                        "clientId": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretRef": {
-                                                    "type": "string"
-                                                },
-                                                "secretKey": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "clientSecret": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretRef": {
-                                                    "type": "string"
-                                                },
-                                                "secretKey": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "scope": {
-                                            "type": "string"
-                                        },
-                                        "discoveryUri": {
-                                            "type": "string"
-                                        },
-                                        "useNonce": {
-                                            "type": "boolean"
-                                        },
-                                        "preferredJwsAlgorithm": {
-                                            "type": "string"
-                                        },
-                                        "responseType": {
-                                            "type": "string"
-                                        },
-                                        "disablePkce": {
-                                            "type": "boolean"
-                                        },
-                                        "callbackUrl": {
-                                            "type": "string"
-                                        },
-                                        "serverUrl": {
-                                            "type": "string"
-                                        },
-                                        "clientAuthenticationMethod": {
-                                            "type": "string"
-                                        },
-                                        "tenant": {
-                                            "type": "string"
-                                        },
-                                        "maxClockSkew": {
-                                            "type": "string"
-                                        },
-                                        "customParams": {
-                                            "type": "string"
-                                        },
-                                        "tokenValidity": {
-                                          "type": "string"
-                                        }
-                                    }
-                                },
-                                "ldapConfiguration": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "host": {
-                                            "type": "string"
-                                        },
-                                        "port": {
-                                            "type": "integer"
-                                        },
-                                        "dnAdminPrincipal": {
-                                            "type": "string"
-                                        },
-                                        "dnAdminPassword": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretRef": {
-                                                    "type": "string"
-                                                },
-                                                "secretKey": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "userBaseDN": {
-                                            "type": "string"
-                                        },
-                                        "groupBaseDN": {
-                                            "type": "string"
-                                        },
-                                        "roleAdminName": {
-                                            "type": "string"
-                                        },
-                                        "allAttributeName": {
-                                            "type": "string"
-                                        },
-                                        "usernameAttributeName": {
-                                            "type": "string"
-                                        },
-                                        "groupAttributeName": {
-                                            "type": "string"
-                                        },
-                                        "groupAttributeValue": {
-                                            "type": "string"
-                                        },
-                                        "groupMemberAttributeName": {
-                                            "type": "string"
-                                        },
-                                        "authRolesMapping": {
-                                            "type": "string"
-                                        },
-                                        "authReassignRoles": {
-                                            "type": "array",
-                                            "items": {
-                                                "type": "string"
-                                            }
-                                        },
-                                        "mailAttributeName": {
-                                            "type": "string"
-                                        },
-                                        "maxPoolSize": {
-                                            "type": "integer"
-                                        },
-                                        "sslEnabled": {
-                                            "type": "boolean"
-                                        },
-                                        "truststoreConfigType": {
-                                            "type": "string",
-                                            "enum": [
-                                                "CustomTrustStore",
-                                                "HostName",
-                                                "JVMDefault",
-                                                "TrustAll"
-                                            ]
-                                        },
-                                        "trustStoreConfig": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "customTrustManagerConfig": {
-                                                    "type": "object",
-                                                    "additionalProperties": false,
-                                                    "properties": {
-                                                        "trustStoreFilePath": {
-                                                            "type": "string"
-                                                        },
-                                                        "trustStoreFilePassword": {
-                                                            "type": "object",
-                                                            "additionalProperties": false,
-                                                            "properties": {
-                                                                "secretRef": {
-                                                                    "type": "string"
-                                                                },
-                                                                "secretKey": {
-                                                                    "type": "string"
-                                                                }
-                                                            }
-                                                        },
-                                                        "trustStoreFileFormat": {
-                                                            "type": "string"
-                                                        },
-                                                        "verifyHostname": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "examineValidityDates": {
-                                                            "type": "boolean"
-                                                        }
-                                                    }
-                                                },
-                                                "hostNameConfig": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "allowWildCards": {
-                                                            "type": "boolean"
-                                                        },
-                                                        "acceptableHostNames": {
-                                                            "type": "array",
-                                                            "items": {
-                                                                "type": "string"
-                                                            }
-                                                        }
-                                                    }
-                                                },
-                                                "jvmDefaultConfig": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "verifyHostname": {
-                                                            "type": "boolean"
-                                                        }
-                                                    }
-                                                },
-                                                "trustAllConfig": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "examineValidityDates": {
-                                                            "type": "boolean"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "saml": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "debugMode": {
-                                            "type": "boolean"
-                                        },
-                                        "idp": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "entityId": {
-                                                    "type": "string"
-                                                },
-                                                "ssoLoginUrl": {
-                                                    "type": "string"
-                                                },
-                                                "idpX509Certificate": {
-                                                    "type": "object",
-                                                    "additionalProperties": false,
-                                                    "properties": {
-                                                        "secretRef": {
-                                                            "type": "string"
-                                                        },
-                                                        "secretKey": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                },
-                                                "authorityUrl": {
-                                                    "type": "string"
-                                                },
-                                                "nameId": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "sp": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "entityId": {
-                                                    "type": "string"
-                                                },
-                                                "acs": {
-                                                    "type": "string"
-                                                },
-                                                "spX509Certificate": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "secretRef": {
-                                                            "type": "string"
-                                                        },
-                                                        "secretKey": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                },
-                                                "spPrivateKey": {
-                                                    "type": "object",
-                                                    "properties": {
-                                                        "secretRef": {
-                                                            "type": "string"
-                                                        },
-                                                        "secretKey": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                },
-                                                "callback": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "security": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "strictMode": {
-                                                    "type": "boolean"
-                                                },
-                                                "validateXml": {
-                                                    "type": "boolean"
-                                                },
-                                                "tokenValidity": {
-                                                    "type": "integer"
-                                                },
-                                                "sendEncryptedNameId": {
-                                                    "type": "boolean"
-                                                },
-                                                "sendSignedAuthRequest": {
-                                                    "type": "boolean"
-                                                },
-                                                "signSpMetadata": {
-                                                    "type": "boolean"
-                                                },
-                                                "wantMessagesSigned": {
-                                                    "type": "boolean"
-                                                },
-                                                "wantAssertionsSigned": {
-                                                    "type": "boolean"
-                                                },
-                                                "wantAssertionEncrypted": {
-                                                    "type": "boolean"
-                                                },
-                                                "keyStoreFilePath": {
-                                                    "type": "string"
-                                                },
-                                                "keyStoreAlias": {
-                                                    "type": "object",
-                                                    "additionalProperties": false,
-                                                    "properties": {
-                                                        "secretRef": {
-                                                            "type": "string"
-                                                        },
-                                                        "secretKey": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                },
-                                                "keyStorePassword": {
-                                                    "type": "object",
-                                                    "additionalProperties": false,
-                                                    "properties": {
-                                                        "secretRef": {
-                                                            "type": "string"
-                                                        },
-                                                        "secretKey": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "authorizer": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "allowedEmailRegistrationDomains": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "className": {
-                                    "type": "string",
-                                    "enum": [
-                                        "org.openmetadata.service.security.DefaultAuthorizer"
-                                    ]
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "containerRequestFilter": {
-                                    "type": "string",
-                                    "enum": [
-                                        "org.openmetadata.service.security.JwtFilter"
-                                    ]
-                                },
-                                "enableSecureSocketConnection": {
-                                    "type": "boolean"
-                                },
-                                "enforcePrincipalDomain": {
-                                    "type": "boolean"
-                                },
-                                "initialAdmins": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "principalDomain": {
-                                    "type": "string"
-                                },
-                                "useRolesFromProvider": {
-                                    "type": "boolean"
-                                }
-                            }
-                        },
-                        "clusterName": {
-                            "type": "string"
-                        },
-                        "database": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "auth": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "password": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "username": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "databaseName": {
-                                    "type": "string"
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "dbScheme": {
-                                    "type": "string"
-                                },
-                                "dbParams": {
-                                    "type": "string"
-                                },
-                                "driverClass": {
-                                    "type": "string"
-                                },
-                                "host": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                },
-                                "maxSize": {
-                                    "type": "integer"
-                                },
-                                "minSize": {
-                                    "type": "integer"
-                                },
-                                "initialSize": {
-                                    "type": "integer"
-                                },
-                                "checkConnectionWhileIdle": {
-                                    "type": "boolean"
-                                },
-                                "checkConnectionOnBorrow": {
-                                    "type": "boolean"
-                                },
-                                "evictionInterval": {
-                                    "type": "string"
-                                },
-                                "minIdleTime": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "elasticsearch": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "auth": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "password": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "username": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "batchSize": {
-                                    "type": "integer"
-                                },
-                                "connectionTimeoutSecs": {
-                                    "type": "integer"
-                                },
-                                "clusterAlias": {
-                                    "type": "string"
-                                },
-                                "host": {
-                                    "type": "string"
-                                },
-                                "keepAliveTimeoutSecs": {
-                                    "type": "integer"
-                                },
-                                "payLoadSize": {
-                                    "type": "integer"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                },
-                                "scheme": {
-                                    "type": "string"
-                                },
-                                "searchType": {
-                                    "type": "string",
-                                    "default": "elasticsearch",
-                                    "enum": [
-                                        "elasticsearch",
-                                        "opensearch"
-                                    ]
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "socketTimeoutSecs": {
-                                    "type": "integer"
-                                },
-                                "searchIndexMappingLanguage": {
-                                    "type": "string"
-                                },
-                                "trustStore": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "password": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "path": {
-                                            "type": "string"
-                                        }
-                                    }
-                                }
-                            }
-                        },
-                        "eventMonitor": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "type": {
-                                    "type": "string",
-                                    "enum": [
-                                        "prometheus",
-                                        "cloudwatch"
-                                    ]
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "batchSize": {
-                                    "type": "integer"
-                                },
-                                "pathPattern": {
-                                    "type": "array"
-                                },
-                                "latency": {
-                                    "type": "array"
-                                }
-                            },
-                            "title": "eventMonitor"
-                        },
-                        "fernetkey": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "value": {
-                                    "type": "string"
-                                },
-                                "secretRef": {
-                                    "type": "string"
-                                },
-                                "secretKey": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "jwtTokenConfiguration": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "enabled": {
-                                    "type": "boolean"
-                                },
-                                "jwtissuer": {
-                                    "type": "string"
-                                },
-                                "keyId": {
-                                    "type": "string"
-                                },
-                                "rsaprivateKeyFilePath": {
-                                    "type": "string"
-                                },
-                                "rsapublicKeyFilePath": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "logLevel": {
-                            "type": "string"
-                        },
-                        "openmetadata": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "adminPort": {
-                                    "type": "integer"
-                                },
-                                "host": {
-                                    "type": "string"
-                                },
-                                "port": {
-                                    "type": "integer"
-                                },
-                                "uri": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        "secretsManager": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "additionalParameters": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "accessKeyId": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "clientId": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "clientSecret": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "enabled": {
-                                            "type": "boolean"
-                                        },
-                                        "region": {
-                                            "type": "string"
-                                        },
-                                        "secretAccessKey": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "tenantId": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "vaultName": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        },
-                                        "projectId": {
-                                            "type": "object",
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "secretKey": {
-                                                    "type": "string"
-                                                },
-                                                "secretRef": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "provider": {
-                                    "type": "string",
-                                    "enum": [
-                                        "db",
-                                        "aws",
-                                        "aws-ssm",
-                                        "managed-aws",
-                                        "managed-aws-ssm",
-                                        "in-memory",
-                                        "managed-azure-kv",
-                                        "azure-kv",
-                                        "gcp"
-                                    ]
-                                },
-                                "prefix": {
-                                    "type": "string"
-                                },
-                                "tags": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "string"
-                                    }
-                                },
-                                "enabled": {
-                                    "type": "boolean"
-                                }
-                            }
-                        },
-                        "smtpConfig": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "emailingEntity": {
-                                    "type": "string"
-                                },
-                                "enableSmtpServer": {
-                                    "type": "boolean"
-                                },
-                                "openMetadataUrl": {
-                                    "type": "string"
-                                },
-                                "password": {
-                                    "type": "object",
-                                    "additionalProperties": false,
-                                    "properties": {
-                                        "secretKey": {
-                                            "type": "string"
-                                        },
-                                        "secretRef": {
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "senderMail": {
-                                    "type": "string"
-                                },
-                                "serverEndpoint": {
-                                    "type": "string"
-                                },
-                                "serverPort": {
-                                    "type": "string"
-                                },
-                                "supportUrl": {
-                                    "type": "string"
-                                },
-                                "transportationStrategy": {
-                                    "type": "string"
-                                },
-                                "username": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "image": {
-            "type": "object",
-            "properties": {
-                "pullPolicy": {
-                    "type": "string"
+          },
+          "properties": {
+            "web": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "uriPath": {
+                  "type": "string"
                 },
-                "repository": {
-                    "type": "string"
+                "enabled": {
+                  "type": "boolean"
+                },
+                "hsts": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "maxAge": {
+                      "type": "string"
+                    },
+                    "includeSubDomains": {
+                      "type": "string",
+                      "format": "boolean"
+                    },
+                    "preload": {
+                      "type": "string",
+                      "format": "boolean"
+                    }
+                  }
+                },
+                "frameOptions": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "option": {
+                      "type": "string"
+                    },
+                    "origin": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "contentTypeOptions": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "csp": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "policy": {
+                      "type": "string"
+                    },
+                    "reportOnlyPolicy": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "referrerPolicy": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "option": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "permissionPolicy": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "option": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "cacheControl": {
+                  "type": "string"
+                },
+                "pragma": {
+                  "type": "string"
+                },
+                "xssProtection": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "block": {
+                      "type": "boolean"
+                    },
+                    "onXss": {
+                      "type": "boolean"
+                    }
+                  }
                 }
-            }
-        },
-        "imagePullSecrets": {
-            "type": "array"
-        },
-        "ingress": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "type": "object"
+              }
+            },
+            "upgradeMigrationConfigs": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "additionalArgs": {
+                  "type": "string"
+                },
+                "debug": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "deployPipelinesConfig": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "additionalArgs": {
+                  "type": "string"
+                },
+                "debug": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "reindexConfig": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "additionalArgs": {
+                  "type": "string"
+                },
+                "debug": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "pipelineServiceClientConfig": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "auth": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "password": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "trustStorePath": {
+                      "type": "string"
+                    },
+                    "trustStorePassword": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "apiEndpoint": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
                 },
                 "className": {
+                  "type": "string"
+                },
+                "ingestionIpInfoEnabled": {
+                  "type": "boolean"
+                },
+                "healthCheckInterval": {
+                  "type": "integer"
+                },
+                "metadataApiEndpoint": {
+                  "type": "string"
+                },
+                "sslCertificatePath": {
+                  "type": "string"
+                },
+                "verifySsl": {
+                  "type": "string"
+                },
+                "hostIp": {
+                  "type": "string"
+                }
+              }
+            },
+            "authentication": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "authority": {
+                  "type": "string"
+                },
+                "callbackUrl": {
+                  "type": "string"
+                },
+                "clientId": {
+                  "type": "string"
+                },
+                "clientType": {
+                  "type": "string",
+                  "enum": [
+                    "public",
+                    "confidential"
+                  ]
+                },
+                "enableSelfSignup": {
+                  "type": "boolean"
+                },
+                "jwtPrincipalClaims": {
+                  "type": "array",
+                  "items": {
                     "type": "string"
+                  }
+                },
+                "jwtPrincipalClaimsMapping": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 },
                 "enabled": {
-                    "type": "boolean"
+                  "type": "boolean"
                 },
-                "hosts": {
-                    "type": "array",
-                    "items": {
-                        "type": "object",
-                        "properties": {
-                            "host": {
-                                "type": "string"
+                "provider": {
+                  "type": "string",
+                  "enum": [
+                    "basic",
+                    "azure",
+                    "auth0",
+                    "custom-oidc",
+                    "google",
+                    "okta",
+                    "aws-cognito",
+                    "ldap",
+                    "saml"
+                  ]
+                },
+                "publicKeys": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "default": [
+                    "http://openmetadata:8585/api/v1/system/config/jwks"
+                  ]
+                },
+                "responseType": {
+                  "type": "string"
+                },
+                "oidcConfiguration": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "oidcType": {
+                      "type": "string"
+                    },
+                    "clientId": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretRef": {
+                          "type": "string"
+                        },
+                        "secretKey": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "clientSecret": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretRef": {
+                          "type": "string"
+                        },
+                        "secretKey": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "scope": {
+                      "type": "string"
+                    },
+                    "discoveryUri": {
+                      "type": "string"
+                    },
+                    "useNonce": {
+                      "type": "boolean"
+                    },
+                    "preferredJwsAlgorithm": {
+                      "type": "string"
+                    },
+                    "responseType": {
+                      "type": "string"
+                    },
+                    "disablePkce": {
+                      "type": "boolean"
+                    },
+                    "callbackUrl": {
+                      "type": "string"
+                    },
+                    "serverUrl": {
+                      "type": "string"
+                    },
+                    "clientAuthenticationMethod": {
+                      "type": "string"
+                    },
+                    "tenant": {
+                      "type": "string"
+                    },
+                    "maxClockSkew": {
+                      "type": "string"
+                    },
+                    "customParams": {
+                      "type": [
+                        "string",
+                        "null"
+                      ]
+                    },
+                    "tokenValidity": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "ldapConfiguration": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "host": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "integer"
+                    },
+                    "dnAdminPrincipal": {
+                      "type": "string"
+                    },
+                    "dnAdminPassword": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretRef": {
+                          "type": "string"
+                        },
+                        "secretKey": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "userBaseDN": {
+                      "type": "string"
+                    },
+                    "groupBaseDN": {
+                      "type": "string"
+                    },
+                    "roleAdminName": {
+                      "type": "string"
+                    },
+                    "allAttributeName": {
+                      "type": "string"
+                    },
+                    "usernameAttributeName": {
+                      "type": "string"
+                    },
+                    "groupAttributeName": {
+                      "type": "string"
+                    },
+                    "groupAttributeValue": {
+                      "type": "string"
+                    },
+                    "groupMemberAttributeName": {
+                      "type": "string"
+                    },
+                    "authRolesMapping": {
+                      "type": "string"
+                    },
+                    "authReassignRoles": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "mailAttributeName": {
+                      "type": "string"
+                    },
+                    "maxPoolSize": {
+                      "type": "integer"
+                    },
+                    "sslEnabled": {
+                      "type": "boolean"
+                    },
+                    "truststoreConfigType": {
+                      "type": "string",
+                      "enum": [
+                        "CustomTrustStore",
+                        "HostName",
+                        "JVMDefault",
+                        "TrustAll"
+                      ]
+                    },
+                    "trustStoreConfig": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "customTrustManagerConfig": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "trustStoreFilePath": {
+                              "type": "string"
                             },
-                            "paths": {
-                                "type": "array",
-                                "items": {
-                                    "type": "object",
-                                    "properties": {
-                                        "path": {
-                                            "type": "string"
-                                        },
-                                        "pathType": {
-                                            "type": "string"
-                                        }
-                                    }
+                            "trustStoreFilePassword": {
+                              "type": "object",
+                              "additionalProperties": false,
+                              "properties": {
+                                "secretRef": {
+                                  "type": "string"
+                                },
+                                "secretKey": {
+                                  "type": "string"
                                 }
+                              }
+                            },
+                            "trustStoreFileFormat": {
+                              "type": "string"
+                            },
+                            "verifyHostname": {
+                              "type": "boolean"
+                            },
+                            "examineValidityDates": {
+                              "type": "boolean"
                             }
-                        }
-                    }
-                },
-                "tls": {
-                    "type": "array"
-                }
-            }
-        },
-        "livenessProbe": {
-            "type": "object",
-            "properties": {
-                "failureThreshold": {
-                    "type": "integer"
-                },
-                "initialDelaySeconds": {
-                    "type": "integer"
-                },
-                "periodSeconds": {
-                    "type": "integer"
-                },
-                "httpGet": {
-                    "type": "object",
-                    "properties": {
-                        "path": {
-                            "type": "string"
+                          }
                         },
-                        "port": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "nameOverride": {
-            "type": "string"
-        },
-        "nodeSelector": {
-            "type": "object"
-        },
-        "podSecurityContext": {
-            "type": "object"
-        },
-        "preMigrateInitContainers": {
-            "type": "array"
-        },
-        "readinessProbe": {
-            "type": "object",
-            "properties": {
-                "failureThreshold": {
-                    "type": "integer"
-                },
-                "initialDelaySeconds": {
-                    "type": "integer"
-                },
-                "periodSeconds": {
-                    "type": "integer"
-                },
-                "httpGet": {
-                    "type": "object",
-                    "properties": {
-                        "path": {
-                            "type": "string"
+                        "hostNameConfig": {
+                          "type": "object",
+                          "properties": {
+                            "allowWildCards": {
+                              "type": "boolean"
+                            },
+                            "acceptableHostNames": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              }
+                            }
+                          }
                         },
-                        "port": {
-                            "type": "string"
+                        "jvmDefaultConfig": {
+                          "type": "object",
+                          "properties": {
+                            "verifyHostname": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "trustAllConfig": {
+                          "type": "object",
+                          "properties": {
+                            "examineValidityDates": {
+                              "type": "boolean"
+                            }
+                          }
                         }
+                      }
                     }
-                }
-            }
-        },
-        "replicaCount": {
-            "type": "integer"
-        },
-        "automountServiceAccountToken": {
-            "type": "boolean"
-        },
-        "resources": {
-            "type": "object"
-        },
-        "securityContext": {
-            "type": "object"
-        },
-        "service": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "adminPort": {
-                    "type": "integer"
+                  }
                 },
-                "annotations": {
-                    "type": "object"
+                "saml": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "debugMode": {
+                      "type": "boolean"
+                    },
+                    "idp": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "entityId": {
+                          "type": "string"
+                        },
+                        "ssoLoginUrl": {
+                          "type": "string"
+                        },
+                        "idpX509Certificate": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "secretRef": {
+                              "type": "string"
+                            },
+                            "secretKey": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "authorityUrl": {
+                          "type": "string"
+                        },
+                        "nameId": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "sp": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "entityId": {
+                          "type": "string"
+                        },
+                        "acs": {
+                          "type": "string"
+                        },
+                        "spX509Certificate": {
+                          "type": "object",
+                          "properties": {
+                            "secretRef": {
+                              "type": "string"
+                            },
+                            "secretKey": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "spPrivateKey": {
+                          "type": "object",
+                          "properties": {
+                            "secretRef": {
+                              "type": "string"
+                            },
+                            "secretKey": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "callback": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "security": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "strictMode": {
+                          "type": "boolean"
+                        },
+                        "validateXml": {
+                          "type": "boolean"
+                        },
+                        "tokenValidity": {
+                          "type": "integer"
+                        },
+                        "sendEncryptedNameId": {
+                          "type": "boolean"
+                        },
+                        "sendSignedAuthRequest": {
+                          "type": "boolean"
+                        },
+                        "signSpMetadata": {
+                          "type": "boolean"
+                        },
+                        "wantMessagesSigned": {
+                          "type": "boolean"
+                        },
+                        "wantAssertionsSigned": {
+                          "type": "boolean"
+                        },
+                        "wantAssertionEncrypted": {
+                          "type": "boolean"
+                        },
+                        "keyStoreFilePath": {
+                          "type": "string"
+                        },
+                        "keyStoreAlias": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "secretRef": {
+                              "type": "string"
+                            },
+                            "secretKey": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "keyStorePassword": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "secretRef": {
+                              "type": "string"
+                            },
+                            "secretKey": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "authorizer": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "allowedEmailRegistrationDomains": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "className": {
+                  "type": "string",
+                  "enum": [
+                    "org.openmetadata.service.security.DefaultAuthorizer"
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "containerRequestFilter": {
+                  "type": "string",
+                  "enum": [
+                    "org.openmetadata.service.security.JwtFilter"
+                  ]
+                },
+                "enableSecureSocketConnection": {
+                  "type": "boolean"
+                },
+                "enforcePrincipalDomain": {
+                  "type": "boolean"
+                },
+                "initialAdmins": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "principalDomain": {
+                  "type": "string"
+                },
+                "useRolesFromProvider": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "clusterName": {
+              "type": "string"
+            },
+            "database": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "auth": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "password": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "username": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "databaseName": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "dbScheme": {
+                  "type": "string"
+                },
+                "dbParams": {
+                  "type": "string"
+                },
+                "driverClass": {
+                  "type": "string"
+                },
+                "host": {
+                  "type": "string"
                 },
                 "port": {
-                    "type": "integer"
+                  "type": "integer"
                 },
-                "type": {
-                    "type": "string"
+                "maxSize": {
+                  "type": "integer"
+                },
+                "minSize": {
+                  "type": "integer"
+                },
+                "initialSize": {
+                  "type": "integer"
+                },
+                "checkConnectionWhileIdle": {
+                  "type": "boolean"
+                },
+                "checkConnectionOnBorrow": {
+                  "type": "boolean"
+                },
+                "evictionInterval": {
+                  "type": "string"
+                },
+                "minIdleTime": {
+                  "type": "string"
                 }
-            }
-        },
-        "serviceAccount": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "annotations": {
-                    "type": "object"
-                },
-                "create": {
-                    "type": "boolean"
-                },
-                "name": {
-                    "type": "string"
-                }
-            }
-        },
-        "sidecars": {
-            "type": "array"
-        },
-        "startupProbe": {
-            "type": "object",
-            "properties": {
-                "failureThreshold": {
-                    "type": "integer"
-                },
-                "periodSeconds": {
-                    "type": "integer"
-                },
-                "httpGet": {
-                    "type": "object",
-                    
-                    "properties": {
-                        "path": {
-                            "type": "string"
+              }
+            },
+            "elasticsearch": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "auth": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "password": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
                         },
-                        "port": {
-                            "type": "string"
+                        "secretRef": {
+                          "type": "string"
                         }
+                      }
+                    },
+                    "username": {
+                      "type": "string"
                     }
+                  }
                 },
-                "successThreshold": {
-                    "type": "integer"
-                }
-            }
-        },
-        "tolerations": {
-            "type": "array"
-        },
-        "commonLabels": {
-            "type": "object"
-        },
-        "podDisruptionBudget": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "enabled" : {
-                    "type": "boolean"
+                "batchSize": {
+                  "type": "integer"
                 },
-                "config": {
-                    "type": "object",
-                    "properties": {
-                        "maxUnavailable": {
-                            "type": "string"
-                        },
-                        "minAvailable": {
-                            "type": "string"
-                        }
-                    }
-                }
-            }
-        },
-        "podAnnotations": {
-            "type": "object"
-        },
-        "deploymentAnnotations": {
-            "type": "object"
-        },
-        "networkPolicy": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
+                "connectionTimeoutSecs": {
+                  "type": "integer"
+                },
+                "clusterAlias": {
+                  "type": "string"
+                },
+                "host": {
+                  "type": "string"
+                },
+                "keepAliveTimeoutSecs": {
+                  "type": "integer"
+                },
+                "payLoadSize": {
+                  "type": "integer"
+                },
+                "port": {
+                  "type": "integer"
+                },
+                "scheme": {
+                  "type": "string"
+                },
+                "searchType": {
+                  "type": "string",
+                  "default": "elasticsearch",
+                  "enum": [
+                    "elasticsearch",
+                    "opensearch"
+                  ]
+                },
                 "enabled": {
-                    "type": "boolean"
+                  "type": "boolean"
+                },
+                "socketTimeoutSecs": {
+                  "type": "integer"
+                },
+                "searchIndexMappingLanguage": {
+                  "type": "string"
+                },
+                "trustStore": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "password": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "path": {
+                      "type": "string"
+                    }
+                  }
                 }
+              }
+            },
+            "eventMonitor": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "prometheus",
+                    "cloudwatch"
+                  ]
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "batchSize": {
+                  "type": "integer"
+                },
+                "pathPattern": {
+                  "type": "array"
+                },
+                "latency": {
+                  "type": "array"
+                }
+              },
+              "title": "eventMonitor"
+            },
+            "fernetkey": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "value": {
+                  "type": "string"
+                },
+                "secretRef": {
+                  "type": "string"
+                },
+                "secretKey": {
+                  "type": "string"
+                }
+              }
+            },
+            "jwtTokenConfiguration": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "jwtissuer": {
+                  "type": "string"
+                },
+                "keyId": {
+                  "type": "string"
+                },
+                "rsaprivateKeyFilePath": {
+                  "type": "string"
+                },
+                "rsapublicKeyFilePath": {
+                  "type": "string"
+                }
+              }
+            },
+            "logLevel": {
+              "type": "string"
+            },
+            "openmetadata": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "adminPort": {
+                  "type": "integer"
+                },
+                "host": {
+                  "type": "string"
+                },
+                "port": {
+                  "type": "integer"
+                },
+                "uri": {
+                  "type": "string"
+                }
+              }
+            },
+            "secretsManager": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "additionalParameters": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "accessKeyId": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "clientId": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "clientSecret": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "region": {
+                      "type": "string"
+                    },
+                    "secretAccessKey": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "tenantId": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "vaultName": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "projectId": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "secretKey": {
+                          "type": "string"
+                        },
+                        "secretRef": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                },
+                "provider": {
+                  "type": "string",
+                  "enum": [
+                    "db",
+                    "aws",
+                    "aws-ssm",
+                    "managed-aws",
+                    "managed-aws-ssm",
+                    "in-memory",
+                    "managed-azure-kv",
+                    "azure-kv",
+                    "gcp"
+                  ]
+                },
+                "prefix": {
+                  "type": "string"
+                },
+                "tags": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "enabled": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "smtpConfig": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "emailingEntity": {
+                  "type": "string"
+                },
+                "enableSmtpServer": {
+                  "type": "boolean"
+                },
+                "openMetadataUrl": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "secretKey": {
+                      "type": "string"
+                    },
+                    "secretRef": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "senderMail": {
+                  "type": "string"
+                },
+                "serverEndpoint": {
+                  "type": "string"
+                },
+                "serverPort": {
+                  "type": "string"
+                },
+                "supportUrl": {
+                  "type": "string"
+                },
+                "transportationStrategy": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                }
+              }
             }
+          }
         }
+      }
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "pullPolicy": {
+          "type": "string"
+        },
+        "repository": {
+          "type": "string"
+        }
+      }
+    },
+    "imagePullSecrets": {
+      "type": "array"
+    },
+    "ingress": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "type": "object"
+        },
+        "className": {
+          "type": "string"
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "hosts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "host": {
+                "type": "string"
+              },
+              "paths": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "path": {
+                      "type": "string"
+                    },
+                    "pathType": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tls": {
+          "type": "array"
+        }
+      }
+    },
+    "livenessProbe": {
+      "type": "object",
+      "properties": {
+        "failureThreshold": {
+          "type": "integer"
+        },
+        "initialDelaySeconds": {
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "type": "integer"
+        },
+        "httpGet": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "port": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "nameOverride": {
+      "type": "string"
+    },
+    "nodeSelector": {
+      "type": "object"
+    },
+    "podSecurityContext": {
+      "type": "object"
+    },
+    "preMigrateInitContainers": {
+      "type": "array"
+    },
+    "readinessProbe": {
+      "type": "object",
+      "properties": {
+        "failureThreshold": {
+          "type": "integer"
+        },
+        "initialDelaySeconds": {
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "type": "integer"
+        },
+        "httpGet": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "port": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "replicaCount": {
+      "type": "integer"
+    },
+    "automountServiceAccountToken": {
+      "type": "boolean"
+    },
+    "resources": {
+      "type": "object"
+    },
+    "securityContext": {
+      "type": "object"
+    },
+    "service": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "adminPort": {
+          "type": "integer"
+        },
+        "annotations": {
+          "type": "object"
+        },
+        "port": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "serviceAccount": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "annotations": {
+          "type": "object"
+        },
+        "create": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "sidecars": {
+      "type": "array"
+    },
+    "startupProbe": {
+      "type": "object",
+      "properties": {
+        "failureThreshold": {
+          "type": "integer"
+        },
+        "periodSeconds": {
+          "type": "integer"
+        },
+        "httpGet": {
+          "type": "object",
+          "properties": {
+            "path": {
+              "type": "string"
+            },
+            "port": {
+              "type": "string"
+            }
+          }
+        },
+        "successThreshold": {
+          "type": "integer"
+        }
+      }
+    },
+    "tolerations": {
+      "type": "array"
+    },
+    "commonLabels": {
+      "type": "object"
+    },
+    "podDisruptionBudget": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "config": {
+          "type": "object",
+          "properties": {
+            "maxUnavailable": {
+              "type": "string"
+            },
+            "minAvailable": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "podAnnotations": {
+      "type": "object"
+    },
+    "deploymentAnnotations": {
+      "type": "object"
+    },
+    "networkPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      }
     }
+  }
 }

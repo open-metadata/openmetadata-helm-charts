@@ -78,7 +78,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.oidcConfiguration.clientId.secretRef | string | `oidc-secrets` | OIDC_CLIENT_ID |
 | openmetadata.config.authentication.oidcConfiguration.clientSecret.secretKey | string | `openmetadata-oidc-client-secret` | OIDC_CLIENT_SECRET |
 | openmetadata.config.authentication.oidcConfiguration.clientSecret.secretRef | string | `oidc-secrets` | OIDC_CLIENT_SECRET |
-| openmetadata.config.authentication.oidcConfiguration.customParams | string | `Empty` | OIDC_CUSTOM_PARAMS |
+| openmetadata.config.authentication.oidcConfiguration.customParams | string | `{}` | OIDC_CUSTOM_PARAMS |
 | openmetadata.config.authentication.oidcConfiguration.disablePkce | bool | true | OIDC_DISABLE_PKCE |
 | openmetadata.config.authentication.oidcConfiguration.discoveryUri | string | `Empty` | OIDC_DISCOVERY_URI |
 | openmetadata.config.authentication.oidcConfiguration.enabled | bool | false | |
