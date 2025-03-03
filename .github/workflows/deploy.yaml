@@ -37,4 +37,3 @@ jobs:
           helm repo add open-metadata https://helm.open-metadata.org
           helm repo update
           helm upgrade --install openmetadata open-metadata/openmetadata -f ./charts/openmetadata/values.yaml
-3
