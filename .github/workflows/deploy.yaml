@@ -1,0 +1,32 @@
+name: Deploy OpenMetadata to AKS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set up Kubectl Context
+        uses: azure/aks-set-context@v1
+        with:
+          resource-group: ${{ secrets.RESOURCE_GROUP }}
+          cluster-name: ${{ secrets.AKS_CLUSTER }}
+
+      - name: Deploy OpenMetadata using Helm with Custom Values
+        run: |
+          helm repo add open-metadata https://helm.open-metadata.org/
+          helm repo update
+          helm upgrade --install openmetadata open-metadata/openmetadata \
+            -n openmetadata --create-namespace \
+            -f helm/values.yaml

@@ -358,6 +358,14 @@ openmetadata:
       cacheControl: ""
       pragma: ""
 
+database:
+  provider: postgres
+  host: ep-snowy-haze-a89l6n5e-pooler.eastus2.azure.neon.tech
+  port: 5432
+  username: neondb_owner
+  password: npg_ahg2DH6TJQRN
+  database: neondb
+
 networkPolicy:
   # If networkPolicy is true, following values can be set
   # for ingress on port 8585 and 8586
