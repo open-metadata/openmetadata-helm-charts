@@ -66,11 +66,6 @@ openmetadata:
         password:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
-      primary:
-        persistence:
-          enabled: true
-          size: 2Gi
-          storageClass: default
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
     pipelineServiceClientConfig:
       enabled: true
