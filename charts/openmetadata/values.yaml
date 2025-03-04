@@ -22,6 +22,14 @@ openmetadata:
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
+    security:
+      enabled: true
+      auth:
+        method: basic
+        username: admin
+        password:
+          secretRef: openmetadata-secrets
+          secretKey: openmetadata-admin-password
     openmetadata:
       host: "0.0.0.0"
       # URI to use with OpenMetadata Alerts Integrations
