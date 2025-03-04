@@ -22,14 +22,6 @@ openmetadata:
     # Values can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL
     logLevel: INFO
     clusterName: openmetadata
-    security:
-      enabled: true
-      auth:
-        method: basic
-        username: admin
-        password:
-          secretRef: openmetadata-secrets
-          secretKey: openmetadata-admin-password
     openmetadata:
       host: "0.0.0.0"
       # URI to use with OpenMetadata Alerts Integrations
@@ -75,6 +67,14 @@ openmetadata:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+   security:
+      enabled: true
+      auth:
+        method: basic
+        username: admin
+        password:
+          secretRef: openmetadata-secrets
+          secretKey: openmetadata-admin-password
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
