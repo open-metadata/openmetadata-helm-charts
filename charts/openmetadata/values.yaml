@@ -55,17 +55,24 @@ openmetadata:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
     database:
-      enabled: true
-      host: mysql
-      port: 3306
-      driverClass: com.mysql.cj.jdbc.Driver
-      dbScheme: mysql
-      databaseName: openmetadata_db
-      auth:
-        username: openmetadata_user
-        password:
-          secretRef: mysql-secrets
-          secretKey: openmetadata-mysql-password
+        enabled: true
+        host: openmetadata-mysql
+        port: 3306
+        driverClass: com.mysql.cj.jdbc.Driver
+        dbScheme: mysql
+        databaseName: openmetadata_db
+        auth:
+            username: openmetadata_user
+            password:
+                    secretRef: mysql-secrets
+                    secretKey: openmetadata-mysql-password
+    mysql:
+        enabled: true
+        auth:
+              rootPassword: root_password
+              username: openmetadata_user
+              password: admin_password
+              database: openmetadata_db
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
       maxSize: 50
       minSize: 10
