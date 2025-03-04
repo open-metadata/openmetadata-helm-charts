@@ -74,6 +74,22 @@ openmetadata:
       checkConnectionOnBorrow: true
       evictionInterval: 5 minutes
       minIdleTime: 1 minute
+    mysql:
+      enabled: true
+      auth:
+        username: openmetadata_user
+        password: openmetadata-mysql-password
+        database: openmetadata_db
+      primary:
+        persistence:
+          enabled: true
+          size: 10Gi
+          storageClass: default
+          accessModes:
+              - ReadWriteOnce
+    persistence:
+        enabled: true
+        existingClaim: openmetadata-mysql-pvc
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
