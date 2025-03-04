@@ -54,6 +54,9 @@ openmetadata:
         password:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
+      opensearch:
+        service:
+          type: ClusterIP
     database:
       enabled: true
       host: openmetadata-mysql.default.svc.cluster.local
