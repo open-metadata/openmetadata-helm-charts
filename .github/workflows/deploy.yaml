@@ -49,7 +49,7 @@ jobs:
         run: |
           helm repo add elastic https://helm.elastic.co
           helm repo update
-          helm upgrade --install opensearch elastic/opensearch -n <namespace> -f $(pwd)/charts/opensearch/values.yaml
+          helm upgrade --install opensearch elastic/opensearch -f $(pwd)/charts/opensearch/values.yaml
   
       - name: Deploy OpenMetadata
         run: |
