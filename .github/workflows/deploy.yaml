@@ -21,6 +21,7 @@ jobs:
       - name: Set up Kubectl Context
         uses: azure/aks-set-context@v1
         with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
           cluster-name: ${{ secrets.AKS_CLUSTER_NAME }}
 
