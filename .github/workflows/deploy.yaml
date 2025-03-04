@@ -8,13 +8,14 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: Openmeta-poc-keys 
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Azure Login
-        uses: azure/login@v1
+        uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
