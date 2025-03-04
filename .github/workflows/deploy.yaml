@@ -30,11 +30,21 @@ jobs:
           az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
 
       - name: Install Helm
-        run: |
-          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+        uses: azure/setup-helm@v3
 
-      - name: Deploy OpenMetadata
+      - name: Add OpenMetadata Helm Repo
         run: |
           helm repo add open-metadata https://helm.open-metadata.org
           helm repo update
-          helm upgrade --install openmetadata open-metadata/openmetadata -f ./charts/openmetadata/values.yaml
+
+      - name: Debug Helm Repos
+        run: helm repo list
+
+      - name: Check if values.yaml exists
+        run: |
+          ls -l $(pwd)/charts/openmetadata/
+          if [ ! -f $(pwd)/charts/openmetadata/values.yaml ]; then echo "values.yaml not found!"; exit 1; fi
+
+      - name: Deploy OpenMetadata
+        run: |
+          helm upgrade --install openmetadata open-metadata/openmetadata -f $(pwd)/charts/openmetadata/values.yaml
