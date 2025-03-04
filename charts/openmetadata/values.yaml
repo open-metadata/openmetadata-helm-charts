@@ -54,26 +54,8 @@ openmetadata:
         password:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
-    database:
+    mysql:
       enabled: true
-      host: mysql
-      port: 3306
-      driverClass: com.mysql.cj.jdbc.Driver
-      dbScheme: mysql
-      databaseName: openmetadata_db
-      auth:
-        username: openmetadata_user
-        password:
-          secretRef: mysql-secrets
-          secretKey: openmetadata-mysql-password
-      dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
-      maxSize: 50
-      minSize: 10
-      initialSize: 10
-      checkConnectionWhileIdle: true
-      checkConnectionOnBorrow: true
-      evictionInterval: 5 minutes
-      minIdleTime: 1 minute
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
