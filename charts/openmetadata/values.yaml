@@ -56,7 +56,7 @@ openmetadata:
           secretKey: openmetadata-elasticsearch-password
     database:
       enabled: true
-      host: mysql
+      host: openmetadata-mysql.default.svc.cluster.local
       port: 3306
       driverClass: com.mysql.cj.jdbc.Driver
       dbScheme: mysql
@@ -67,29 +67,6 @@ openmetadata:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
-      maxSize: 50
-      minSize: 10
-      initialSize: 10
-      checkConnectionWhileIdle: true
-      checkConnectionOnBorrow: true
-      evictionInterval: 5 minutes
-      minIdleTime: 1 minute
-    mysql:
-      enabled: true
-      auth:
-        username: openmetadata_user
-        password: openmetadata-mysql-password
-        database: openmetadata_db
-      primary:
-        persistence:
-          enabled: true
-          size: 10Gi
-          storageClass: default
-          accessModes:
-              - ReadWriteOnce
-    persistence:
-        enabled: true
-        existingClaim: openmetadata-mysql-pvc
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
