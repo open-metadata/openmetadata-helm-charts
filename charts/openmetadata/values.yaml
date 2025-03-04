@@ -28,14 +28,6 @@ openmetadata:
       uri: "http://openmetadata:8585"
       port: 8585
       adminPort: 8586
-    security:
-      enabled: true
-    auth:
-      method: basic
-      username: admin
-      password:
-        secretRef: openmetadata-secrets
-        secretKey: openmetadata-admin-password
     elasticsearch:
       enabled: true
       host: opensearch
