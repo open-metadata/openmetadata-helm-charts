@@ -54,8 +54,6 @@ openmetadata:
         password:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
-    mysql:
-      enabled: true
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
