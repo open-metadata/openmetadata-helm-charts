@@ -66,13 +66,6 @@ openmetadata:
         password:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
-      mysql:
-        enabled: true
-        auth:
-            rootPassword: root_password
-            username: openmetadata_user
-            password: admin_password
-            database: openmetadata_db
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
       maxSize: 50
       minSize: 10
