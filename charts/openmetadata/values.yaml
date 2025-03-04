@@ -28,6 +28,14 @@ openmetadata:
       uri: "http://openmetadata:8585"
       port: 8585
       adminPort: 8586
+    security:
+      enabled: true
+    auth:
+      method: basic
+      username: admin
+      password:
+        secretRef: openmetadata-secrets
+        secretKey: openmetadata-admin-password
     elasticsearch:
       enabled: true
       host: opensearch
@@ -67,14 +75,6 @@ openmetadata:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
-   security:
-      enabled: true
-      auth:
-        method: basic
-        username: admin
-        password:
-          secretRef: openmetadata-secrets
-          secretKey: openmetadata-admin-password
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
