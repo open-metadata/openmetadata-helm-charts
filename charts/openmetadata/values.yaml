@@ -416,7 +416,7 @@ securityContext: {}
 service:
   type: LoadBalancer
   port: 8585
-  targetPort: 8585
+  #targetPort: 8585
   #annotations: {}
 
 # Service monitor for Prometheus metrics
