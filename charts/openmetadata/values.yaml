@@ -414,10 +414,10 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 100
 service:
-  type: ClusterIP
+  type: LoadBalancer
   port: 8585
-  adminPort: 8586
-  annotations: {}
+  targetPort: 8585
+  #annotations: {}
 
 # Service monitor for Prometheus metrics
 serviceMonitor:
