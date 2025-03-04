@@ -45,11 +45,14 @@ jobs:
           ls -l $(pwd)/charts/openmetadata/
           if [ ! -f $(pwd)/charts/openmetadata/values.yaml ]; then echo "values.yaml not found!"; exit 1; fi
 
+      - name: Add OpenSearch Helm Repo
+        run: |
+          helm repo add opensearch https://opensearch-project.github.io/helm-charts
+          helm repo update
+
       - name: Deploy OpenSearch
         run: |
-          helm repo add elastic https://helm.elastic.co
-          helm repo update
-          helm upgrade --install opensearch elastic/opensearch -f $(pwd)/charts/opensearch/values.yaml
+          helm upgrade --install opensearch opensearch/opensearch -f $(pwd)/charts/opensearch/values.yaml
   
       - name: Deploy OpenMetadata
         run: |
