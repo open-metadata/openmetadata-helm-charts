@@ -1,0 +1,25 @@
+clusterName: "opensearch-cluster"
+
+service:
+  name: opensearch-cluster-master  # This is what OpenMetadata will use as `host`
+  type: ClusterIP  # OpenSearch should not be exposed externally
+  port: 9200
+
+persistence:
+  enabled: false  # Change to true if using persistent storage
+
+replicas: 1  # Number of OpenSearch nodes (increase for HA)
+
+extraEnvs:
+  - name: DISABLE_INSTALL_DEMO_CONFIG
+    value: "true"
+  - name: DISABLE_SECURITY_PLUGIN
+    value: "true"
+
+resources:
+  requests:
+    memory: "2Gi"
+    cpu: "1"
+  limits:
+    memory: "4Gi"
+    cpu: "2"

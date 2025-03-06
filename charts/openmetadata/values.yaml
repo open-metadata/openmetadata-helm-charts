@@ -28,7 +28,7 @@ openmetadata:
       uri: "http://openmetadata:8585"
       port: 8585
       adminPort: 8586
-    elasticsearch:
+    #elasticsearch:
       enabled: true
       host: opensearch
       searchType: opensearch
@@ -54,9 +54,6 @@ openmetadata:
         password:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
-      opensearch:
-        service:
-          type: ClusterIP
     database:
       enabled: true
       host: openmetadata-mysql.default.svc.cluster.local

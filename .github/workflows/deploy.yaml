@@ -37,14 +37,6 @@ jobs:
           helm repo add open-metadata https://helm.open-metadata.org
           helm repo update
 
-      - name: Debug Helm Repos
-        run: helm repo list
-
-      - name: Check if values.yaml exists
-        run: |
-          ls -l $(pwd)/charts/openmetadata/
-          if [ ! -f $(pwd)/charts/openmetadata/values.yaml ]; then echo "values.yaml not found!"; exit 1; fi
-
       - name: Add OpenSearch Helm Repo
         run: |
           helm repo add opensearch https://opensearch-project.github.io/helm-charts
@@ -52,8 +44,16 @@ jobs:
 
       - name: Deploy OpenSearch
         run: |
-          helm upgrade --install opensearch opensearch/opensearch
+          if ! helm list -n default | grep -q "opensearch";then
+            helm upgrade --install opensearch opensearch/opensearch -f $(pwd)/charts/openmetadata/values-opensearch.yaml
+          else
+            echo "OpenSearch is already installed. Skipping installation."
+          fi
   
       - name: Deploy OpenMetadata
         run: |
-          helm upgrade --install openmetadata open-metadata/openmetadata -f $(pwd)/charts/openmetadata/values.yaml
+          if ! helm list -n default | grep -q "openmetadata"; then
+            helm upgrade --install openmetadata open-metadata/openmetadata -f $(pwd)/charts/openmetadata/values.yaml
+          else
+            echo "OpenMetadata is already installed. Skipping installation."
+          fi
