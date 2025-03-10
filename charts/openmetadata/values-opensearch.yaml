@@ -2,7 +2,7 @@ clusterName: "opensearch-cluster"
 
 service:
   name: opensearch-cluster-master  
-  type: ClusterIP  
+  type: LoadBalancer  
   port: 9200
 
 persistence:
