@@ -21,4 +21,4 @@ resources:
 
 extraEnvs:
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: "admin"
+    value: "Openmetadata@Admin101"
