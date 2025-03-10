@@ -22,22 +22,22 @@ extraEnvs:
 
 resources:
   requests:
-    memory: "2Gi" 
-    cpu: "1"     
+    memory: "500Mi"
+    cpu: "200m"
   limits:
-    memory: "4Gi"    
-    cpu: "2"      
+    memory: "1Gi"
+    cpu: "500m"
 
-readinessProbe:   
-  tcpSocket:
-    port: 9200
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  failureThreshold: 10
+# readinessProbe:   
+#   tcpSocket:
+#     port: 9200
+#   initialDelaySeconds: 5
+#   periodSeconds: 10
+#   failureThreshold: 10
 
-startupProbe:     
-  tcpSocket:
-    port: 9200
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  failureThreshold: 30
+# startupProbe:     
+#   tcpSocket:
+#     port: 9200
+#   initialDelaySeconds: 5
+#   periodSeconds: 10
+#   failureThreshold: 30
