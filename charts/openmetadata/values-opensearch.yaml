@@ -19,7 +19,8 @@ extraEnvs:
     value: "true"
   - name: "DISABLE_SECURITY_PLUGIN"
     value: "true"
-
+  - name: "OPENSEARCH_INITIAL_ADMIN_PASSWORD"
+    value: "admin"
 
 resources:
   requests:
