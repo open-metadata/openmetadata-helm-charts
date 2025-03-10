@@ -44,7 +44,7 @@ openmetadata:
     #  keepAliveTimeoutSecs: 600
     elasticsearch:
       enabled: false
-      host: opensearch-cluster-master.default.svc.cluster.local
+      host: opensearch-cluster-master
       searchType: opensearch
       port: 9200
       scheme: http
