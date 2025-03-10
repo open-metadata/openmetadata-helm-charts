@@ -29,19 +29,25 @@ openmetadata:
       port: 8585
       adminPort: 8586
     #elasticsearch:
-      enabled: true
-      host: opensearch
+    #  enabled: true
+    #  host: opensearch
+    #  searchType: opensearch
+    #  port: 9200
+    #  scheme: http
+    #  clusterAlias: ""
+      # Value in Bytes
+    #  payLoadSize: 10485760
+    #  connectionTimeoutSecs: 5
+    #  socketTimeoutSecs: 60
+    #  batchSize: 100
+    #  searchIndexMappingLanguage: "EN"
+    #  keepAliveTimeoutSecs: 600
+    elasticsearch:
+      enabled: false
+      host: opensearch-cluster-master
       searchType: opensearch
       port: 9200
       scheme: http
-      clusterAlias: ""
-      # Value in Bytes
-      payLoadSize: 10485760
-      connectionTimeoutSecs: 5
-      socketTimeoutSecs: 60
-      batchSize: 100
-      searchIndexMappingLanguage: "EN"
-      keepAliveTimeoutSecs: 600
       trustStore:
         enabled: false
         path: ""
