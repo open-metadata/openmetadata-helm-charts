@@ -45,7 +45,3 @@ securityConfig:
 
 sysctl:
   vmMaxMapCount: 262144
-
-plugins:
-  - analysis-icu
-  - analysis-phonetic
