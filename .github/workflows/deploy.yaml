@@ -44,16 +44,8 @@ jobs:
 
       - name: Deploy OpenSearch
         run: |
-          if ! helm list -n default | grep -q "opensearch";then
-            helm upgrade --install opensearch opensearch/opensearch -f $(pwd)/charts/openmetadata/values-opensearch.yaml
-          else
-            echo "OpenSearch is already installed. Skipping installation."
-          fi
+          helm upgrade --install opensearch opensearch/opensearch -f $(pwd)/charts/openmetadata/values-opensearch.yaml
   
       - name: Deploy OpenMetadata
         run: |
-          if ! helm list -n default | grep -q "openmetadata"; then
-            helm upgrade --install openmetadata open-metadata/openmetadata -f $(pwd)/charts/openmetadata/values.yaml
-          else
-            echo "OpenMetadata is already installed. Skipping installation."
-          fi
+          helm upgrade --install openmetadata open-metadata/openmetadata -f $(pwd)/charts/openmetadata/values.yaml
