@@ -19,15 +19,6 @@ extraEnvs:
     value: "true"
   - name: "DISABLE_SECURITY_PLUGIN"
     value: "true"
-  - name: "OPENSEARCH_INITIAL_ADMIN_PASSWORD"
-    value: "admin"
-  - name: "OPENSEARCH_JAVA_OPTS"
-    value: "-Xmx2G -Xms2G" 
-  - name: "network.bind_host"
-    value: "0.0.0.0"
-  - name: "network.publish_host"
-    value: "0.0.0.0"
-
 
 resources:
   requests:
