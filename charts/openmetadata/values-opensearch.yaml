@@ -21,6 +21,8 @@ extraEnvs:
     value: "true"
   - name: "OPENSEARCH_INITIAL_ADMIN_PASSWORD"
     value: "admin"
+  - name: "OPENSEARCH_JAVA_OPTS"
+    value: "-Xmx2G -Xms2G" 
 
 resources:
   requests:
@@ -29,3 +31,17 @@ resources:
   limits:
     memory: "4Gi"    
     cpu: "2"      
+
+readinessProbe:   
+  tcpSocket:
+    port: 9200
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 10
+
+startupProbe:     
+  tcpSocket:
+    port: 9200
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  failureThreshold: 30
