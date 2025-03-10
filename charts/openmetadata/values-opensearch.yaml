@@ -23,6 +23,11 @@ extraEnvs:
     value: "admin"
   - name: "OPENSEARCH_JAVA_OPTS"
     value: "-Xmx2G -Xms2G" 
+  - name: "network.bind_host"
+    value: "0.0.0.0"
+  - name: "network.publish_host"
+    value: "0.0.0.0"
+
 
 resources:
   requests:
