@@ -13,11 +13,11 @@ replicas: 1
 
 resources:
   requests:
-    memory: "1Gi"
-    cpu: "500m"
+    memory: "256Mi"
+    cpu: "100m"
   limits:
-    memory: "2Gi"
-    cpu: "1"
+    memory: "500Mi"
+    cpu: "300m"
 
 extraEnvs:
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
@@ -38,3 +38,14 @@ extraEnvs:
 #   initialDelaySeconds: 60  
 #   periodSeconds: 20
 #   failureThreshold: 30
+
+
+securityConfig:
+  enabled: false
+
+sysctl:
+  vmMaxMapCount: 262144
+
+plugins:
+  - analysis-icu
+  - analysis-phonetic
