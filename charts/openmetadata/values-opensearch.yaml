@@ -19,3 +19,6 @@ resources:
     memory: "1Gi"
     cpu: "500m"
 
+extraEnvs:
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: "admin"
