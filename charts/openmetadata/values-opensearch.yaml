@@ -10,15 +10,6 @@ persistence:
 
 replicas: 1  
 
-extraEnvs:
-  - name: "network.host"
-    value: "0.0.0.0"
-  - name: "discovery.type"
-    value: "single-node"
-  - name: "DISABLE_INSTALL_DEMO_CONFIG"
-    value: "true"
-  - name: "DISABLE_SECURITY_PLUGIN"
-    value: "true"
 
 resources:
   requests:
@@ -28,16 +19,3 @@ resources:
     memory: "1Gi"
     cpu: "500m"
 
-# readinessProbe:   
-#   tcpSocket:
-#     port: 9200
-#   initialDelaySeconds: 5
-#   periodSeconds: 10
-#   failureThreshold: 10
-
-# startupProbe:     
-#   tcpSocket:
-#     port: 9200
-#   initialDelaySeconds: 5
-#   periodSeconds: 10
-#   failureThreshold: 30
