@@ -21,6 +21,10 @@ extraEnvs:
     value: "true"     
   - name: "network.host"
     value: "0.0.0.0" 
+  - name: "discovery.type"
+    value: "single-node"
+  - name: "OPENSEARCH_INITIAL_ADMIN_PASSWORD"
+    value: "admin"
 
 resources:
   requests:
