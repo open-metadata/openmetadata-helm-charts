@@ -30,7 +30,7 @@ openmetadata:
       adminPort: 8586
     elasticsearch:
       enabled: true
-      host: opensearch-cluster-master
+      host: 130.213.138.211 
       searchType: opensearch
       port: 9200
       scheme: http
