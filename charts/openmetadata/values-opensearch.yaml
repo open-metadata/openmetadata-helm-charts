@@ -13,12 +13,28 @@ replicas: 1
 
 resources:
   requests:
-    memory: "500Mi"
-    cpu: "200m"
-  limits:
     memory: "1Gi"
     cpu: "500m"
+  limits:
+    memory: "2Gi"
+    cpu: "1"
 
 extraEnvs:
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "ElasticSearch@Ad100"
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: 9200
+  initialDelaySeconds: 60  
+  periodSeconds: 20
+  failureThreshold: 30
+
+startupProbe:
+  httpGet:
+    path: /
+    port: 9200
+  initialDelaySeconds: 60  
+  periodSeconds: 20
+  failureThreshold: 30
