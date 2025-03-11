@@ -36,13 +36,4 @@ startupProbe:
 
 config:
   opensearch.yml: |
-    cluster.name: opensearch-cluster
-    node.name: ${HOSTNAME}
-    discovery.seed_hosts: opensearch-cluster-master-headless
-    cluster.initial_master_nodes: opensearch-cluster-master-0
-    network.host: 0.0.0.0
-    node.roles:
-      - master
-      - ingest
-      - data
-      - remote_cluster_client
+    plugins.security.disabled: true  
