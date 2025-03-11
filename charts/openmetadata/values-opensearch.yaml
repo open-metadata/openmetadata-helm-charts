@@ -13,12 +13,17 @@ replicas: 1
 
 resources:
   requests:
-    memory: "256Mi"
-    cpu: "100m"
+    memory: "2Gi"  
+    cpu: "500m"
   limits:
-    memory: "500Mi"
-    cpu: "300m"
+    memory: "4Gi"  
+    cpu: "1"
 
 extraEnvs:
+  - name: OPENSEARCH_JAVA_OPTS
+    value: "-Xmx1G -Xms1G"  
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "ElasticSearch@Ad100"
+# persistence:
+#   enabled: true
+#   size: "4Gi"  # Adjust size as needed
