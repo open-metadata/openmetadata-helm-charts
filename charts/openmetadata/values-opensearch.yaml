@@ -21,9 +21,15 @@ resources:
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
-    value: "-Xmx1G -Xms1G"  
+    value: "-Xmx512m -Xms512m" 
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "ElasticSearch@Ad100"
 # persistence:
 #   enabled: true
 #   size: "4Gi"  # Adjust size as needed
+startup:
+  tcpSocket:
+    port: 9200
+  initialDelaySeconds: 60  # Wait 60 seconds before starting the probe
+  periodSeconds: 20        # Check every 20 seconds
+  failureThreshold: 10      # Allow up to 10 failures
