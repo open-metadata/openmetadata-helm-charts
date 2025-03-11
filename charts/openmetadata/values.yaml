@@ -30,7 +30,7 @@ openmetadata:
       adminPort: 8586
     elasticsearch:
       enabled: true
-      host: opensearch-cluster-master.default.svc.cluster.local
+      host: opensearch-cluster-master.daap-dev.svc.cluster.local
       searchType: opensearch
       port: 9200
       scheme: http
