@@ -13,11 +13,11 @@ replicas: 1
 
 resources:
   requests:
-    memory: "2Gi"  
-    cpu: "250m"
-  limits:
-    memory: "4Gi"  
+    memory: "2Gi"
     cpu: "500m"
+  limits:
+    memory: "4Gi"
+    cpu: "1000m"
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
@@ -27,9 +27,9 @@ extraEnvs:
 # persistence:
 #   enabled: true
 #   size: "4Gi"  # Adjust size as needed
-startup:
+startupProbe:
   tcpSocket:
     port: 9200
-  initialDelaySeconds: 60  # Wait 60 seconds before starting the probe
-  periodSeconds: 20        # Check every 20 seconds
-  failureThreshold: 10      # Allow up to 10 failures
+  initialDelaySeconds: 300   # Wait for 5 minutes
+  periodSeconds: 20
+  failureThreshold: 15
