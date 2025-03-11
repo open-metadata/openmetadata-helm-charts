@@ -48,7 +48,7 @@ openmetadata:
           secretKey: openmetadata-elasticsearch-password
     database:
       enabled: true
-      host: openmetadata-mysql.default.svc.cluster.local
+      host: mysql.daap-dev.svc.cluster.local
       port: 3306
       driverClass: com.mysql.cj.jdbc.Driver
       dbScheme: mysql
