@@ -22,26 +22,3 @@ resources:
 extraEnvs:
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "ElasticSearch@Ad100"
-
-# livenessProbe:
-#   httpGet:
-#     path: /
-#     port: 9200
-#   initialDelaySeconds: 60  
-#   periodSeconds: 20
-#   failureThreshold: 30
-
-# startupProbe:
-#   httpGet:
-#     path: /
-#     port: 9200
-#   initialDelaySeconds: 60  
-#   periodSeconds: 20
-#   failureThreshold: 30
-
-
-securityConfig:
-  enabled: false
-
-sysctl:
-  vmMaxMapCount: 262144

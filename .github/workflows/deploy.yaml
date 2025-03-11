@@ -44,8 +44,8 @@ jobs:
 
       - name: Deploy OpenSearch
         run: |
-          helm upgrade --install opensearch opensearch/opensearch -f $(pwd)/charts/openmetadata/values-opensearch.yaml
+          helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
   
       - name: Deploy OpenMetadata
         run: |
-          helm upgrade --install openmetadata open-metadata/openmetadata -f $(pwd)/charts/openmetadata/values.yaml
+          helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
