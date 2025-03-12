@@ -26,14 +26,43 @@ extraEnvs:
     value: "ElasticSearch@Ad100"
 # persistence:
 #   enabled: true
-#   size: "4Gi"  # Adjust size as needed
+#   size: "4Gi"  
 startupProbe:
   tcpSocket:
     port: 9200
-  initialDelaySeconds: 300   # Wait for 5 minutes
+  initialDelaySeconds: 300   #  5 minutes lag
   periodSeconds: 20
   failureThreshold: 15
 
 config:
   opensearch.yml: |
     plugins.security.disabled: true  
+
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: opensearch-sysctl
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      name: opensearch-sysctl
+  template:
+    metadata:
+      labels:
+        name: opensearch-sysctl
+    spec:
+      hostPID: true
+      containers:
+      - name: opensearch-sysctl
+        image: busybox
+        securityContext:
+          privileged: true
+        command:
+        - /bin/sh
+        - -c
+        - |
+          sysctl -w vm.max_map_count=262144
+          while true; do sleep 86400; done
+      tolerations:
+      - operator: Exists
