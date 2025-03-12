@@ -42,6 +42,11 @@ jobs:
           helm repo add opensearch https://opensearch-project.github.io/helm-charts
           helm repo update
 
+      - name : Add Airflow Repo
+        run: |
+          helm repo add apache-airflow https://airflow.apache.org
+          helm repo update
+
       - name: Deploy OpenSearch
         run: |
           helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
