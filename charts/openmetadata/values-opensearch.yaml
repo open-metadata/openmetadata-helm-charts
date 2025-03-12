@@ -36,12 +36,26 @@ config:
   opensearch.yml: |
     plugins.security.disabled: true  
 
-extraInitContainers:
-  - name: sysctl-init
-    image: busybox
-    securityContext:
-      privileged: true
-    command:
-      - /bin/sh
-      - -c
-      - sysctl -w vm.max_map_count=262144
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: opensearch-sysctl
+  namespace: kube-system
+  labels:
+    app: opensearch-sysctl
+spec:
+  selector:
+    matchLabels:
+      name: opensearch-sysctl
+  template:
+    metadata:
+      labels:
+        name: opensearch-sysctl
+    spec:
+      containers:
+      - name: sysctl
+        image: busybox
+        command: ["sh", "-c", "sysctl -w vm.max_map_count=262144 && sleep infinity"]
+        securityContext:
+          privileged: true
+      restartPolicy: Always
