@@ -54,7 +54,7 @@ jobs:
 
       - name: Deploy Airflow
         run: |
-          helm install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
+          helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
 
       - name: Deploy OpenMetadata
         run: |
