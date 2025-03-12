@@ -21,12 +21,10 @@ resources:
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
-    value: "-Xmx512m -Xms512m" 
+    value: "-Xmx2g -Xms2g" 
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "ElasticSearch@Ad100"
-# persistence:
-#   enabled: true
-#   size: "4Gi"  
+ 
 startupProbe:
   tcpSocket:
     port: 9200
@@ -38,31 +36,12 @@ config:
   opensearch.yml: |
     plugins.security.disabled: true  
 
-apiVersion: apps/v1
-kind: DaemonSet
-metadata:
-  name: opensearch-sysctl
-  namespace: kube-system
-spec:
-  selector:
-    matchLabels:
-      name: opensearch-sysctl
-  template:
-    metadata:
-      labels:
-        name: opensearch-sysctl
-    spec:
-      hostPID: true
-      containers:
-      - name: opensearch-sysctl
-        image: busybox
-        securityContext:
-          privileged: true
-        command:
-        - /bin/sh
-        - -c
-        - |
-          sysctl -w vm.max_map_count=262144
-          while true; do sleep 86400; done
-      tolerations:
-      - operator: Exists
+extraInitContainers:
+  - name: sysctl-init
+    image: busybox
+    securityContext:
+      privileged: true
+    command:
+      - /bin/sh
+      - -c
+      - sysctl -w vm.max_map_count=262144
