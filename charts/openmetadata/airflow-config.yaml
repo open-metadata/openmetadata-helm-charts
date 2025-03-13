@@ -57,10 +57,3 @@ airflow:
     postgresqlPassword: "airflow"
     persistence:
       size: 1Gi
-
-  # Redis Configuration 
-  redis:
-    enabled: false
-    master:
-      persistence:
-        size: 1Gi
