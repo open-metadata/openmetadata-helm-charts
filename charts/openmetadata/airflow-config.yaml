@@ -13,9 +13,6 @@ airflow:
       limits:
         cpu: "500m"
         memory: "512Mi"
-    persistence:
-      enabled: true
-      size: 1Gi
 
   # Webserver Configuration 
   web:
