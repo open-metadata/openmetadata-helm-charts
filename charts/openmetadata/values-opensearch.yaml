@@ -19,7 +19,7 @@ resources:
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
-    value: "-Xmx2g -Xms2g" 
+    value: "-Xmx1g -Xms1g" 
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "ElasticSearch@Ad100"
  

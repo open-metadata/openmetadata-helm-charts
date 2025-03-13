@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: DaemonSet
 metadata:
   name: opensearch-sysctl
-  namespace: kube-system
+  namespace: daap-dev
   labels:
     app: opensearch-sysctl
 spec:
