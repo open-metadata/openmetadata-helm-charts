@@ -32,19 +32,11 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v3
 
-      - name: Add OpenMetadata Helm Repo
+      - name: Add Helm Repositories (If Not Added)
         run: |
-          helm repo add open-metadata https://helm.open-metadata.org
-          helm repo update
-
-      - name: Add OpenSearch Helm Repo
-        run: |
-          helm repo add opensearch https://opensearch-project.github.io/helm-charts
-          helm repo update
-
-      - name : Add Airflow Repo
-        run: |
-          helm repo add apache-airflow https://airflow.apache.org
+          helm repo add open-metadata https://helm.open-metadata.org || true
+          helm repo add opensearch https://opensearch-project.github.io/helm-charts || true
+          helm repo add apache-airflow https://airflow.apache.org || true
           helm repo update
 
       - name: Deploy OpenSearch
@@ -56,10 +48,12 @@ jobs:
         run: |
           helm upgrade --install airflow apache-airflow/airflow \
           --namespace daap-dev \
-          -f $(pwd)/charts/openmetadata/airflow-config.yaml \
           --set logs.persistence.size=500Mi \
+          --set triggerer.persistence.size=500Mi \
           --set workers.persistence.size=500Mi \
-          --set triggerer.persistence.size=500Mi
+          --set scheduler.persistence.size=500Mi \
+          --set dags.persistence.size=500Mi \
+          -f $(pwd)/charts/openmetadata/airflow-config.yaml
 
       - name: Deploy OpenMetadata
         run: |

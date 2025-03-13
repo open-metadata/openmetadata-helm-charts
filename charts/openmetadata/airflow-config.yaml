@@ -63,7 +63,7 @@ airflow:
 
   # Redis Configuration 
   redis:
-    enabled: true
+    enabled: false
     master:
       persistence:
         size: 1Gi

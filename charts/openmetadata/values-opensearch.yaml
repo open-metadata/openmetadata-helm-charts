@@ -13,15 +13,14 @@ replicas: 1
 
 resources:
   requests:
-    memory: "500m"
+    cpu: "500m"
+    memory: "2Gi"
   limits:
-    memory: "1Gi"
+    memory: "3Gi"
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
-    value: "-Xmx1g -Xms1g" 
-  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: "ElasticSearch@Ad100"
+    value: "-Xmx2g -Xms2g"
  
 startupProbe:
   tcpSocket:
