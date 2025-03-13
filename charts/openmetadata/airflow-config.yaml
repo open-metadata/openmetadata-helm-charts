@@ -8,38 +8,39 @@ airflow:
     replicas: 1
     resources:
       requests:
-        cpu: "250m"  
-        memory: "256Mi"  
+        cpu: "250m"
+        memory: "256Mi"
       limits:
-        cpu: "500m" 
-        memory: "512Mi"  
+        cpu: "500m"
+        memory: "512Mi"
     persistence:
       enabled: true
-      size: 1Gi  
+      size: 1Gi
 
   # Webserver Configuration (Reduced)
   web:
     replicas: 1
     resources:
       requests:
-        cpu: "250m"  
-        memory: "256Mi" 
+        cpu: "250m"
+        memory: "256Mi"
       limits:
-        cpu: "500m"  
-        memory: "512Mi"  
+        cpu: "500m"
+        memory: "512Mi"
+    service:
       type: ClusterIP
 
   # Logs and DAGs Persistence (Reduced)
   dags:
     persistence:
       enabled: true
-      size: 500m  
+      size: 500Mi  # Changed from "500m" to "500Mi"
       accessModes:
         - ReadWriteOnce
   logs:
     persistence:
       enabled: true
-      size: 500m  
+      size: 500Mi  # Changed from "500m" to "500Mi"
       accessModes:
         - ReadWriteOnce
 
@@ -50,11 +51,11 @@ airflow:
     postgresqlUsername: "airflow"
     postgresqlPassword: "airflow"
     persistence:
-      size: 1Gi  
+      size: 1Gi
 
   # Redis Configuration (for Celery Executor, if used) (Reduced)
   redis:
     enabled: true
     master:
       persistence:
-        size: 1Gi  
+        size: 1Gi
