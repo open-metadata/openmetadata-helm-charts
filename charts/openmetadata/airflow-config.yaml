@@ -3,7 +3,7 @@ airflow:
   defaultAirflowRepository: "apache/airflow"
   defaultAirflowTag: "2.7.1"
 
-  # Scheduler Configuration (Reduced)
+  # Scheduler Configuration
   scheduler:
     replicas: 1
     resources:
@@ -17,7 +17,7 @@ airflow:
       enabled: true
       size: 1Gi
 
-  # Webserver Configuration (Reduced)
+  # Webserver Configuration 
   web:
     replicas: 1
     resources:
@@ -30,21 +30,29 @@ airflow:
     service:
       type: ClusterIP
 
-  # Logs and DAGs Persistence (Reduced)
+  # Logs, DAGs, Worker, and Triggerer Persistence 
   dags:
     persistence:
       enabled: true
-      size: 500Mi  # Changed from "500m" to "500Mi"
+      size: 500Mi  
       accessModes:
         - ReadWriteOnce
   logs:
     persistence:
       enabled: true
-      size: 500Mi  # Changed from "500m" to "500Mi"
+      size: 500Mi 
       accessModes:
         - ReadWriteOnce
+  workers:
+    persistence:
+      enabled: true
+      size: 500Mi
+  triggerer:
+    persistence:
+      enabled: true
+      size: 500Mi
 
-  # Database Configuration (Reduced)
+  # Database Configuration 
   postgresql:
     enabled: true
     postgresqlDatabase: "airflow"
@@ -53,7 +61,7 @@ airflow:
     persistence:
       size: 1Gi
 
-  # Redis Configuration (for Celery Executor, if used) (Reduced)
+  # Redis Configuration 
   redis:
     enabled: true
     master:

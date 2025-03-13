@@ -54,7 +54,12 @@ jobs:
 
       - name: Deploy Airflow
         run: |
-          helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/airflow-config.yaml
+          helm upgrade --install airflow apache-airflow/airflow \
+          --namespace daap-dev \
+          -f $(pwd)/charts/openmetadata/airflow-config.yaml \
+          --set logs.persistence.size=500Mi \
+          --set workers.persistence.size=500Mi \
+          --set triggerer.persistence.size=500Mi
 
       - name: Deploy OpenMetadata
         run: |
