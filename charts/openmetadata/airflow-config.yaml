@@ -1,0 +1,60 @@
+airflow:
+  executor: "KubernetesExecutor"
+  defaultAirflowRepository: "apache/airflow"
+  defaultAirflowTag: "2.7.1"
+
+  # Scheduler Configuration (Reduced)
+  scheduler:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "250m"  
+        memory: "256Mi"  
+      limits:
+        cpu: "500m" 
+        memory: "512Mi"  
+    persistence:
+      enabled: true
+      size: 1Gi  
+
+  # Webserver Configuration (Reduced)
+  web:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "250m"  
+        memory: "256Mi" 
+      limits:
+        cpu: "500m"  
+        memory: "512Mi"  
+      type: ClusterIP
+
+  # Logs and DAGs Persistence (Reduced)
+  dags:
+    persistence:
+      enabled: true
+      size: 500m  
+      accessModes:
+        - ReadWriteOnce
+  logs:
+    persistence:
+      enabled: true
+      size: 500m  
+      accessModes:
+        - ReadWriteOnce
+
+  # Database Configuration (Reduced)
+  postgresql:
+    enabled: true
+    postgresqlDatabase: "airflow"
+    postgresqlUsername: "airflow"
+    postgresqlPassword: "airflow"
+    persistence:
+      size: 1Gi  
+
+  # Redis Configuration (for Celery Executor, if used) (Reduced)
+  redis:
+    enabled: true
+    master:
+      persistence:
+        size: 1Gi  
