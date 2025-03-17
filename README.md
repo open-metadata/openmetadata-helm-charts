@@ -17,6 +17,8 @@
 
 [This Repository](https://github.com/open-metadata/openmetadata-helm-charts) houses Kubernetes [Helm](https://helm.sh) charts for deploying [Open Metadata](https://github.com/open-metadata/OpenMetadata) and it's dependencies (Elastic Search and MySQL) on a Kubernetes Cluster.
 
+---
+
 ## Setup
 
 
@@ -28,6 +30,8 @@ Set up a Kubernetes Cluster
 Install the below tools:
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/) to manage Kubernetes Resources
 - [Helm](https://helm.sh) to deploy resources based on Helm Charts from this repository. Note, we only support Helm 3
+
+---
 
 ## Quickstart
 
@@ -103,6 +107,47 @@ To expose the Openmetadata UI locally, run the below command -
 kubectl port-forward deployment/openmetadata 8585:8585
 ```
 
+---
+
+## Setting Up Chart Testing Lint with Pre-commit Hook
+#### Why Chart Testing Lint?
+When working with Helm charts, it's important to ensure that they meet best practices, are free from errors, and follow the defined guidelines. **Chart Testing (ct) Lint** is a tool designed to automate this process by linting your Helm charts before committing them to the repository. It helps to:
+- Catch errors early.
+- Enforce best practices in chart development.
+- Automatically validate changes to Helm charts during pull requests or commits.
+
+
+This guide will show you how to integrate `chart-testing` linting into your pre-commit hooks to automatically lint charts before committing them. It also allows you to manually trigger linting when needed.
+
+#### Prerequisites
+Before setting up the pre-commit hook, make sure you have the following dependencies installed:
+
+##### 1. Install `chart-testing`
+`chart-testing` is a command-line tool used to lint and validate Helm charts. It can be installed using **Homebrew** on macOS.
+
+To install `chart-testing`, run the following command:
+
+```bash
+brew install chart-testing
+```
+##### 2. Install `pre-commit`
+To install the pre-commit tool, run:
+```bash
+pip install pre-commit
+```
+#### Setting Up Pre-commit Hook for Chart Testing Lint
+##### 1. Install the Pre-commit Hook
+Once the dependencies are installed, navigate to your repository and run the following command to install the pre-commit hook:
+```bash
+pre-commit install
+```
+This will set up the pre-commit hook in the .git/hooks directory of your repository.
+##### 2. Manually Trigger the Linting Process
+If you need to manually trigger the linting of charts at any time, navigate to the root of your repository and run:
+```bash
+ct lint --all --check-version-increment=false --use-helmignore
+```
+---
 ## Documentation and Support
 
 Check out [OpenMetadata documentation](https://docs.open-metadata.org/) for a complete description of OpenMetadata's features.
