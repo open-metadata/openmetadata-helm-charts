@@ -34,8 +34,6 @@ config:
     opensearch.yml: |
       plugins.security.disabled: true
       network.host: 0.0.0.0
-      discovery.type: single-node
-      cluster.initial_master_nodes: []
 
 securityConfig:
   enabled: false
