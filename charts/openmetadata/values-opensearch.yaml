@@ -31,17 +31,22 @@ extraEnvs:
     value: "false"
 
 config:
-    opensearch.yml: |
-      plugins.security.disabled: true
-      network.host: 0.0.0.0
+  opensearch.yml: |
+    plugins:
+      security:
+        disabled: false
+    network.host: 0.0.0.0
+    cluster.name: opensearch-cluster
+    discovery.type: single-node
 
 securityConfig:
-  enabled: false
- 
+  enabled: true
+  create: true
+  adminPassword: "DaapOpenSrhAdmn01$"  
+
 startupProbe:
   tcpSocket:
     port: 9200
   initialDelaySeconds: 300   
   periodSeconds: 20
   failureThreshold: 15
-
