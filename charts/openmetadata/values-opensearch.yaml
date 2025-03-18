@@ -25,6 +25,11 @@ extraEnvs:
     value: "-Xmx2g -Xms2g"
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "DaapOpenSrhAdmn01$"
+  - name: DISABLE_INSTALL_DEMO_CONFIG
+    value: "true"
+
+securityConfig:
+  enabled: false
  
 startupProbe:
   tcpSocket:
