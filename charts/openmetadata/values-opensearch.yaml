@@ -47,11 +47,9 @@ securityConfig:
   adminPassword: "DaapOpenSrhAdmn01$"  
 
 startupProbe:
-  httpGet:
-    path: /
+  tcpSocket:
     port: 9200
-    scheme: HTTP  
-  initialDelaySeconds: 300   
-  periodSeconds: 20
-  failureThreshold: 15
+  initialDelaySeconds: 30   
+  periodSeconds: 10
+  failureThreshold: 5
 
