@@ -6,10 +6,12 @@ service:
   port: 9200
 
 persistence:
-  enabled: false  
+  enabled: true  
+  size: 1Gi
+  accessModes:
+    - ReadWriteOnce
 
 replicas: 1  
-
 
 resources:
   requests:
@@ -25,10 +27,16 @@ extraEnvs:
 startupProbe:
   tcpSocket:
     port: 9200
-  initialDelaySeconds: 300   #  5 minutes lag
+  initialDelaySeconds: 300   
   periodSeconds: 20
   failureThreshold: 15
 
 config:
   opensearch.yml: |
-    plugins.security.disabled: true  
+    cluster.name: opensearch-cluster
+    network.host: 0.0.0.0
+    discovery.type: single-node
+    plugins.security.disabled: true
+    index.number_of_shards: 1
+    index.number_of_replicas: 1
+    index.refresh_interval: "5s"
