@@ -41,7 +41,7 @@ openmetadata:
           secretRef: "elasticsearch-truststore-secrets"
           secretKey: "openmetadata-elasticsearch-truststore-password"
       auth:
-        enabled: false
+        enabled: true
         username: "elasticsearch"
         password:
           secretRef: elasticsearch-secrets
