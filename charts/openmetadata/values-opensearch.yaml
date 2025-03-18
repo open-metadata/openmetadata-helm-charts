@@ -39,7 +39,6 @@ config:
         disabled: false
     network.host: 0.0.0.0
     cluster.name: opensearch-cluster
-    discovery.type: single-node
 
 securityConfig:
   enabled: true
