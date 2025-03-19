@@ -56,3 +56,14 @@ jobs:
       - name: Deploy OpenMetadata
         run: |
           helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
+         
+          # Step 2: Wait for OpenMetadata pod to be ready
+          kubectl wait --namespace daap-dev \
+            --for=condition=ready pod \
+            --selector=app.kubernetes.io/instance=openmetadata \
+            --timeout=300s
+
+          # Step 3: Trigger reindex (no interactive terminal needed)
+          OPENMETADATA_POD=$(kubectl get pods -n daap-dev -l app.kubernetes.io/instance=openmetadata -o jsonpath='{.items[0].metadata.name}')
+            kubectl exec -n daap-dev $OPENMETADATA_POD -- \
+            bash -c "openmetadata-ops.sh reindex --force"

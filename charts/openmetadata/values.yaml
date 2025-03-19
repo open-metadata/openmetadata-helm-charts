@@ -46,8 +46,6 @@ openmetadata:
         password:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
-      createIndexesJob:
-        enabled: true 
     database:
       enabled: true
       host: mysql.daap-dev.svc.cluster.local
