@@ -63,7 +63,8 @@ jobs:
             --selector=app.kubernetes.io/instance=openmetadata \
             --timeout=300s
 
-          # Step 3: Trigger reindex (no interactive terminal needed)
-          OPENMETADATA_POD=$(kubectl get pods -n daap-dev -l app.kubernetes.io/instance=openmetadata -o jsonpath='{.items[0].metadata.name}')
-            kubectl exec -n daap-dev $OPENMETADATA_POD -- \
-            bash -c "openmetadata-ops.sh reindex --force"
+        
+      - name: Reindex OpenMetadata via API     
+        run: |
+          OPENMETADATA_POD=$(kubectl get pods -n daap-dev -l app.kubernetes.io/name=openmetadata -o jsonpath="{.items[0].metadata.name}")
+          kubectl exec -n daap-dev $OPENMETADATA_POD -- curl -X POST "http://localhost:8585/api/v1/search/reindex"
