@@ -57,14 +57,3 @@ jobs:
         run: |
           helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
          
-          # Step 2: Wait for OpenMetadata pod to be ready
-          kubectl wait --namespace daap-dev \
-            --for=condition=ready pod \
-            --selector=app.kubernetes.io/instance=openmetadata \
-            --timeout=300s
-
-        
-      - name: Reindex OpenMetadata via API     
-        run: |
-          OPENMETADATA_POD=$(kubectl get pods -n daap-dev -l app.kubernetes.io/name=openmetadata -o jsonpath="{.items[0].metadata.name}")
-          kubectl exec -n daap-dev $OPENMETADATA_POD -- curl -X POST "http://localhost:8585/api/v1/search/reindex"
