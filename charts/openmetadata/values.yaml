@@ -367,7 +367,7 @@ networkPolicy:
 image:
   repository: docker.getcollate.io/openmetadata/server
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 1.3.0
+  tag:
   pullPolicy: "Always"
 
 sidecars: []
