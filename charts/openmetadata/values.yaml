@@ -6,8 +6,6 @@ replicaCount: 1
 # Overrides the openmetadata config file with the help of Environment Variables
 # Below are defaults as per openmetadata-dependencies Helm Chart Values
 openmetadata:
-  createIndexesJob:
-    enabled: true  
   config:
     upgradeMigrationConfigs:
       debug: false
@@ -48,6 +46,8 @@ openmetadata:
         password:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
+      createIndexesJob:
+        enabled: true 
     database:
       enabled: true
       host: mysql.daap-dev.svc.cluster.local
