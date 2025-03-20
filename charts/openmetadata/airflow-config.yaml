@@ -1,26 +1,15 @@
 airflow:
   executor: KubernetesExecutor
 
-
   images:
     airflow:
       repository: "apache/airflow"
       tag: "2.7.3-python3.11"
       pullPolicy: Always
 
-  extraInitContainers:
-    - name: install-openmetadata
-      image: apache/airflow:2.7.3-python3.11
-      command:
-        - "sh"
-        - "-c"
-        - |
-          pip install --no-cache-dir "apache-airflow==2.7.3" \
-          "openmetadata-ingestion[airflow]==1.3.2.0" \
-          "openmetadata-managed-apis==1.3.2.0"
-      volumeMounts:
-        - mountPath: /opt/airflow/plugins
-          name: airflow-plugins
+  extraPipPackages:
+    - openmetadata-airflow==1.0
+    - openmetadata-ingestion==1.6.6.2
 
   extraEnv:
     - name: AIRFLOW__OPENMETADATA__HOST
