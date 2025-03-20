@@ -46,7 +46,7 @@ jobs:
 
       - name: Deploy Airflow
         run: |
-          kubectl apply -f airflow-plugins-pvc.yaml
+          kubectl apply -f $(pwd)/charts/openmetadata/airflow-plugins-pvc.yaml -n daap-dev
           helm upgrade --install airflow apache-airflow/airflow \
             --namespace daap-dev \
             --set logs.persistence.size=500Mi \
