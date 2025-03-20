@@ -12,6 +12,8 @@ airflow:
     - openmetadata-ingestion==1.6.6.2
 
   extraEnv:
+    - name: PYTHONPATH
+      value: "/opt/airflow/plugins:/home/airflow/.local/lib/python3.11/site-packages:/usr/local/lib/python3.11/site-packages:$PYTHONPATH"
     - name: AIRFLOW__OPENMETADATA__HOST
       value: "http://openmetadata.daap-dev.svc.cluster.local:8585"
     - name: AIRFLOW__OPENMETADATA__AUTH_PROVIDER
@@ -29,18 +31,25 @@ airflow:
     - name: airflow-plugins
       emptyDir: {}
 
-  # Scheduler Configuration
   scheduler:
     replicas: 1
+    extraVolumeMounts:
+      - name: airflow-plugins
+        mountPath: /opt/airflow/plugins
+    extraVolumes:
+      - name: airflow-plugins
+        emptyDir: {}
+    extraEnv:
+      - name: PYTHONPATH
+        value: "/opt/airflow/plugins:/home/airflow/.local/lib/python3.11/site-packages:/usr/local/lib/python3.11/site-packages:$PYTHONPATH"
     resources:
       requests:
         cpu: "250m"
         memory: "256Mi"
       limits:
         cpu: "500m"
-        memory: "512Mi" 
+        memory: "512Mi"
 
-  # Webserver Configuration 
   web:
     replicas: 1
     resources:
@@ -53,7 +62,15 @@ airflow:
     service:
       type: ClusterIP
 
-  # Logs, DAGs, Worker, and Triggerer Persistence 
+
+  postgresql:
+    enabled: true
+    postgresqlDatabase: "airflow"
+    postgresqlUsername: "airflow"
+    postgresqlPassword: "airflow"
+    persistence:
+      size: 1Gi
+
   dags:
     persistence:
       enabled: true
@@ -75,14 +92,6 @@ airflow:
       enabled: true
       size: 500Mi
 
-  # Database Configuration 
-  postgresql:
-    enabled: true
-    postgresqlDatabase: "airflow"
-    postgresqlUsername: "airflow"
-    postgresqlPassword: "airflow"
-    persistence:
-      size: 1Gi
 persistence:
   enabled: true  
   size: 1Gi
