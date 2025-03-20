@@ -7,13 +7,32 @@ airflow:
       tag: "2.7.3-python3.11"
       pullPolicy: Always
 
-  extraPipPackages:
-    - openmetadata-airflow==1.0
-    - openmetadata-ingestion==1.6.6.2
+  extraInitContainers:
+    - name: install-openmetadata
+      image: apache/airflow:2.7.3-python3.11
+      command:
+        - "bash"
+        - "-c"
+        - "pip install --target=/dependencies openmetadata-airflow==1.0 openmetadata-ingestion==1.6.6.2"
+      volumeMounts:
+        - name: dependencies
+          mountPath: /dependencies
+
+  extraVolumeMounts:
+    - name: dependencies
+      mountPath: /dependencies
+    - name: airflow-plugins
+      mountPath: /opt/airflow/plugins
+
+  extraVolumes:
+    - name: dependencies
+      emptyDir: {}
+    - name: airflow-plugins
+      emptyDir: {}
 
   extraEnv:
     - name: PYTHONPATH
-      value: "/opt/airflow/plugins:/home/airflow/.local/lib/python3.11/site-packages:/usr/local/lib/python3.11/site-packages:$PYTHONPATH"
+      value: "/dependencies:/opt/airflow/plugins:/home/airflow/.local/lib/python3.11/site-packages:/usr/local/lib/python3.11/site-packages:$PYTHONPATH"
     - name: AIRFLOW__OPENMETADATA__HOST
       value: "http://openmetadata.daap-dev.svc.cluster.local:8585"
     - name: AIRFLOW__OPENMETADATA__AUTH_PROVIDER
@@ -23,25 +42,21 @@ airflow:
     - name: AIRFLOW__API__AUTH_BACKEND
       value: "airflow.api.auth.backend.basic_auth"
 
-  extraVolumeMounts:
-    - name: airflow-plugins
-      mountPath: /opt/airflow/plugins
-
-  extraVolumes:
-    - name: airflow-plugins
-      emptyDir: {}
-
   scheduler:
     replicas: 1
     extraVolumeMounts:
+      - name: dependencies
+        mountPath: /dependencies
       - name: airflow-plugins
         mountPath: /opt/airflow/plugins
     extraVolumes:
+      - name: dependencies
+        emptyDir: {}
       - name: airflow-plugins
         emptyDir: {}
     extraEnv:
       - name: PYTHONPATH
-        value: "/opt/airflow/plugins:/home/airflow/.local/lib/python3.11/site-packages:/usr/local/lib/python3.11/site-packages:$PYTHONPATH"
+        value: "/dependencies:/opt/airflow/plugins:/home/airflow/.local/lib/python3.11/site-packages:/usr/local/lib/python3.11/site-packages:$PYTHONPATH"
     resources:
       requests:
         cpu: "250m"
@@ -61,7 +76,6 @@ airflow:
         memory: "512Mi"
     service:
       type: ClusterIP
-
 
   postgresql:
     enabled: true
@@ -83,17 +97,8 @@ airflow:
       size: 500Mi 
       accessModes:
         - ReadWriteOnce
-  workers:
-    persistence:
-      enabled: true
-      size: 500Mi
+
   triggerer:
     persistence:
       enabled: true
       size: 500Mi
-
-persistence:
-  enabled: true  
-  size: 1Gi
-  accessModes: 
-    - ReadWriteOnce
