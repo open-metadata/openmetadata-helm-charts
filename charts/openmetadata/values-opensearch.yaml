@@ -17,14 +17,14 @@ replicas: 1
 
 resources:
   requests:
-    cpu: "500m"
-    memory: "2Gi"
-  limits:
+    cpu: "1000m"
     memory: "3Gi"
+  limits:
+    memory: "4Gi"
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
-    value: "-Xmx2g -Xms2g"
+    value: "-Xmx3g -Xms3g"
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "DaapOpenSrhAdmn01$"
   - name: DISABLE_INSTALL_DEMO_CONFIG
