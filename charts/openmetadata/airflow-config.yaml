@@ -4,7 +4,7 @@ images:
       repository: "apache/airflow"
       tag: "2.7.3-python3.11"  # Use Airflow 2.7.3
       pullPolicy: Always
-      
+
 airflow:
   executor: KubernetesExecutor
 
@@ -79,9 +79,12 @@ airflow:
       accessModes:
         - ReadWriteOnce
   workers:
-    persistence:
-      enabled: true
-      size: 500Mi
+    resources:
+      limits:
+        memory: "2Gi"  
+    requests:
+        memory: "1Gi"  
+  
   triggerer:
     persistence:
       enabled: true
