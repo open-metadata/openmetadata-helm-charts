@@ -34,16 +34,14 @@ airflow:
 
   # Webserver Configuration
   web:
-    replicas: 1
-    resources:
-      requests:
-        cpu: "250m"
-        memory: "256Mi"
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
-    service:
-      type: ClusterIP
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "250m"
+    limits:
+      memory: "1Gi"
+      cpu: "500m"
+
 
   # Logs, DAGs, Worker, and Triggerer Persistence
   dags:
@@ -66,11 +64,11 @@ airflow:
     replicas: 1
     resources:
       requests:
-        cpu: "500m"
-        memory: "1Gi"
+        memory: "512Mi"
+        cpu: "250m"
       limits:
-        cpu: "1000m"
-        memory: "2Gi"
+        memory: "1Gi"
+        cpu: "500m"
 
   triggerer:
     persistence:

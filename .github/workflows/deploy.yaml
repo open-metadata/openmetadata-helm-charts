@@ -59,8 +59,8 @@ jobs:
 
       - name: Deploy OpenSearch
         run: |
-          #helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
-          #kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
+          helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
+          kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
 
       - name: Deploy Airflow
         run: |
@@ -77,5 +77,5 @@ jobs:
 
       - name: Deploy OpenMetadata
         run: |
-          #helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
+          helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
          
