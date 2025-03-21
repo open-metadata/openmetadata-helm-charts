@@ -1,26 +1,11 @@
-# airflow-values.yaml
 images:
-    airflow:
-      repository: "apache/airflow"
-      tag: "2.7.3-python3.11"  # Use Airflow 2.7.3
-      pullPolicy: Always
+  airflow:
+    repository: "apache/airflow"
+    tag: "2.7.3-python3.11"  
+    pullPolicy: Always
 
 airflow:
   executor: KubernetesExecutor
-
-  extraInitContainers:
-    - name: install-openmetadata
-      image: apache/airflow:2.7.3-python3.11  # Match the main image version
-      command:
-        - "sh"
-        - "-c"
-        - |
-          pip install --no-cache-dir \
-            "openmetadata-ingestion[airflow]==1.3.2.0" \
-            "openmetadata-managed-apis==1.3.2.0"
-      volumeMounts:
-        - mountPath: /opt/airflow/plugins
-          name: airflow-plugins
 
   extraEnv:
     - name: AIRFLOW__OPENMETADATA__HOST
@@ -35,11 +20,6 @@ airflow:
   extraVolumeMounts:
     - name: airflow-plugins
       mountPath: /opt/airflow/plugins
-
-  extraVolumes:
-    - name: airflow-plugins
-      persistentVolumeClaim:
-        claimName: airflow-plugins-pvc  # Use a Persistent Volume
 
   # Scheduler Configuration
   scheduler:
@@ -72,19 +52,26 @@ airflow:
       size: 500Mi
       accessModes:
         - ReadWriteOnce
+      storageClassName: standard
+
   logs:
     persistence:
       enabled: true
       size: 500Mi
       accessModes:
         - ReadWriteOnce
+      storageClassName: standard
+
   workers:
+    replicas: 1
     resources:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
       limits:
-        memory: "2Gi"  
-    requests:
-        memory: "1Gi"  
-  
+        cpu: "1000m"
+        memory: "2Gi"
+
   triggerer:
     persistence:
       enabled: true
@@ -92,9 +79,4 @@ airflow:
 
   # Database Configuration
   postgresql:
-    enabled: true
-    postgresqlDatabase: "airflow"
-    postgresqlUsername: "airflow"
-    postgresqlPassword: "airflow"
-    persistence:
-      size: 1Gi
+    enabled: false  # Set to true only if you need an internal PostgreSQL DB
