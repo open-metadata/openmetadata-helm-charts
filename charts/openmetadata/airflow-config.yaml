@@ -1,12 +1,12 @@
 # airflow-values.yaml
-airflow:
-  executor: KubernetesExecutor
-
-  images:
+images:
     airflow:
       repository: "apache/airflow"
       tag: "2.7.3-python3.11"  # Use Airflow 2.7.3
       pullPolicy: Always
+      
+airflow:
+  executor: KubernetesExecutor
 
   extraInitContainers:
     - name: install-openmetadata
