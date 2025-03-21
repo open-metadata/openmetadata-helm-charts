@@ -79,4 +79,4 @@ airflow:
 
   # Database Configuration
   postgresql:
-    enabled: false  # Set to true only if you need an internal PostgreSQL DB
+    enabled: false  # Set to true only if  need an internal PostgreSQL DB
