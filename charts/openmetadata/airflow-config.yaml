@@ -32,16 +32,16 @@ airflow:
 
   # Webserver Configuration
   web:
-  service:
+    service:
       type: LoadBalancer  
       port: 8080
-  resources:
-    requests:
-      memory: "512Mi"
-      cpu: "250m"
-    limits:
-      memory: "1Gi"
-      cpu: "500m"
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
 
 
   # Logs, DAGs, Worker, and Triggerer Persistence
