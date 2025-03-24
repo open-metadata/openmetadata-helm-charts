@@ -34,7 +34,7 @@ airflow:
   web:
   service:
       type: LoadBalancer  
-      port: 9595
+      port: 8080
   resources:
     requests:
       memory: "512Mi"
