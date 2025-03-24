@@ -11,7 +11,7 @@ airflow:
     - name: AIRFLOW__OPENMETADATA__HOST
       value: "http://openmetadata.daap-dev.svc.cluster.local:8585"
     - name: AIRFLOW__OPENMETADATA__AUTH_PROVIDER
-      value: "no-auth"
+      value: "basic-auth
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
     - name: AIRFLOW__API__AUTH_BACKEND
