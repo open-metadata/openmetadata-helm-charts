@@ -32,6 +32,9 @@ airflow:
 
   # Webserver Configuration
   web:
+  service:
+      type: LoadBalancer  
+      port: 9595
   resources:
     requests:
       memory: "512Mi"
