@@ -32,9 +32,6 @@ airflow:
 
   # Webserver Configuration
   web:
-    service:
-      type: LoadBalancer  
-      port: 8080
     resources:
       requests:
         memory: "512Mi"
@@ -79,3 +76,7 @@ airflow:
   # Database Configuration
   postgresql:
     enabled: false  # Set to true only if  need an internal PostgreSQL DB
+    
+service:
+  type: LoadBalancer  
+  port: 8080
