@@ -1,21 +1,19 @@
-images:
-  airflow:
-    repository: "apache/airflow"
-    tag: "2.7.3-python3.11"  
-    pullPolicy: Always
-
 airflow:
   executor: KubernetesExecutor
 
   extraEnv:
     - name: AIRFLOW__OPENMETADATA__HOST
-      value: "http://openmetadata.daap-dev.svc.cluster.local:8585"
+      value: "http://48.211.236.64:8585"
     - name: AIRFLOW__OPENMETADATA__AUTH_PROVIDER
       value: "basic-auth"
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
     - name: AIRFLOW__API__AUTH_BACKEND
       value: "airflow.api.auth.backend.basic_auth"
+    - name: AIRFLOW__OPENMETADATA__USER
+      value: "admin"
+    - name: AIRFLOW__OPENMETADATA__PASSWORD
+      value : "admin"
 
   extraVolumeMounts:
     - name: airflow-plugins
