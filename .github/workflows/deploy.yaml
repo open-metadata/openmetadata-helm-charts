@@ -73,7 +73,7 @@ jobs:
             --set logs.persistence.size=500Mi \
             --set triggerer.persistence.size=500Mi \
             --set workers.persistence.size=500Mi \
-            -f $(pwd)/charts/openmetadata/airflow-config.yaml
+            -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
 
       - name: Deploy OpenMetadata
         run: |

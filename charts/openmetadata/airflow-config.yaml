@@ -6,23 +6,18 @@ airflow:
       value: "http://48.211.236.64:8585"
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
+    - name: AIRFLOW__API__AUTH_BACKEND
+      value: "airflow.api.auth.backend.default"
+    - name: AIRFLOW__OPENMETADATA__USER
+      value: "admin@open-metadata.org"
+    - name: AIRFLOW__OPENMETADATA__PASSWORD
+      value : "admin"
 
   extraVolumeMounts:
     - name: airflow-plugins
       mountPath: /opt/airflow/plugins
 
-  # Scheduler Configuration
-  scheduler:
-    replicas: 1
-    resources:
-      requests:
-        cpu: "250m"
-        memory: "256Mi"
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
-
-  # Webserver Configuration
+    # Webserver Configuration
   web:
     service:
         type: LoadBalancer  
@@ -34,6 +29,17 @@ airflow:
       limits:
         memory: "1Gi"
         cpu: "500m"
+
+  # Scheduler Configuration
+  scheduler:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
 
   # Logs, DAGs, Worker, and Triggerer Persistence
   dags:
