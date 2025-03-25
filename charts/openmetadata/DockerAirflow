@@ -2,7 +2,7 @@
 FROM apache/airflow:2.7.3-python3.11
 
 # Install OpenMetadata plugins
-RUN pip install --no-cache-dir "openmetadata-ingestion[airflow]==1.3.2.0" "openmetadata-managed-apis==1.3.2.0"
+RUN pip install --no-cache-dir "openmetadata-ingestion[airflow]==1.3.2.0" "openmetadata-managed-apis==1.3.2.0" "pyarrow<10.1.0,>=10.0.1"
 
 # Expose Airflow's webserver port
 EXPOSE 8080
