@@ -7,7 +7,7 @@ airflow:
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
     - name: AIRFLOW__API__AUTH_BACKEND
-      value: "airflow.api.auth.backend.basic_auth"
+      value: "airflow.api.auth.backend.default"
     - name: AIRFLOW__OPENMETADATA__USER
       value: "admin@open-metadata.org"
     - name: AIRFLOW__OPENMETADATA__PASSWORD
