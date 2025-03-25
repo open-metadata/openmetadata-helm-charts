@@ -4,16 +4,8 @@ airflow:
   extraEnv:
     - name: AIRFLOW__OPENMETADATA__HOST
       value: "http://48.211.236.64:8585"
-    - name: AIRFLOW__OPENMETADATA__AUTH_PROVIDER
-      value: "basic-auth"
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
-    #- name: AIRFLOW__API__AUTH_BACKEND
-    #  value: "airflow.api.auth.backend.basic_auth"
-    - name: AIRFLOW__OPENMETADATA__USER
-      value: "admin@open-metadata.org"
-    - name: AIRFLOW__OPENMETADATA__PASSWORD
-      value : "admin"
 
   extraVolumeMounts:
     - name: airflow-plugins
@@ -42,7 +34,6 @@ airflow:
       limits:
         memory: "1Gi"
         cpu: "500m"
-
 
   # Logs, DAGs, Worker, and Triggerer Persistence
   dags:
@@ -78,5 +69,4 @@ airflow:
 
   # Database Configuration
   postgresql:
-    enabled: false  # Set to true only if  need an internal PostgreSQL DB
-    
+    enabled: false  # Set to true only if need an internal PostgreSQL DB
