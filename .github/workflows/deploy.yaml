@@ -67,7 +67,6 @@ jobs:
           kubectl apply -f $(pwd)/charts/openmetadata/airflow-plugins-pvc.yaml -n daap-dev
           helm upgrade --install airflow apache-airflow/airflow \
             --namespace daap-dev \
-            --set service.type=LoadBalancer \
             --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \
             --set images.airflow.tag=custom \
             --set images.airflow.pullPolicy=Always \

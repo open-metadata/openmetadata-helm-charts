@@ -33,7 +33,7 @@ airflow:
   # Webserver Configuration
   web:
     service:
-        type: NodePort  
+        type: LoadBalancer  
         port: 8080
     resources:
       requests:
