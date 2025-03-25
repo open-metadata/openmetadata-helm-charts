@@ -66,6 +66,7 @@ jobs:
         run: |
           helm upgrade --install airflow apache-airflow/airflow \
             --namespace daap-dev \
+            --set webserver.service.type=LoadBalancer \
             --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \
             --set images.airflow.tag=custom \
             --set images.airflow.pullPolicy=Always \

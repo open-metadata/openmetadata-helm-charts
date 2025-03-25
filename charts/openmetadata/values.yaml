@@ -63,8 +63,8 @@ openmetadata:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
       # endpoint url for airflow
-      #apiEndpoint: http://airflow-web:8080
-      apiEndpoint: http://airflow-webserver.daap-dev.svc.cluster.local:8080
+      apiEndpoint: http://135.224.139.227:8080
+      #apiEndpoint: http://airflow-webserver.daap-dev.svc.cluster.local:8080
       # this will be the api endpoint url of OpenMetadata Server
       metadataApiEndpoint: http://openmetadata:8585/api
       # possible values are "no-ssl", "ignore", "validate"
