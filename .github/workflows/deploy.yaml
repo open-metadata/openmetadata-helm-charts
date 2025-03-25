@@ -73,6 +73,11 @@ jobs:
             --set logs.persistence.size=500Mi \
             --set triggerer.persistence.size=500Mi \
             --set workers.persistence.size=500Mi \
+            --set "extraEnv[0].name=AIRFLOW__OPENMETADATA__HOST" --set "extraEnv[0].value=http://48.211.236.64:8585" \
+            --set "extraEnv[1].name=AIRFLOW__OPENMETADATA__API_VERSION" --set "extraEnv[1].value=v1" \
+            --set "extraEnv[2].name=AIRFLOW__API__AUTH_BACKEND" --set "extraEnv[2].value=airflow.api.auth.backend.default" \
+            --set "extraEnv[3].name=AIRFLOW__OPENMETADATA__USER" --set "extraEnv[3].value=admin@open-metadata.org" \
+            --set "extraEnv[4].name=AIRFLOW__OPENMETADATA__PASSWORD" --set "extraEnv[4].value=admin" \
             -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
 
       - name: Deploy OpenMetadata
