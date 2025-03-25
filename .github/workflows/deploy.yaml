@@ -64,7 +64,6 @@ jobs:
 
       - name: Deploy Airflow
         run: |
-          kubectl apply -f $(pwd)/charts/openmetadata/airflow-plugins-pvc.yaml -n daap-dev
           helm upgrade --install airflow apache-airflow/airflow \
             --namespace daap-dev \
             --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \

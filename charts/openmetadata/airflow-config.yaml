@@ -18,7 +18,7 @@ airflow:
       mountPath: /opt/airflow/plugins
 
     # Webserver Configuration
-  web:
+  webserver:
     service:
         type: LoadBalancer  
         port: 8080
