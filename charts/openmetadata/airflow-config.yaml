@@ -71,10 +71,10 @@ airflow:
       enabled: true
       size: 1Gi
 
-triggerer:
-  persistence:
-    enabled: true
-    size: 1Gi
+  triggerer:
+    persistence:
+      enabled: true
+      size: 1Gi
 
 
 
