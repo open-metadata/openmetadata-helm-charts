@@ -65,8 +65,8 @@ airflow:
         memory: "256Mi"
         cpu: "100m"
       limits:
-        memory: "512Mi"
-        cpu: "250m"
+        memory: "400Mi"
+        cpu: "200m"
 
   triggerer:
     persistence:

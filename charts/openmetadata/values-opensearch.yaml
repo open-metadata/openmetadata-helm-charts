@@ -18,9 +18,9 @@ replicas: 1
 resources:
   requests:
     cpu: "500m"
-    memory: "3Gi"
+    memory: "1Gi"
   limits:
-    memory: "4Gi"
+    memory: "2Gi"
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
