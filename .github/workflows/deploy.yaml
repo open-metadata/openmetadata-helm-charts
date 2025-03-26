@@ -64,6 +64,11 @@ jobs:
 
       - name: Deploy Airflow
         run: |
+          kubectl set env deployment/airflow-webserver -n daap-dev \
+            AIRFLOW__OPENMETADATA__HOST="http://48.211.236.64:8585" \
+            AIRFLOW__OPENMETADATA__API_VERSION="v1" \
+            AIRFLOW__API__AUTH_BACKEND="airflow.api.auth.backend.default" \
+
           helm upgrade --install airflow apache-airflow/airflow \
             --namespace daap-dev \
             --set webserver.service.type=LoadBalancer \
