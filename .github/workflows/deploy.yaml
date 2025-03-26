@@ -75,9 +75,6 @@ jobs:
             --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \
             --set images.airflow.tag=custom \
             --set images.airflow.pullPolicy=Always \
-            --set logs.persistence.size=500Mi \
-            --set triggerer.persistence.size=500Mi \
-            --set workers.persistence.size=500Mi \
             -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
 
       - name: Deploy OpenMetadata
