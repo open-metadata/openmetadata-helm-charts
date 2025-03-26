@@ -70,6 +70,8 @@ jobs:
             --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \
             --set images.airflow.tag=custom \
             --set images.airflow.pullPolicy=Always \
+            --set workers.persistence.size=2Gi \
+            --set triggerer.persistence.size=2Gi \
             -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
 
           kubectl set env deployment/airflow-webserver -n daap-dev \
