@@ -6,8 +6,8 @@ airflow:
       value: "http://48.211.236.64:8585"
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
-    - name: AIRFLOW__API__AUTH_BACKEND
-      value: "airflow.api.auth.backend.default"
+    - name: AIRFLOW__API__AUTH_BACKENDS
+      value: "airflow.api.auth.backend.basic_auth"
     #- name: AIRFLOW__OPENMETADATA__USER
     #  value: "admin"
     #- name: AIRFLOW__OPENMETADATA__PASSWORD
