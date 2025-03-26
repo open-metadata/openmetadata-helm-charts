@@ -67,11 +67,16 @@ airflow:
       limits:
         memory: "400Mi"
         cpu: "200m"
-
-  triggerer:
     persistence:
       enabled: true
-      size: 500Mi
+      size: 1Gi
+
+triggerer:
+  persistence:
+    enabled: true
+    size: 1Gi
+
+
 
   # Database Configuration
   postgresql:
