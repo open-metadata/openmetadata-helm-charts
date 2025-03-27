@@ -2,6 +2,8 @@
 FROM apache/airflow:2.10.5-python3.11
 
 
+RUN mkdir -p /opt/airflow/dag_generated_configs/
+RUN pip uninstall -y apache-airflow-providers-openlineage
 # Install compatible OpenMetadata plugins & OpenLineage provider
 RUN pip install --no-cache-dir \
     "apache-airflow-providers-openlineage>=1.8.0" \

@@ -58,14 +58,11 @@ airflow:
     replicas: 1
     resources:
       requests:
-        memory: "256Mi"
+        memory: "128Mi"
         cpu: "100m"
       limits:
-        memory: "400Mi"
+        memory: "256Mi"
         cpu: "200m"
-    persistence:
-      enabled: true
-      size: 1Gi
 
   triggerer:
     persistence:
