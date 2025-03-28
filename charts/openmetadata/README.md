@@ -44,7 +44,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.jwtPrincipalClaims | list | `[email,preferred_username,sub]` | AUTHENTICATION_JWT_PRINCIPAL_CLAIMS |
 | openmetadata.config.authentication.jwtPrincipalClaimsMapping | list | `[]` | AUTHENTICATION_JWT_PRINCIPAL_CLAIMS_MAPPING |
 | openmetadata.config.authentication.ldapConfiguration.host | string | `localhost` | AUTHENTICATION_LDAP_HOST |
-| openmetadata.config.authentication.ldapConfiguration.port |int | 10636 | AUTHENTICATION_LDAP_PORT |
+| openmetadata.config.authentication.ldapConfiguration.port |int | 1.7.0-rc1 | AUTHENTICATION_LDAP_PORT |
 | openmetadata.config.authentication.ldapConfiguration.dnAdminPrincipal | string | `cn=admin,dc=example,dc=com` | AUTHENTICATION_LOOKUP_ADMIN_DN |
 | openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretRef | string | `ldap-secret` | AUTHENTICATION_LOOKUP_ADMIN_PWD |
 | openmetadata.config.authentication.ldapConfiguration.dnAdminPassword.secretKey | string | `openmetadata-ldap-secret` | AUTHENTICATION_LOOKUP_ADMIN_PWD |
@@ -263,7 +263,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.6.6` |
+| image.tag | string | `1.7.0-rc1` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
