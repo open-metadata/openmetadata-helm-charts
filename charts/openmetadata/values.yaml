@@ -518,9 +518,19 @@ deploymentAnnotations: {}
 podAnnotations: {}
 
 hpa:
-  enabled: false
+  enabled: true
   minReplicas: 1
   maxReplicas: 5
-  metricsTarget:
-    averageCPUUtilization: 80
-    averageMemoryUtilization: 80
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
