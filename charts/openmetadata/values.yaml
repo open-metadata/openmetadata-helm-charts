@@ -477,12 +477,12 @@ resources: {}
 # resources, such as Minikube.The resources configuration is required to enable autoscaling.
 # To specify resources, uncomment the following lines, adjust them as necessary, and remove
 # the curly braces after 'resources:'.
-# limits:
-#   cpu: 1
-#   memory: 2048Mi
-# requests:
-#   cpu: 500m
-#   memory: 1024Mi
+#   limits:
+#     cpu: 1
+#     memory: 2048Mi
+#   requests:
+#     cpu: 500m
+#     memory: 1024Mi
 
 nodeSelector: {}
 
@@ -526,7 +526,7 @@ podAnnotations: {}
 # 1. Install metrics-server (https://github.com/kubernetes-sigs/metrics-server)
 # 2. Define resource request and limits for the pods
 hpa:
-  enabled: true
+  enabled: false
   minReplicas: 1
   maxReplicas: 5
   metrics:
