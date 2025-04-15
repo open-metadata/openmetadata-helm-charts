@@ -530,6 +530,7 @@ hpa:
   apiVersion: autoscaling/v2
   minReplicas: 1
   maxReplicas: 5
+  behavior: {}
   metrics:
   - type: Resource
     resource:

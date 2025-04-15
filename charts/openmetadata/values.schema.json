@@ -1408,6 +1408,9 @@
         "maxReplicas": {
           "type": "number"
         },
+        "behavior": {
+          "type": "object"
+        },
         "metrics": {
           "type": "array",
           "items": {

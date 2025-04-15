@@ -16,6 +16,10 @@ spec:
     name: {{ include "OpenMetadata.fullname" . }}
   minReplicas: {{ .Values.hpa.minReplicas }}
   maxReplicas: {{ .Values.hpa.maxReplicas }}
+  {{- with .Values.hpa.behavior }}
+  behavior:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   metrics:
     {{- toYaml .Values.hpa.metrics | nindent 4 }}
 {{- end }}
