@@ -527,6 +527,7 @@ podAnnotations: {}
 # 2. Define resource request and limits for the pods
 hpa:
   enabled: false
+  apiVersion: autoscaling/v2
   minReplicas: 1
   maxReplicas: 5
   metrics:
