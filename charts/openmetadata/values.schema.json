@@ -1419,20 +1419,10 @@
               "type": {
                 "type": "string"
               }
-            },
-            "required": [
-              "type"
-            ]
+            }
           }
         }
-      },
-      "required": [
-        "enabled",
-        "apiVersion",
-        "minReplicas",
-        "maxReplicas",
-        "metrics"
-      ]
+      }
     }
   }
 }
