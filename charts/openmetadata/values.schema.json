@@ -1391,6 +1391,38 @@
           "type": "boolean"
         }
       }
+    },
+    "hpa": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "apiVersion": {
+          "type": "string"
+        },
+        "minReplicas": {
+          "type": "number"
+        },
+        "maxReplicas": {
+          "type": "number"
+        },
+        "behavior": {
+          "type": "object"
+        },
+        "metrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
