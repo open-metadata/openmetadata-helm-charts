@@ -1109,51 +1109,6 @@
                   "type": "boolean"
                 }
               }
-            },
-            "smtpConfig": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "emailingEntity": {
-                  "type": "string"
-                },
-                "enableSmtpServer": {
-                  "type": "boolean"
-                },
-                "openMetadataUrl": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "secretKey": {
-                      "type": "string"
-                    },
-                    "secretRef": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "senderMail": {
-                  "type": "string"
-                },
-                "serverEndpoint": {
-                  "type": "string"
-                },
-                "serverPort": {
-                  "type": "string"
-                },
-                "supportUrl": {
-                  "type": "string"
-                },
-                "transportationStrategy": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
-                }
-              }
             }
           }
         }
