@@ -85,10 +85,6 @@ spec:
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
           {{- end }}
-          {{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
-          - secretRef:
-              name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
-          {{- end }}
           {{- if .Values.openmetadata.config.jwtTokenConfiguration.enabled }}
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-jwt-secret
@@ -176,10 +172,6 @@ spec:
             {{- if .Values.openmetadata.config.pipelineServiceClientConfig.enabled }}
             - secretRef:
                 name: {{ include "OpenMetadata.fullname" . }}-pipeline-secret
-            {{- end }}
-            {{- if .Values.openmetadata.config.smtpConfig.enableSmtpServer }}
-            - secretRef:
-                name: {{ include "OpenMetadata.fullname" . }}-smtp-secret
             {{- end }}
             {{- if .Values.openmetadata.config.jwtTokenConfiguration.enabled }}
             - secretRef:
