@@ -400,6 +400,9 @@
                         "null"
                       ]
                     },
+                    "maxAge": {
+                      "type": "string"
+                    },
                     "tokenValidity": {
                       "type": "string"
                     }
@@ -724,6 +727,12 @@
                     "type": "string"
                   }
                 },
+                "allowedDomains": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "principalDomain": {
                   "type": "string"
                 },
@@ -979,7 +988,17 @@
                 },
                 "uri": {
                   "type": "string"
+                },
+                "maxThreads": {
+                  "type": "integer"
+                },
+                "minThreads": {
+                  "type": "integer"
+                },
+                "idleThreadTimeout": {
+                  "type": "string"
                 }
+
               }
             },
             "secretsManager": {
