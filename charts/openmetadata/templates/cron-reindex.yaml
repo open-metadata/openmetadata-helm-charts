@@ -123,3 +123,6 @@ spec:
           {{- end }}                     
           restartPolicy: OnFailure
   schedule: "0/5 * * * *"
+  {{- if .Values.startingDeadlineSeconds }}
+  startingDeadlineSeconds: {{ .Values.startingDeadlineSeconds }}
+  {{- end }}
