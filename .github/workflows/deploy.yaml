@@ -54,7 +54,7 @@ jobs:
         run: |
           helm repo add open-metadata https://helm.open-metadata.org || true
           helm repo add opensearch https://opensearch-project.github.io/helm-charts || true
-          helm repo add apache-airflow https://airflow.apache.org || true
+          helm repo add apache-airflow https://airflow.apache.org 
           helm repo update
 
       - name: Deploy OpenSearch
@@ -65,6 +65,7 @@ jobs:
       - name: Deploy Airflow
         run: |
           helm upgrade --install airflow apache-airflow/airflow \
+            --version 1.11.0 \
             --namespace daap-dev \
             --set webserver.service.type=LoadBalancer \
             --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \
