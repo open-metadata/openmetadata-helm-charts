@@ -65,7 +65,6 @@ jobs:
       - name: Deploy Airflow
         run: |
           helm upgrade --install airflow apache-airflow/airflow \
-            --version 1.11.0 \
             --namespace daap-dev \
             --set webserver.service.type=LoadBalancer \
             --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \
