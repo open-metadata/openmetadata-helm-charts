@@ -6,15 +6,16 @@ replicaCount: 1
 # Overrides the openmetadata config file with the help of Environment Variables
 # Below are defaults as per openmetadata-dependencies Helm Chart Values
 openmetadata:
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-            - key: memory-class
-              operator: In
-              values:
-                - highmem
+  deployment:
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+              - key: memory-class
+                operator: In
+                values:
+                  - highmem
   config:
     upgradeMigrationConfigs:
       debug: false
