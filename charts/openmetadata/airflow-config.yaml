@@ -70,7 +70,16 @@ airflow:
       size: 1Gi
 
 
-
   # Database Configuration
   postgresql:
     enabled: false  # Set to true only if need an internal PostgreSQL DB
+    
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: memory-class
+                operator: In
+                values:
+                  - highmem

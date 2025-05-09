@@ -59,6 +59,15 @@ openmetadata:
           secretRef: mysql-secrets
           secretKey: openmetadata-mysql-password
       dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+    affinity:
+       nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                 - key: memory-class
+                   operator: In
+                   values:
+                    - highmem
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
