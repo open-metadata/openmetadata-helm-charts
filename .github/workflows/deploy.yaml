@@ -64,7 +64,7 @@ jobs:
 
       - name: Deploy Airflow
         run: |
-          --helm upgrade --install airflow apache-airflow/airflow \
+          helm upgrade --install airflow apache-airflow/airflow \
             --version 1.11.0 \
             --namespace daap-dev \
             --set webserver.service.type=LoadBalancer \
@@ -77,7 +77,7 @@ jobs:
             --set triggerer.persistence.size=1Gi \
             -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
 
-          --kubectl set env deployment/airflow-webserver -n daap-dev \
+          kubectl set env deployment/airflow-webserver -n daap-dev \
             AIRFLOW__OPENMETADATA__HOST="http://48.211.236.64:8585" \
             AIRFLOW__OPENMETADATA__API_VERSION="v1" \
             AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth" \
