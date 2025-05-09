@@ -1,6 +1,15 @@
 airflow:
   executor: KubernetesExecutor
-
+  
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: memory-class
+                operator: In
+                values:
+                  - highmem
   extraEnv:
     - name: AIRFLOW__OPENMETADATA__HOST
       value: "http://48.211.236.64:8585"
@@ -73,13 +82,3 @@ airflow:
   # Database Configuration
   postgresql:
     enabled: false  # Set to true only if need an internal PostgreSQL DB
-    
-  affinity:
-    nodeAffinity:
-      requiredDuringSchedulingIgnoredDuringExecution:
-        nodeSelectorTerms:
-          - matchExpressions:
-              - key: memory-class
-                operator: In
-                values:
-                  - highmem
