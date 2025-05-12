@@ -51,13 +51,3 @@ startupProbe:
   initialDelaySeconds: 30   
   periodSeconds: 10
   failureThreshold: 5
-
-affinity:
-  nodeAffinity:
-    requiredDuringSchedulingIgnoredDuringExecution:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: memory-class
-              operator: In
-              values:
-                - highmem
