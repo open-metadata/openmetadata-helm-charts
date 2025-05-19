@@ -1261,6 +1261,9 @@
     "resources": {
       "type": "object"
     },
+    "startingDeadlineSeconds": {
+      "type": "number"
+    },
     "securityContext": {
       "type": "object"
     },

@@ -476,6 +476,8 @@ resources: {}
 #     cpu: 500m
 #     memory: 1024Mi
 
+startingDeadlineSeconds: 100
+
 nodeSelector: {}
 
 tolerations: []
