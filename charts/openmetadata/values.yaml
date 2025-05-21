@@ -144,6 +144,7 @@ openmetadata:
         useNonce: true
         preferredJwsAlgorithm: RS256
         responseType: code
+        promptType: "consent"
         disablePkce: true
         callbackUrl: http://openmetadata:8585/callback
         serverUrl: http://openmetadata:8585
