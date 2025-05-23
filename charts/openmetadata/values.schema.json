@@ -403,6 +403,9 @@
                         "null"
                       ]
                     },
+                    "maxAge": {
+                      "type": "string"
+                    },
                     "tokenValidity": {
                       "type": "string"
                     }
@@ -727,6 +730,12 @@
                     "type": "string"
                   }
                 },
+                "allowedDomains": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
                 "principalDomain": {
                   "type": "string"
                 },
@@ -982,7 +991,17 @@
                 },
                 "uri": {
                   "type": "string"
+                },
+                "maxThreads": {
+                  "type": "integer"
+                },
+                "minThreads": {
+                  "type": "integer"
+                },
+                "idleThreadTimeout": {
+                  "type": "string"
                 }
+
               }
             },
             "secretsManager": {
@@ -1110,51 +1129,6 @@
                 },
                 "enabled": {
                   "type": "boolean"
-                }
-              }
-            },
-            "smtpConfig": {
-              "type": "object",
-              "additionalProperties": false,
-              "properties": {
-                "emailingEntity": {
-                  "type": "string"
-                },
-                "enableSmtpServer": {
-                  "type": "boolean"
-                },
-                "openMetadataUrl": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "object",
-                  "additionalProperties": false,
-                  "properties": {
-                    "secretKey": {
-                      "type": "string"
-                    },
-                    "secretRef": {
-                      "type": "string"
-                    }
-                  }
-                },
-                "senderMail": {
-                  "type": "string"
-                },
-                "serverEndpoint": {
-                  "type": "string"
-                },
-                "serverPort": {
-                  "type": "string"
-                },
-                "supportUrl": {
-                  "type": "string"
-                },
-                "transportationStrategy": {
-                  "type": "string"
-                },
-                "username": {
-                  "type": "string"
                 }
               }
             }
@@ -1289,6 +1263,9 @@
     },
     "resources": {
       "type": "object"
+    },
+    "startingDeadlineSeconds": {
+      "type": "number"
     },
     "securityContext": {
       "type": "object"

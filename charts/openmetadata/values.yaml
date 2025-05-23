@@ -28,6 +28,9 @@ openmetadata:
       uri: "http://openmetadata:8585"
       port: 8585
       adminPort: 8586
+      maxThreads: 50
+      minThreads: 10
+      idleThreadTimeout: "1 minute"
     elasticsearch:
       enabled: true
       host: opensearch
@@ -108,6 +111,7 @@ openmetadata:
       allowedEmailRegistrationDomains:
       - "all"
       principalDomain: "open-metadata.org"
+      allowedDomains: []
       enforcePrincipalDomain: false
       enableSecureSocketConnection: false
       useRolesFromProvider: false
@@ -153,6 +157,7 @@ openmetadata:
         maxClockSkew: ""
         tokenValidity: "3600"
         customParams: '{}'
+        maxAge: "0"
       ldapConfiguration:
         host: localhost
         port: 10636
@@ -254,19 +259,6 @@ openmetadata:
       # - "p99=0.99"
       # - "p90=0.90"
       # - "p50=0.50"
-    smtpConfig:
-      enableSmtpServer: false
-      emailingEntity: "OpenMetadata"
-      supportUrl: "https://slack.open-metadata.org"
-      transportationStrategy: "SMTP_TLS"
-      openMetadataUrl: "http://openmetadata:8585"
-      serverEndpoint: ""
-      serverPort: ""
-      senderMail: ""
-      username: ""
-      password:
-        secretRef: ""
-        secretKey: ""
     secretsManager:
       enabled: true
       # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory, managed-azure-kv, azure-kv, gcp
@@ -484,6 +476,8 @@ resources: {}
 #   requests:
 #     cpu: 500m
 #     memory: 1024Mi
+
+startingDeadlineSeconds: 100
 
 nodeSelector: {}
 

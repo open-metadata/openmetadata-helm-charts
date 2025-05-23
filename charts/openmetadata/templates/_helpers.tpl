@@ -344,15 +344,6 @@ OpenMetadata Configurations Environment Variables*/}}
 {{ include "OpenMetadata.configs.secretManager.gcp.additionalParameters" . }}
 {{- end }}
 {{- end }}
-{{- if and ( .Values.openmetadata.config.smtpConfig.enableSmtpServer ) ( .Values.openmetadata.config.smtpConfig.password.secretRef )}}
-{{- with .Values.openmetadata.config.smtpConfig.password }}
-- name: SMTP_SERVER_PWD
-  valueFrom:
-    secretKeyRef:
-      name: {{ .secretRef }}
-      key: {{ .secretKey }}
-{{- end }}
-{{- end }}
 {{- end }}
 
 
