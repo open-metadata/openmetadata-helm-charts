@@ -45,6 +45,7 @@ opensearch:
   config:
     opensearch.yml: |
       plugins.security.disabled: true
+      indices.query.bool.max_clause_count: 4096
   singleNode: true
   resources:
     requests:
