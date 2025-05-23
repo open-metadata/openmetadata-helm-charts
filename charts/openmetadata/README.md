@@ -87,6 +87,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.oidcConfiguration.oidcType | string | `Empty` | OIDC_TYPE |
 | openmetadata.config.authentication.oidcConfiguration.preferredJwsAlgorithm | string | `RS256` | OIDC_PREFERRED_JWS |
 | openmetadata.config.authentication.oidcConfiguration.responseType | string | `code` | OIDC_RESPONSE_TYPE |
+| openmetadata.config.authentication.oidcConfiguration.promptType | string | `consent` | OIDC_PROMPT_TYPE |
 | openmetadata.config.authentication.oidcConfiguration.scope | string | `openid email profile` | OIDC_SCOPE |
 | openmetadata.config.authentication.oidcConfiguration.serverUrl | string | `http://openmetadata:8585` | OIDC_SERVER_URL |
 | openmetadata.config.authentication.oidcConfiguration.tenant | string | `Empty` | OIDC_TENANT |
@@ -258,7 +259,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.7.0` |
+| image.tag | string | `1.7.1` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |

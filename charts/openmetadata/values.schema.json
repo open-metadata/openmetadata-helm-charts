@@ -376,6 +376,9 @@
                     "responseType": {
                       "type": "string"
                     },
+                    "promptType": {
+                      "type": "string"
+                    },
                     "disablePkce": {
                       "type": "boolean"
                     },

@@ -45,6 +45,7 @@ opensearch:
   config:
     opensearch.yml: |
       plugins.security.disabled: true
+      indices.query.bool.max_clause_count: 4096
   singleNode: true
   resources:
     requests:
@@ -61,7 +62,7 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.7.0
+      tag: 1.7.1
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
