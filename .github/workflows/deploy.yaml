@@ -50,7 +50,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v3
 
-      - name: Add Helm Repositories (If Not Added)
+      - name: Add Helm Repositories
         run: |
           helm repo add open-metadata https://helm.open-metadata.org 
           helm repo add opensearch https://opensearch-project.github.io/helm-charts 
@@ -62,6 +62,10 @@ jobs:
           helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
           kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
 
+      - name: Deploy OpenMetadata
+        run: |
+          helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
+      
       - name: Deploy Airflow
         run: |
           helm upgrade --install airflow apache-airflow/airflow \
@@ -81,8 +85,4 @@ jobs:
             AIRFLOW__OPENMETADATA__HOST="http://48.211.236.64:8585" \
             AIRFLOW__OPENMETADATA__API_VERSION="v1" \
             AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth" \
-
-      - name: Deploy OpenMetadata
-        run: |
-          helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
          
