@@ -239,19 +239,19 @@ openmetadata:
       # - "p99=0.99"
       # - "p90=0.90"
       # - "p50=0.50"
-    smtpConfig:
-      enableSmtpServer: false
-      emailingEntity: "OpenMetadata"
-      supportUrl: "https://slack.open-metadata.org"
-      transportationStrategy: "SMTP_TLS"
-      openMetadataUrl: "http://openmetadata:8585"
-      serverEndpoint: ""
-      serverPort: ""
-      senderMail: ""
-      username: ""
-      password:
-        secretRef: ""
-        secretKey: ""
+    # smtpConfig:
+    #   enableSmtpServer: false
+    #   emailingEntity: "OpenMetadata"
+    #   supportUrl: "https://slack.open-metadata.org"
+    #   transportationStrategy: "SMTP_TLS"
+    #   openMetadataUrl: "http://openmetadata:8585"
+    #   serverEndpoint: ""
+    #   serverPort: ""
+    #   senderMail: ""
+    #   username: ""
+    #   password:
+    #     secretRef: ""
+    #     secretKey: ""
     secretsManager:
       enabled: true
       # Possible values are db, aws, aws-ssm, managed-aws, managed-aws-ssm, in-memory, managed-azure-kv, azure-kv, gcp
