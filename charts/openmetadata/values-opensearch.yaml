@@ -5,8 +5,6 @@ service:
   type: ClusterIP  
   port: 9200
 
-
-
 persistence:
   enabled: true  
   size: 1Gi
@@ -18,9 +16,9 @@ replicas: 1
 resources:
   requests:
     cpu: "500m"
-    memory: "2Gi"
-  limits:
     memory: "3Gi"
+  limits:
+    memory: "4Gi"
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
