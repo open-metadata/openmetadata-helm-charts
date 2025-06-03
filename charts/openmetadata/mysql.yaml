@@ -28,6 +28,8 @@ spec:
       containers:
         - name: mysql
           image: bitnami/mysql:8.0
+          securityContext:
+            runAsUser: 0
           ports:
             - containerPort: 3306
           env:
