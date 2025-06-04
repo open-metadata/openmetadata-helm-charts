@@ -61,7 +61,7 @@ jobs:
         run: |
           helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
           kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
-          #kubectl apply -f $(pwd)/charts/openmetadata/mysql.yaml -n daap-dev
+          kubectl apply -f $(pwd)/charts/openmetadata/mysql.yaml -n daap-dev
 
       - name: Deploy OpenMetadata
         run: |
