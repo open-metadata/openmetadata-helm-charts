@@ -83,6 +83,6 @@ jobs:
             -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
 
           kubectl set env deployment/airflow-webserver -n daap-dev \
-            AIRFLOW__OPENMETADATA__HOST="http://48.211.236.64:8585" \
+            AIRFLOW__OPENMETADATA__HOST="http://135.222.170.7:8585" \
             AIRFLOW__OPENMETADATA__API_VERSION="v1" \
             AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth" \

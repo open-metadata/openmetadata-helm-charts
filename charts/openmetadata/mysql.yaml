@@ -25,11 +25,15 @@ spec:
       labels:
         app: mysql
     spec:
+      securityContext:
+        fsGroup: 1001  # 👈 Necessary for volume write access
       containers:
         - name: mysql
           image: bitnami/mysql:8.0
           securityContext:
-            runAsUser: 0
+            runAsUser: 1001       # 👈 Run as Bitnami's expected UID
+            runAsGroup: 1001
+            allowPrivilegeEscalation: false
           ports:
             - containerPort: 3306
           env:

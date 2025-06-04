@@ -3,7 +3,7 @@ airflow:
   
   extraEnv:
     - name: AIRFLOW__OPENMETADATA__HOST
-      value: "http://48.211.236.64:8585"
+      value: "135.222.170.7:8585"
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
     - name: AIRFLOW__API__AUTH_BACKENDS
