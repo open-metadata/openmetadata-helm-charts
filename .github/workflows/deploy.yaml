@@ -72,15 +72,16 @@ jobs:
           helm upgrade --install airflow apache-airflow/airflow \
             --version 1.10.0 \
             --namespace daap-dev \
-            --set webserver.service.type=LoadBalancer \
-            --set images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow \
-            --set images.airflow.tag=custom \
-            --set images.airflow.pullPolicy=Always \
-            --set workers.persistence.enabled=true \
-            --set workers.persistence.size=1Gi \
-            --set triggerer.persistence.enabled=true \
-            --set triggerer.persistence.size=1Gi \
-            -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
+            --set "webserver.service.type=LoadBalancer" \
+            --set "images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow" \
+            --set "images.airflow.tag=custom" \
+            --set "images.airflow.pullPolicy=Always" \
+            --set "workers.persistence.enabled=true" \
+            --set "workers.persistence.size=1Gi" \
+            --set "triggerer.persistence.enabled=true" \
+            --set "triggerer.persistence.size=1Gi" \
+            --set "data.bootstrap=false" \  # disables initial hook that may time out
+            -f $(pwd)/charts/openmetadata/airflow-config.yaml --timeout 10m0s
 
           kubectl set env deployment/airflow-webserver -n daap-dev \
             AIRFLOW__OPENMETADATA__HOST="http://135.222.170.7:8585" \
