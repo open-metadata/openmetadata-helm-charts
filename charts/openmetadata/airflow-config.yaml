@@ -18,6 +18,10 @@ airflow:
     service:
         type: LoadBalancer  
         port: 8080
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
     resources:
       requests:
         memory: "512Mi"
