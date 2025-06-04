@@ -80,8 +80,9 @@ jobs:
             --set "workers.persistence.size=1Gi" \
             --set "triggerer.persistence.enabled=true" \
             --set "triggerer.persistence.size=1Gi" \
-            --set "data.bootstrap=false" \  
-            -f $(pwd)/charts/openmetadata/airflow-config.yaml --timeout 10m0s
+            --set "data.bootstrap=false" \
+            -f $(pwd)/charts/openmetadata/airflow-config.yaml \
+            --timeout 10m0s
 
           kubectl set env deployment/airflow-webserver -n daap-dev \
             AIRFLOW__OPENMETADATA__HOST="http://135.222.170.7:8585" \
