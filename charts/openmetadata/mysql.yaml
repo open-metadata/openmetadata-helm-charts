@@ -6,6 +6,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  storageClassName: azurefile-csi
   resources:
     requests:
       storage: 2Gi
@@ -26,12 +27,12 @@ spec:
         app: mysql
     spec:
       securityContext:
-        fsGroup: 1001  # 👈 Necessary for volume write access
+        fsGroup: 1001  
       containers:
         - name: mysql
           image: bitnami/mysql:8.0
           securityContext:
-            runAsUser: 1001       # 👈 Run as Bitnami's expected UID
+            runAsUser: 1001      
             runAsGroup: 1001
             allowPrivilegeEscalation: false
           ports:

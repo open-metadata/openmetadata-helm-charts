@@ -29,6 +29,8 @@ extraEnvs:
     value: "true"
   - name: DISABLE_SECURITY_PLUGIN
     value: "true"
+  - name: DISABLE_PERFORMANCE_ANALYZER_AGENT_CLI
+    value: "true"
 
 config:
   opensearch.yml: |
