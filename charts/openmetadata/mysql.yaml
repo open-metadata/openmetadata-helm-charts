@@ -1,22 +1,21 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pvc
-  namespace: daap-dev
+  name: data-mysql-0
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: azurefile-csi
   resources:
     requests:
       storage: 2Gi
+  storageClassName: azurefile
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql
-  namespace: daap-dev
 spec:
+  serviceName: mysql
   replicas: 1
   selector:
     matchLabels:
@@ -26,62 +25,37 @@ spec:
       labels:
         app: mysql
     spec:
-      securityContext:
-        fsGroup: 1001  
-      initContainers:
-        - name: volume-permissions
-          image: busybox
-          command: ["sh", "-c", "chown -R 1001:1001 /bitnami/mysql"]
-          volumeMounts:
-            - name: mysql-storage
-              mountPath: /bitnami/mysql
       containers:
         - name: mysql
-          image: bitnami/mysql:8.0
-          securityContext:
-            runAsUser: 1001      
-            runAsGroup: 1001
-            allowPrivilegeEscalation: false
-          ports:
-            - containerPort: 3306
+          image: bitnami/mysql:9.3.0
           env:
             - name: MYSQL_ROOT_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key: MYSQL_ROOT_PASSWORD
+              value: yourRootPasswordHere
             - name: MYSQL_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key: MYSQL_DATABASE
-            - name: MYSQL_USER
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key: MYSQL_USER
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key: MYSQL_PASSWORD
+              value: yourDatabaseName
+          ports:
+            - containerPort: 3306
           volumeMounts:
-            - name: mysql-storage
-              mountPath: /bitnami/mysql
-      volumes:
-        - name: mysql-storage
-          persistentVolumeClaim:
-            claimName: mysql-pvc
+            - name: mysql-data
+              mountPath: /bitnami/mysql/data
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: azurefile
+        resources:
+          requests:
+            storage: 2Gi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
-  namespace: daap-dev
 spec:
-  selector:
-    app: mysql
   ports:
     - port: 3306
       targetPort: 3306
+  selector:
+    app: mysql
   type: ClusterIP
