@@ -28,6 +28,13 @@ spec:
     spec:
       securityContext:
         fsGroup: 1001  
+      initContainers:
+        - name: volume-permissions
+          image: busybox
+          command: ["sh", "-c", "chown -R 1001:1001 /bitnami/mysql"]
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /bitnami/mysql
       containers:
         - name: mysql
           image: bitnami/mysql:8.0

@@ -57,19 +57,39 @@ jobs:
           helm repo add apache-airflow https://airflow.apache.org 
           helm repo update
 
-      - name: Deploy OpenSearch
+      - name: Deploy OpenSearch if values-opensearch.yaml or opensearch-sysctl-daemonset.yaml changed
         run: |
-          helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
-          kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
-          kubectl apply -f $(pwd)/charts/openmetadata/mysql.yaml -n daap-dev
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -qE 'charts/openmetadata/(values-opensearch\.yaml|opensearch-sysctl-daemonset\.yaml)'; then
+            echo "Changes detected in OpenSearch config files. Deploying OpenSearch..."
+            helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev -f $(pwd)/charts/openmetadata/values-opensearch.yaml
+            kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
+          else
+              echo "No changes in OpenSearch config. Skipping deployment."
+          fi
 
-      - name: Deploy OpenMetadata
+      - name: Deploy MySQL if mysql.yaml changed
         run: |
-          helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
-      
-      - name: Deploy Airflow
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q 'charts/openmetadata/mysql.yaml'; then
+            echo "Changes detected in mysql.yaml. Applying MySQL manifest..."
+            kubectl apply -f $(pwd)/charts/openmetadata/mysql.yaml -n daap-dev
+          else
+            echo "No changes in mysql.yaml. Skipping MySQL deployment."
+          fi
+
+      - name: Deploy OpenMetadata if values.yaml changed
         run: |
-          helm upgrade --install airflow apache-airflow/airflow \
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q 'charts/openmetadata/values.yaml'; then
+            echo "Changes detected in OpenMetadata values.yaml. Deploying OpenMetadata..."
+            helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
+          else
+            echo "No changes in OpenMetadata values.yaml. Skipping deployment."
+          fi
+
+      - name: Deploy Airflow if airflow-config.yaml changed
+        run: |
+          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -q 'charts/openmetadata/airflow-config.yaml'; then
+            echo "Changes detected in airflow-config.yaml. Deploying Airflow..."
+            helm upgrade --install airflow apache-airflow/airflow \
             --version 1.10.0 \
             --namespace daap-dev \
             --set webserver.service.type=LoadBalancer \
@@ -82,7 +102,11 @@ jobs:
             --set triggerer.persistence.size=1Gi \
             -f $(pwd)/charts/openmetadata/airflow-config.yaml --reset-values
 
-          kubectl set env deployment/airflow-webserver -n daap-dev \
+            kubectl set env deployment/airflow-webserver -n daap-dev \
             AIRFLOW__OPENMETADATA__HOST="http://135.222.170.7:8585" \
             AIRFLOW__OPENMETADATA__API_VERSION="v1" \
-            AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth" \
+            AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth"
+          else
+            echo "No changes in airflow-config.yaml. Skipping Airflow deployment."
+          fi
+
