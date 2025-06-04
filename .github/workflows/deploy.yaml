@@ -80,7 +80,6 @@ jobs:
             --set "workers.persistence.size=1Gi" \
             --set "triggerer.persistence.enabled=true" \
             --set "triggerer.persistence.size=1Gi" \
-            --set "data.bootstrap=false" \
             -f $(pwd)/charts/openmetadata/airflow-config.yaml \
             --timeout 10m0s
 
