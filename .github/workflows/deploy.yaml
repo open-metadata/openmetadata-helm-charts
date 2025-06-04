@@ -80,7 +80,7 @@ jobs:
             --set "workers.persistence.size=1Gi" \
             --set "triggerer.persistence.enabled=true" \
             --set "triggerer.persistence.size=1Gi" \
-            --set "data.bootstrap=false" \  # disables initial hook that may time out
+            --set "data.bootstrap=false" \  
             -f $(pwd)/charts/openmetadata/airflow-config.yaml --timeout 10m0s
 
           kubectl set env deployment/airflow-webserver -n daap-dev \
