@@ -8,6 +8,8 @@ airflow:
       value: "v1"
     - name: AIRFLOW__API__AUTH_BACKENDS
       value: "airflow.api.auth.backend.basic_auth"
+    - name: AIRFLOW__WEBSERVER__WEB_SERVER_PORT
+      value: "8080"
 
   extraVolumeMounts:
     - name: airflow-plugins
@@ -74,6 +76,24 @@ airflow:
       size: 1Gi
 
 
-  # Database Configuration
+
   postgresql:
     enabled: false  
+
+  livenessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 90    
+    periodSeconds: 20
+    timeoutSeconds: 10
+    failureThreshold: 6
+
+  readinessProbe:
+    httpGet:
+      path: /health
+      port: 8080
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 5
