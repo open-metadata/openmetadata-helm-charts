@@ -13,6 +13,15 @@ spec:
       labels:
         app: mysql
     spec:
+      initContainers:
+        - name: volume-permissions
+          image: busybox
+          command: ["sh", "-c", "rm -rf /bitnami/mysql/data/lost+found"]
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /bitnami/mysql/data
+          securityContext:
+            runAsUser: 0
       containers:
         - name: mysql
           image: bitnami/mysql:9.3.0
