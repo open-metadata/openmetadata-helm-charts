@@ -31,10 +31,10 @@ spec:
         name: mysql-data
       spec:
         accessModes: ["ReadWriteOnce"]
-        storageClassName: managed-csi-premium
+        storageClassName:  managed-csi
         resources:
           requests:
-            storage: 2Gi
+            storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
