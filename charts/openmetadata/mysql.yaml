@@ -32,9 +32,16 @@ spec:
           image: bitnami/mysql:9.3.0
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: yourRootPasswordHere
+              value: root123
             - name: MYSQL_DATABASE
-              value: yourDatabaseName
+              value: openmetadata_db
+            - name: MYSQL_USER
+              value: openmetadata_user
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: openmetadata-mysql-password
           ports:
             - containerPort: 3306
           volumeMounts:
