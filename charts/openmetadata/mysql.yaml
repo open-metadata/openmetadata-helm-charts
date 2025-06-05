@@ -16,7 +16,12 @@ spec:
       initContainers:
         - name: volume-permissions
           image: busybox
-          command: ["sh", "-c", "rm -rf /bitnami/mysql/data/lost+found"]
+          command:
+            - sh
+            - -c
+            - |
+              echo "Fixing permissions..."
+              chown -R 1001:1001 /bitnami/mysql/data
           volumeMounts:
             - name: mysql-data
               mountPath: /bitnami/mysql/data
