@@ -40,6 +40,8 @@ spec:
         - name: opensearch
           image: opensearchproject/opensearch:2.12.0
           env:
+            - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+              value: "DaapOpenSrhAdmn01$"
             - name: discovery.type
               value: single-node
             - name: OPENSEARCH_USERNAME
