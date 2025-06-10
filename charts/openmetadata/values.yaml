@@ -1,188 +1,99 @@
-airflow:
-  enabled: true
-  executor: KubernetesExecutor
-
+openmetadata:
+  image:
+    repository: openmetadata/openmetadata
+    tag: latest
+  service:
+    type: LoadBalancer
   config:
-    AIRFLOW__CORE__LOAD_EXAMPLES: "False"
-    AIRFLOW__LOGGING__LOGGING_LEVEL: "INFO"
+    elasticsearch:
+      host: http://opensearch-cluster-master:9200
+      username: admin
+      password: DaapOpenSrhAdmn01$
+    database:
+      host: openmetadata-mysql
+      port: 3306
+      username: root
+      password: mysqlrootpass
+      database: openmetadata_db
+      scheme: mysql
 
-  workers:
-    resources:
-      requests:
-        cpu: "500m"
-        memory: "1Gi"
-      limits:
-        cpu: "1000m"
-        memory: "2Gi"
-
-  scheduler:
-    resources:
-      requests:
-        cpu: "500m"
-        memory: "1Gi"
-      limits:
-        cpu: "1000m"
-        memory: "2Gi"
-
-  web:
-    resources:
-      requests:
-        cpu: "300m"
-        memory: "512Mi"
-      limits:
-        cpu: "600m"
-        memory: "1Gi"
-
-  triggerer:
-    resources:
-      requests:
-        cpu: "200m"
-        memory: "256Mi"
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
-
-  redis:
+  airflow:
     enabled: true
-    resources:
-      requests:
-        cpu: "100m"
-        memory: "256Mi"
-      limits:
-        cpu: "250m"
-        memory: "512Mi"
+    executor: KubernetesExecutor
+    config:
+      AIRFLOW__KUBERNETES__NAMESPACE: daap-dev
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
+      AIRFLOW__LOGGING__LOGGING_LEVEL: "INFO"
+    metadataDatabase:
+      host: openmetadata-mysql
+      port: 3306
+      username: root
+      password: mysqlrootpass
+      database: openmetadata_db
+      scheme: mysql
+    service:
+      type: ClusterIP
+    workers:
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1000m"
+          memory: "2Gi"
+    scheduler:
+      resources:
+        requests:
+          cpu: "500m"
+          memory: "1Gi"
+        limits:
+          cpu: "1000m"
+          memory: "2Gi"
+    web:
+      resources:
+        requests:
+          cpu: "300m"
+          memory: "512Mi"
+        limits:
+          cpu: "600m"
+          memory: "1Gi"
+    triggerer:
+      resources:
+        requests:
+          cpu: "200m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+    redis:
+      enabled: true
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "250m"
+          memory: "512Mi"
+    postgresql:
+      enabled: true
+      resources:
+        requests:
+          cpu: "250m"
+          memory: "512Mi"
+        limits:
+          cpu: "500m"
+          memory: "1Gi"
 
-  postgresql:
+  mysql:
     enabled: true
-    resources:
-      requests:
-        cpu: "250m"
-        memory: "512Mi"
-      limits:
-        cpu: "500m"
-        memory: "1Gi"
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: openmetadata
-  namespace: daap-dev
-spec:
-  selector:
-    app: openmetadata
-  type: LoadBalancer
-  ports:
-    - protocol: TCP
-      port: 8585
-      targetPort: 8585
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: openmetadata
-  namespace: daap-dev
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: openmetadata
-  template:
-    metadata:
-      labels:
-        app: openmetadata
-    spec:
-      initContainers:
-        - name: wait-for-mysql
-          image: busybox
-          command: ['sh', '-c', 'until nc -z mysql.daap-dev.svc.cluster.local 3306; do echo waiting for mysql; sleep 5; done']
-        - name: wait-for-opensearch
-          image: busybox
-          command: ['sh', '-c', 'until nc -z opensearch.daap-dev.svc.cluster.local 9200; do echo waiting for opensearch; sleep 5; done']
-        - name: wait-for-airflow
-          image: busybox
-          command: ['sh', '-c', 'until nc -z airflow-webserver.daap-dev.svc.cluster.local 8080; do echo waiting for airflow; sleep 5; done']
-      containers:
-        - name: openmetadata
-          image: docker.getcollate.io/openmetadata/openmetadata:latest
-          ports:
-            - containerPort: 8585
-          env:
-            # MySQL config
-            - name: OPENMETADATA_DATABASE_HOST
-              value: mysql.daap-dev.svc.cluster.local
-            - name: OPENMETADATA_DATABASE_PORT
-              value: "3306"
-            - name: OPENMETADATA_DATABASE_USER
-              value: root
-            - name: OPENMETADATA_DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secret
-                  key: mysql-root-password
-            # OpenSearch config
-            - name: OPENMETADATA_OPENSEARCH_HOST
-              value: http://opensearch.daap-dev.svc.cluster.local:9200
-            - name: OPENMETADATA_ELASTICSEARCH_TYPE
-              value: "opensearch"
-            - name: OPENMETADATA_OPENSEARCH_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: opensearch-secret
-                  key: username
-            - name: OPENMETADATA_OPENSEARCH_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: opensearch-secret
-                  key: password
-            # Airflow config
-            - name: AIRFLOW_HOST
-              value: http://airflow-webserver.daap-dev.svc.cluster.local:8080
-            - name: AIRFLOW_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: airflow-secret
-                  key: username
-            - name: AIRFLOW_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: airflow-secret
-                  key: password
-          volumeMounts:
-            - name: openmetadata-storage
-              mountPath: /openmetadata/config
-          readinessProbe:
-            httpGet:
-              path: /healthcheck
-              port: 8585
-            initialDelaySeconds: 30
-            periodSeconds: 10
-          livenessProbe:
-            httpGet:
-              path: /healthcheck
-              port: 8585
-            initialDelaySeconds: 60
-            periodSeconds: 20
-          resources:
-            limits:
-              cpu: "1"
-              memory: "2Gi"
-            requests:
-              cpu: "250m"
-              memory: "512Mi"
-      volumes:
-        - name: openmetadata-storage
-          persistentVolumeClaim:
-            claimName: openmetadata-pvc
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: openmetadata-pvc
-  namespace: daap-dev
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: default
+    image:
+      repository: bitnami/mysql
+      tag: 8.0
+    auth:
+      rootPassword: mysqlrootpass
+      database: openmetadata_db
+    primary:
+      persistence:
+        enabled: true
+        size: 1Gi
+        storageClass: managed-csi
