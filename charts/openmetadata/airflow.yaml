@@ -20,6 +20,8 @@ airflow:
       enabled: false
     readinessProbe:
       enabled: false
+    startupProbe:
+      enabled: false
     resources:
       requests:
         memory: "512Mi"
@@ -54,7 +56,7 @@ airflow:
       size: 500Mi
       accessModes:
         - ReadWriteOnce
-      storageClassName: managed-csi
+      storageClassName: standard
 
   workers:
     replicas: 1
@@ -70,7 +72,12 @@ airflow:
     persistence:
       enabled: true
       size: 1Gi
-
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    startupProbe:
+      enabled: false
 
   # Database Configuration
   postgresql:
