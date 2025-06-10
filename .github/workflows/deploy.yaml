@@ -36,6 +36,13 @@ jobs:
     - name: Create Namespace (if not exists)
       run: |
         kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
+    
+    - name: Add Helm Repositories
+      run: |
+        helm repo add apache-airflow https://airflow.apache.org 
+        helm repo update
+        helm repo add opensearch https://opensearch-project.github.io/helm-charts 
+        helm repo add open-metadata https://helm.open-metadata.org 
 
     - name: Deploy MySQL
       run: |
