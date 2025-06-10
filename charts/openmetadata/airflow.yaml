@@ -46,7 +46,7 @@ airflow:
       size: 500Mi
       accessModes:
         - ReadWriteOnce
-      storageClassName: standard
+      storageClassName: managed-csi
 
   logs:
     persistence:
@@ -54,7 +54,7 @@ airflow:
       size: 500Mi
       accessModes:
         - ReadWriteOnce
-      storageClassName: standard
+      storageClassName: managed-csi
 
   workers:
     replicas: 1

@@ -15,7 +15,11 @@ config:
     database: openmetadata_db
 
   elasticsearch:
-    host: http://opensearch-cluster-master:9200
+    host: http://opensearch.daap-dev.svc.cluster.local:9200
+    type: opensearch
+    username: admin
+    password: DaapOpenSrhAdmn01$
+
 
 persistence:
   enabled: true
