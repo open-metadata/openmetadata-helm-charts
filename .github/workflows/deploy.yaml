@@ -57,10 +57,8 @@ jobs:
     - name: Deploy OpenMetadata (with Airflow)
       run: |
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
+        helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
 
-    - name: Check OpenMetadata rollout
-      run: |
-        kubectl rollout status deployment/openmetadata -n $NAMESPACE --timeout=180s
 
     - name: Show Pods & Services for Debugging
       if: failure()

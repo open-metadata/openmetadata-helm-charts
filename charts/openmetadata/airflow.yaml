@@ -1,0 +1,77 @@
+airflow:
+  executor: KubernetesExecutor
+  
+  extraEnv:
+    - name: AIRFLOW__OPENMETADATA__API_VERSION
+      value: "v1"
+    - name: AIRFLOW__API__AUTH_BACKENDS
+      value: "airflow.api.auth.backend.basic_auth"
+
+  extraVolumeMounts:
+    - name: airflow-plugins
+      mountPath: /opt/airflow/plugins
+
+    # Webserver Configuration
+  webserver:
+    service:
+        type: LoadBalancer  
+        port: 8080
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
+
+  # Scheduler Configuration
+  scheduler:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+
+  # Logs, DAGs, Worker, and Triggerer Persistence
+  dags:
+    persistence:
+      enabled: true
+      size: 500Mi
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: standard
+
+  logs:
+    persistence:
+      enabled: true
+      size: 500Mi
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: standard
+
+  workers:
+    replicas: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "200m"
+
+  triggerer:
+    persistence:
+      enabled: true
+      size: 1Gi
+
+
+  # Database Configuration
+  postgresql:
+    enabled: false  
