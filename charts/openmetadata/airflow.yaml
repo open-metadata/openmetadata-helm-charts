@@ -1,11 +1,9 @@
 airflow:
   executor: KubernetesExecutor
 
-  extraEnv:
-    - name: AIRFLOW__OPENMETADATA__API_VERSION
-      value: "v1"
-    - name: AIRFLOW__API__AUTH_BACKENDS
-      value: "airflow.api.auth.backend.basic_auth"
+  config:
+    AIRFLOW__OPENMETADATA__API_VERSION: "v1"
+    AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
 
   extraVolumeMounts:
     - name: airflow-plugins
@@ -23,21 +21,51 @@ airflow:
       enabled: false
     resources:
       requests:
-        memory: "512Mi"
-        cpu: "250m"
+        memory: 512Mi
+        cpu: 250m
       limits:
-        memory: "1Gi"
-        cpu: "500m"
+        memory: 1Gi
+        cpu: 500m
 
   scheduler:
     replicas: 1
     resources:
       requests:
-        cpu: "250m"
-        memory: "256Mi"
+        cpu: 250m
+        memory: 256Mi
       limits:
-        cpu: "500m"
-        memory: "512Mi"
+        cpu: 500m
+        memory: 512Mi
+
+  workers:
+    replicas: 1
+    persistence:
+      enabled: true
+      size: 500Mi
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: managed-csi
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 100m
+      limits:
+        memory: 256Mi
+        cpu: 200m
+
+  triggerer:
+    persistence:
+      enabled: true
+      size: 500Mi
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: managed-csi
+    livenessProbe:
+      enabled: false
+    readinessProbe:
+      enabled: false
+    startupProbe:
+      enabled: false
 
   dags:
     persistence:
@@ -53,37 +81,13 @@ airflow:
       size: 500Mi
       accessModes:
         - ReadWriteOnce
-      storageClassName: managed-csi  
-
-  workers:
-    replicas: 1
-    persistence:
-      enabled: true                  
-      size: 500Mi
-      accessModes:
-        - ReadWriteOnce
       storageClassName: managed-csi
-    resources:
-      requests:
-        memory: "128Mi"
-        cpu: "100m"
-      limits:
-        memory: "256Mi"
-        cpu: "200m"
-
-  triggerer:
-    persistence:
-      enabled: true
-      size: 500Mi                    
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: managed-csi
-    livenessProbe:
-      enabled: false
-    readinessProbe:
-      enabled: false
-    startupProbe:
-      enabled: false
 
   postgresql:
     enabled: false
+
+  createUserJob:
+    useHelmHooks: false
+
+  migrateDatabaseJob:
+    useHelmHooks: false

@@ -1,6 +1,7 @@
 image:
   repository: docker.getcollate.io/openmetadata/openmetadata
   tag: latest
+  pullPolicy: Never
 
 service:
   type: LoadBalancer
