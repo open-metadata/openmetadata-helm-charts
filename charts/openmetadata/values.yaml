@@ -1,99 +1,85 @@
-openmetadata:
-  image:
-    repository: openmetadata/openmetadata
-    tag: latest
-  service:
-    type: LoadBalancer
+# charts/openmetadata/values.yaml
+
+airflow:
+  enabled: true
+  executor: KubernetesExecutor
   config:
-    elasticsearch:
-      host: http://opensearch-cluster-master:9200
-      username: admin
-      password: DaapOpenSrhAdmn01$
-    database:
-      host: openmetadata-mysql
-      port: 3306
-      username: root
-      password: mysqlrootpass
-      database: openmetadata_db
-      scheme: mysql
+    AIRFLOW__KUBERNETES__NAMESPACE: daap-dev
+    AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
 
-  airflow:
-    enabled: true
-    executor: KubernetesExecutor
-    config:
-      AIRFLOW__KUBERNETES__NAMESPACE: daap-dev
-      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
-      AIRFLOW__LOGGING__LOGGING_LEVEL: "INFO"
-    metadataDatabase:
-      host: openmetadata-mysql
-      port: 3306
-      username: root
-      password: mysqlrootpass
-      database: openmetadata_db
-      scheme: mysql
-    service:
-      type: ClusterIP
-    workers:
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "1Gi"
-        limits:
-          cpu: "1000m"
-          memory: "2Gi"
-    scheduler:
-      resources:
-        requests:
-          cpu: "500m"
-          memory: "1Gi"
-        limits:
-          cpu: "1000m"
-          memory: "2Gi"
+  resources:
     web:
-      resources:
-        requests:
-          cpu: "300m"
-          memory: "512Mi"
-        limits:
-          cpu: "600m"
-          memory: "1Gi"
+      requests:
+        cpu: "300m"
+        memory: "512Mi"
+      limits:
+        cpu: "600m"
+        memory: "1Gi"
+    scheduler:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        cpu: "1000m"
+        memory: "2Gi"
     triggerer:
-      resources:
-        requests:
-          cpu: "200m"
-          memory: "256Mi"
-        limits:
-          cpu: "500m"
-          memory: "512Mi"
-    redis:
-      enabled: true
-      resources:
-        requests:
-          cpu: "100m"
-          memory: "256Mi"
-        limits:
-          cpu: "250m"
-          memory: "512Mi"
-    postgresql:
-      enabled: true
-      resources:
-        requests:
-          cpu: "250m"
-          memory: "512Mi"
-        limits:
-          cpu: "500m"
-          memory: "1Gi"
+      requests:
+        cpu: "200m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+    workers:
+      requests:
+        cpu: "500m"
+        memory: "1Gi"
+      limits:
+        cpu: "1000m"
+        memory: "2Gi"
 
-  mysql:
+  postgresql:
     enabled: true
-    image:
-      repository: bitnami/mysql
-      tag: 8.0
-    auth:
-      rootPassword: mysqlrootpass
-      database: openmetadata_db
-    primary:
-      persistence:
-        enabled: true
-        size: 1Gi
-        storageClass: managed-csi
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "512Mi"
+      limits:
+        cpu: "500m"
+        memory: "1Gi"
+
+  redis:
+    enabled: true
+    resources:
+      requests:
+        cpu: "100m"
+        memory: "256Mi"
+      limits:
+        cpu: "250m"
+        memory: "512Mi"
+
+elasticsearch:
+  host: http://opensearch-cluster-master:9200
+  type: opensearch
+
+database:
+  host: openmetadata-mysql
+  port: 3306
+  username: root
+  password: mysqlrootpass
+
+service:
+  type: LoadBalancer
+
+mysql:
+  enabled: true
+  auth:
+    rootPassword: mysqlrootpass
+    database: openmetadata_db
+  primary:
+    persistence:
+      enabled: true
+      size: 1Gi
+      storageClass: managed-csi
+  image:
+    repository: bitnami/mysql
+    tag: 8.0
