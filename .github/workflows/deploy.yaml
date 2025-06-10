@@ -40,9 +40,9 @@ jobs:
     - name: Add Helm Repositories
       run: |
         helm repo add apache-airflow https://airflow.apache.org 
-        helm repo update
         helm repo add opensearch https://opensearch-project.github.io/helm-charts 
         helm repo add open-metadata https://helm.open-metadata.org 
+        helm repo update
 
     - name: Deploy MySQL
       run: |
@@ -51,18 +51,12 @@ jobs:
 
     - name: Deploy OpenSearch
       run: |
-        helm upgrade --install opensearch opensearch/opensearch \
-          -f charts/openmetadata/values-opensearch.yaml \
-          --namespace $NAMESPACE --create-namespace --wait --timeout 10m
+        helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
         kubectl rollout status sts opensearch -n $NAMESPACE --timeout=180s || true
 
     - name: Deploy OpenMetadata (with Airflow)
       run: |
-        helm repo add open-metadata https://helm.open-metadata.org
-        helm repo update
-        helm upgrade --install openmetadata open-metadata/openmetadata \
-          -f charts/openmetadata/values.yaml \
-          --namespace $NAMESPACE --wait --timeout 10m
+        helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
 
     - name: Check OpenMetadata rollout
       run: |
