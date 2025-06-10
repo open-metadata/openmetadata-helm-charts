@@ -1,25 +1,39 @@
-openmetadata:
+image:
+  repository: docker.getcollate.io/openmetadata/openmetadata
+  tag: latest
+
+service:
+  type: LoadBalancer
+
+config:
+  database:
+    host: openmetadata-mysql
+    port: 3306
+    scheme: mysql
+    username: root
+    password: mysqlrootpass
+    database: openmetadata_db
+
+  elasticsearch:
+    host: http://opensearch-cluster-master:9200
+
+persistence:
+  enabled: true
+  size: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClass: managed-csi
+
+mysql:
+  enabled: true
+  auth:
+    rootPassword: mysqlrootpass
+    database: openmetadata_db
+  primary:
+    persistence:
+      enabled: true
+      size: 1Gi
+      storageClass: managed-csi
   image:
-    repository: docker.getcollate.io/openmetadata/openmetadata
-    tag: latest
-  service:
-    type: LoadBalancer
-
-  config:
-    elasticsearch:
-      host: http://opensearch-cluster-master:9200
-      type: opensearch
-    database:
-      host: openmetadata-mysql
-      port: 3306
-      username: root
-      password: mysqlrootpass
-      scheme: mysql
-      database: openmetadata_db
-
-  persistence:
-    enabled: true
-    accessModes:
-      - ReadWriteOnce
-    size: 1Gi
-    storageClass: managed-csi
+    repository: bitnami/mysql
+    tag: 8.0

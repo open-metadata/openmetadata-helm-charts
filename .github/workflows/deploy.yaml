@@ -52,7 +52,6 @@ jobs:
     - name: Deploy OpenSearch
       run: |
         helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
-        kubectl rollout status sts opensearch -n $NAMESPACE --timeout=180s || true
 
     - name: Deploy OpenMetadata (with Airflow)
       run: |
