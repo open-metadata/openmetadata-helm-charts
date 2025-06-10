@@ -1,40 +1,49 @@
-clusterName: opensearch
-nodeGroup: master
+clusterName: "opensearch-cluster"
 
-replicaCount: 1
-
-roles:
-  master: "true"
-  ingest: "true"
-  data: "true"
+service:
+  name: opensearch-cluster-master
+  type: ClusterIP  
+  port: 9200
 
 persistence:
-  enabled: true
+  enabled: true  
   size: 1Gi
-  storageClass: default
+  accessModes:
+    - ReadWriteOnce
+
+replicas: 1  
 
 resources:
   requests:
     cpu: "500m"
-    memory: "1Gi"
-  limits:
-    cpu: "1"
     memory: "2Gi"
+  limits:
+    memory: "4Gi"
 
-opensearchJavaOpts: "-Xms512m -Xmx512m"
+extraEnvs:
+  - name: OPENSEARCH_JAVA_OPTS
+    value: "-Xms512m -Xmx512m"
+  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+    value: "DaapOpenSrhAdmn01$"
+  # name: DISABLE_INSTALL_DEMO_CONFIG
+  #   value: "true"
+  # - name: DISABLE_SECURITY_PLUGIN
+  #   value: "true"
+  # - name: DISABLE_PERFORMANCE_ANALYZER_AGENT_CLI
+  #   value: "true"
+
+config:
+  opensearch.yml: |
+    plugins:
+      security:
+        disabled: false
+    network.host: 0.0.0.0
+    cluster.name: opensearch-cluster
 
 securityConfig:
   enabled: true
-  createSecret: true
-  secret:
-    name: opensearch-secret
-
-extraEnvs:
-  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    valueFrom:
-      secretKeyRef:
-        name: opensearch-secret
-        key: password
+  create: true
+  adminPassword: "DaapOpenSrhAdmn01$"  
 
 startupProbe:
   tcpSocket:
@@ -42,23 +51,3 @@ startupProbe:
   initialDelaySeconds: 30   
   periodSeconds: 10
   failureThreshold: 5
-
-config:
-  opensearch.yml: |
-    cluster.name: opensearch
-    network.host: 0.0.0.0
-    node.name: opensearch-single
-    discovery.type: single-node
-    plugins.security.disabled: false
-
----
-
-apiVersion: v1
-kind: Secret
-metadata:
-  name: opensearch-secret
-  namespace: daap-dev
-type: Opaque
-stringData:
-  username: admin
-  password: DaapOpenSrhAdmn01$

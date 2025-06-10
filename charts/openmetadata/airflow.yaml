@@ -1,6 +1,6 @@
 airflow:
   executor: KubernetesExecutor
-  
+
   extraEnv:
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
@@ -11,11 +11,10 @@ airflow:
     - name: airflow-plugins
       mountPath: /opt/airflow/plugins
 
-    # Webserver Configuration
   webserver:
     service:
-        type: LoadBalancer  
-        port: 8080
+      type: LoadBalancer
+      port: 8080
     livenessProbe:
       enabled: false
     readinessProbe:
@@ -30,7 +29,6 @@ airflow:
         memory: "1Gi"
         cpu: "500m"
 
-  # Scheduler Configuration
   scheduler:
     replicas: 1
     resources:
@@ -41,7 +39,6 @@ airflow:
         cpu: "500m"
         memory: "512Mi"
 
-  # Logs, DAGs, Worker, and Triggerer Persistence
   dags:
     persistence:
       enabled: true
@@ -56,10 +53,16 @@ airflow:
       size: 500Mi
       accessModes:
         - ReadWriteOnce
-      storageClassName: standard
+      storageClassName: managed-csi  
 
   workers:
     replicas: 1
+    persistence:
+      enabled: true                  
+      size: 500Mi
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: managed-csi
     resources:
       requests:
         memory: "128Mi"
@@ -71,7 +74,10 @@ airflow:
   triggerer:
     persistence:
       enabled: true
-      size: 1Gi
+      size: 500Mi                    
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: managed-csi
     livenessProbe:
       enabled: false
     readinessProbe:
@@ -79,6 +85,5 @@ airflow:
     startupProbe:
       enabled: false
 
-  # Database Configuration
   postgresql:
-    enabled: false  
+    enabled: false
