@@ -44,7 +44,7 @@ jobs:
 
     - name: Deploy OpenSearch
       run: |
-        helm upgrade --install opensearch bitnami/opensearch \
+        helm upgrade --install opensearch opensearch/opensearch \
           -f charts/openmetadata/values-opensearch.yaml \
           --namespace $NAMESPACE --create-namespace --wait --timeout 10m
         kubectl rollout status sts opensearch -n $NAMESPACE --timeout=180s || true
