@@ -49,8 +49,8 @@ spec:
               echo "Fixing permissions..."
               chown -R 1001:1001 /bitnami/mysql/data
           volumeMounts:
-            - name: mysql-data
-              mountPath: /bitnami/mysql
+            - name: mysql-pvc
+              mountPath: /bitnami/mysql/data
           securityContext:
             runAsUser: 0
       containers:
@@ -63,9 +63,6 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: mysql-root-password
-          volumeMounts:
-            - name: mysql-data
-              mountPath: /bitnami/mysql
           ports:
             - containerPort: 3306
           resources:
@@ -76,8 +73,8 @@ spec:
               cpu: "500m"
               memory: "1Gi"
           volumeMounts:
-            - name: mysql-persistent-storage
-              mountPath: /bitnami/mysql
+            - name: mysql-pvc
+              mountPath: /bitnami/mysql/data
           livenessProbe:
             exec:
               command: ["mysqladmin", "ping", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
@@ -90,7 +87,7 @@ spec:
             periodSeconds: 10
   volumeClaimTemplates:
     - metadata:
-        name: mysql-persistent-storage
+        name: mysql-pvc
       spec:
         accessModes: [ "ReadWriteOnce" ]
         storageClassName:  managed-csi
