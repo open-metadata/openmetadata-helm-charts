@@ -1,90 +1,69 @@
-name: Deploy OpenMetadata to AKS
+name: Deploy OpenMetadata Stack to AKS
 
 on:
   push:
     branches:
       - main
+    paths:
+      - "charts/openmetadata/**"
+      - ".github/workflows/deploy.yaml"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      AZURE_CLUSTER_NAME: aks-dev-data-service 
+      AZURE_RESOURCE_GROUP: aks-dev-data-service_group
+      AZURE_REGION: your-region
+      NAMESPACE: daap-dev
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Set AKS context
+      uses: azure/aks-set-context@v3
+      with:
+        resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
+        cluster-name: ${{ env.AZURE_CLUSTER_NAME }}
 
-      - name: Build and Push Docker Image
-        uses: docker/build-push-action@v4
-        with:
-          context: charts/openmetadata
-          file: charts/openmetadata/DockerAirflow
-          push: true
-          tags: ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow:custom
+    - name: Create Namespace (if not exists)
+      run: |
+        kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
 
-      - name: Azure Login
-        uses: azure/login@v2
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Deploy MySQL
+      run: |
+        kubectl apply -f charts/openmetadata/mysql.yaml -n $NAMESPACE
+        kubectl rollout status statefulset/mysql -n $NAMESPACE --timeout=180s
 
-      - name: Set up Kubectl Context
-        uses: azure/aks-set-context@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          resource-group: ${{ secrets.AKS_RESOURCE_GROUP }}
-          cluster-name: ${{ secrets.AKS_CLUSTER_NAME }}
+    - name: Deploy OpenSearch
+      run: |
+        helm upgrade --install opensearch bitnami/opensearch \
+          -f charts/openmetadata/values-opensearch.yaml \
+          --namespace $NAMESPACE --create-namespace --wait --timeout 10m
+        kubectl rollout status sts opensearch -n $NAMESPACE --timeout=180s || true
 
-      - name: Get AKS Credentials
-        run: |
-          az aks get-credentials --resource-group ${{ secrets.AKS_RESOURCE_GROUP }} --name ${{ secrets.AKS_CLUSTER_NAME }} --overwrite-existing
+    - name: Deploy OpenMetadata (with Airflow)
+      run: |
+        helm repo add open-metadata https://helm.open-metadata.org
+        helm repo update
+        helm upgrade --install openmetadata open-metadata/openmetadata \
+          -f charts/openmetadata/values.yaml \
+          --namespace $NAMESPACE --wait --timeout 10m
 
-      - name: Install Helm
-        uses: azure/setup-helm@v3
+    - name: Check OpenMetadata rollout
+      run: |
+        kubectl rollout status deployment/openmetadata -n $NAMESPACE --timeout=180s
 
-      - name: Add Helm Repositories
-        run: |
-          helm repo add open-metadata https://helm.open-metadata.org 
-          helm repo add opensearch https://opensearch-project.github.io/helm-charts 
-          helm repo add apache-airflow https://airflow.apache.org 
-          helm repo update
-
-      - name: Deploy OpenSearch
-        run: |
-          helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
-          kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
-          kubectl apply -f $(pwd)/charts/openmetadata/mysql.yaml -n daap-dev
-
-      - name: Deploy OpenMetadata
-        run: |
-          helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
-      
-      - name: Deploy Airflow
-        run: |
-          helm upgrade --install airflow apache-airflow/airflow \
-            --version 1.10.0 \
-            --namespace daap-dev \
-            --set "webserver.service.type=LoadBalancer" \
-            --set "images.airflow.repository=ghcr.io/aniljith74/openmetadata-helm-chart-poc/airflow" \
-            --set "images.airflow.tag=custom" \
-            --set "images.airflow.pullPolicy=Always" \
-            --set "workers.persistence.enabled=true" \
-            --set "workers.persistence.size=1Gi" \
-            --set "triggerer.persistence.enabled=true" \
-            --set "triggerer.persistence.size=1Gi" \
-            -f $(pwd)/charts/openmetadata/airflow-config.yaml \
-            --timeout 10m0s
-
-          kubectl set env deployment/airflow-webserver -n daap-dev \
-            AIRFLOW__OPENMETADATA__HOST="http://135.222.170.7:8585" \
-            AIRFLOW__OPENMETADATA__API_VERSION="v1" \
-            AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth" \
-
+    - name: Show Pods & Services for Debugging
+      if: failure()
+      run: |
+        kubectl get pods -n $NAMESPACE -o wide
+        kubectl describe pods -n $NAMESPACE
+        kubectl get svc -n $NAMESPACE

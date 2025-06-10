@@ -1,70 +1,82 @@
-apiVersion: apps/v1
-kind: StatefulSet
+apiVersion: v1
+kind: Namespace
 metadata:
-  name: mysql
-spec:
-  serviceName: mysql
-  replicas: 1
-  selector:
-    matchLabels:
-      app: mysql
-  template:
-    metadata:
-      labels:
-        app: mysql
-    spec:
-      initContainers:
-        - name: volume-permissions
-          image: busybox
-          command:
-            - sh
-            - -c
-            - |
-              echo "Fixing permissions..."
-              chown -R 1001:1001 /bitnami/mysql/data
-          volumeMounts:
-            - name: mysql-data
-              mountPath: /bitnami/mysql/data
-          securityContext:
-            runAsUser: 0
-      containers:
-        - name: mysql
-          image: bitnami/mysql:9.3.0
-          env:
-            - name: MYSQL_ROOT_PASSWORD
-              value: root123
-            - name: MYSQL_DATABASE
-              value: openmetadata_db
-            - name: MYSQL_USER
-              value: openmetadata_user
-            - name: MYSQL_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: mysql-secrets
-                  key: openmetadata-mysql-password
-          ports:
-            - containerPort: 3306
-          volumeMounts:
-            - name: mysql-data
-              mountPath: /bitnami/mysql/data
-  volumeClaimTemplates:
-    - metadata:
-        name: mysql-data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        storageClassName:  managed-csi
-        resources:
-          requests:
-            storage: 1Gi
+  name: daap-dev
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-secret
+  namespace: daap-dev
+type: Opaque
+data:
+  mysql-root-password: bXlzcWxyb290cGFzcw==  # base64 of 'mysqlrootpass'
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mysql
+  namespace: daap-dev
 spec:
   ports:
     - port: 3306
-      targetPort: 3306
   selector:
     app: mysql
-  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: daap-dev
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: bitnami/mysql:8.0
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: mysql-root-password
+          ports:
+            - containerPort: 3306
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /bitnami/mysql
+          livenessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command: ["mysqladmin", "ping", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+            initialDelaySeconds: 20
+            periodSeconds: 10
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-persistent-storage
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName:  managed-csi
+        resources:
+          requests:
+            storage: 1Gi
