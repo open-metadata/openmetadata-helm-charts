@@ -41,7 +41,7 @@ jobs:
         docker push daappoc25.azurecr.io/airflow:custom    
       
 
-    - name: Create Namespace (if not exists)
+    - name: Create Namespace /optional
       run: |
         kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
     
