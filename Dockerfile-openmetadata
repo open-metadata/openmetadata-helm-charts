@@ -1,7 +1,3 @@
 FROM openmetadata/server:1.7.1
 
-# Optional: Set the working directory to /app where the bootstrap script resides
-WORKDIR /app
-
-# Run both scripts with shell logic
-CMD ./bootstrap/bootstrap_storage.sh && ./docker/run.sh
+CMD ["./docker/run.sh"]
