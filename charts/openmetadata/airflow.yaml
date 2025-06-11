@@ -11,6 +11,10 @@ airflow:
     AIRFLOW__OPENMETADATA__API_VERSION: "v1"
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
 
+  env:
+  - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+    value: mysql+mysqlconnector://openmetadata_user:openmetadata123@mysql.daap-dev.svc.cluster.local:3306/openmetadata_db
+
   extraVolumeMounts:
     - name: airflow-plugins
       mountPath: /opt/airflow/plugins
@@ -24,7 +28,12 @@ airflow:
     readinessProbe:
       enabled: false
     startupProbe:
-      enabled: false
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      failureThreshold: 10
     resources:
       requests:
         memory: 512Mi
@@ -61,7 +70,7 @@ airflow:
 
   triggerer:
     persistence:
-      enabled: true
+      enabled: false
       size: 500Mi
       accessModes:
         - ReadWriteOnce
@@ -75,7 +84,7 @@ airflow:
 
   dags:
     persistence:
-      enabled: true
+      enabled: false
       size: 500Mi
       accessModes:
         - ReadWriteOnce
