@@ -1,30 +1,35 @@
 clusterName: "opensearch-cluster"
 
+image:
+  repository: opensearchproject/opensearch
+  tag: "2.12.0"  
+  pullPolicy: IfNotPresent
+
+replicas: 1
+
 service:
   name: opensearch-cluster-master
-  type: ClusterIP  
+  type: ClusterIP
   port: 9200
 
 persistence:
-  enabled: true  
+  enabled: true
   size: 1Gi
   accessModes:
     - ReadWriteOnce
-
-replicas: 1  
+  storageClass: managed-csi  
 
 resources:
   requests:
     cpu: "500m"
     memory: "2Gi"
   limits:
+    cpu: "1"
     memory: "4Gi"
 
 extraEnvs:
   - name: OPENSEARCH_JAVA_OPTS
     value: "-Xms512m -Xmx512m"
-  - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-    value: "DaapOpenSrhAdmn01$"
   - name: DISABLE_INSTALL_DEMO_CONFIG
     value: "true"
   - name: DISABLE_SECURITY_PLUGIN
@@ -34,21 +39,15 @@ extraEnvs:
 
 config:
   opensearch.yml: |
-    plugins:
-      security:
-        disabled: false
+    cluster.name: "opensearch-cluster"
     network.host: 0.0.0.0
-    cluster.name: opensearch-cluster
-
-securityConfig:
-  enabled: true
-  create: true
-  adminPassword: "DaapOpenSrhAdmn01$"  
+    discovery.type: single-node
+    plugins.security.disabled: true
 
 startupProbe:
   tcpSocket:
     port: 9200
-  initialDelaySeconds: 30   
+  initialDelaySeconds: 30
   periodSeconds: 10
   failureThreshold: 5
 

@@ -1,0 +1,10 @@
+FROM openmetadata/openmetadata:latest
+
+# Add any custom configuration or plugins here if needed
+# COPY custom-config.yaml /app/conf/
+
+# Example: Install extra Python packages if needed
+# RUN pip install some-package
+
+# Default CMD
+CMD ["./bootstrap/bootstrap_storage.sh", "&&", "./docker/run.sh"]

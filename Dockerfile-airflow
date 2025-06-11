@@ -1,0 +1,13 @@
+FROM apache/airflow:2.10.5
+
+# Optional: install providers or custom plugins
+# COPY ./dags /opt/airflow/dags
+# COPY ./plugins /opt/airflow/plugins
+
+# Example: Install additional Python packages
+# RUN pip install snowflake-connector-python
+
+# Set appropriate Airflow user permissions
+USER root
+RUN chown -R airflow: /opt/airflow
+USER airflow

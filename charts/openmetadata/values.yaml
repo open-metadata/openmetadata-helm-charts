@@ -1,7 +1,7 @@
 image:
-  repository: docker.getcollate.io/openmetadata/openmetadata
-  tag: latest
-  pullPolicy: Always
+  repository: daappoc25.azurecr.io/openmetadata
+  tag: custom
+  pullPolicy: IfNotPresent
 
 service:
   type: LoadBalancer
