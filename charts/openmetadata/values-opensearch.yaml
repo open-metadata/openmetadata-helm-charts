@@ -25,12 +25,12 @@ extraEnvs:
     value: "-Xms512m -Xmx512m"
   - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
     value: "DaapOpenSrhAdmn01$"
-  # name: DISABLE_INSTALL_DEMO_CONFIG
-  #   value: "true"
-  # - name: DISABLE_SECURITY_PLUGIN
-  #   value: "true"
-  # - name: DISABLE_PERFORMANCE_ANALYZER_AGENT_CLI
-  #   value: "true"
+  - name: DISABLE_INSTALL_DEMO_CONFIG
+    value: "true"
+  - name: DISABLE_SECURITY_PLUGIN
+    value: "true"
+  - name: DISABLE_PERFORMANCE_ANALYZER_AGENT_CLI
+    value: "true"
 
 config:
   opensearch.yml: |

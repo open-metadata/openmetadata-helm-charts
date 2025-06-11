@@ -8,7 +8,7 @@ service:
 
 config:
   database:
-    host: openmetadata-mysql
+    host: mysql.daap-dev.svc.cluster.local
     port: 3306
     scheme: mysql
     username: root
@@ -16,7 +16,7 @@ config:
     database: openmetadata_db
 
   elasticsearch:
-    host: http://opensearch.daap-dev.svc.cluster.local:9200
+    host: opensearch-cluster-master.daap-dev.svc.cluster.local
     type: opensearch
     username: admin
     password: DaapOpenSrhAdmn01$
