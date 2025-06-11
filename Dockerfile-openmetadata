@@ -1,5 +1,4 @@
-FROM openmetadata/openmetadata:latest
-
+FROM openmetadata/server:1.7.1
 # Add any custom configuration or plugins here if needed
 # COPY custom-config.yaml /app/conf/
 
