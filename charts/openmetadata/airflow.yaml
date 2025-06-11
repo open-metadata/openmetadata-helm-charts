@@ -1,10 +1,10 @@
 executor: KubernetesExecutor
+
 images:
   airflow:
     repository: daappoc25.azurecr.io/airflow
     tag: custom
     pullPolicy: IfNotPresent
-
 
 airflow:
   config:
@@ -13,7 +13,7 @@ airflow:
 
   env:
   - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
-    value: mysql+mysqlconnector://openmetadata_user:openmetadata123@mysql.daap-dev.svc.cluster.local:3306/openmetadata_db
+    value: postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db
 
   extraVolumeMounts:
     - name: airflow-plugins
@@ -105,4 +105,20 @@ airflow:
     useHelmHooks: false
 
 postgresql:
-  enabled: false
+  enabled: true
+  auth:
+    username: airflow_user
+    password: airflow_password
+    database: airflow_db
+  primary:
+    persistence:
+      enabled: true
+      size: 2Gi
+      storageClass: managed-csi
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 250m
+      limits:
+        memory: 512Mi
+        cpu: 500m

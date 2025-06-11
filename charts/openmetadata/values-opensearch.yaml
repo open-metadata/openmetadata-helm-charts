@@ -42,8 +42,10 @@ config:
     cluster.name: "opensearch-cluster"
     network.host: 0.0.0.0
     discovery.type: single-node
+    cluster.initial_master_nodes: []  
     plugins.security.disabled: true
     node.roles: [cluster_manager, data, ingest]
+
 
 startupProbe:
   tcpSocket:

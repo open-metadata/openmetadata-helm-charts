@@ -71,7 +71,10 @@ jobs:
     - name: Deploy OpenMetadata (with Airflow)
       run: |
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
-        helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/airflow.yaml
+        helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
+        --set airflow.workers.persistence.enabled=false \
+        --set airflow.triggerer.persistence.enabled=false \
+        -f $(pwd)/charts/openmetadata/airflow.yaml
 
 
     - name: Show Pods & Services for Debugging
