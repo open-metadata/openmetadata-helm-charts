@@ -33,6 +33,13 @@ jobs:
         resource-group: ${{ env.AZURE_RESOURCE_GROUP }}
         cluster-name: ${{ env.AZURE_CLUSTER_NAME }}
 
+    - name: Log in to ACR
+      uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+        login-server: daappoc25.azurecr.io
+
     - name: Build and push docker
       run:  |
         docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
