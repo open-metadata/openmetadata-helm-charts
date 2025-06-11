@@ -44,6 +44,7 @@ config:
     discovery.type: single-node
     node.name: "single-node"
     plugins.security.disabled: true
+    cluster.initial_master_nodes: []
 
 startupProbe:
   tcpSocket:

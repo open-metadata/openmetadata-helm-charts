@@ -15,12 +15,11 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mysql-app-secret
+  name: mysql-secrets
   namespace: daap-dev
 type: Opaque
-data:
-  mysql-user: b3Blbm1ldGFkYXRhX3VzZXI=         # base64 of 'openmetadata_user'
-  mysql-password: b3Blbm1ldGFkYXRhMTIz        # base64 of 'openmetadata123'
+data:     
+  openmetadata-mysql-password: b3Blbm1ldGFkYXRhMTIz        # base64 of 'openmetadata123'
 ---
 apiVersion: v1
 kind: ConfigMap

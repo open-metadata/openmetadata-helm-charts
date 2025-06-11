@@ -10,10 +10,16 @@ config:
   database:
     host: mysql.daap-dev.svc.cluster.local
     port: 3306
-    scheme: mysql
-    username: root
-    password: mysqlrootpass
-    database: openmetadata_db
+    enabled: true
+    driverClass: com.mysql.cj.jdbc.Driver
+    dbScheme: mysql
+    databaseName: openmetadata_db
+    auth:
+      username: openmetadata_user
+      password:
+        secretRef: mysql-secrets
+        secretKey: openmetadata-mysql-password
+    dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
 
   elasticsearch:
     host: opensearch-cluster-master.daap-dev.svc.cluster.local
@@ -29,18 +35,18 @@ persistence:
     - ReadWriteOnce
   storageClass: managed-csi
 
-mysql:
-  enabled: true
-  auth:
-    rootPassword: mysqlrootpass
-    database: openmetadata_db
-    username: openmetadata_user
-    password: openmetadata123 
-  primary:
-    persistence:
-      enabled: true
-      size: 1Gi
-      storageClass: managed-csi
-  image:
-    repository: bitnami/mysql
-    tag: 8.0
+# mysql:
+#   enabled: true
+#   auth:
+#     rootPassword: mysqlrootpass
+#     database: openmetadata_db
+#     username: openmetadata_user
+#     password: openmetadata123 
+#   primary:
+#     persistence:
+#       enabled: true
+#       size: 1Gi
+#       storageClass: managed-csi
+#   image:
+#     repository: bitnami/mysql
+#     tag: 8.0
