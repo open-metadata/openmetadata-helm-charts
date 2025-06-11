@@ -1,9 +1,7 @@
 FROM openmetadata/server:1.7.1
-# Add any custom configuration or plugins here if needed
-# COPY custom-config.yaml /app/conf/
 
-# Example: Install extra Python packages if needed
-# RUN pip install some-package
+# Optional: Set the working directory to /app where the bootstrap script resides
+WORKDIR /app
 
-# Default CMD
-CMD ["./bootstrap/bootstrap_storage.sh", "&&", "./docker/run.sh"]
+# Run both scripts with shell logic
+CMD ./bootstrap/bootstrap_storage.sh && ./docker/run.sh

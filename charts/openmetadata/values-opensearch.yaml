@@ -2,7 +2,7 @@ clusterName: "opensearch-cluster"
 
 image:
   repository: opensearchproject/opensearch
-  tag: "2.12.0"  
+  tag: "2.12.0"
   pullPolicy: IfNotPresent
 
 replicas: 1
@@ -14,10 +14,10 @@ service:
 
 persistence:
   enabled: true
-  size: 1Gi
+  size: 5Gi
   accessModes:
     - ReadWriteOnce
-  storageClass: managed-csi  
+  storageClass: managed-csi
 
 resources:
   requests:
@@ -42,14 +42,27 @@ config:
     cluster.name: "opensearch-cluster"
     network.host: 0.0.0.0
     discovery.type: single-node
-    node.name: "single-node"
     plugins.security.disabled: true
-    cluster.initial_master_nodes: []
+    node.roles: [cluster_manager, data, ingest]
 
 startupProbe:
   tcpSocket:
     port: 9200
   initialDelaySeconds: 30
+  periodSeconds: 10
+  failureThreshold: 5
+
+readinessProbe:
+  tcpSocket:
+    port: 9200
+  initialDelaySeconds: 60
+  periodSeconds: 10
+  failureThreshold: 5
+
+livenessProbe:
+  tcpSocket:
+    port: 9200
+  initialDelaySeconds: 60
   periodSeconds: 10
   failureThreshold: 5
 

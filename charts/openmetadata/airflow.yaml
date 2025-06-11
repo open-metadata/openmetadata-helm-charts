@@ -106,11 +106,3 @@ airflow:
 
 postgresql:
   enabled: false
-
-
-data:
-  persistence:
-    enabled: true
-    size: 500Mi
-    accessMode: ReadWriteOnce
-    storageClassName: managed-csi
