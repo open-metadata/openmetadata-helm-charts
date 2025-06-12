@@ -5,7 +5,7 @@ USER root
 RUN mkdir -p /app/custom-bootstrap
 
 
-COPY custom-bootstrap/bootstrap_storage.sh /app/custom-bootstrap/bootstrap_storage.sh
+COPY custom-bootstrap /app/custom-bootstrap/bootstrap_storage.sh
 RUN chmod +x /app/custom-bootstrap/bootstrap_storage.sh
 
 

@@ -1,15 +1,24 @@
 FROM apache/airflow:2.10.5-python3.11
 
-RUN mkdir -p /opt/airflow/dag_generated_configs/
+# Optional: Set environment variable to avoid prompts during uninstall
+ENV AIRFLOW_HOME=/opt/airflow
+
+# Clean uninstall to avoid version clashes
 RUN pip uninstall -y apache-airflow-providers-openlineage
 
+# Reinstall required packages
 RUN pip install --no-cache-dir \
+    "apache-airflow==2.10.5" \
     "apache-airflow-providers-openlineage>=1.8.0" \
+    "apache-airflow-providers-fab" \
     "openmetadata-ingestion[airflow]==1.6.6" \
     "openmetadata-managed-apis==1.6.6" \
-    "pyarrow<10.1.0,>=10.0.1" \
-    "apache-airflow[webserver]==2.10.5"
+    "pyarrow<10.1.0,>=10.0.1"
+
+# Create required directory
+RUN mkdir -p /opt/airflow/dag_generated_configs/
 
 EXPOSE 8080
 
+# Start Airflow webserver by default
 CMD ["airflow", "webserver", "--port", "8080", "--host", "0.0.0.0"]
