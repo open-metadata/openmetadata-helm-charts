@@ -82,7 +82,9 @@ jobs:
         --set postgresql.enabled=true \
         --set airflow.workers.persistence.enabled=false \
         --set airflow.triggerer.persistence.enabled=false \
-        -f $(pwd)/charts/openmetadata/airflow.yaml  --reset-values
+        --set airflow.createUserJob.useHelmHooks=true \
+        --set airflow.migrateDatabaseJob.useHelmHooks=true \
+        -f $(pwd)/charts/openmetadata/airflow.yaml \
 
 
     - name: Show Pods & Services for Debugging

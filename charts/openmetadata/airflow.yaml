@@ -2,9 +2,6 @@ executor: KubernetesExecutor
 
 images:
   airflow:
-    # repository: daappoc25.azurecr.io/airflow
-    # tag: custom
-    # pullPolicy: IfNotPresent
     repository: apache/airflow
     tag: 2.10.5-python3.11
     pullPolicy: IfNotPresent
@@ -15,14 +12,14 @@ airflow:
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
 
   env:
-  - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
-    value: postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db
-  - name: AIRFLOW__OPENMETADATA__HOST
-    value: "http://128.85.217.88:8585"
-  - name: AIRFLOW__OPENMETADATA__API_VERSION
-    value: "v1"
-  - name: AIRFLOW__API__AUTH_BACKENDS
-    value: "airflow.api.auth.backend.basic_auth"
+    - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+      value: postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db
+    - name: AIRFLOW__OPENMETADATA__HOST
+      value: "http://128.85.217.88:8585"
+    - name: AIRFLOW__OPENMETADATA__API_VERSION
+      value: "v1"
+    - name: AIRFLOW__API__AUTH_BACKENDS
+      value: "airflow.api.auth.backend.basic_auth"
 
   extraVolumeMounts:
     - name: airflow-plugins
@@ -33,11 +30,26 @@ airflow:
       type: LoadBalancer
       port: 8080
     livenessProbe:
-      enabled: false
+      enabled: true
+      initialDelaySeconds: 30
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
     readinessProbe:
-      enabled: false
+      enabled: true
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
     startupProbe:
-      enabled: false
+      enabled: true
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 30
     resources:
       requests:
         memory: 1Gi
@@ -48,13 +60,38 @@ airflow:
 
   scheduler:
     replicas: 1
+    livenessProbe:
+      enabled: true
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 6
+    readinessProbe:
+      enabled: true
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+    startupProbe:
+      enabled: true
+      exec:
+        command:
+          - sh
+          - -c
+          - |
+            CONNECTION_CHECK_MAX_COUNT=0 AIRFLOW__LOGGING__LOGGING_LEVEL=ERROR exec /entrypoint \
+            airflow jobs check --job-type SchedulerJob --local
+      initialDelaySeconds: 60
+      periodSeconds: 10
+      timeoutSeconds: 10
+      failureThreshold: 30
     resources:
       requests:
-        cpu: 250m
-        memory: 256Mi
-      limits:
         cpu: 500m
         memory: 512Mi
+      limits:
+        cpu: 1
+        memory: 1Gi
 
   workers:
     replicas: 1
@@ -103,10 +140,10 @@ airflow:
       storageClassName: managed-csi
 
   createUserJob:
-    useHelmHooks: false
+    useHelmHooks: true
 
   migrateDatabaseJob:
-    useHelmHooks: false
+    useHelmHooks: true
 
 postgresql:
   enabled: true
