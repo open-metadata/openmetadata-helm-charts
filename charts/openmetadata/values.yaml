@@ -1,14 +1,13 @@
 image:
-  repository: daappoc25.azurecr.io/openmetadata
-  tag: custom
+  repository: openmetadata/server
+  tag: 1.7.1
   pullPolicy: IfNotPresent
 
-initContainers:
-  - name: bootstrap-init
-    image: daappoc25.azurecr.io/openmetadata:custom
-    command: ["/bin/bash", "-c"]
-    args: ["/app/custom-bootstrap/bootstrap_storage.sh"]
-
+# initContainers:
+#   - name: bootstrap-init
+#     image: openmetadata/server:1.7.1
+#     command: ["/bin/bash", "-c"]
+#     args: ["/app/custom-bootstrap/bootstrap_storage.sh"]
 
 service:
   type: LoadBalancer
