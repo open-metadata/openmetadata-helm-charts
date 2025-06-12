@@ -13,3 +13,5 @@ RUN pip install --no-cache-dir \
 
 # Expose Airflow's webserver port
 EXPOSE 8080
+
+CMD ["airflow", "webserver", "--port", "8080", "--host", "0.0.0.0"]

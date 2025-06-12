@@ -4,8 +4,9 @@ FROM openmetadata/server:1.7.1
 USER root
 RUN mkdir -p /app/custom-bootstrap
 
-# Copy your script there
+
 COPY scripts/bootstrap_storage.sh /app/custom-bootstrap/bootstrap_storage.sh
 RUN chmod +x /app/custom-bootstrap/bootstrap_storage.sh
+
 
 USER 1000  # Go back to non-root if needed 
