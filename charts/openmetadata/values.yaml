@@ -28,8 +28,8 @@ config:
     dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
 
   elasticsearch:
-    host: opensearch-cluster-master.daap-dev.svc.cluster.local
-    type: opensearch
+    host: opensearch-cluster-master
+    port: 9200
     username: admin
     password: DaapOpenSrhAdmn01$
 
