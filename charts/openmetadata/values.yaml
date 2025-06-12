@@ -1,7 +1,7 @@
 startupProbe:
   httpGet:
     path: /healthcheck
-    port: 8585
+    port: "8585"
   initialDelaySeconds: 60
   periodSeconds: 10
   timeoutSeconds: 5
