@@ -3,6 +3,10 @@ image:
   tag: custom
   pullPolicy: IfNotPresent
 
+openmetadata:
+  command: ["/bin/bash", "-c"]
+  args: ["/app/bootstrap/bootstrap_storage.sh && /usr/bin/tini -g -- /docker-entrypoint.sh"]
+
 service:
   type: LoadBalancer
 
@@ -35,18 +39,3 @@ persistence:
     - ReadWriteOnce
   storageClass: managed-csi
 
-# mysql:
-#   enabled: true
-#   auth:
-#     rootPassword: mysqlrootpass
-#     database: openmetadata_db
-#     username: openmetadata_user
-#     password: openmetadata123 
-#   primary:
-#     persistence:
-#       enabled: true
-#       size: 1Gi
-#       storageClass: managed-csi
-#   image:
-#     repository: bitnami/mysql
-#     tag: 8.0
