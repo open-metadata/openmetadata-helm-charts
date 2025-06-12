@@ -5,8 +5,9 @@ USER root
 RUN mkdir -p /app/custom-bootstrap
 
 
-COPY scripts/bootstrap_storage.sh /app/custom-bootstrap/bootstrap_storage.sh
+COPY custom-bootstrap/bootstrap_storage.sh /app/custom-bootstrap/bootstrap_storage.sh
 RUN chmod +x /app/custom-bootstrap/bootstrap_storage.sh
+
 
 
 USER 1000  # Go back to non-root if needed 
