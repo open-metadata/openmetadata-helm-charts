@@ -1,1 +1,5 @@
 FROM openmetadata/server:1.7.1
+
+WORKDIR /app
+
+CMD ["./docker/run.sh"]

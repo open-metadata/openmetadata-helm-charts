@@ -67,6 +67,14 @@ jobs:
     - name: Deploy OpenSearch
       run: |
         helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
+    
+    - name: Run Airflow DB Migration
+      run: |
+        kubectl run airflow-migrate -n daap-dev \
+        --image=daappoc25.azurecr.io/airflow:custom \
+        --env="AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db" \
+        -- /bin/bash -c "airflow db upgrade"
+
 
     - name: Deploy OpenMetadata (with Airflow)
       run: |

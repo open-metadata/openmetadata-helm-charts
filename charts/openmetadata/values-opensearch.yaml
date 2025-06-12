@@ -41,7 +41,6 @@ config:
   opensearch.yml: |
     cluster.name: "opensearch-cluster"
     network.host: 0.0.0.0
-    discovery.type: single-node
     plugins.security.disabled: true
     node.roles: [cluster_manager, data, ingest]
 
