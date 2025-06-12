@@ -5,7 +5,10 @@ USER root
 RUN mkdir -p /app/custom-bootstrap
 
 
-COPY custom-bootstrap /app/custom-bootstrap/bootstrap_storage.sh
+# Copy the WHOLE folder (safe and avoids filename mismatches)
+COPY custom-bootstrap/ /app/custom-bootstrap/
+
+# Make your script executable
 RUN chmod +x /app/custom-bootstrap/bootstrap_storage.sh
 
 

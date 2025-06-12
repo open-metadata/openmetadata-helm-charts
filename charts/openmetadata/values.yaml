@@ -3,7 +3,7 @@ image:
   tag: custom
   pullPolicy: IfNotPresent
 
-extraInitContainers:
+initContainers:
   - name: bootstrap-init
     image: daappoc25.azurecr.io/openmetadata:custom
     command: ["/bin/bash", "-c"]
