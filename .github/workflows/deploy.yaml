@@ -45,9 +45,9 @@ jobs:
     - name: Build and push docker
       run:  |
         #docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
-        docker build -t daappoc25.azurecr.io/airflow:custom -f Dockerfile-airflow .
+        #docker build -t daappoc25.azurecr.io/airflow:custom -f Dockerfile-airflow .
         #docker push daappoc25.azurecr.io/openmetadata:custom
-        docker push daappoc25.azurecr.io/airflow:custom    
+        #docker push daappoc25.azurecr.io/airflow:custom    
       
 
     - name: Create Namespace /optional
@@ -76,9 +76,10 @@ jobs:
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
         --set webserver.service.type=LoadBalancer \
-        --set images.airflow.repository=daappoc25.azurecr.io/airflow \
+        --set images.airflow.repository=apache/airflow \
+        --set images.airflow.tag=2.10.5-python3.11 \
         --set airflow.config.AIRFLOW__DATABASE__SQL_ALCHEMY_CONN="postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db" \
-        --set images.airflow.tag=custom \
+        --set images.airflow.tag=2.10.5-python3.11 \
         --set postgresql.enabled=true \
         --set airflow.workers.persistence.enabled=false \
         --set airflow.triggerer.persistence.enabled=false \

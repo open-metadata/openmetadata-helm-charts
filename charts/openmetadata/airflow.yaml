@@ -2,8 +2,11 @@ executor: KubernetesExecutor
 
 images:
   airflow:
-    repository: daappoc25.azurecr.io/airflow
-    tag: custom
+    # repository: daappoc25.azurecr.io/airflow
+    # tag: custom
+    # pullPolicy: IfNotPresent
+    repository: apache/airflow
+    tag: 2.10.5-python3.11
     pullPolicy: IfNotPresent
 
 airflow:
