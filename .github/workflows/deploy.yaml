@@ -79,10 +79,8 @@ jobs:
         --set images.airflow.repository=apache/airflow \
         --set images.airflow.tag=2.10.5-python3.11 \
         --set airflow.config.AIRFLOW__DATABASE__SQL_ALCHEMY_CONN="postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db" \
-        --set images.airflow.tag=2.10.5-python3.11 \
         --set postgresql.enabled=true \
         --set airflow.workers.persistence.enabled=false \
-        --set airflow.triggerer.persistence.enabled=false \
         --set airflow.triggerer.persistence.enabled=false \
         -f $(pwd)/charts/openmetadata/airflow.yaml  --reset-values
 

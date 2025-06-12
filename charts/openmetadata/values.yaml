@@ -29,7 +29,7 @@ config:
 
   elasticsearch:
     enabled: true
-    host: opensearch-cluster-master
+    host: opensearch-cluster-master.daap-dev.svc.cluster.local
     searchType: opensearch
     port: 9200
     scheme: http

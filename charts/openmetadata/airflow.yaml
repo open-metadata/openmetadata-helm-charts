@@ -18,7 +18,7 @@ airflow:
   - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
     value: postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db
   - name: AIRFLOW__OPENMETADATA__HOST
-    value: "http://4.153.211.247:8585"
+    value: "http://128.85.217.88:8585"
   - name: AIRFLOW__OPENMETADATA__API_VERSION
     value: "v1"
   - name: AIRFLOW__API__AUTH_BACKENDS
