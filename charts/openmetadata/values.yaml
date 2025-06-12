@@ -29,7 +29,7 @@ config:
 
   elasticsearch:
     enabled: true
-    host: opensearch-cluster-master.daap-dev.svc.cluster.local
+    host: opensearch-cluster-master
     searchType: opensearch
     port: 9200
     scheme: http
@@ -39,36 +39,36 @@ config:
       password:
         secretRef: "elasticsearch-truststore-secrets"
         secretKey: "openmetadata-elasticsearch-truststore-password"
-      auth:
-        enabled: true
-        username: "admin"
-        password:
-          secretRef: elasticsearch-secrets
-          secretKey: openmetadata-elasticsearch-password
+    auth:
+      enabled: true
+      username: "admin"
+      password:
+        secretRef: elasticsearch-secrets
+        secretKey: openmetadata-elasticsearch-password
 
   pipelineServiceClientConfig:
-  enabled: true
-  className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-  apiEndpoint: http://airflow-webserver:8080
-  #apiEndpoint: http://airflow-webserver.daap-dev.svc.cluster.local:8080
-  # this will be the api endpoint url of OpenMetadata Server
-  metadataApiEndpoint: http://openmetadata:8585/api
-  # possible values are "no-ssl", "ignore", "validate"
-  verifySsl: "no-ssl"
-  hostIp: ""
-  ingestionIpInfoEnabled: false
-  # healthCheckInterval in seconds
-  healthCheckInterval: 300
-  # local path in Airflow Pod
-  sslCertificatePath: "/no/path"
-  auth:
     enabled: true
-    username: admin
-    password:
+    className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+    apiEndpoint: http://132.196.174.193:8080
+    #apiEndpoint: http://airflow-webserver.daap-dev.svc.cluster.local:8080
+    # this will be the api endpoint url of OpenMetadata Server
+    metadataApiEndpoint: http://openmetadata:8585/api
+    # possible values are "no-ssl", "ignore", "validate"
+    verifySsl: "no-ssl"
+    hostIp: ""
+    ingestionIpInfoEnabled: false
+    # healthCheckInterval in seconds
+    healthCheckInterval: 300
+    # local path in Airflow Pod
+    sslCertificatePath: "/no/path"
+    auth:
+      enabled: true
+      username: admin
+      password:
           secretRef: airflow-secrets
           secretKey: openmetadata-airflow-password
-    trustStorePath: ""
-    trustStorePassword:
+      trustStorePath: ""
+      trustStorePassword:
           secretRef: ""
           secretKey: ""
 

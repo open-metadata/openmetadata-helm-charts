@@ -33,17 +33,11 @@ airflow:
       type: LoadBalancer
       port: 8080
     livenessProbe:
-      initialDelaySeconds: 120
-      periodSeconds: 20
+      enabled: false
     readinessProbe:
       enabled: false
     startupProbe:
-      httpGet:
-        path: /health
-        port: 8080
-      initialDelaySeconds: 90
-      periodSeconds: 15
-      failureThreshold: 10
+      enabled: false
     resources:
       requests:
         memory: 1Gi
