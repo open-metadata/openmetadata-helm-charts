@@ -28,10 +28,23 @@ config:
     dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
 
   elasticsearch:
-    host: opensearch-cluster-master
+    enabled: true
+    host: opensearch-cluster-master.daap-dev.svc.cluster.local
+    searchType: opensearch
     port: 9200
-    username: admin
-    password: DaapOpenSrhAdmn01$
+    scheme: http
+    trustStore:
+      enabled: false
+      path: ""
+      password:
+        secretRef: "elasticsearch-truststore-secrets"
+        secretKey: "openmetadata-elasticsearch-truststore-password"
+      auth:
+        enabled: true
+        username: "admin"
+        password:
+          secretRef: elasticsearch-secrets
+          secretKey: openmetadata-elasticsearch-password
 
   pipelineServiceClientConfig:
   enabled: true

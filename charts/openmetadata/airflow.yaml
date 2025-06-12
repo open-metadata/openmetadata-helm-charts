@@ -30,7 +30,8 @@ airflow:
       type: LoadBalancer
       port: 8080
     livenessProbe:
-      enabled: false
+      initialDelaySeconds: 120
+      periodSeconds: 20
     readinessProbe:
       enabled: false
     startupProbe:
@@ -38,15 +39,15 @@ airflow:
         path: /health
         port: 8080
       initialDelaySeconds: 90
-      periodSeconds: 10
+      periodSeconds: 15
       failureThreshold: 10
     resources:
       requests:
-        memory: 512Mi
-        cpu: 250m
-      limits:
         memory: 1Gi
         cpu: 500m
+      limits:
+        memory: 2Gi
+        cpu: 1
 
   scheduler:
     replicas: 1
