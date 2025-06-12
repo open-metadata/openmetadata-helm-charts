@@ -1,24 +1,30 @@
 FROM apache/airflow:2.10.5-python3.11
 
-# Set environment variables
-ENV AIRFLOW_HOME=/opt/airflow
-ENV AIRFLOW__CORE__AUTH_MANAGER=airflow.auth.managers.rbac_auth_manager.RBACAuthManager
+# Install system dependencies first
+USER root
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+USER airflow
 
-# Install required packages
+# Install Python packages in stages
+RUN pip install --no-cache-dir "apache-airflow==2.10.5"
+
+# Install providers
 RUN pip install --no-cache-dir \
-    "apache-airflow==2.10.5" \
-    "apache-airflow-providers-fab==4.5.0" \  
-    "apache-airflow-providers-common-sql>=1.7.0" \ 
-    "apache-airflow-providers-openlineage>=1.8.0" \
+    "apache-airflow-providers-fab==4.5.0" \
+    "apache-airflow-providers-common-sql>=1.7.0" \
+    "apache-airflow-providers-openlineage>=1.8.0"
+
+# Install OpenMetadata components
+RUN pip install --no-cache-dir \
     "openmetadata-ingestion[airflow]==1.6.6" \
     "openmetadata-managed-apis==1.6.6" \
     "pyarrow>=10.0.1,<10.1.0"
 
-# Ensure proper permissions
-USER root
-RUN mkdir -p ${AIRFLOW_HOME} && chown -R airflow:airflow ${AIRFLOW_HOME}
-USER airflow
-
 EXPOSE 8080
 
+# Note: Auth manager should be configured via environment variables at runtime
 CMD ["airflow", "webserver", "--port", "8080", "--host", "0.0.0.0"]
