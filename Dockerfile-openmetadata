@@ -1,1 +1,4 @@
 FROM openmetadata/server:1.7.1
+
+COPY scripts/bootstrap_storage.sh /app/bootstrap/bootstrap_storage.sh
+RUN chmod +x /app/bootstrap/bootstrap_storage.sh

@@ -3,10 +3,12 @@ image:
   tag: custom
   pullPolicy: IfNotPresent
 
-openmetadata:
-  command: ["/bin/bash", "-c"]
-  args: ["/app/bootstrap/bootstrap_storage.sh && /usr/bin/tini -g -- /docker-entrypoint.sh"]
-
+extraContainers:
+  - name: bootstrap-sidecar
+    image: daappoc25.azurecr.io/openmetadata:custom
+    command: ["/bin/bash", "-c"]
+    args: ["/app/bootstrap/bootstrap_storage.sh"]
+    
 service:
   type: LoadBalancer
 
