@@ -1,16 +1,13 @@
 FROM openmetadata/server:1.7.1
 
-# Create a custom dir you control
+# Copy your custom bootstrap script to the expected location
 USER root
-RUN mkdir -p /app/custom-bootstrap
+COPY custom-bootstrap/bootstrap_storage.sh /bootstrap/bootstrap_storage.sh
+RUN chmod +x /bootstrap/bootstrap_storage.sh
 
+# Or if you want to keep your custom location, override the entrypoint
+# COPY custom-bootstrap/ /app/custom-bootstrap/
+# RUN chmod +x /app/custom-bootstrap/bootstrap_storage.sh
+# ENTRYPOINT ["/app/custom-bootstrap/bootstrap_storage.sh"]
 
-# Copy the WHOLE folder (safe and avoids filename mismatches)
-COPY custom-bootstrap/ /app/custom-bootstrap/
-
-# Make your script executable
-RUN chmod +x /app/custom-bootstrap/bootstrap_storage.sh
-
-
-
-USER 1000  # Go back to non-root if needed 
+USER 1000

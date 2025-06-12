@@ -10,6 +10,8 @@ airflow:
   config:
     AIRFLOW__OPENMETADATA__API_VERSION: "v1"
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
+    AIRFLOW__CORE__AUTH_MANAGER: "airflow.auth.managers.rbac_auth_manager.RBACAuthManager"
+    AIRFLOW__API__AUTH_BACKEND: "airflow.api.auth.backend.basic_auth"  
 
   env:
   - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
