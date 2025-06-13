@@ -9,9 +9,6 @@ RUN pip install --no-cache-dir \
     "pyarrow==12.0.1"
 
 
-COPY ./plugins /opt/airflow/plugins
-COPY ./dags /opt/airflow/dags
-
 # Set environment variables
 ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
 ENV AIRFLOW__OPENLINEAGE__ENABLED=True
