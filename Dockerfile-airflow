@@ -2,16 +2,20 @@ FROM apache/airflow:2.9.0-python3.11
 
 
 # Install required Python packages with constraints
+# 1. Core auth dependencies (FAB + Flask-AppBuilder)
+RUN pip install --no-cache-dir "flask-appbuilder==4.3.4" && \
+    pip install --no-cache-dir "apache-airflow-providers-fab==1.1.0"
+
+# 2. OpenMetadata packages (isolated to avoid overriding core deps)
 RUN pip install --no-cache-dir \
-    "apache-airflow-providers-fab==1.1.0" \
-    "flask-appbuilder==4.3.4" \
+    "openmetadata-ingestion==1.7.3.0" \
+    "openmetadata-managed-apis==1.7.3.0"
+
+# 3. Remaining providers (low-risk dependencies)
+RUN pip install --no-cache-dir \
     "psycopg2-binary==2.9.3" \
-    "openmetadata-ingestion==1.7.2.1" \
-    "openmetadata-managed-apis==1.7.2.1" \
     "apache-airflow-providers-openlineage==1.2.0" \
     "pyarrow==12.0.1"
-RUN pip install openmetadata-ingestion==1.7.3.0
-
 
 EXPOSE 8080
 USER airflow
