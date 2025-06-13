@@ -45,9 +45,9 @@ jobs:
     - name: Build and push docker
       run:  |
         #docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
-        docker build -t daappoc25.azurecr.io/airflow:custom-$(date +%Y%m%d-%H%M%S)  -f Dockerfile-airflow .
+        docker build -t daappoc25.azurecr.io/airflow:custom  -f Dockerfile-airflow .
         #docker push daappoc25.azurecr.io/openmetadata:custom
-        docker push daappoc25.azurecr.io/airflow:custom-$(date +%Y%m%d-%H%M%S)     
+        docker push daappoc25.azurecr.io/airflow:custom     
       
 
     - name: Create Namespace /optional
@@ -77,7 +77,7 @@ jobs:
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
         --set webserver.service.type=LoadBalancer \
         --set images.airflow.repository=daappoc25.azurecr.io/airflow \
-        --set images.airflow.tag=custom-$(date +%Y%m%d-%H%M%S)  \
+        --set images.airflow.tag=custom \
         --set postgresql.enabled=true \
         --set postgresql.auth.username=admin \
         --set postgresql.auth.password=admin \ 
