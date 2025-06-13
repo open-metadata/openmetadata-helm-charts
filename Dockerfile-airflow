@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir \
     "openmetadata-managed-apis==1.7.2.1" \
     "pyarrow==12.0.1"
 
-# Optional: Add your custom DAGs and plugins
+
 COPY ./plugins /opt/airflow/plugins
 COPY ./dags /opt/airflow/dags
 
