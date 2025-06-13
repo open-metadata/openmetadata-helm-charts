@@ -3,12 +3,6 @@ image:
   tag: 1.7.1
   pullPolicy: IfNotPresent
 
-# initContainers:
-#   - name: bootstrap-init
-#     image: openmetadata/server:1.7.1
-#     command: ["/bin/bash", "-c"]
-#     args: ["/app/custom-bootstrap/bootstrap_storage.sh"]
-
 service:
   type: LoadBalancer
 
@@ -27,39 +21,15 @@ config:
         secretKey: openmetadata-mysql-password
     dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
 
-  elasticsearch:
-    enabled: true
-    host: http://opensearch-cluster-master.daap-dev.svc.cluster.local:9200
-    searchType: opensearch
-    port: 9200
-    scheme: http
-    trustStore:
-      enabled: false
-      path: ""
-      password:
-        secretRef: "elasticsearch-truststore-secrets"
-        secretKey: "openmetadata-elasticsearch-truststore-password"
-    auth:
-      enabled: true
-      username: "admin"
-      password:
-        secretRef: elasticsearch-secrets
-        secretKey: openmetadata-elasticsearch-password
-
   pipelineServiceClientConfig:
     enabled: true
     className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
     apiEndpoint: http://132.196.174.193:8080
-    #apiEndpoint: http://airflow-webserver.daap-dev.svc.cluster.local:8080
-    # this will be the api endpoint url of OpenMetadata Server
     metadataApiEndpoint: http://openmetadata:8585/api
-    # possible values are "no-ssl", "ignore", "validate"
     verifySsl: "no-ssl"
     hostIp: ""
     ingestionIpInfoEnabled: false
-    # healthCheckInterval in seconds
     healthCheckInterval: 300
-    # local path in Airflow Pod
     sslCertificatePath: "/no/path"
     auth:
       enabled: true
@@ -72,10 +42,27 @@ config:
           secretRef: ""
           secretKey: ""
 
+searchConfiguration:
+  searchType: opensearch
+  host: http://opensearch-cluster-master.daap-dev.svc.cluster.local:9200
+  port: 9200
+  scheme: http
+  trustStore:
+    enabled: false
+    path: ""
+    password:
+      secretRef: "elasticsearch-truststore-secrets"
+      secretKey: "openmetadata-elasticsearch-truststore-password"
+  auth:
+    enabled: true
+    username: "admin"
+    password:
+      secretRef: elasticsearch-secrets
+      secretKey: openmetadata-elasticsearch-password
+
 persistence:
   enabled: true
   size: 1Gi
   accessModes:
     - ReadWriteOnce
   storageClass: managed-csi
-

@@ -2,7 +2,7 @@ FROM apache/airflow:2.10.5-python3.11
 
 # Install required Python packages
 RUN pip install --no-cache-dir \
-    "apache-airflow-providers-fab==2.0.2" \
+    "apache-airflow-providers-fab==1.1.0" \
     "apache-airflow-providers-openlineage==2.2.0" \
     "openmetadata-ingestion[airflow]==1.7.2.1" \
     "openmetadata-managed-apis==1.7.2.1" \

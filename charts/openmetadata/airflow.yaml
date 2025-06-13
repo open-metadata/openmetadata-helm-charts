@@ -21,6 +21,8 @@ airflow:
       value: "v1"
     - name: AIRFLOW__API__AUTH_BACKENDS
       value: "airflow.api.auth.backend.basic_auth"
+    - name: AIRFLOW__AUTH__AUTH_MANAGER
+      value: "airflow.auth.managers.basic_auth.BasicAuthManager"
 
   extraVolumeMounts:
     - name: airflow-plugins
