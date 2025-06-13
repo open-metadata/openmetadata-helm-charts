@@ -3,13 +3,14 @@ executor: KubernetesExecutor
 images:
   airflow:
     repository: apache/airflow
-    tag: 2.10.5-python3.11
+    tag: 2.8.2-python3.11
     pullPolicy: IfNotPresent
 
 airflow:
   config:
     AIRFLOW__OPENMETADATA__API_VERSION: "v1"
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
+    AIRFLOW__METRICS__METRICS_USE_PATTERN_MATCH: "True"
 
   env:
     - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
@@ -42,14 +43,12 @@ airflow:
       timeoutSeconds: 5
       failureThreshold: 3
     startupProbe:
-      enabled: true
       httpGet:
         path: /health
         port: 8080
-      initialDelaySeconds: 60
+      initialDelaySeconds: 30  
       periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 30
+      failureThreshold: 10     
     resources:
       requests:
         memory: 1Gi

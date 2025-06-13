@@ -77,7 +77,7 @@ jobs:
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
         --set webserver.service.type=LoadBalancer \
         --set images.airflow.repository=apache/airflow \
-        --set images.airflow.tag=2.10.5-python3.11 \
+        --set images.airflow.tag=2.8.2-python3.11 \
         --set airflow.config.AIRFLOW__DATABASE__SQL_ALCHEMY_CONN="postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db" \
         --set postgresql.enabled=true \
         --set airflow.workers.persistence.enabled=false \
