@@ -1,27 +1,26 @@
 FROM apache/airflow:2.9.0-python3.11
 
-
-# 1. Install core dependencies with constraints
+# 1. Install Flask AppBuilder and Airflow FAB provider
 RUN pip install --no-cache-dir \
-    "flask-appbuilder==4.3.4" \
-    "apache-airflow-providers-fab==4.1.0"  
+    flask-appbuilder==4.4.1 \
+    apache-airflow-providers-fab==1.0.2
 
-# 2. Pre-install Google dependencies to avoid backtracking
+# 2. Install Google IAM dependencies used by OpenMetadata
 RUN pip install --no-cache-dir \
-    "google-api-core[grpc]==2.25.0" \
-    "grpc-google-iam-v1==0.14.0" \
-    "google-cloud-secret-manager==2.22.1"
+    grpc-google-iam-v1==0.13.0 \
+    google-api-core[grpc]==2.18.0 \
+    google-cloud-secret-manager==2.19.0
 
-# 3. Install OpenMetadata with pinned versions
+# 3. Install OpenMetadata core packages
 RUN pip install --no-cache-dir \
-    "openmetadata-ingestion==1.7.3.0" \
-    "openmetadata-managed-apis==1.7.3.0"
+    openmetadata-ingestion==1.7.3.0 \
+    openmetadata-managed-apis==1.7.3.0
 
-# 4. Install remaining providers (from Airflow constraints)
+# 4. Install remaining dependencies
 RUN pip install --no-cache-dir \
-    "psycopg2-binary==2.9.7" \            
-    "apache-airflow-providers-openlineage==3.8.0" \  
-    "pyarrow==14.0.2"                    
+    psycopg2-binary==2.9.9 \
+    apache-airflow-providers-openlineage==1.6.0 \
+    pyarrow==14.0.2
 
 EXPOSE 8080
 USER airflow
