@@ -4,9 +4,9 @@ FROM apache/airflow:2.9.0-python3.11
 # Install required Python packages with constraints
 RUN pip install --no-cache-dir \
     openmetadata-managed-apis==1.7.3.0 \
-    apache-airflow-providers-openlineage==2.1.2 \
-    apache-airflow-providers-fab==1.5.2 \
-    pyarrow==12.0.1
+    apache-airflow-providers-openlineage==1.6.0\
+    apache-airflow-providers-fab==1.0.2\
+    pyarrow==14.0.2
 
 RUN pip install openmetadata-ingestion==1.7.3.0
 
