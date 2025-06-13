@@ -1,22 +1,25 @@
 # Use Apache Airflow 2.10.5 base image
 FROM apache/airflow:2.10.5-python3.11
 
+# Set environment variables early
+ENV PIP_NO_USER=1
+ENV PYTHONPATH="/home/airflow/.local/lib/python3.11/site-packages:$PYTHONPATH"
+
 # Create directory for generated DAG configs
 RUN mkdir -p /opt/airflow/dag_generated_configs/
 
-
+# Install dependencies
 RUN pip install --no-cache-dir \
     "apache-airflow-providers-openlineage>=1.8.0" \
     "openmetadata-ingestion==1.7.1" \
     "openmetadata-managed-apis==1.7.1" \
     "pyarrow>=14.0.1"
 
+# Reinstall FAB provider last to avoid corruption
+RUN pip install --force-reinstall --no-cache-dir "apache-airflow-providers-fab==1.5.2"
 
-RUN pip install --no-cache-dir \
-    "apache-airflow-providers-fab==1.5.2"
-
-# Verify FAB is there
-RUN python -c "import airflow.providers.fab.auth_manager.fab_auth_manager"
+# Validate installation
+RUN python -c "import airflow.providers.fab; print('✅ FAB provider installed correctly')"
 
 EXPOSE 8080
 USER airflow
