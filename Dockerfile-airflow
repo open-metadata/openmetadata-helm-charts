@@ -1,30 +1,15 @@
-FROM apache/airflow:2.9.0-python3.11
+# Use Apache Airflow 2.10.5 base image (since your system is running this version)
+FROM apache/airflow:2.10.5-python3.11
 
-# 1. Core Auth dependencies
+
+RUN mkdir -p /opt/airflow/dag_generated_configs/
+RUN pip uninstall -y apache-airflow-providers-openlineage
+# Install compatible OpenMetadata plugins & OpenLineage provider
 RUN pip install --no-cache-dir \
-    flask-appbuilder==4.3.4 \
-    apache-airflow-providers-fab==1.5.2 \
-    --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.9.0/constraints-3.11.txt
+    "apache-airflow-providers-openlineage>=1.8.0" \
+    "openmetadata-ingestion[airflow]==1.6.6" \
+    "openmetadata-managed-apis==1.6.6" \
+    "pyarrow<10.1.0,>=10.0.1"
 
-# 2. Google IAM deps used by OpenMetadata
-RUN pip install --no-cache-dir \
-    grpc-google-iam-v1==0.13.0 \
-    google-api-core[grpc]==2.18.0 \
-    google-cloud-secret-manager==2.19.0 \
-    --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.9.0/constraints-3.11.txt
-
-# 3. OpenMetadata packages
-RUN pip install --no-cache-dir \
-    openmetadata-ingestion==1.7.3.0 \
-    openmetadata-managed-apis==1.7.3.0 \
-    --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.9.0/constraints-3.11.txt
-
-# 4. Additional providers and utilities
-RUN pip install --no-cache-dir \
-    psycopg2-binary==2.9.7 \
-    apache-airflow-providers-openlineage==3.8.0 \
-    pyarrow==14.0.2 \
-    --constraint https://raw.githubusercontent.com/apache/airflow/constraints-2.9.0/constraints-3.11.txt
-
+# Expose Airflow's webserver port
 EXPOSE 8080
-USER airflow
