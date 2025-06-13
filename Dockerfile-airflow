@@ -5,7 +5,6 @@ FROM apache/airflow:2.9.0-python3.11
 RUN pip install --no-cache-dir \
     "apache-airflow-providers-fab==1.1.0" \
     "flask-appbuilder==4.3.4" \
-    && pip install --no-cache-dir \
     "psycopg2-binary==2.9.3" \
     "openmetadata-ingestion==1.7.2.1" \
     "openmetadata-managed-apis==1.7.2.1" \
