@@ -27,26 +27,7 @@ airflow:
   webserver:
     service:
       type: LoadBalancer
-      port: 8080
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 30
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 6
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 20
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-    startupProbe:
-      httpGet:
-        path: /health
-        port: 8080
-      initialDelaySeconds: 30  
-      periodSeconds: 10
-      failureThreshold: 10     
+      port: 8080  
     resources:
       requests:
         memory: 1Gi
@@ -57,31 +38,6 @@ airflow:
 
   scheduler:
     replicas: 1
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 20
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 6
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 20
-      periodSeconds: 10
-      timeoutSeconds: 5
-      failureThreshold: 3
-    startupProbe:
-      enabled: true
-      exec:
-        command:
-          - sh
-          - -c
-          - |
-            CONNECTION_CHECK_MAX_COUNT=0 AIRFLOW__LOGGING__LOGGING_LEVEL=ERROR exec /entrypoint \
-            airflow jobs check --job-type SchedulerJob --local
-      initialDelaySeconds: 60
-      periodSeconds: 10
-      timeoutSeconds: 10
-      failureThreshold: 30
     resources:
       requests:
         cpu: 500m
@@ -139,8 +95,8 @@ airflow:
 postgresql:
   enabled: true 
   auth:
-    username: airflow_user 
-    password: airflow_password 
+    username: admin 
+    password: admin 
     database: airflow_db 
   primary:
     persistence:

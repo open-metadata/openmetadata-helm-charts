@@ -45,9 +45,9 @@ jobs:
     - name: Build and push docker
       run:  |
         #docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
-        docker build -t daappoc25.azurecr.io/airflow:custom -f Dockerfile-airflow .
+        docker build -t daappoc25.azurecr.io/airflow:custom-$(date +%Y%m%d-%H%M%S)  -f Dockerfile-airflow .
         #docker push daappoc25.azurecr.io/openmetadata:custom
-        docker push daappoc25.azurecr.io/airflow:custom    
+        docker push daappoc25.azurecr.io/airflow:custom-$(date +%Y%m%d-%H%M%S)     
       
 
     - name: Create Namespace /optional
@@ -77,8 +77,18 @@ jobs:
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
         --set webserver.service.type=LoadBalancer \
         --set images.airflow.repository=daappoc25.azurecr.io/airflow \
-        --set images.airflow.tag=custom \
+        --set images.airflow.tag=custom-$(date +%Y%m%d-%H%M%S)  \
         --set postgresql.enabled=true \
+        --set postgresql.auth.username=admin \
+        --set postgresql.auth.password=admin \ 
+        --set postgresql.auth.database=airflow_db \
+        --set postgresql.primary.persistence.enabled=true \
+        --set postgresql.primary.persistence.size=2Gi \
+        --set postgresql.primary.persistence.storageClass=managed-csi \
+        --set postgresql.primary.resources.requests.memory=256Mi \
+        --set postgresql.primary.resources.requests.cpu=250m \
+        --set postgresql.primary.resources.limits.memory=512Mi \
+        --set postgresql.primary.resources.limits.cpu=500m \
         --set airflow.triggerer.persistence.enabled=true \
         --set triggerer.persistence.size=1Gi \
         --set airflow.workers.persistence.enabled=false \
