@@ -76,7 +76,7 @@ jobs:
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
         --set webserver.service.type=LoadBalancer \
-        --set images.airflow.repository=daappoc25.azurecr.io/airflow\
+        --set images.airflow.repository=daappoc25.azurecr.io/airflow \
         --set images.airflow.tag=custom \
         --set airflow.config.AIRFLOW__DATABASE__SQL_ALCHEMY_CONN="postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db" \
         --set postgresql.enabled=true \
@@ -85,6 +85,12 @@ jobs:
         --set airflow.createUserJob.useHelmHooks=true \
         --set airflow.migrateDatabaseJob.useHelmHooks=true \
         -f $(pwd)/charts/openmetadata/airflow.yaml \
+
+        
+        kubectl set env deployment/airflow-webserver -n daap-dev \
+          AIRFLOW__OPENMETADATA__HOST="http://128.85.217.88:8585" \
+          AIRFLOW__OPENMETADATA__API_VERSION="v1" \
+          AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth" \
 
 
     - name: Show Pods & Services for Debugging

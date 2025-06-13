@@ -6,59 +6,68 @@ image:
 service:
   type: LoadBalancer
 
-config:
-  database:
-    host: mysql.daap-dev.svc.cluster.local
-    port: 3306
-    enabled: true
-    driverClass: com.mysql.cj.jdbc.Driver
-    dbScheme: mysql
-    databaseName: openmetadata_db
-    auth:
-      username: openmetadata_user
-      password:
-        secretRef: mysql-secrets
-        secretKey: openmetadata-mysql-password
-    dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+openmetadata:
+  config:
+    clusterName: openmetadata
+    openmetadata:
+      host: "0.0.0.0"
+      port: 8585
+      adminPort: 8586
+      uri: "http://openmetadata:8585"
 
-  pipelineServiceClientConfig:
-    enabled: true
-    className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-    apiEndpoint: http://132.196.174.193:8080
-    metadataApiEndpoint: http://openmetadata:8585/api
-    verifySsl: "no-ssl"
-    hostIp: ""
-    ingestionIpInfoEnabled: false
-    healthCheckInterval: 300
-    sslCertificatePath: "/no/path"
-    auth:
+    database:
+      host: mysql.daap-dev.svc.cluster.local
+      port: 3306
       enabled: true
-      username: admin
-      password:
+      driverClass: com.mysql.cj.jdbc.Driver
+      dbScheme: mysql
+      databaseName: openmetadata_db
+      auth:
+        username: openmetadata_user
+        password:
+          secretRef: mysql-secrets
+          secretKey: openmetadata-mysql-password
+      dbParams: "allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC"
+
+    pipelineServiceClientConfig:
+      enabled: true
+      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+      apiEndpoint: http://132.196.174.193:8080
+      metadataApiEndpoint: http://openmetadata:8585/api
+      verifySsl: "no-ssl"
+      hostIp: ""
+      ingestionIpInfoEnabled: false
+      healthCheckInterval: 300
+      sslCertificatePath: "/no/path"
+      auth:
+        enabled: true
+        username: admin
+        password:
           secretRef: airflow-secrets
           secretKey: openmetadata-airflow-password
-      trustStorePath: ""
-      trustStorePassword:
+        trustStorePath: ""
+        trustStorePassword:
           secretRef: ""
           secretKey: ""
 
-searchConfiguration:
-  searchType: opensearch
-  host: "opensearch-cluster-master.daap-dev.svc.cluster.local" 
-  port: 9200
-  scheme: http
-  trustStore:
-    enabled: false
-    path: ""
-    password:
-      secretRef: "elasticsearch-truststore-secrets"
-      secretKey: "openmetadata-elasticsearch-truststore-password"
-  auth:
-    enabled: true
-    username: "admin"
-    password:
-      secretRef: elasticsearch-secrets
-      secretKey: openmetadata-elasticsearch-password
+    elasticsearch:
+      enabled: true
+      searchType: opensearch
+      host: "opensearch-cluster-master.daap-dev.svc.cluster.local"
+      port: 9200
+      scheme: http
+      trustStore:
+        enabled: false
+        path: ""
+        password:
+          secretRef: elasticsearch-truststore-secrets
+          secretKey: openmetadata-elasticsearch-truststore-password
+      auth:
+        enabled: true
+        username: "admin"
+        password:
+          secretRef: elasticsearch-secrets
+          secretKey: openmetadata-elasticsearch-password
 
 persistence:
   enabled: true
