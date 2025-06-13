@@ -69,14 +69,6 @@ openmetadata:
           secretRef: elasticsearch-secrets
           secretKey: openmetadata-elasticsearch-password
 
-    volumes:
-      - name: opensearch-password
-        secret:
-          secretName: elasticsearch-secrets
-          items:
-            - key: openmetadata-elasticsearch-password
-              path: opensearch-password
-
 persistence:
   enabled: true
   size: 1Gi
