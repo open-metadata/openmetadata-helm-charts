@@ -8,7 +8,7 @@ ENV CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints
 
 COPY requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt -c "${CONSTRAINT_URL}"
-RUN pip install --no-cache-dir openmetadata-ingestion==1.7.3.0 -c "${CONSTRAINT_URL}"
+RUN bash -c "pip install --no-cache-dir -r requirements.txt -c \"$CONSTRAINT_URL\""
+RUN bash -c "pip install --no-cache-dir openmetadata-ingestion==1.7.3.0 -c \"$CONSTRAINT_URL\""
 
 USER airflow
