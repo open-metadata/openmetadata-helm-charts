@@ -1,23 +1,29 @@
 # Use Apache Airflow 2.10.5 base image
 FROM apache/airflow:2.10.5-python3.11
 
-# Create directory for generated DAG configs
+# Switch to root user to ensure packages are installed into the virtual environment's global site-packages
+USER root
+
+# Create directory for generated DAG configs (as root, to ensure permissions)
 RUN mkdir -p /opt/airflow/dag_generated_configs/
 
-ENV PYTHONPATH="/home/airflow/.local/lib/python3.11/site-packages"
-
-# Install dependencies with forced system install
-RUN PIP_NO_USER=1 pip install --no-cache-dir \
+# Install all your required custom packages as root.
+# This ensures they go into the virtual environment's main site-packages,
+# bypassing the '--user' install issue.
+RUN pip install --no-cache-dir \
     "apache-airflow-providers-openlineage>=1.8.0" \
     "openmetadata-ingestion==1.7.1" \
     "openmetadata-managed-apis==1.7.1" \
-    "pyarrow>=14.0.1"
+    "pyarrow>=14.0.1" \
+    "apache-airflow-providers-fab==1.5.2" 
 
-# Reinstall FAB provider last
-RUN pip install --force-reinstall --no-cache-dir apache-airflow-providers-fab==1.5.2
-
-# Validate installation
-RUN python -c "import airflow.providers.fab; print('✅ FAB provider installed correctly')"
-
-EXPOSE 8080
+# Switch back to the 'airflow' user.
+# Airflow components are designed to run as this user.
 USER airflow
+
+# Validate that 'apache-airflow-providers-fab' can be imported by the 'airflow' user.
+# This check now runs after `USER airflow`, ensuring visibility for the runtime user.
+RUN python -c "import airflow.providers.fab; print('FAB import OK ✅')"
+
+# Expose Airflow's webserver port
+EXPOSE 8080
