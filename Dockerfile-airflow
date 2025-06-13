@@ -1,21 +1,27 @@
 FROM apache/airflow:2.9.0-python3.11
 
 
-# Install required Python packages with constraints
-# 1. Core auth dependencies (FAB + Flask-AppBuilder)
-RUN pip install --no-cache-dir "flask-appbuilder==4.3.4" && \
-    pip install --no-cache-dir "apache-airflow-providers-fab==1.1.0"
+# 1. Install core dependencies with constraints
+RUN pip install --no-cache-dir \
+    "flask-appbuilder==4.3.4" \
+    "apache-airflow-providers-fab==4.1.0"  
 
-# 2. OpenMetadata packages (isolated to avoid overriding core deps)
+# 2. Pre-install Google dependencies to avoid backtracking
+RUN pip install --no-cache-dir \
+    "google-api-core[grpc]==2.25.0" \
+    "grpc-google-iam-v1==0.14.0" \
+    "google-cloud-secret-manager==2.22.1"
+
+# 3. Install OpenMetadata with pinned versions
 RUN pip install --no-cache-dir \
     "openmetadata-ingestion==1.7.3.0" \
     "openmetadata-managed-apis==1.7.3.0"
 
-# 3. Remaining providers (low-risk dependencies)
+# 4. Install remaining providers (from Airflow constraints)
 RUN pip install --no-cache-dir \
-    "psycopg2-binary==2.9.3" \
-    "apache-airflow-providers-openlineage==1.2.0" \
-    "pyarrow==12.0.1"
+    "psycopg2-binary==2.9.7" \            
+    "apache-airflow-providers-openlineage==3.8.0" \  
+    "pyarrow==14.0.2"                    
 
 EXPOSE 8080
 USER airflow
