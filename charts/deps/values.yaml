@@ -62,7 +62,7 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.7.3
+      tag: 1.7.4
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
