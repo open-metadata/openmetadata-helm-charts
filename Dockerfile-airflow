@@ -1,26 +1,33 @@
 FROM apache/airflow:2.9.0-python3.11
 
-# 1. Install Flask AppBuilder and Airflow FAB provider
-RUN pip install --no-cache-dir \
-    flask-appbuilder==4.4.1 \
-    apache-airflow-providers-fab==1.0.2
 
-# 2. Install Google IAM dependencies used by OpenMetadata
+ARG AIRFLOW_CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-2.9.0/constraints-3.11.txt"
+
+# 1. Google deps needed by OpenMetadata
 RUN pip install --no-cache-dir \
     grpc-google-iam-v1==0.13.0 \
     google-api-core[grpc]==2.18.0 \
-    google-cloud-secret-manager==2.19.0
+    google-cloud-secret-manager==2.19.0 \
+    --constraint "${AIRFLOW_CONSTRAINT_URL}"
 
-# 3. Install OpenMetadata core packages
+# 2. Core auth deps
+RUN pip install --no-cache-dir \
+    flask-appbuilder==4.3.4 \
+    apache-airflow-providers-fab==1.5.2 \
+    --constraint "${AIRFLOW_CONSTRAINT_URL}"
+
+# 3. OpenMetadata
 RUN pip install --no-cache-dir \
     openmetadata-ingestion==1.7.3.0 \
-    openmetadata-managed-apis==1.7.3.0
+    openmetadata-managed-apis==1.7.3.0 \
+    --constraint "${AIRFLOW_CONSTRAINT_URL}"
 
-# 4. Install remaining dependencies
+# 4. Remaining Airflow providers
 RUN pip install --no-cache-dir \
-    psycopg2-binary==2.9.9 \
     apache-airflow-providers-openlineage==1.6.0 \
-    pyarrow==14.0.2
+    psycopg2-binary==2.9.7 \
+    pyarrow==14.0.2 \
+    --constraint "${AIRFLOW_CONSTRAINT_URL}"
 
 EXPOSE 8080
 USER airflow
