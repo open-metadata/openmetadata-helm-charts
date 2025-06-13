@@ -75,3 +75,35 @@ persistence:
   accessModes:
     - ReadWriteOnce
   storageClass: managed-csi
+
+extraInitContainers:
+  - name: create-opensearch-indices
+    image: curlimages/curl:8.5.0
+    command:
+      - sh
+      - -c
+      - |
+        echo "Waiting for OpenSearch..."
+        until curl -u admin:$$(cat /usr/share/opensearch-password) -s http://opensearch-cluster-master.daap-dev.svc.cluster.local:9200; do
+          sleep 5
+        done
+
+        echo "Creating OpenSearch indices..."
+        for index in user_search_index team_search_index table_search_index topic_search_index dashboard_search_index pipeline_search_index mlmodel_search_index; do
+          echo "Ensuring index: $index"
+          curl -u admin:$$(cat /usr/share/opensearch-password) -X PUT "http://opensearch-cluster-master.daap-dev.svc.cluster.local:9200/$index" \
+               -H 'Content-Type: application/json' \
+               -d '{}'
+        done
+    volumeMounts:
+      - name: opensearch-password
+        mountPath: /usr/share
+        readOnly: true
+
+volumes:
+  - name: opensearch-password
+    secret:
+      secretName: elasticsearch-secrets
+      items:
+        - key: openmetadata-elasticsearch-password
+          path: opensearch-password
