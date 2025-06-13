@@ -7,7 +7,7 @@ RUN pip install --no-cache-dir \
     apache-airflow-providers-openlineage==1.2.0 \
     pyarrow==12.0.1
 
-RUN pip show openmetadata-ingestion[airflow]==1.7.2.1
+RUN pip show openmetadata-ingestion==1.7.2.1
 RUN pip list | grep fab
 
 
