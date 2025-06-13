@@ -136,11 +136,21 @@ airflow:
         - ReadWriteOnce
       storageClassName: managed-csi
 
-  createUserJob:
-    useHelmHooks: true
-
-  migrateDatabaseJob:
-    useHelmHooks: true
-
 postgresql:
-  enabled: false
+  enabled: true 
+  auth:
+    username: airflow_user 
+    password: airflow_password 
+    database: airflow_db 
+  primary:
+    persistence:
+      enabled: true
+      size: 2Gi 
+      storageClass: managed-csi 
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 250m
+      limits:
+        memory: 512Mi
+        cpu: 500m
