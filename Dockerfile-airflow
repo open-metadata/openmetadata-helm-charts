@@ -1,33 +1,21 @@
-FROM apache/airflow:2.10.5-python3.11
+FROM apache/airflow:2.10.5-python3.11 
 
-# Install system dependencies
-USER root
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-    python3-dev \
-    && rm -rf /var/lib/apt/lists/*
-USER airflow
-
-# Install required providers and packages
+# Install required Python packages
 RUN pip install --no-cache-dir \
-    "apache-airflow-providers-flask-app-builder>=1.2.0" \
-    "apache-airflow-providers-postgres>=5.6.0" \
-    "apache-airflow-providers-openlineage>=1.8.0" \
-    "openmetadata-ingestion[airflow]==1.6.6" \
-    "openmetadata-managed-apis==1.6.6" \
-    "pyarrow>=10.0.1,<10.1.0"
+    "apache-airflow-providers-fab==2.0.2" \
+    "apache-airflow-providers-openlineage==2.2.0" \
+    "openmetadata-ingestion[airflow]==1.7.2.1" \
+    "openmetadata-managed-apis==1.7.2.1" \
+    "pyarrow==12.0.1"
 
-# Set critical environment variables
-ENV AIRFLOW__CORE__AUTH_MANAGER=airflow.auth.managers.rbac_auth_manager.RBACAuthManager
-ENV AIRFLOW__API__AUTH_BACKENDS=airflow.api.auth.backend.basic_auth
-ENV AIRFLOW__WEBSERVER__WORKERS=2
-ENV AIRFLOW__WEBSERVER__WORKER_REFRESH_INTERVAL=1800
+# Optional: Add your custom DAGs and plugins
+COPY ./plugins /opt/airflow/plugins
+COPY ./dags /opt/airflow/dags
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=60s \
-  CMD curl -f http://localhost:8080/health || exit 1
+# Set environment variables
+ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
+ENV AIRFLOW__OPENLINEAGE__ENABLED=True
 
 EXPOSE 8080
 
-# Entrypoint remains the default from base image
+USER airflow

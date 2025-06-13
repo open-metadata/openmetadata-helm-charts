@@ -32,7 +32,7 @@ extraEnvs:
   - name: DISABLE_INSTALL_DEMO_CONFIG
     value: "true"
   - name: DISABLE_SECURITY_PLUGIN
-    value: "true"
+    value: "false"
   - name: DISABLE_PERFORMANCE_ANALYZER_AGENT_CLI
     value: "true"
 
