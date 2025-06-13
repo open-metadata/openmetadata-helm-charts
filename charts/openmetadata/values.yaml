@@ -44,7 +44,7 @@ config:
 
 searchConfiguration:
   searchType: opensearch
-  host: http://opensearch-cluster-master.daap-dev.svc.cluster.local:9200
+  host: "opensearch-cluster-master.daap-dev.svc.cluster.local" 
   port: 9200
   scheme: http
   trustStore:

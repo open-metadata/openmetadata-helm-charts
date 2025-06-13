@@ -11,10 +11,11 @@ airflow:
     AIRFLOW__OPENMETADATA__API_VERSION: "v1"
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
     AIRFLOW__METRICS__METRICS_USE_PATTERN_MATCH: "True"
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db"
+    AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE: 10
+    AIRFLOW__DATABASE__SQL_ALCHEMY_MAX_OVERFLOW: 20
 
   env:
-    - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
-      value: postgresql+psycopg2://airflow_user:airflow_password@airflow-postgresql.daap-dev.svc.cluster.local:5432/airflow_db
     - name: AIRFLOW__OPENMETADATA__HOST
       value: "http://128.85.217.88:8585"
     - name: AIRFLOW__OPENMETADATA__API_VERSION
