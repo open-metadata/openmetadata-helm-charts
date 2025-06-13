@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir \
     "apache-airflow-providers-openlineage>=1.8.0"\
     "openmetadata-ingestion==1.6.6.6" \
     "openmetadata-managed-apis==1.6.6.6" \
-    "apache-airflow-providers-fab=1.5.2" \
+    "apache-airflow-providers-fab==1.5.2" \
     "pyarrow>=14.0.1" 
 
 # Expose Airflow's webserver port
