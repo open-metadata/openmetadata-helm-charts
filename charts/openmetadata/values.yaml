@@ -1,7 +1,7 @@
 image:
   repository: openmetadata/server
   tag: 1.7.1
-  pullPolicy: "Always"
+  pullPolicy: IfNotPresent
 
 service:
   type: LoadBalancer
