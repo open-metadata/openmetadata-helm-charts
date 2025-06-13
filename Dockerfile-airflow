@@ -8,7 +8,6 @@ RUN pip install --no-cache-dir \
     pyarrow==12.0.1
 
 RUN pip install openmetadata-ingestion==1.7.2.1
-RUN pip list | grep fab
 
 
 EXPOSE 8080
