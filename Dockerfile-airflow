@@ -1,19 +1,15 @@
 FROM apache/airflow:2.8.1-python3.11
 
-# Install dependencies using constraints
-ARG AIRFLOW_VERSION=2.8.1
-ARG PYTHON_VERSION=3.11
-
-# Download constraints file
-RUN curl -Lf "https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt" -o constraints.txt
 
 # Install required Python packages with constraints
 RUN pip install --no-cache-dir \
-    openmetadata-ingestion[airflow]==1.7.2.1 \
     openmetadata-managed-apis==1.7.2.1 \
     apache-airflow-providers-openlineage==1.2.0 \
-    pyarrow==12.0.1 \
-    -c constraints.txt
+    pyarrow==12.0.1
+
+RUN pip show openmetadata-ingestion
+RUN pip list | grep fab
+
 
 EXPOSE 8080
 USER airflow
