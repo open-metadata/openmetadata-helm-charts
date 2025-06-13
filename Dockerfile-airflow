@@ -1,18 +1,19 @@
 FROM apache/airflow:2.8.1-python3.11
 
-# Install required Python packages
+# Install compatible versions
 RUN pip install --no-cache-dir \
-    "apache-airflow-providers-fab==1.1.0" \
-    "apache-airflow-providers-openlineage==2.2.0" \
+    "apache-airflow-providers-fab==1.0.1" \  
+    "apache-airflow-providers-openlineage==1.2.0" \  
     "openmetadata-ingestion[airflow]==1.7.2.1" \
     "openmetadata-managed-apis==1.7.2.1" \
-    "pyarrow==12.0.1"
+    "pyarrow==12.0.1" \
+    "psycopg2-binary==2.9.3"  # Add explicit PostgreSQL driver
 
-
-# Set environment variables
+# Set required environment variables
 ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
 ENV AIRFLOW__OPENLINEAGE__ENABLED=True
+ENV AIRFLOW__CORE__AUTH_MANAGER=airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+ENV AIRFLOW__API__AUTH_BACKEND=airflow.api.auth.backend.basic_auth
 
 EXPOSE 8080
-
 USER airflow
