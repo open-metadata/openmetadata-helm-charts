@@ -1,16 +1,25 @@
-# Use Apache Airflow 2.10.5 base image (since your system is running this version)
+# Use Apache Airflow 2.10.5 base image
 FROM apache/airflow:2.10.5-python3.11
 
-
 RUN mkdir -p /opt/airflow/dag_generated_configs/
-RUN pip uninstall -y apache-airflow-providers-openlineage
-# Install compatible OpenMetadata plugins & OpenLineage provider
+
+# Explicitly uninstall apache-airflow-providers-openlineage (as you were already doing)
+# AND also uninstall apache-airflow-providers-fab and its core dependency flask-appbuilder.
+# This ensures we get a completely clean re-install in the next step.
+RUN pip uninstall -y \
+    apache-airflow-providers-openlineage \
+    apache-airflow-providers-fab \
+    flask-appbuilder
+
+# Now, install ALL your required packages, including fab and openlineage,
+# in a single command. This allows pip to resolve all dependencies together
+# for the new installations.
 RUN pip install --no-cache-dir \
-    "apache-airflow-providers-openlineage>=1.8.0"\
+    "apache-airflow-providers-openlineage>=1.8.0" \
     "openmetadata-ingestion==1.6.6.6" \
     "openmetadata-managed-apis==1.6.6.6" \
     "apache-airflow-providers-fab==1.5.2" \
-    "pyarrow>=14.0.1" 
+    "pyarrow>=14.0.1"
 
 # Expose Airflow's webserver port
 EXPOSE 8080
