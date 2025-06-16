@@ -93,6 +93,17 @@ airflow:
         - ReadWriteOnce
       storageClassName: managed-csi
 
+  initContainers:
+    - name: wait-for-airflow-migrations
+      image: daappoc25.azurecr.io/airflow:latest
+      imagePullPolicy: IfNotPresent
+      command:
+        - bash
+        - -c
+        - |
+          airflow db check-migrations --migration-wait-timeout=60 || echo "Migration already done or timed out"
+
+
 postgresql:
   enabled: true 
   auth:
