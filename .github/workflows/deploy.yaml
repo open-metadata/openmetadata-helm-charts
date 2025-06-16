@@ -46,7 +46,7 @@ jobs:
       run:  |
         docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
         docker push daappoc25.azurecr.io/openmetadata:custom
-        docker buildx build --no-cache -t daappoc25.azurecr.io/airflow:latest -f Dockerfile .
+        docker build -t daappoc25.azurecr.io/airflow:latest -f Dockerfile-airflow .
         docker push daappoc25.azurecr.io/airflow:latest     
       
 
