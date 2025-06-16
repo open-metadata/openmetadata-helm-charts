@@ -3,7 +3,7 @@ executor: KubernetesExecutor
 images:
   airflow:
     repository: daappoc25.azurecr.io/airflow
-    tag: custom
+    tag: latest
     pullPolicy: IfNotPresent
 
 airflow:
