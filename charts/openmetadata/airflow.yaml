@@ -14,7 +14,7 @@ scheduler:
 
 triggerer:
   persistence:
-    enabled: true
+    enabled: false
     size: 1Gi
 
 workers:
@@ -26,6 +26,7 @@ logs:
   persistence:
     enabled: true
     size: 1Gi
+    storageClassName: managed-csi
 
 postgresql:
   enabled: false
