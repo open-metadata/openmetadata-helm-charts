@@ -10,24 +10,25 @@ airflow:
   config:
     AIRFLOW__OPENMETADATA__API_VERSION: "v1"
     AIRFLOW__METRICS__METRICS_USE_PATTERN_MATCH: "True"
-    AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
+    AIRFLOW__CORE__AUTH_MANAGER: "airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager"
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:admin@airflow-postgresql:5432/airflow_db
+    AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED: "True"
+    AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE: "5"
+    AIRFLOW__DATABASE__SQL_ALCHEMY_MAX_OVERFLOW: "10"
 
-  migrations:
-    enabled: true
-    command: ["airflow", "db", "migrate"]
-
+    
   extraPipPackages:
-    - openmetadata-ingestion==1.7.1.1
-    - apache-airflow-providers-openlineage==2.3.0
+    - "apache-airflow-providers-fab==4.4.0"
+    - "apache-airflow-providers-postgres==5.7.0"  
+    - "apache-airflow-providers-cncf-kubernetes==7.4.0"  
+    - "psycopg2-binary==2.9.7"
+
 
   env:
     - name: AIRFLOW__OPENMETADATA__HOST
       value: "http://128.85.217.88:8585"
     - name: AIRFLOW__OPENMETADATA__API_VERSION
       value: "v1"
-    - name: AIRFLOW__API__AUTH_BACKENDS
-      value: "airflow.api.auth.backend.basic_auth"
 
   extraVolumeMounts:
     - name: airflow-plugins

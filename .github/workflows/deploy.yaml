@@ -81,7 +81,6 @@ jobs:
         --set triggerer.persistence.size=1Gi \
         --set airflow.workers.persistence.enabled=false \
         --set workers.persistence.size=1Gi \
-        --set airflow.migrations.enabled=true \
         --set webserver.livenessProbe.initialDelaySeconds=60 \
         --set webserver.readinessProbe.initialDelaySeconds=60 \
         --set scheduler.livenessProbe.initialDelaySeconds=60 \
@@ -94,8 +93,7 @@ jobs:
         
         kubectl set env deployment/airflow-webserver -n daap-dev \
           AIRFLOW__OPENMETADATA__HOST="http://128.85.217.88:8585" \
-          AIRFLOW__OPENMETADATA__API_VERSION="v1" \
-          AIRFLOW__API__AUTH_BACKENDS="airflow.api.auth.backend.basic_auth" 
+          AIRFLOW__OPENMETADATA__API_VERSION="v1" 
 
 
     - name: Show Pods & Services for Debugging
