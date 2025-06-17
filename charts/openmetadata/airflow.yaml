@@ -3,7 +3,7 @@ executor: KubernetesExecutor
 images:
   airflow:
     repository: apache/airflow
-    tag: apache/airflow
+    tag: 2.7.3-python3.11
     pullPolicy: IfNotPresent
 
 airflow:
