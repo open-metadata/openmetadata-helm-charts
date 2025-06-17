@@ -18,6 +18,9 @@ airflow:
     enabled: true
     command: ["airflow", "db", "migrate"]
 
+  extraPipPackages:
+    - openmetadata-ingestion==1.7.1.1
+    - apache-airflow-providers-openlineage==2.3.0
 
   env:
     - name: AIRFLOW__OPENMETADATA__HOST
@@ -35,6 +38,14 @@ airflow:
     service:
       type: LoadBalancer
       port: 8080  
+    startupProbe:
+      httpGet:
+        path: /health
+        port: 8080
+      initialDelaySeconds: 90
+      timeoutSeconds: 20
+      periodSeconds: 10
+      failureThreshold: 10
     waitForMigrations:
       enabled: false
     resources:
