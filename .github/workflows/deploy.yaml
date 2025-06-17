@@ -82,6 +82,7 @@ jobs:
         --set airflow.triggerer.persistence.enabled=true \
         --set triggerer.persistence.size=1Gi \
         --set airflow.workers.persistence.enabled=false \
+        --set airflow.migrations.enabled=false
         --set webserver.livenessProbe.initialDelaySeconds=60 \
         --set webserver.readinessProbe.initialDelaySeconds=60 \
         --set scheduler.livenessProbe.initialDelaySeconds=60 \
