@@ -88,7 +88,6 @@ jobs:
         --set 'airflow.extraInitContainers[0].command[0]=bash' \
         --set 'airflow.extraInitContainers[0].command[1]=-c' \
         --set 'airflow.extraInitContainers[0].command[2]=airflow db migrate || echo "Migration probably done"' \
-        --set webserver.config.localSettings="" \
         -f $(pwd)/charts/openmetadata/airflow.yaml \
         --force \
         --debug
