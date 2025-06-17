@@ -88,6 +88,9 @@ jobs:
         --set 'airflow.extraInitContainers[0].command[0]=bash' \
         --set 'airflow.extraInitContainers[0].command[1]=-c' \
         --set 'airflow.extraInitContainers[0].command[2]=airflow db migrate || echo "Migration probably done"' \
+        --set webserver.livenessProbe.initialDelaySeconds=60 \
+        --set webserver.readinessProbe.initialDelaySeconds=60 \
+        --set scheduler.livenessProbe.initialDelaySeconds=60 \
         -f $(pwd)/charts/openmetadata/airflow.yaml \
         --force \
         --debug
