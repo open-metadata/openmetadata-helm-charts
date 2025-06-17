@@ -76,14 +76,22 @@ jobs:
       run: |
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
-          --set webserver.service.type=LoadBalancer \
-          --set images.airflow.repository=daappoc25.azurecr.io/airflow \
-          --set images.airflow.tag=latest \
-          --set airflow.triggerer.persistence.enabled=true \
-          --set triggerer.persistence.size=1Gi \
-          --set airflow.workers.persistence.enabled=false \
-          -f $(pwd)/charts/openmetadata/airflow.yaml \
-          --force
+        --set webserver.service.type=LoadBalancer \
+        --set images.airflow.repository=daappoc25.azurecr.io/airflow \
+        --set images.airflow.tag=latest \
+        --set airflow.triggerer.persistence.enabled=true \
+        --set triggerer.persistence.size=1Gi \
+        --set airflow.workers.persistence.enabled=false \
+        --set 'airflow.extraInitContainers[0].name=wait-for-airflow-migrations' \
+        --set 'airflow.extraInitContainers[0].image=daappoc25.azurecr.io/airflow:latest' \
+        --set 'airflow.extraInitContainers[0].imagePullPolicy=IfNotPresent' \
+        --set 'airflow.extraInitContainers[0].command[0]=bash' \
+        --set 'airflow.extraInitContainers[0].command[1]=-c' \
+        --set 'airflow.extraInitContainers[0].command[2]=airflow db migrate || echo "Migration probably done"' \
+        -f $(pwd)/charts/openmetadata/airflow.yaml \
+        --force \
+        --debug
+
         
         kubectl set env deployment/airflow-webserver -n daap-dev \
           AIRFLOW__OPENMETADATA__HOST="http://128.85.217.88:8585" \
