@@ -1,11 +1,6 @@
-FROM apache/airflow:3.0.0-python3.11
+FROM apache/airflow:2.10.5-python3.11  # instead of 3.0.0
 
-USER airflow
-
-RUN mkdir -p /opt/airflow/dag_generated_configs/
-
-# REMOVE airflow_local_settings to avoid import error
-RUN rm -f /opt/airflow/config/airflow_local_settings.py || true
+USER root
 
 RUN pip install --no-cache-dir \
     apache-airflow-providers-openlineage==2.3.0 \
@@ -13,4 +8,6 @@ RUN pip install --no-cache-dir \
     openmetadata-managed-apis==1.7.1.1 \
     pyarrow>=14.0.1
 
-EXPOSE 8080
+USER airflow
+
+RUN mkdir -p /opt/airflow/dag_generated_configs/
