@@ -41,6 +41,13 @@ airflow:
     service:
       type: LoadBalancer
       port: 8080  
+    waitForMigrations:
+      enabled: true
+      command:
+        - "bash"
+        - "-c"
+      args:
+        - "airflow db migrate"
     resources:
       requests:
         memory: 1Gi
