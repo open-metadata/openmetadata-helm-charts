@@ -1,124 +1,65 @@
+executor: KubernetesExecutor
+
+webserver:
+  service:
+    type: LoadBalancer
+  livenessProbe:
+    initialDelaySeconds: 60
+  readinessProbe:
+    initialDelaySeconds: 60
+
+scheduler:
+  livenessProbe:
+    initialDelaySeconds: 60
+
+triggerer:
+  persistence:
+    enabled: true
+    size: 1Gi
+
+workers:
+  persistence:
+    enabled: false
+    size: 1Gi
+
+logs:
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClassName: managed-csi
+
+postgresql:
+  enabled: false
+
 airflow:
-  executor: KubernetesExecutor
+  image:
+    repository: apache/airflow
+    tag: 2.10.5-python3.11
+    pullPolicy: IfNotPresent
 
   config:
-    AIRFLOW__OPENMETADATA__API_VERSION: "v1"
-    AIRFLOW__METRICS__METRICS_USE_PATTERN_MATCH: "True"
-    AIRFLOW__CORE__AUTH_MANAGER: "airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager"
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://admin:admin@airflow-postgresql:5432/airflow_db"
+    AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
+
+    # Use MySQL instead of Postgres
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "mysql+mysqldb://openmetadata_user:openmetadata123@mysql.daap-dev.svc.cluster.local:3306/airflow_db"
+
+    # Optional but recommended DB config tuning
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED: "True"
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE: "5"
     AIRFLOW__DATABASE__SQL_ALCHEMY_MAX_OVERFLOW: "10"
 
+    # For OpenMetadata Integration (adjust if needed)
+    AIRFLOW__OPENMETADATA__HOST: "http://openmetadata:8585"
+
   extraPipPackages:
-    - "apache-airflow-providers-fab==4.4.0"
-    - "apache-airflow-providers-postgres==5.7.0"
-    - "apache-airflow-providers-cncf-kubernetes==7.4.0"
-    - "psycopg2-binary==2.9.7"
+    - openmetadata-ingestion==1.7.1.1
+    - apache-airflow-providers-openlineage==2.3.0
+    - apache-airflow-providers-fab==4.4.0
+    - apache-airflow-providers-mysql==4.3.0
+    - mysqlclient==2.2.0  
 
-  env:
-    - name: AIRFLOW__OPENMETADATA__HOST
-      value: "http://128.85.217.88:8585"
-    - name: AIRFLOW__OPENMETADATA__API_VERSION
-      value: "v1"
-
-  extraVolumeMounts:
-    - name: airflow-plugins
-      mountPath: /opt/airflow/plugins"
-
-  webserver:
-    service:
-      type: LoadBalancer
-      port: 8080  
-    startupProbe:
-      httpGet:
-        path: /health
-        port: 8080
-      initialDelaySeconds: 90
-      timeoutSeconds: 20
-      periodSeconds: 10
-      failureThreshold: 10
-    waitForMigrations:
-      enabled: false
-    resources:
-      requests:
-        memory: 1Gi
-        cpu: 500m
-      limits:
-        memory: 2Gi
-        cpu: 1
-
-  scheduler:
-    replicas: 1
-    resources:
-      requests:
-        cpu: 500m
-        memory: 512Mi
-      limits:
-        cpu: 1
-        memory: 1Gi
-
-  workers:
-    replicas: 1
-    persistence:
-      enabled: true
-      size: 500Mi
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: managed-csi
-    resources:
-      requests:
-        memory: 128Mi
-        cpu: 100m
-      limits:
-        memory: 256Mi
-        cpu: 200m
-
-  triggerer:
-    persistence:
-      enabled: true
-      size: 500Mi
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: managed-csi
-    livenessProbe:
-      enabled: false
-    readinessProbe:
-      enabled: false
-    startupProbe:
-      enabled: false
-
-  dags:
-    persistence:
-      enabled: false
-      size: 500Mi
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: managed-csi
-
-  logs:
-    persistence:
-      enabled: true
-      size: 500Mi
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: managed-csi
-
-postgresql:
-  enabled: true 
-  auth:
-    username: admin 
-    password: admin 
-    database: airflow_db 
-  primary:
-    persistence:
-      enabled: true
-      size: 2Gi 
-      storageClass: managed-csi 
-    resources:
-      requests:
-        memory: 256Mi
-        cpu: 250m
-      limits:
-        memory: 512Mi
-        cpu: 500m
+  users:
+    - username: admin
+      password: admin
+      role: Admin
+      email: admin@example.com
