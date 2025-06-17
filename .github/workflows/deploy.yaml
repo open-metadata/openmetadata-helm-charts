@@ -85,7 +85,7 @@ jobs:
         --set webserver.livenessProbe.initialDelaySeconds=60 \
         --set webserver.readinessProbe.initialDelaySeconds=60 \
         --set scheduler.livenessProbe.initialDelaySeconds=60 \
-        --set "extraPipPackages={openmetadata-ingestion==1.7.1.1,apache-airflow-providers-openlineage==2.3.0}" \
+        --set "extraPipPackages={openmetadata-ingestion==1.7.1.1,apache-airflow-providers-openlineage==2.3.0,apache-airflow-providers-fab==4.4.0}" \
         -f $(pwd)/charts/openmetadata/airflow.yaml \
         --timeout 10m \
         --force \
