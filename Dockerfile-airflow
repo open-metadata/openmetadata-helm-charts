@@ -1,4 +1,4 @@
-FROM apache/airflow:2.10.5-python3.11  # instead of 3.0.0
+FROM apache/airflow:2.10.5-python3.11 
 
 USER root
 
