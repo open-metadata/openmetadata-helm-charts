@@ -26,7 +26,6 @@ logs:
   persistence:
     enabled: true
     size: 1Gi
-    storageClassName: managed-csi
 
 postgresql:
   enabled: false
