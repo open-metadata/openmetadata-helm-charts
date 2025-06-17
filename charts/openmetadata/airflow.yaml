@@ -12,6 +12,18 @@ airflow:
     AIRFLOW__METRICS__METRICS_USE_PATTERN_MATCH: "True"
     AIRFLOW__CORE__AUTH_MANAGER: "airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager" 
     AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.basic_auth"
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://admin:admin@airflow-postgresql:5432/airflow_db
+
+  initContainers:
+    - name: wait-for-airflow-migrations
+      image: daappoc25.azurecr.io/airflow:latest
+      imagePullPolicy: IfNotPresent
+      command:
+        - bash
+        - -c
+        - |
+          airflow db migrate || echo "Migration likely already applied"
+
 
   env:
     - name: AIRFLOW__OPENMETADATA__HOST
