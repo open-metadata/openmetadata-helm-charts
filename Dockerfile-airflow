@@ -1,6 +1,6 @@
 FROM apache/airflow:2.10.5-python3.11 
 
-USER root
+USER airflow
 
 RUN pip install --no-cache-dir \
     apache-airflow-providers-openlineage==2.3.0 \
@@ -8,6 +8,6 @@ RUN pip install --no-cache-dir \
     openmetadata-managed-apis==1.7.1.1 \
     pyarrow>=14.0.1
 
-USER airflow
+
 
 RUN mkdir -p /opt/airflow/dag_generated_configs/
