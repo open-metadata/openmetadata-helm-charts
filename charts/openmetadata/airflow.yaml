@@ -26,7 +26,6 @@ logs:
   persistence:
     enabled: true
     size: 1Gi
-    accessMode: ReadWriteMany
     storageClassName: azurefile-csi
 
 postgresql:
