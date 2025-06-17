@@ -75,20 +75,9 @@ jobs:
     - name: Deploy OpenMetadata (with Airflow)
       run: |
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
-        helm template airflow apache-airflow/airflow \
-        -n daap-dev \
-        -f charts/openmetadata/airflow.yaml > rendered.yaml
-        
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
-        -f charts/openmetadata/airflow.yaml \
-        --timeout 10m \
-        --force \
-        --debug
-
-        
-        kubectl set env deployment/airflow-webserver -n daap-dev \
-          AIRFLOW__OPENMETADATA__HOST="http://128.85.217.88:8585" \
-          AIRFLOW__OPENMETADATA__API_VERSION="v1" 
+        --set postgresql.enabled=false \
+        --set airflow.database.sqlAlchemyConn="mysql+mysqldb://airflow:airflowpass@mysql-host:3306/airflowdb"
 
 
     - name: Show Pods & Services for Debugging
