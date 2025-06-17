@@ -82,7 +82,8 @@ jobs:
           --set airflow.triggerer.persistence.enabled=true \
           --set triggerer.persistence.size=1Gi \
           --set airflow.workers.persistence.enabled=false \
-          -f $(pwd)/charts/openmetadata/airflow.yaml
+          -f $(pwd)/charts/openmetadata/airflow.yaml \
+          --force
         
         kubectl set env deployment/airflow-webserver -n daap-dev \
           AIRFLOW__OPENMETADATA__HOST="http://128.85.217.88:8585" \
