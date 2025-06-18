@@ -29,7 +29,15 @@ logs:
     storageClassName: azurefile-csi
 
 postgresql:
-  enabled: false
+  enabled: true
+  auth:
+    username: postgres
+    password: postgres
+    database: postgres
+  primary:
+    persistence:
+      enabled: true
+      size: 8Gi  
 
 airflow:
   image:
@@ -39,10 +47,6 @@ airflow:
 
   config:
     AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
-
-    # Use MySQL instead of Postgres
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "mysql+mysqldb://openmetadata_user:openmetadata123@mysql.daap-dev.svc.cluster.local:3306/airflow_db"
-
     # Optional but recommended DB config tuning
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED: "True"
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE: "5"

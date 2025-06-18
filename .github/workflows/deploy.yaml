@@ -75,11 +75,8 @@ jobs:
     - name: Deploy OpenMetadata (with Airflow)
       run: |
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
-        helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
-        --set executor=KubernetesExecutor \
-        --set postgresql.enabled=false \
-        --set airflow.database.sqlAlchemyConn="mysql+mysqldb://openmetadata_user:openmetadata_pass@openmetadata-mysql.daap-dev.svc.cluster.local:3306/openmetadata_db"
-
+        helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/airflow.yaml \
+        --set executor=KubernetesExecutor 
 
     - name: Show Pods & Services for Debugging
       if: failure()
