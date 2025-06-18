@@ -1,9 +1,8 @@
 # Dockerfile
 FROM apache/airflow:2.10.5
 
-USER root
+USER airflow
 
 # Install psycopg2 and any other missing packages
 RUN pip install --no-cache-dir psycopg2-binary==2.9.9 openmetadata-ingestion==1.7.1.1
 
-USER airflow
