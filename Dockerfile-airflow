@@ -1,29 +1,28 @@
-# Dockerfile
 FROM apache/airflow:2.8.1-python3.11
 
-# Use root temporarily to install system dependencies
+# Switch to root to install system dependencies
 USER root
 
-# Install OS-level dev libraries required to build wheels for psycopg2, mysqlclient, openmetadata-ingestion
 RUN apt-get update && apt-get install -y \
+    build-essential \
     gcc \
     g++ \
     libpq-dev \
     default-libmysqlclient-dev \
-    build-essential \
-    python3-dev \
-    libffi-dev \
     libssl-dev \
+    libffi-dev \
     libsasl2-dev \
+    python3-dev \
+    pkg-config \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Switch back to non-root airflow user
+# Switch back to airflow user
 USER airflow
 
-# Install only required packages (no airflow-providers)
+# Upgrade pip and install minimal required packages
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir \
-    openmetadata-ingestion==1.7.1.1 \
-    mysqlclient==2.2.0 \
-    psycopg2-binary==2.9.9
+        openmetadata-ingestion==1.7.1.1 \
+        mysqlclient==2.2.0 \
+        psycopg2-binary==2.9.9
