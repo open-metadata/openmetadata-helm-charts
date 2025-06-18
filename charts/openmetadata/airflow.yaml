@@ -1,6 +1,8 @@
 executor: KubernetesExecutor
 
 webserver:
+  command: ["bash", "-c"]
+  args: ["exec airflow webserver"]
   service:
     type: LoadBalancer
   resources:
@@ -9,9 +11,20 @@ webserver:
     requests:
       memory: "1Gi"
   livenessProbe:
-    initialDelaySeconds: 60
+    initialDelaySeconds: 120
+    timeoutSeconds: 10
+    periodSeconds: 20
+    failureThreshold: 10
   readinessProbe:
-    initialDelaySeconds: 60
+    initialDelaySeconds: 120
+    timeoutSeconds: 10
+    periodSeconds: 20
+    failureThreshold: 10
+  startupProbe:
+    enabled: true
+    failureThreshold: 30
+    periodSeconds: 10
+    timeoutSeconds: 10
 
 scheduler:
   livenessProbe:

@@ -1,8 +1,13 @@
-# Dockerfile
 FROM apache/airflow:2.10.5
 
 USER airflow
+RUN apt-get update && apt-get install -y gcc libmysqlclient-dev build-essential
 
-# Install psycopg2 and any other missing packages
-RUN pip install --no-cache-dir psycopg2-binary==2.9.9 openmetadata-ingestion==1.7.1.1
 
+RUN pip install --no-cache-dir \
+    openmetadata-ingestion==1.7.1.1 \
+    apache-airflow-providers-openlineage==2.3.0 \
+    apache-airflow-providers-fab==4.4.0 \
+    apache-airflow-providers-mysql==4.3.0 \
+    mysqlclient==2.2.0 \
+    psycopg2-binary==2.9.9
