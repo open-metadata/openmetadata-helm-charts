@@ -1,10 +1,11 @@
 executor: KubernetesExecutor
 
-airflow:
-  image:
+images:
+  airflow:
     repository: daappoc25.azurecr.io/airflow
     tag: latest
     pullPolicy: IfNotPresent
+
   config:
     AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED: "True"
