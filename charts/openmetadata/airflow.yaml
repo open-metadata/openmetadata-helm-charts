@@ -6,13 +6,17 @@ images:
     tag: latest
     pullPolicy: IfNotPresent
 
-
 config:
-    AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED: "True"
-    AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE: "5"
-    AIRFLOW__DATABASE__SQL_ALCHEMY_MAX_OVERFLOW: "10"
-    AIRFLOW__OPENMETADATA__HOST: "http://openmetadata:8585"
+  AIRFLOW__CORE__EXECUTOR:
+    value: KubernetesExecutor
+  AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED:
+    value: "True"
+  AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE:
+    value: "5"
+  AIRFLOW__DATABASE__SQL_ALCHEMY_MAX_OVERFLOW:
+    value: "10"
+  AIRFLOW__OPENMETADATA__HOST:
+    value: "http://openmetadata:8585"
 
 webserver:
   service:
@@ -35,6 +39,7 @@ logs:
 workers:
   persistence:
     enabled: false
+
 triggerer:
   persistence:
     enabled: false
