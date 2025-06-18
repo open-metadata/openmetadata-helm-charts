@@ -6,7 +6,8 @@ images:
     tag: latest
     pullPolicy: IfNotPresent
 
-  config:
+
+config:
     AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED: "True"
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE: "5"
