@@ -72,11 +72,13 @@ jobs:
         helm repo add open-metadata https://helm.open-metadata.org 
         helm repo update
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
-        
+
         helm repo add apache-airflow https://airflow.apache.org
         helm repo update
-        helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/airflow.yaml \
-        --set executor=KubernetesExecutor 
+        helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
+        --set executor=KubernetesExecutor \
+        --set airflow.extraPipPackages="{psycopg2-binary==2.9.9}" \
+        -f $(pwd)/charts/openmetadata/airflow.yaml 
 
     - name: Show Pods & Services for Debugging
       if: failure()
