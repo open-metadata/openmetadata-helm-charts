@@ -1,14 +1,9 @@
-FROM apache/airflow:2.10.5-python3.11
+# Dockerfile
+FROM apache/airflow:2.10.5
 
+USER root
 
-RUN mkdir -p /opt/airflow/dag_generated_configs/
-RUN pip uninstall -y apache-airflow-providers-openlineage
-# Install compatible OpenMetadata plugins & OpenLineage provider
-RUN pip install --no-cache-dir \
-    "apache-airflow-providers-openlineage==2.3.0" \
-    "openmetadata-ingestion[airflow]==1.7.1.1" \
-    "openmetadata-managed-apis==1.7.1.1" \
-    "pyarrow<10.1.0,>=10.0.1"
+# Install psycopg2 and any other missing packages
+RUN pip install --no-cache-dir psycopg2-binary==2.9.9 openmetadata-ingestion==1.7.1.1
 
-# Expose Airflow's webserver port
-EXPOSE 8080
+USER airflow

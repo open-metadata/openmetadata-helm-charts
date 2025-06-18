@@ -41,8 +41,8 @@ postgresql:
 
 airflow:
   image:
-    repository: bitnami/airflow
-    tag: 2.10.5
+    repository: daappoc25.azurecr.io/airflow
+    tag: latest
     pullPolicy: IfNotPresent
 
   config:
