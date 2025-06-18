@@ -1,9 +1,10 @@
-# Use Airflow 2.8.1 with Python 3.11
+# Dockerfile
 FROM apache/airflow:2.8.1-python3.11
 
 USER airflow
 
-# Install Python packages
+# Only required packages for OpenMetadata integration
 RUN pip install --no-cache-dir \
-    openmetadata-ingestion[airflow] \
+    openmetadata-ingestion==1.7.1.1 \
+    mysqlclient==2.2.0 \
     psycopg2-binary==2.9.9
