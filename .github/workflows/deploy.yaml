@@ -46,8 +46,8 @@ jobs:
       run:  |
         #docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
         #docker push daappoc25.azurecr.io/openmetadata:custom
-        docker build -t daappoc25.azurecr.io/airflow:latest -f Dockerfile-airflow .
-        docker push daappoc25.azurecr.io/airflow:latest     
+        #docker build -t daappoc25.azurecr.io/airflow:latest -f Dockerfile-airflow .
+        #docker push daappoc25.azurecr.io/airflow:latest     
       
 
     - name: Create Namespace /optional
