@@ -53,13 +53,6 @@ jobs:
     - name: Create Namespace /optional
       run: |
         kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
-    
-    - name: Add Helm Repositories
-      run: |
-          helm repo add open-metadata https://helm.open-metadata.org 
-          helm repo add opensearch https://opensearch-project.github.io/helm-charts
-          helm repo add apache-airflow https://airflow.apache.org
-          helm repo update
 
 
     - name: Deploy MySQL
@@ -69,12 +62,19 @@ jobs:
 
     - name: Deploy OpenSearch
       run: |
+        helm repo add opensearch https://opensearch-project.github.io/helm-charts
+        helm repo update
         helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
         kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
 
     - name: Deploy OpenMetadata (with Airflow)
       run: |
+        helm repo add open-metadata https://helm.open-metadata.org 
+        helm repo update
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
+        
+        helm repo add apache-airflow https://airflow.apache.org
+        helm repo update
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev -f $(pwd)/charts/openmetadata/airflow.yaml \
         --set executor=KubernetesExecutor 
 
