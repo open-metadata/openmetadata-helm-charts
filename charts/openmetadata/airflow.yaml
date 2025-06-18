@@ -5,6 +5,9 @@ images:
     repository: apache/airflow
     tag: 2.8.1-python3.11
     pullPolicy: IfNotPresent
+  
+  extraPipPackages:
+    - apache-airflow-providers-fab==2.8.1
 
 config:
   AIRFLOW__CORE__EXECUTOR:
