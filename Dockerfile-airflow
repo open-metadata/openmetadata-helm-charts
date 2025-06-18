@@ -5,6 +5,5 @@ USER airflow
 
 # Install Python packages
 RUN pip install --no-cache-dir \
-    openmetadata-ingestion==1.7.1.1 \
-    apache-airflow-providers-openlineage==2.3.0 \
+    openmetadata-ingestion[airflow] \
     psycopg2-binary==2.9.9
