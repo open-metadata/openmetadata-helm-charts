@@ -1,10 +1,23 @@
-# Dockerfile
+# syntax=docker/dockerfile:1
 FROM apache/airflow:2.8.1-python3.11
 
+# Temporarily switch to root to install system dependencies
+USER root
+
+# Install dev libraries needed by mysqlclient and psycopg2
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    default-libmysqlclient-dev \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Switch to airflow for rest of operations (pip install + runtime)
 USER airflow
 
-# Only required packages for OpenMetadata integration
-RUN pip install --no-cache-dir \
+# Upgrade pip and install only minimal required packages
+RUN pip install --no-cache-dir --upgrade pip && pip install --no-cache-dir \
     openmetadata-ingestion==1.7.1.1 \
     mysqlclient==2.2.0 \
     psycopg2-binary==2.9.9
