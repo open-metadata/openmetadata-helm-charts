@@ -23,8 +23,12 @@ config:
     value: "5"
   AIRFLOW__DATABASE__SQL_ALCHEMY_MAX_OVERFLOW:
     value: "10"
+  AIRFLOW__API__AUTH_BACKEND:
+    value : "airflow.api.auth.backend.basic_auth"
   AIRFLOW__OPENMETADATA__HOST:
     value: "http://openmetadata:8585"
+  AIRFLOW__CORE__AUTH_MANAGER:
+    value: "airflow.auth.managers.fab.fallback_auth_manager.FallbackAuthManager"
 
 webserver:
   service:

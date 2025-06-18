@@ -76,5 +76,9 @@ jobs:
         helm repo add apache-airflow https://airflow.apache.org
         helm repo update
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
-        -f $(pwd)/charts/openmetadata/airflow.yaml 
+        -f $(pwd)/charts/openmetadata/airflow.yaml \
+        --set images.airflow.repository=apache/airflow \
+        --set images.airflow.tag=2.8.1-python3.11 \
+        --set images.airflow.pullPolicy=IfNotPresent \
+        --set airflow.extraPipPackages="{apache-airflow-providers-fab==2.8.1}"
 
