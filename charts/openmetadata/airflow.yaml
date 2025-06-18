@@ -1,8 +1,6 @@
 executor: KubernetesExecutor
 
 webserver:
-  command: ["bash", "-c"]
-  args: ["exec airflow webserver"]
   service:
     type: LoadBalancer
   resources:
@@ -11,20 +9,9 @@ webserver:
     requests:
       memory: "1Gi"
   livenessProbe:
-    initialDelaySeconds: 120
-    timeoutSeconds: 10
-    periodSeconds: 20
-    failureThreshold: 10
+    initialDelaySeconds: 60
   readinessProbe:
-    initialDelaySeconds: 120
-    timeoutSeconds: 10
-    periodSeconds: 20
-    failureThreshold: 10
-  startupProbe:
-    enabled: true
-    failureThreshold: 30
-    periodSeconds: 10
-    timeoutSeconds: 10
+    initialDelaySeconds: 60
 
 scheduler:
   livenessProbe:
@@ -33,12 +20,10 @@ scheduler:
 triggerer:
   persistence:
     enabled: false
-    size: 1Gi
 
 workers:
   persistence:
     enabled: false
-    size: 1Gi
 
 logs:
   persistence:
@@ -51,11 +36,11 @@ postgresql:
   auth:
     username: postgres
     password: postgres
-    database: postgres
+    database: airflow
   primary:
     persistence:
       enabled: true
-      size: 8Gi  
+      size: 8Gi
 
 airflow:
   image:
@@ -65,24 +50,21 @@ airflow:
 
   config:
     AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
-    # Optional but recommended DB config tuning
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_ENABLED: "True"
     AIRFLOW__DATABASE__SQL_ALCHEMY_POOL_SIZE: "5"
     AIRFLOW__DATABASE__SQL_ALCHEMY_MAX_OVERFLOW: "10"
-
-    # For OpenMetadata Integration (adjust if needed)
     AIRFLOW__OPENMETADATA__HOST: "http://openmetadata:8585"
 
   extraPipPackages:
     - openmetadata-ingestion==1.7.1.1
     - apache-airflow-providers-openlineage==2.3.0
-    - apache-airflow-providers-fab==4.4.0
-    - apache-airflow-providers-mysql==4.3.0
-    - mysqlclient==2.2.0  
-    - psycopg2-binary==2.9.9  
+    - mysqlclient==2.2.0
+    - psycopg2-binary==2.9.9
 
   users:
     - username: admin
       password: admin
       role: Admin
       email: admin@example.com
+
+migrateDatabase: false  # Do not run migrations automatically

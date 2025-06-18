@@ -76,13 +76,5 @@ jobs:
         helm repo add apache-airflow https://airflow.apache.org
         helm repo update
         helm upgrade --install airflow apache-airflow/airflow --namespace daap-dev \
-        --set executor=KubernetesExecutor \
-        --set airflow.extraPipPackages="{psycopg2-binary==2.9.9}" \
         -f $(pwd)/charts/openmetadata/airflow.yaml 
 
-    - name: Show Pods & Services for Debugging
-      if: failure()
-      run: |
-        kubectl get pods -n $NAMESPACE -o wide
-        kubectl describe pods -n $NAMESPACE
-        kubectl get svc -n $NAMESPACE

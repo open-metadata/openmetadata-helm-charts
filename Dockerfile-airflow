@@ -1,13 +1,25 @@
-FROM apache/airflow:2.10.5
+# Use Airflow 2.8.1 with Python 3.11
+FROM apache/airflow:2.8.1-python3.11
 
 USER airflow
-RUN apt-get update && apt-get install -y gcc libmysqlclient-dev build-essential
+
+# Install required system packages
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    libpq-dev \
+    libmysqlclient-dev \
+    libsasl2-dev \
+    python3-dev \
+ && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 
+
+# Install Python packages
 RUN pip install --no-cache-dir \
     openmetadata-ingestion==1.7.1.1 \
     apache-airflow-providers-openlineage==2.3.0 \
-    apache-airflow-providers-fab==4.4.0 \
     apache-airflow-providers-mysql==4.3.0 \
+    apache-airflow-providers-postgres==5.6.0 \
     mysqlclient==2.2.0 \
     psycopg2-binary==2.9.9
