@@ -28,16 +28,6 @@ web:
     type: LoadBalancer
     port: 8080
 
-logs:
-  persistence:
-    enabled: true
-    storageClassName: azurefile-csi
-    size: 1Gi
-
-scheduler:
-  logCleanup:
-    enabled: false
-
 postgresql:
   enabled: true
   postgresqlUsername: postgres
