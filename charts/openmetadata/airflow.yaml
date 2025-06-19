@@ -3,7 +3,7 @@ executor: KubernetesExecutor
 images:
   airflow:
     repository: apache/airflow
-    tag: 2.8.1-python3.10
+    tag: 2.8.1
     pullPolicy: IfNotPresent
   
 airflow:
@@ -28,6 +28,8 @@ config:
     value: "http://openmetadata:8585"
 
 webserver:
+  waitForMigrations:
+    enabled: False
   service:
     type: LoadBalancer
   livenessProbe:
@@ -36,20 +38,28 @@ webserver:
     initialDelaySeconds: 60
 
 scheduler:
+  waitForMigrations:
+    enabled: False
   livenessProbe:
     initialDelaySeconds: 60
 
 logs:
+  waitForMigrations:
+    enabled: False
   persistence:
     enabled: true
     size: 1Gi
     storageClassName: azurefile-csi
 
 workers:
+  waitForMigrations:
+    enabled: False
   persistence:
     enabled: false
 
 triggerer:
+  waitForMigrations:
+    enabled: False
   persistence:
     enabled: false
 
