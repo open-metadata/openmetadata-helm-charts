@@ -5,10 +5,13 @@ airflow:
     repository: apache/airflow
     tag: 2.8.1-python3.10
     pullPolicy: IfNotPresent
-
+    
+  fernetKey: "qSr-TlbX4k4Jcnl6AMKimtG89n05c2YqjHpVH4eePQI="
+  
   config:
     AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
     AIRFLOW__OPENMETADATA__HOST: http://openmetadata:8585
+    
 
   extraPipPackages:
     - openmetadata-ingestion==1.7.1.1

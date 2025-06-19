@@ -77,7 +77,7 @@ jobs:
         helm repo update
         helm upgrade --install airflow airflow-stable/airflow \
         --namespace daap-dev \
-        -f $(pwd)/charts/openmetadata/airflow.yaml 
+        -f $(pwd)/charts/openmetadata/airflow.yaml \
         --timeout 20m
 
 
