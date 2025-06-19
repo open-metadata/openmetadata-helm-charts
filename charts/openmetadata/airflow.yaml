@@ -21,6 +21,8 @@ airflow:
       password: admin
       role: Admin
       email: admin@example.com
+      firstName: Admin
+      lastName: User
 
 web:
   service:
