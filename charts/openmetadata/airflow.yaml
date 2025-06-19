@@ -1,80 +1,119 @@
-airflow:
-  executor: KubernetesExecutor
-
-  extraEnv:
-    - name: AIRFLOW__OPENMETADATA__HOST
-      value: "http://openmetadata:8585"
-    - name: AIRFLOW__OPENMETADATA__API_VERSION
-      value: "v1"
-    - name: AIRFLOW__API__AUTH_BACKENDS
-      value: "airflow.api.auth.backend.basic_auth"
-
-  extraVolumeMounts:
-    - name: airflow-plugins
-      mountPath: /opt/airflow/plugins
-
-    # Webserver Configuration
-  webserver:
-    service:
-        type: LoadBalancer  
-        port: 8080
-    resources:
-      requests:
-        memory: "512Mi"
-        cpu: "250m"
-      limits:
-        memory: "1Gi"
-        cpu: "500m"
-
-  # Scheduler Configuration
-  scheduler:
-    replicas: 1
-    resources:
-      requests:
-        cpu: "250m"
-        memory: "256Mi"
-      limits:
-        cpu: "500m"
-        memory: "512Mi"
-
-  # Logs, DAGs, Worker, and Triggerer Persistence
-  dags:
-    persistence:
-      enabled: true
-      size: 500Mi
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: standard
-
-  logs:
-    persistence:
-      enabled: true
-      size: 500Mi
-      accessModes:
-        - ReadWriteOnce
-      storageClassName: standard
-
-  workers:
-    replicas: 1
-    resources:
-      requests:
-        memory: "128Mi"
-        cpu: "100m"
-      limits:
-        memory: "256Mi"
-        cpu: "200m"
-
-  triggerer:
-    persistence:
-      enabled: true
-      size: 1Gi
-
-  # Database Configuration
-  postgresql:
-    enabled: true
-    postgresqlUsername: postgres
-    postgresqlPassword: postgres
-    postgresqlDatabase: postgres
-    persistence:
-      enabled: true
-      size: 8Gi
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: daap-dev
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: airflow-fernet-key
+  namespace: daap-dev
+type: Opaque
+stringData:
+  fernet-key: wKoOKzFWfpz7P_YnyFWLq9HQGadsRl3vjIJ6ppYvB-4=
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: airflow-config
+  namespace: daap-dev
+data:
+  airflow.cfg: |
+    [core]
+    dags_folder = /opt/airflow/dags
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: airflow-scheduler
+  namespace: daap-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: airflow-scheduler
+  template:
+    metadata:
+      labels:
+        app: airflow-scheduler
+    spec:
+      containers:
+        - name: scheduler
+          image: apache/airflow:3.0.2
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: AIRFLOW__CORE__EXECUTOR
+              value: CeleryExecutor
+            - name: AIRFLOW__CORE__AUTH_MANAGER
+              value: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+            - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+              value: postgresql+psycopg2://airflow:airflow@postgres/airflow
+            - name: AIRFLOW__CELERY__RESULT_BACKEND
+              value: db+postgresql://airflow:airflow@postgres/airflow
+            - name: AIRFLOW__CELERY__BROKER_URL
+              value: redis://:@redis:6379/0
+            - name: AIRFLOW__CORE__FERNET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: airflow-fernet-key
+                  key: fernet-key
+            - name: AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION
+              value: "true"
+            - name: AIRFLOW__CORE__LOAD_EXAMPLES
+              value: "true"
+            - name: AIRFLOW__CORE__EXECUTION_API_SERVER_URL
+              value: http://airflow-apiserver:8080/execution/
+            - name: AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK
+              value: "true"
+            - name: _PIP_ADDITIONAL_REQUIREMENTS
+              value: "openmetadata-ingestion==1.7.1.1 openmetadata-managed-apis==1.7.1.1 apache-airflow-providers-openlineage==2.3.0"
+            - name: AIRFLOW_CONFIG
+              value: /opt/airflow/config/airflow.cfg
+          volumeMounts:
+            - name: dags
+              mountPath: /opt/airflow/dags
+            - name: logs
+              mountPath: /opt/airflow/logs
+            - name: config
+              mountPath: /opt/airflow/config
+            - name: plugins
+              mountPath: /opt/airflow/plugins
+      volumes:
+        - name: dags
+          persistentVolumeClaim:
+            claimName: airflow-dags-pvc
+        - name: logs
+          persistentVolumeClaim:
+            claimName: airflow-logs-pvc
+        - name: config
+          configMap:
+            name: airflow-config
+        - name: plugins
+          emptyDir: {}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: airflow-dags-pvc
+  namespace: daap-dev
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: azurefile-csi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: airflow-logs-pvc
+  namespace: daap-dev
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: azurefile-csi
