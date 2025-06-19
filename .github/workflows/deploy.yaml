@@ -44,8 +44,8 @@ jobs:
 
     - name: Build and push docker
       run:  |
-        #docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
-        #docker push daappoc25.azurecr.io/openmetadata:custom
+        docker build -t daappoc25.azurecr.io/openmetadata:custom -f Dockerfile-openmetadata .
+        docker push daappoc25.azurecr.io/openmetadata:custom
         #docker build -t daappoc25.azurecr.io/airflow:ver-1 -f Dockerfile-airflow .
         #docker push daappoc25.azurecr.io/airflow:ver-1    
       
