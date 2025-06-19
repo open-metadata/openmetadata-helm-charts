@@ -1,119 +1,163 @@
----
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: daap-dev
+  name: airflow
 ---
 apiVersion: v1
-kind: Secret
+kind: Service
 metadata:
-  name: airflow-fernet-key
-  namespace: daap-dev
-type: Opaque
-stringData:
-  fernet-key: wKoOKzFWfpz7P_YnyFWLq9HQGadsRl3vjIJ6ppYvB-4=
+  name: postgres
+  namespace: airflow
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+  selector:
+    app: postgres
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: airflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:13
+          env:
+            - name: POSTGRES_DB
+              value: airflow
+            - name: POSTGRES_USER
+              value: airflow
+            - name: POSTGRES_PASSWORD
+              value: airflow
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: postgres-storage
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: airflow
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+    app: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: airflow
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.2-bookworm
+          ports:
+            - containerPort: 6379
 ---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: airflow-config
-  namespace: daap-dev
+  namespace: airflow
 data:
   airflow.cfg: |
     [core]
-    dags_folder = /opt/airflow/dags
+    executor = CeleryExecutor
+    sql_alchemy_conn = postgresql+psycopg2://airflow:airflow@postgres/airflow
+    dags_are_paused_at_creation = True
+    load_examples = True
+
+    [celery]
+    broker_url = redis://redis:6379/0
+    result_backend = db+postgresql://airflow:airflow@postgres/airflow
+
+    [webserver]
+    secret_key = temporarykey
+
+    [scheduler]
+    enable_health_check = True
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: airflow-scheduler
-  namespace: daap-dev
+  name: airflow-webserver
+  namespace: airflow
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: airflow-scheduler
+      component: webserver
   template:
     metadata:
       labels:
-        app: airflow-scheduler
+        component: webserver
     spec:
       containers:
-        - name: scheduler
-          image: apache/airflow:3.0.2
-          imagePullPolicy: IfNotPresent
+        - name: webserver
+          image: apache/airflow:2.8.1-python3.10
+          command: ["bash", "-c"]
+          args:
+            - >
+              airflow db init &&
+              airflow users create \
+                --username admin \
+                --firstname admin \
+                --lastname user \
+                --role Admin \
+                --email admin@example.com \
+                --password admin &&
+              exec airflow webserver
           env:
             - name: AIRFLOW__CORE__EXECUTOR
               value: CeleryExecutor
-            - name: AIRFLOW__CORE__AUTH_MANAGER
-              value: airflow.providers.fab.auth_manager.fab_auth_manager.FabAuthManager
+            - name: AIRFLOW__CORE__FERNET_KEY
+              value: temporarykey
             - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
               value: postgresql+psycopg2://airflow:airflow@postgres/airflow
+            - name: AIRFLOW__CELERY__BROKER_URL
+              value: redis://redis:6379/0
             - name: AIRFLOW__CELERY__RESULT_BACKEND
               value: db+postgresql://airflow:airflow@postgres/airflow
-            - name: AIRFLOW__CELERY__BROKER_URL
-              value: redis://:@redis:6379/0
-            - name: AIRFLOW__CORE__FERNET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: airflow-fernet-key
-                  key: fernet-key
-            - name: AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION
-              value: "true"
-            - name: AIRFLOW__CORE__LOAD_EXAMPLES
-              value: "true"
-            - name: AIRFLOW__CORE__EXECUTION_API_SERVER_URL
-              value: http://airflow-apiserver:8080/execution/
-            - name: AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK
-              value: "true"
-            - name: _PIP_ADDITIONAL_REQUIREMENTS
-              value: "openmetadata-ingestion==1.7.1.1 openmetadata-managed-apis==1.7.1.1 apache-airflow-providers-openlineage==2.3.0"
-            - name: AIRFLOW_CONFIG
-              value: /opt/airflow/config/airflow.cfg
-          volumeMounts:
-            - name: dags
-              mountPath: /opt/airflow/dags
-            - name: logs
-              mountPath: /opt/airflow/logs
-            - name: config
-              mountPath: /opt/airflow/config
-            - name: plugins
-              mountPath: /opt/airflow/plugins
-      volumes:
-        - name: dags
-          persistentVolumeClaim:
-            claimName: airflow-dags-pvc
-        - name: logs
-          persistentVolumeClaim:
-            claimName: airflow-logs-pvc
-        - name: config
-          configMap:
-            name: airflow-config
-        - name: plugins
-          emptyDir: {}
+          ports:
+            - containerPort: 8080
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: Service
 metadata:
-  name: airflow-dags-pvc
-  namespace: daap-dev
+  name: airflow-webserver
+  namespace: airflow
 spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: azurefile-csi
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: airflow-logs-pvc
-  namespace: daap-dev
-spec:
-  accessModes:
-    - ReadWriteMany
-  resources:
-    requests:
-      storage: 1Gi
-  storageClassName: azurefile-csi
+  type: LoadBalancer
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    component: webserver
