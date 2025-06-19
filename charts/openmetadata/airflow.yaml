@@ -22,8 +22,6 @@ config:
     value : "airflow.api.auth.backend.basic_auth"
   AIRFLOW__OPENMETADATA__HOST:
     value: "http://openmetadata:8585"
-  AIRFLOW__CORE__AUTH_MANAGER:
-    value: "airflow.auth.managers.fab.fallback_auth_manager.FallbackAuthManager"
 
 webserver:
   service:

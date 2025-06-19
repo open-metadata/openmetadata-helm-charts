@@ -1,8 +1,6 @@
 FROM apache/airflow:2.8.1-python3.11
 
 RUN pip install --no-cache-dir \
-    apache-airflow-providers-fab==2.0.2 \
     apache-airflow-providers-openlineage==1.4.0 \
-    openmetadata-ingestion==1.7.1.1 \
-    openmetadata-managed-apis==1.7.1.1 \
-    -c https://raw.githubusercontent.com/apache/airflow/constraints-2.8.1/constraints-3.11.txt
+    openmetadata-ingestion==1.6.2.1 \
+    openmetadata-managed-apis==1.6.2.1
