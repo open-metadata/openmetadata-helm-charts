@@ -1,41 +1,80 @@
-executor: KubernetesExecutor
-
 airflow:
-  image:
-    repository: apache/airflow
-    tag: 2.8.1-python3.10
-    pullPolicy: IfNotPresent
-    
-  fernetKey: "qSr-TlbX4k4Jcnl6AMKimtG89n05c2YqjHpVH4eePQI="
-  
-  config:
-    AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
-    AIRFLOW__OPENMETADATA__HOST: http://openmetadata:8585
-    
+  executor: KubernetesExecutor
 
-  extraPipPackages:
-    - openmetadata-ingestion==1.7.1.1
-    - openmetadata-managed-apis==1.7.1.1
-    - apache-airflow-providers-openlineage==2.3.0
+  extraEnv:
+    - name: AIRFLOW__OPENMETADATA__HOST
+      value: "http://openmetadata:8585"
+    - name: AIRFLOW__OPENMETADATA__API_VERSION
+      value: "v1"
+    - name: AIRFLOW__API__AUTH_BACKENDS
+      value: "airflow.api.auth.backend.basic_auth"
 
-  users:
-    - username: admin
-      password: admin
-      role: Admin
-      email: admin@example.com
-      firstName: Admin
-      lastName: User
+  extraVolumeMounts:
+    - name: airflow-plugins
+      mountPath: /opt/airflow/plugins
 
-web:
-  service:
-    type: LoadBalancer
-    port: 8080
+    # Webserver Configuration
+  webserver:
+    service:
+        type: LoadBalancer  
+        port: 8080
+    resources:
+      requests:
+        memory: "512Mi"
+        cpu: "250m"
+      limits:
+        memory: "1Gi"
+        cpu: "500m"
 
-postgresql:
-  enabled: true
-  postgresqlUsername: postgres
-  postgresqlPassword: postgres
-  postgresqlDatabase: postgres
-  persistence:
+  # Scheduler Configuration
+  scheduler:
+    replicas: 1
+    resources:
+      requests:
+        cpu: "250m"
+        memory: "256Mi"
+      limits:
+        cpu: "500m"
+        memory: "512Mi"
+
+  # Logs, DAGs, Worker, and Triggerer Persistence
+  dags:
+    persistence:
+      enabled: true
+      size: 500Mi
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: standard
+
+  logs:
+    persistence:
+      enabled: true
+      size: 500Mi
+      accessModes:
+        - ReadWriteOnce
+      storageClassName: standard
+
+  workers:
+    replicas: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "200m"
+
+  triggerer:
+    persistence:
+      enabled: true
+      size: 1Gi
+
+  # Database Configuration
+  postgresql:
     enabled: true
-    size: 8Gi
+    postgresqlUsername: postgres
+    postgresqlPassword: postgres
+    postgresqlDatabase: postgres
+    persistence:
+      enabled: true
+      size: 8Gi

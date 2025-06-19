@@ -73,11 +73,11 @@ jobs:
         helm repo update
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
 
-        helm repo add airflow-stable https://airflow-helm.github.io/charts
+        helm repo add apache-airflow https://airflow.apache.org 
         helm repo update
-        helm upgrade --install airflow airflow-stable/airflow \
+        helm upgrade --install airflow apache-airflow/airflow \
         --namespace daap-dev \
         -f $(pwd)/charts/openmetadata/airflow.yaml \
-        --timeout 20m
+        --reset-values
 
 
