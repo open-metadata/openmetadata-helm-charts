@@ -139,7 +139,7 @@ spec:
             - name: AIRFLOW__CORE__EXECUTOR
               value: CeleryExecutor
             - name: AIRFLOW__CORE__FERNET_KEY
-              value: temporarykey
+              value: K9THt5zAJSfCLTD38oPPCFfD7CdaKI8kS8dlc0p1TBA=
             - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
               value: postgresql+psycopg2://airflow:airflow@postgres/airflow
             - name: AIRFLOW__CELERY__BROKER_URL
