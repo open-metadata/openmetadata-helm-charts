@@ -75,7 +75,9 @@ jobs:
 
         helm repo add airflow-stable https://airflow-helm.github.io/charts
         helm repo update
-        helm upgrade --install airflow airflow-stable/airflow \ 
+        helm upgrade --install airflow airflow-stable/airflow \
         --namespace daap-dev \
         -f $(pwd)/charts/openmetadata/airflow.yaml 
+        --timeout 20m
+
 
