@@ -7,7 +7,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postgres
-  namespace: airflow
+  namespace: daap-dev
 spec:
   ports:
     - port: 5432
@@ -19,7 +19,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
-  namespace: airflow
+  namespace: daap-dev
 spec:
   replicas: 1
   selector:
@@ -53,7 +53,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis
-  namespace: airflow
+  namespace: daap-dev
 spec:
   ports:
     - port: 6379
@@ -65,7 +65,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
-  namespace: airflow
+  namespace: daap-dev
 spec:
   replicas: 1
   selector:
@@ -86,7 +86,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: airflow-config
-  namespace: airflow
+  namespace: daap-dev
 data:
   airflow.cfg: |
     [core]
@@ -109,7 +109,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: airflow-webserver
-  namespace: airflow
+  namespace: daap-dev
 spec:
   replicas: 1
   selector:
@@ -153,7 +153,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: airflow-webserver
-  namespace: airflow
+  namespace: daap-dev
 spec:
   type: LoadBalancer
   ports:
