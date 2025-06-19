@@ -7,7 +7,6 @@ airflow:
     pullPolicy: IfNotPresent
 
   config:
-    AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
     AIRFLOW__API__AUTH_BACKEND: airflow.api.auth.backend.basic_auth
     AIRFLOW__OPENMETADATA__HOST: http://openmetadata:8585
 
