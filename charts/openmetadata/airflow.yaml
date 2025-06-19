@@ -29,6 +29,8 @@ web:
     port: 8080
 
 logs:
+  logCleanup:
+    enabled: false
   persistence:
     enabled: true
     storageClassName: azurefile-csi
