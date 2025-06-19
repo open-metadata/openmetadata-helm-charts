@@ -29,12 +29,14 @@ web:
     port: 8080
 
 logs:
-  logCleanup:
-    enabled: false
   persistence:
     enabled: true
     storageClassName: azurefile-csi
     size: 1Gi
+
+scheduler:
+  logCleanup:
+    enabled: false
 
 postgresql:
   enabled: true
