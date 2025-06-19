@@ -32,7 +32,7 @@ openmetadata:
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-      apiEndpoint: http://132.196.200.157:8080
+      apiEndpoint: http://airflow-webserver:8080
       metadataApiEndpoint: http://openmetadata:8585/api
       verifySsl: "no-ssl"
       hostIp: ""
