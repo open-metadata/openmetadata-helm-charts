@@ -1,13 +1,6 @@
-FROM apache/airflow:2.8.1-python3.11
+FROM apache/airflow:2.7.3-python3.10
 
-ENV PIP_NO_CACHE_DIR=true
-ENV PIP_DISABLE_PIP_VERSION_CHECK=1
-ENV PYTHONUNBUFFERED=1
-
-RUN pip install --upgrade pip
-
-RUN pip install --prefer-binary --use-deprecated=legacy-resolver \
+RUN pip install --no-cache-dir \
     apache-airflow-providers-openlineage==2.3.0 \
     openmetadata-ingestion==1.7.1.1 \
-    openmetadata-managed-apis==1.7.1.1 \
-    apache-airflow-providers-fab==2.0.2
+    openmetadata-managed-apis==1.7.1.1
