@@ -19,6 +19,11 @@ airflow:
           name: airflow-secrets
           key: SECRET_KEY
 
+  requirements: |
+    openmetadata-ingestion==1.7.1.1
+    apache-airflow-providers-openlineage==2.3.0
+    openmetadata-managed-apis==1.7.1.1
+
   config:
     AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
     AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgresql/airflow
