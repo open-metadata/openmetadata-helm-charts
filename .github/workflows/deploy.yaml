@@ -67,18 +67,31 @@ jobs:
         helm upgrade --install opensearch opensearch/opensearch --namespace daap-dev  -f $(pwd)/charts/openmetadata/values-opensearch.yaml
         kubectl apply -f $(pwd)/charts/openmetadata/opensearch-sysctl-daemonset.yaml -n daap-dev
 
+    - name: Generate FERNET & SECRET keys
+      run: |
+        echo "FERNET_KEY=$(python3 -c 'from cryptography.fernet import Fernet; print(Fernet.generate_key().decode())')" >> $GITHUB_ENV
+        echo "SECRET_KEY=$(python3 -c 'import secrets; print(secrets.token_urlsafe(32))')" >> $GITHUB_ENV
+
+    - name: Create Kubernetes Secret
+      run: |
+        kubectl create secret generic airflow-secrets \
+          --from-literal=FERNET_KEY=$FERNET_KEY \
+          --from-literal=SECRET_KEY=$SECRET_KEY \
+          -n airflow-dev --dry-run=client -o yaml | kubectl apply -f -
+          
+
     - name: Deploy OpenMetadata (with Airflow)
       run: |
         helm repo add open-metadata https://helm.open-metadata.org 
         helm repo update
         helm upgrade --install openmetadata open-metadata/openmetadata --namespace daap-dev -f $(pwd)/charts/openmetadata/values.yaml
 
-        kubectl apply -f $(pwd)/charts/openmetadata/airflow.yaml -n daap-dev
-        #helm repo add apache-airflow https://airflow.apache.org 
-        #helm repo update
-        #helm upgrade --install airflow apache-airflow/airflow \
-        #--namespace daap-dev \
-        #-f $(pwd)/charts/openmetadata/airflow.yaml \
-        #--reset-values
+        #kubectl apply -f $(pwd)/charts/openmetadata/airflow.yaml -n daap-dev
+        helm repo add apache-airflow https://airflow.apache.org 
+        helm repo update
+        helm upgrade --install airflow apache-airflow/airflow \
+        --namespace daap-dev \
+        -f $(pwd)/charts/openmetadata/airflow.yaml \
+        --reset-values
 
 

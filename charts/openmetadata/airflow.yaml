@@ -1,163 +1,82 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  name: airflow
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres
-  namespace: daap-dev
-spec:
-  ports:
-    - port: 5432
-      targetPort: 5432
-  selector:
-    app: postgres
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: postgres
-  namespace: daap-dev
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgres
-  template:
-    metadata:
-      labels:
-        app: postgres
-    spec:
-      containers:
-        - name: postgres
-          image: postgres:13
-          env:
-            - name: POSTGRES_DB
-              value: airflow
-            - name: POSTGRES_USER
-              value: airflow
-            - name: POSTGRES_PASSWORD
-              value: airflow
-          ports:
-            - containerPort: 5432
-          volumeMounts:
-            - name: postgres-storage
-              mountPath: /var/lib/postgresql/data
-      volumes:
-        - name: postgres-storage
-          emptyDir: {}
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: redis
-  namespace: daap-dev
-spec:
-  ports:
-    - port: 6379
-      targetPort: 6379
-  selector:
-    app: redis
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: redis
-  namespace: daap-dev
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: redis
-  template:
-    metadata:
-      labels:
-        app: redis
-    spec:
-      containers:
-        - name: redis
-          image: redis:7.2-bookworm
-          ports:
-            - containerPort: 6379
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: airflow-config
-  namespace: daap-dev
+executor: KubernetesExecutor
+
+airflow:
+  image:
+    repository: openmetadata/ingestion
+    tag: 1.7.1
+    pullPolicy: IfNotPresent
+    
+  extraEnv:
+    - name: AIRFLOW__CORE__FERNET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: airflow-secrets
+          key: FERNET_KEY
+    - name: AIRFLOW__WEBSERVER__SECRET_KEY
+      valueFrom:
+        secretKeyRef:
+          name: airflow-secrets
+          key: SECRET_KEY
+
+  config:
+    AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgresql/airflow
+
+  users:
+    - username: admin
+      password: admin
+      role: Admin
+      email: admin@example.com
+      firstName: Air
+      lastName: Flow
+
+web:
+  service:
+    type: LoadBalancer
+    port: 8080
+
+postgresql:
+  enabled: true
+  auth:
+    username: airflow
+    password: airflow
+    database: airflow
+
+redis:
+  enabled: true
+
+logs:
+  persistence:
+    enabled: true
+    storageClassName: azurefile
+    size: 1Gi
+
+dags:
+  persistence:
+    enabled: true
+    storageClassName: azurefile
+    size: 1Gi
+
 data:
-  airflow.cfg: |
-    [core]
-    executor = CeleryExecutor
-    sql_alchemy_conn = postgresql+psycopg2://airflow:airflow@postgres/airflow
-    dags_are_paused_at_creation = True
-    load_examples = True
+  persistence:
+    enabled: true
+    storageClassName: azurefile
+    size: 1Gi
 
-    [celery]
-    broker_url = redis://redis:6379/0
-    result_backend = db+postgresql://airflow:airflow@postgres/airflow
+triggerer:
+  enabled: true
 
-    [webserver]
-    secret_key = temporarykey
+workers:
+  enabled: true
+  replicas: 2
 
-    [scheduler]
-    enable_health_check = True
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: airflow-webserver
-  namespace: daap-dev
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      component: webserver
-  template:
-    metadata:
-      labels:
-        component: webserver
-    spec:
-      containers:
-        - name: webserver
-          image: apache/airflow:2.8.1-python3.10
-          command: ["bash", "-c"]
-          args:
-            - >
-              airflow db init &&
-              airflow users create \
-                --username admin \
-                --firstname admin \
-                --lastname user \
-                --role Admin \
-                --email admin@example.com \
-                --password admin &&
-              exec airflow webserver
-          env:
-            - name: AIRFLOW__CORE__EXECUTOR
-              value: CeleryExecutor
-            - name: AIRFLOW__CORE__FERNET_KEY
-              value: K9THt5zAJSfCLTD38oPPCFfD7CdaKI8kS8dlc0p1TBA=
-            - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
-              value: postgresql+psycopg2://airflow:airflow@postgres/airflow
-            - name: AIRFLOW__CELERY__BROKER_URL
-              value: redis://redis:6379/0
-            - name: AIRFLOW__CELERY__RESULT_BACKEND
-              value: db+postgresql://airflow:airflow@postgres/airflow
-          ports:
-            - containerPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: airflow-webserver
-  namespace: daap-dev
-spec:
-  type: LoadBalancer
-  ports:
-    - port: 8080
-      targetPort: 8080
-  selector:
-    component: webserver
+scheduler:
+  livenessProbe:
+    enabled: true
+  readinessProbe:
+    enabled: true
+  startupProbe:
+    enabled: true
+
+flower:
+  enabled: false
