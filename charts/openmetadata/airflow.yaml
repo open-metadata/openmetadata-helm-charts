@@ -26,7 +26,7 @@ airflow:
 
   config:
     AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgresql/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgresql.daap-dev.svc.cluster.local/airflow
 
   users:
     - username: admin
