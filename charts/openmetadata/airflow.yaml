@@ -1,11 +1,12 @@
 executor: KubernetesExecutor
 
-airflow:
-  image:
+images:
+  airflow:
     repository: openmetadata/ingestion
     tag: 1.7.1
     pullPolicy: IfNotPresent
 
+airflow:
   extraEnv:
     - name: AIRFLOW__CORE__FERNET_KEY
       valueFrom:
