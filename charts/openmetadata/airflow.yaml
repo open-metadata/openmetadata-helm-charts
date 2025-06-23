@@ -5,7 +5,7 @@ airflow:
     repository: openmetadata/ingestion
     tag: 1.7.1
     pullPolicy: IfNotPresent
-    
+
   extraEnv:
     - name: AIRFLOW__CORE__FERNET_KEY
       valueFrom:
@@ -57,26 +57,5 @@ dags:
     storageClassName: azurefile
     size: 1Gi
 
-data:
-  persistence:
-    enabled: true
-    storageClassName: azurefile
-    size: 1Gi
-
 triggerer:
   enabled: true
-
-workers:
-  enabled: true
-  replicas: 2
-
-scheduler:
-  livenessProbe:
-    enabled: true
-  readinessProbe:
-    enabled: true
-  startupProbe:
-    enabled: true
-
-flower:
-  enabled: false
