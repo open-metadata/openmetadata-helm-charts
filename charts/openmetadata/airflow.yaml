@@ -34,7 +34,7 @@ webserver:
     type: LoadBalancer
 
 api:
-  enabled: false
+  enabled: false  
 
 postgresql:
   enabled: true
@@ -45,3 +45,18 @@ postgresql:
 
 redis:
   enabled: true
+
+triggerer:
+  enabled: true
+
+logs:
+  persistence:
+    enabled: true
+    storageClassName: azurefile
+    size: 1Gi
+
+dags:
+  persistence:
+    enabled: true
+    storageClassName: azurefile
+    size: 1Gi
