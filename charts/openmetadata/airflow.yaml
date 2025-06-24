@@ -28,9 +28,33 @@ airflow:
     apache-airflow-providers-openlineage==2.3.0
     openmetadata-managed-apis==1.7.1.1
 
-webserver:
-  service:
-    type: LoadBalancer
+web:
+  port: 8080
+  startupProbe:
+    httpGet:
+      path: /
+      port: 8080
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
+    failureThreshold: 30
+    periodSeconds: 10
+  livenessProbe:
+    httpGet:
+      path: /
+      port: 8080
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
+    failureThreshold: 10
+    periodSeconds: 10
+  readinessProbe:
+    httpGet:
+      path: /
+      port: 8080
+    initialDelaySeconds: 60
+    timeoutSeconds: 10
+    failureThreshold: 10
+    periodSeconds: 10
+
 
 postgresql:
   enabled: true
