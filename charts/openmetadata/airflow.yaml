@@ -2,8 +2,8 @@ executor: KubernetesExecutor
 
 images:
   airflow:
-    repository: openmetadata/ingestion
-    tag: 1.7.1
+    repository: apache/airflow
+    tag: 2.7.3
     pullPolicy: IfNotPresent
 
 airflow:
@@ -27,6 +27,21 @@ airflow:
     openmetadata-ingestion==1.7.1.1
     apache-airflow-providers-openlineage==2.3.0
     openmetadata-managed-apis==1.7.1.1
+
+webserver:
+  enabled: true
+  service:
+    type: LoadBalancer
+  livenessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 10
+  readinessProbe:
+    initialDelaySeconds: 60
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 10
 
 postgresql:
   enabled: true
