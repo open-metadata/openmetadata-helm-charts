@@ -29,19 +29,8 @@ airflow:
     openmetadata-managed-apis==1.7.1.1
 
 webserver:
-  enabled: true
   service:
     type: LoadBalancer
-  livenessProbe:
-    initialDelaySeconds: 60
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 10
-  readinessProbe:
-    initialDelaySeconds: 60
-    periodSeconds: 10
-    timeoutSeconds: 5
-    failureThreshold: 10
 
 postgresql:
   enabled: true
