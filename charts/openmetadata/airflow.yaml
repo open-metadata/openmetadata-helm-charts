@@ -1,10 +1,15 @@
 executor: KubernetesExecutor
 
-airflow:
-  image:
+images:
+  airflow:
     repository: openmetadata/ingestion
     tag: 1.7.1
     pullPolicy: IfNotPresent
+
+airflow:
+  config:
+    AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgresql.daap-dev.svc.cluster.local/airflow
 
   extraEnv:
     - name: AIRFLOW__CORE__FERNET_KEY
@@ -17,30 +22,20 @@ airflow:
         secretKeyRef:
           name: airflow-secrets
           key: SECRET_KEY
-    - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
-      value: postgresql+psycopg2://airflow:airflow@airflow-postgresql.daap-dev.svc.cluster.local/airflow
-
 
   requirements: |
     openmetadata-ingestion==1.7.1.1
     apache-airflow-providers-openlineage==2.3.0
     openmetadata-managed-apis==1.7.1.1
 
-  config:
-    AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
-
-  users:
-    - username: admin
-      password: admin
-      role: Admin
-      email: admin@example.com
-      firstName: Air
-      lastName: Flow
-
-web:
+webserver:
+  enabled: true
   service:
     type: LoadBalancer
     port: 8080
+
+api:
+  enabled: false
 
 postgresql:
   enabled: true
@@ -50,19 +45,4 @@ postgresql:
     database: airflow
 
 redis:
-  enabled: true
-
-logs:
-  persistence:
-    enabled: true
-    storageClassName: azurefile
-    size: 1Gi
-
-dags:
-  persistence:
-    enabled: true
-    storageClassName: azurefile
-    size: 1Gi
-
-triggerer:
   enabled: true
