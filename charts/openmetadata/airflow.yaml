@@ -18,6 +18,9 @@ airflow:
         secretKeyRef:
           name: airflow-secrets
           key: SECRET_KEY
+    - name: AIRFLOW__DATABASE__SQL_ALCHEMY_CONN
+      value: postgresql+psycopg2://airflow:airflow@airflow-postgresql.daap-dev.svc.cluster.local/airflow
+
 
   requirements: |
     openmetadata-ingestion==1.7.1.1
@@ -26,8 +29,7 @@ airflow:
 
   config:
     AIRFLOW__CORE__EXECUTOR: KubernetesExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@airflow-postgresql.daap-dev.svc.cluster.local/airflow
-
+    
   users:
     - username: admin
       password: admin
