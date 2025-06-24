@@ -32,7 +32,6 @@ webserver:
   enabled: true
   service:
     type: LoadBalancer
-    port: 8080
 
 api:
   enabled: false
