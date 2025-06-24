@@ -33,9 +33,6 @@ webserver:
   service:
     type: LoadBalancer
 
-api:
-  enabled: false  
-
 postgresql:
   enabled: true
   auth:
