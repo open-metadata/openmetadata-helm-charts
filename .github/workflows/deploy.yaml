@@ -90,7 +90,7 @@ jobs:
         helm repo add apache-airflow https://airflow.apache.org 
         helm repo update
         helm upgrade --install airflow apache-airflow/airflow \
-        --version 2.10.5 \
+        --version 1.10.0  \
         --namespace daap-dev \
         -f $(pwd)/charts/openmetadata/airflow.yaml \
         --reset-values
