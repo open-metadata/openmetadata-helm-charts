@@ -28,11 +28,6 @@ airflow:
     apache-airflow-providers-openlineage==2.3.0
     openmetadata-managed-apis==1.7.1.1
 
-webserver:
-  enabled: true
-  service:
-    type: LoadBalancer
-
 postgresql:
   enabled: true
   auth:
