@@ -89,7 +89,8 @@ jobs:
         #kubectl apply -f $(pwd)/charts/openmetadata/airflow.yaml -n daap-dev
         helm repo add apache-airflow https://airflow.apache.org 
         helm repo update
-        helm upgrade --install airflow apache-airflow/airflow  --version 2.10.5\
+        helm upgrade --install airflow apache-airflow/airflow \
+        --version 2.10.5 \
         --namespace daap-dev \
         -f $(pwd)/charts/openmetadata/airflow.yaml \
         --reset-values
