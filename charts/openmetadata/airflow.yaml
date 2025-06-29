@@ -34,7 +34,7 @@ web:
     httpGet:
       path: /
       port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 180
     timeoutSeconds: 10
     failureThreshold: 30
     periodSeconds: 10
@@ -42,17 +42,17 @@ web:
     httpGet:
       path: /
       port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 180
     timeoutSeconds: 10
-    failureThreshold: 10
+    failureThreshold: 30
     periodSeconds: 10
   readinessProbe:
     httpGet:
       path: /
       port: 8080
-    initialDelaySeconds: 60
+    initialDelaySeconds: 180
     timeoutSeconds: 10
-    failureThreshold: 10
+    failureThreshold: 30
     periodSeconds: 10
 
 
