@@ -14,7 +14,35 @@ openmetadata:
       port: 8585
       adminPort: 8586
       uri: "http://openmetadata:8585"
-
+      maxThreads: 50
+      minThreads: 10
+      idleThreadTimeout: "1 minute"
+    elasticsearch:
+      enabled: true
+      host: opensearch
+      searchType: opensearch
+      port: 9200
+      scheme: http
+      clusterAlias: ""
+      # Value in Bytes
+      payLoadSize: 10485760
+      connectionTimeoutSecs: 5
+      socketTimeoutSecs: 60
+      batchSize: 100
+      searchIndexMappingLanguage: "EN"
+      keepAliveTimeoutSecs: 600
+      trustStore:
+        enabled: false
+        path: ""
+        password:
+          secretRef: "elasticsearch-truststore-secrets"
+          secretKey: "openmetadata-elasticsearch-truststore-password"
+      auth:
+        enabled: false
+        username: "elasticsearch"
+        password:
+          secretRef: elasticsearch-secrets
+          secretKey: openmetadata-elasticsearch-password
     database:
       host: mysql.daap-dev.svc.cluster.local
       port: 3306
@@ -49,8 +77,182 @@ openmetadata:
         trustStorePassword:
           secretRef: ""
           secretKey: ""
+    authorizer:
+      enabled: true
+      className: "org.openmetadata.service.security.DefaultAuthorizer"
+      containerRequestFilter: "org.openmetadata.service.security.JwtFilter"
+      initialAdmins:
+      - "admin"
+      allowedEmailRegistrationDomains:
+      - "all"
+      principalDomain: "open-metadata.org"
+      allowedDomains: []
+      enforcePrincipalDomain: false
+      enableSecureSocketConnection: false
+      useRolesFromProvider: false
+    authentication:
+      enabled: true
+      clientType: public
+      provider: "basic"
+      publicKeys:
+      - "http://openmetadata:8585/api/v1/system/config/jwks"
+      authority: "https://accounts.google.com"
+      clientId: ""
+      callbackUrl: ""
+      responseType: id_token
+      jwtPrincipalClaims:
+      - "email"
+      - "preferred_username"
+      - "sub"
+      jwtPrincipalClaimsMapping: []
+      enableSelfSignup: true
+      oidcConfiguration:
+        enabled: false
+        oidcType: ""
+        clientId:
+          secretRef: oidc-secrets
+          secretKey: openmetadata-oidc-client-id
+        clientSecret:
+          secretRef: oidc-secrets
+          secretKey: openmetadata-oidc-client-secret
+        scope: "openid email profile"
+        discoveryUri: ""
+        useNonce: true
+        preferredJwsAlgorithm: RS256
+        responseType: code
+        promptType: "consent"
+        disablePkce: true
+        callbackUrl: http://openmetadata:8585/callback
+        serverUrl: http://openmetadata:8585
+        clientAuthenticationMethod: client_secret_post
+        tenant: ""
+        maxClockSkew: ""
+        tokenValidity: "3600"
+        customParams: '{}'
+        maxAge: "0"
+      ldapConfiguration:
+        host: localhost
+        port: 10636
+        dnAdminPrincipal: "cn=admin,dc=example,dc=com"
+        dnAdminPassword:
+          secretRef: ldap-admin-secret
+          secretKey: openmetadata-ldap-secret
+        userBaseDN: "ou=people,dc=example,dc=com"
+        mailAttributeName: email
+        maxPoolSize: 3
+        sslEnabled: false
+        groupBaseDN: ""
+        roleAdminName: ""
+        allAttributeName: ""
+        usernameAttributeName: ""
+        groupAttributeName: ""
+        groupAttributeValue: ""
+        groupMemberAttributeName: ""
+        authRolesMapping: ""
+        authReassignRoles: []
+        truststoreConfigType: TrustAll
+        trustStoreConfig:
+          customTrustManagerConfig:
+            trustStoreFilePath: ""
+            trustStoreFilePassword:
+              secretRef: ""
+              secretKey: ""
+            trustStoreFileFormat: ""
+            verifyHostname: true
+            examineValidityDates: true
+          hostNameConfig:
+            allowWildCards: false
+            acceptableHostNames: []
+          jvmDefaultConfig:
+            verifyHostname: true
+          trustAllConfig:
+            examineValidityDates: true
+      saml:
+        debugMode: false
+        idp:
+          entityId: ""
+          ssoLoginUrl: ""
+          idpX509Certificate:
+            secretRef: ""
+            secretKey: ""
+          authorityUrl: "http://openmetadata:8585/api/v1/saml/login"
+          nameId: "urn:oasis:names:tc:SAML:2.0:nameid-format:emailAddress"
+        sp:
+          entityId: "http://openmetadata:8585/api/v1/saml/metadata"
+          acs: "http://openmetadata:8585/api/v1/saml/acs"
+          spX509Certificate:
+            secretRef: ""
+            secretKey: ""
+          spPrivateKey:
+            secretRef: ""
+            secretKey: ""
+          callback: "http://openmetadata:8585/saml/callback"
+        security:
+          strictMode: false
+          validateXml: false
+          tokenValidity: 3600
+          sendEncryptedNameId: false
+          sendSignedAuthRequest: false
+          signSpMetadata: false
+          wantMessagesSigned: false
+          wantAssertionsSigned: false
+          wantAssertionEncrypted: false
+          keyStoreFilePath: ""
+          keyStoreAlias:
+            secretRef: ""
+            secretKey: ""
+          keyStorePassword:
+            secretRef: ""
+            secretKey: ""
 
-    elasticsearch:
+    jwtTokenConfiguration:
+      enabled: true
+      rsapublicKeyFilePath: "./conf/public_key.der"
+      rsaprivateKeyFilePath: "./conf/private_key.der"
+      jwtissuer: "open-metadata.org"
+      keyId: "Gb389a-9f76-gdjs-a92j-0242bk94356"
+    fernetkey:
+      value: "jJ/9sz0g0OHxsfxOoSfdFdmk3ysNmPRnH3TUAbz3IHA="
+      secretRef: ""
+      secretKey: ""
+    eventMonitor:
+      enabled: true
+      type: prometheus
+      batchSize: 10
+      pathPattern:
+      - "/api/v1/tables/*"
+      - "/api/v1/health-check"
+      latency: []
+    secretsManager:
+      enabled: true
+      provider: db
+      prefix: ""
+      tags: []
+      additionalParameters:
+        enabled: false
+        region: ""
+        accessKeyId:
+          secretRef: ""
+          secretKey: ""
+        secretAccessKey:
+          secretRef: ""
+          secretKey: ""
+        clientId:
+          secretRef: ""
+          secretKey: ""
+        clientSecret:
+          secretRef: ""
+          secretKey: ""
+        tenantId:
+          secretRef: ""
+          secretKey: ""
+        vaultName:
+          secretRef: ""
+          secretKey: ""
+        projectId:
+          secretRef: ""
+          secretKey: ""
+    web:
       enabled: true
       searchType: opensearch
       host: "opensearch-cluster-master.daap-dev.svc.cluster.local"

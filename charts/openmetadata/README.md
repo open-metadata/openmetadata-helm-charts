@@ -79,6 +79,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.oidcConfiguration.clientSecret.secretKey | string | `openmetadata-oidc-client-secret` | OIDC_CLIENT_SECRET |
 | openmetadata.config.authentication.oidcConfiguration.clientSecret.secretRef | string | `oidc-secrets` | OIDC_CLIENT_SECRET |
 | openmetadata.config.authentication.oidcConfiguration.customParams | string | `{}` | OIDC_CUSTOM_PARAMS |
+| openmetadata.config.authentication.oidcConfiguration.maxAge | string | `0` | OIDC_MAX_AGE |
 | openmetadata.config.authentication.oidcConfiguration.disablePkce | bool | true | OIDC_DISABLE_PKCE |
 | openmetadata.config.authentication.oidcConfiguration.discoveryUri | string | `Empty` | OIDC_DISCOVERY_URI |
 | openmetadata.config.authentication.oidcConfiguration.enabled | bool | false | |
@@ -86,6 +87,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authentication.oidcConfiguration.oidcType | string | `Empty` | OIDC_TYPE |
 | openmetadata.config.authentication.oidcConfiguration.preferredJwsAlgorithm | string | `RS256` | OIDC_PREFERRED_JWS |
 | openmetadata.config.authentication.oidcConfiguration.responseType | string | `code` | OIDC_RESPONSE_TYPE |
+| openmetadata.config.authentication.oidcConfiguration.promptType | string | `consent` | OIDC_PROMPT_TYPE |
 | openmetadata.config.authentication.oidcConfiguration.scope | string | `openid email profile` | OIDC_SCOPE |
 | openmetadata.config.authentication.oidcConfiguration.serverUrl | string | `http://openmetadata:8585` | OIDC_SERVER_URL |
 | openmetadata.config.authentication.oidcConfiguration.tenant | string | `Empty` | OIDC_TENANT |
@@ -124,6 +126,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.authorizer.enforcePrincipalDomain | bool | `false` | AUTHORIZER_ENFORCE_PRINCIPAL_DOMAIN |
 | openmetadata.config.authorizer.enableSecureSocketConnection | bool | `false` | AUTHORIZER_ENABLE_SECURE_SOCKET |
 | openmetadata.config.authorizer.initialAdmins | list | `[admin]` | AUTHORIZER_ADMIN_PRINCIPALS |
+| openmetadata.config.authorizer.allowedDomains | list | `[]` | AUTHORIZER_ALLOWED_DOMAINS |
 | openmetadata.config.authorizer.principalDomain | string | `open-metadata.org` | AUTHORIZER_PRINCIPAL_DOMAIN |
 | openmetadata.config.authorizer.useRolesFromProvider | bool | `false` | AUTHORIZER_USE_ROLES_FROM_PROVIDER |
 | openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
@@ -177,6 +180,9 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.jwtTokenConfiguration.keyId | string | `Gb389a-9f76-gdjs-a92j-0242bk94356` | JWT_KEY_ID |
 | openmetadata.config.logLevel | string | `INFO` | LOG_LEVEL |
 | openmetadata.config.openmetadata.adminPort | int | 8586 | SERVER_ADMIN_PORT |
+| openmetadata.config.openmetadata.maxThreads | int | 50 | SERVER_MAX_THREADS |
+| openmetadata.config.openmetadata.minThreads | int | 10 | SERVER_MIN_THREADS |
+| openmetadata.config.openmetadata.idleThreadTimeout | string | `1 minute` | SERVER_IDLE_THREAD_TIMEOUT |
 | openmetadata.config.openmetadata.host | string | `openmetadata` | OPENMETADATA_SERVER_URL |
 | openmetadata.config.openmetadata.port | int | 8585 | SERVER_PORT |
 | openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef | string | `airflow-secrets` | AIRFLOW_PASSWORD |
@@ -212,16 +218,6 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.secretsManager.additionalParameters.region | string | `Empty String` | OM_SM_REGION |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` | OM_SM_ACCESS_KEY |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY |
-| openmetadata.config.smtpConfig.enableSmtpServer | bool | `false` | AUTHORIZER_ENABLE_SMTP |
-| openmetadata.config.smtpConfig.emailingEntity | string | `OpenMetadata` | OM_EMAIL_ENTITY |
-| openmetadata.config.smtpConfig.openMetadataUrl | string | `Empty String` | OPENMETADATA_SERVER_URL |
-| openmetadata.config.smtpConfig.password.secretKey | string | `Empty String` | SMTP_SERVER_PWD |
-| openmetadata.config.smtpConfig.password.secretRef | string | `Empty String` | SMTP_SERVER_PWD |
-| openmetadata.config.smtpConfig.serverEndpoint | string | `Empty String` | SMTP_SERVER_ENDPOINT |
-| openmetadata.config.smtpConfig.serverPort | string | `Empty String` | SMTP_SERVER_PORT |
-| openmetadata.config.smtpConfig.supportUrl | string | `https://slack.open-metadata.org` | OM_SUPPORT_URL |
-| openmetadata.config.smtpConfig.transportationStrategy | string | `SMTP_TLS` | SMTP_SERVER_STRATEGY |
-| openmetadata.config.smtpConfig.username | string | `Empty String` | SMTP_SERVER_USERNAME |
 | openmetadata.config.upgradeMigrationConfigs.debug | bool | `false` |  |
 | openmetadata.config.upgradeMigrationConfigs.additionalArgs | string | `Empty String` |  |
 | openmetadata.config.deployPipelinesConfig.debug | bool | `false` |   |
@@ -263,7 +259,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.6.5` |
+| image.tag | string | `1.8.0` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
@@ -288,6 +284,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | readinessProbe.httpGet.port | string | `http` |
 | replicaCount | int | `1` |
 | resources | object | `{}` |
+| startingDeadlineSeconds | int | `100` |
 | securityContext | object | `{}` |
 | service.adminPort | string | `8586` |
 | service.annotations | object | `{}` |
