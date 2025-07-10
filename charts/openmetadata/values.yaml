@@ -158,6 +158,7 @@ openmetadata:
         tokenValidity: "3600"
         customParams: '{}'
         maxAge: "0"
+        sessionExpiry: "604800" # 7 days
       ldapConfiguration:
         host: localhost
         port: 10636

@@ -408,6 +408,9 @@
                     },
                     "tokenValidity": {
                       "type": "string"
+                    },
+                    "sessionExpiry": {
+                      "type": "string"
                     }
                   }
                 },
