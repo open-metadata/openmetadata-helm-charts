@@ -992,9 +992,6 @@
                 "port": {
                   "type": "integer"
                 },
-                "uri": {
-                  "type": "string"
-                },
                 "maxThreads": {
                   "type": "integer"
                 },
