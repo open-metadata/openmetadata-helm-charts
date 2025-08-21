@@ -67,6 +67,6 @@ dependencies:
   repository: "https://airflow-helm.github.io/charts"
   condition: airflow.enabled
 - name: opensearch
-  version: "2.12.1"
+  version: "2.35.0"
   repository: "https://opensearch-project.github.io/helm-charts/"
   condition: opensearch.enabled
