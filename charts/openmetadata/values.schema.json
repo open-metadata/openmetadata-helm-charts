@@ -1270,6 +1270,15 @@
     "startingDeadlineSeconds": {
       "type": "number"
     },
+    "testConnection": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resources": {
+          "type": "object"
+        }
+      }
+    },
     "securityContext": {
       "type": "object"
     },
