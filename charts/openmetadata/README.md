@@ -260,7 +260,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.9.1` |
+| image.tag | string | `1.9.5` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
@@ -286,6 +286,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | replicaCount | int | `1` |
 | resources | object | `{}` |
 | startingDeadlineSeconds | int | `100` |
+| testConnection.resources | object | `{}` |
 | securityContext | object | `{}` |
 | service.adminPort | string | `8586` |
 | service.annotations | object | `{}` |

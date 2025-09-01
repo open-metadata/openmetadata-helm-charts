@@ -4,11 +4,18 @@
 
 # MySQL configurations for helm dependency
 # you can find more details about this here https://artifacthub.io/packages/helm/bitnami/mysql
+global:
+  security:
+    allowInsecureImages: true
+
 mysql:
   enabled: true
   fullnameOverride: "mysql"
   architecture: standalone
   image:
+    registry: docker.io
+    repository: bitnamilegacy/mysql
+    tag: 8.0.37-debian-12-r2
     pullPolicy: "Always"
   auth:
     rootPassword: password    # to be provided by CI/CD
@@ -62,7 +69,7 @@ airflow:
   airflow:
     image:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.9.1
+      tag: 1.9.5
       pullPolicy: "IfNotPresent"
     executor: "KubernetesExecutor"
     config:
