@@ -17,6 +17,10 @@ spec:
       image: busybox
       command: ['wget']
       args: ['{{ include "OpenMetadata.fullname" . }}:{{ .Values.service.port }}']
+      {{- with .Values.testConnection.resources }}
+      resources:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
   restartPolicy: Never
   {{- with .Values.nodeSelector }}
   nodeSelector:
