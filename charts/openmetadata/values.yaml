@@ -505,14 +505,14 @@ livenessProbe:
   periodSeconds: 30
   failureThreshold: 5
   httpGet:
-    path: /healthcheck
-    port: http-admin
+    path: /api/v1/system/health
+    port: http
 readinessProbe:
   initialDelaySeconds: 60
   periodSeconds: 30
   failureThreshold: 5
   httpGet:
-    path: /
+    path: /api/v1/system/health
     port: http
 startupProbe:
   periodSeconds: 60
