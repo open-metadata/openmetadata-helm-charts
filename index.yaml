@@ -895,6 +895,55 @@ entries:
       artifacthub.io/support: https://github.com/open-metadata/openmetadata-helm-charts/issues
       kubeVersion: '>=1.24'
     apiVersion: v2
+    appVersion: 1.7.6
+    created: "2025-09-18T09:25:55.000105046Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: dceaed8fcae7b1613f03f9e2333259634f97b506ad59014014002d3757d75073
+    home: https://open-metadata.org/
+    icon: https://open-metadata.org/assets/favicon.png
+    keywords:
+    - metadata
+    - data-science
+    - data
+    - machine-learning
+    - automation
+    - big-data
+    - bigdata
+    - artificial-intelligence
+    - datascience
+    - data-engineering
+    - data-catalog
+    - metadata-api
+    - governance
+    - data-profiling
+    - metadata-management
+    - dataengineering
+    - dataquality
+    - bigdataanalytics
+    - datadiscovery
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata
+    sources:
+    - https://github.com/open-metadata/OpenMetadata
+    - https://github.com/open-metadata/openmetadata-helm-charts
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-1.7.6/openmetadata-1.7.6.tgz
+    version: 1.7.6
+  - annotations:
+      artifacthub.io/images: |
+        - name: openmetadata-server
+          image: docker.io/openmetadata/server:1.7.5
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/recommendations: |
+        - name: bitnami/mysql
+        - name: apache/airflow
+        - name: opensearchproject/opensearch
+      artifacthub.io/support: https://github.com/open-metadata/openmetadata-helm-charts/issues
+      kubeVersion: '>=1.24'
+    apiVersion: v2
     appVersion: 1.7.5
     created: "2025-06-20T06:14:41.743023971Z"
     description: A Helm chart for OpenMetadata on Kubernetes
@@ -6879,6 +6928,57 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-1.8.0/openmetadata-dependencies-1.8.0.tgz
     version: 1.8.0
+  - apiVersion: v2
+    appVersion: 1.7.6
+    created: "2025-09-18T09:25:55.199464133Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: https://charts.bitnami.com/bitnami
+      version: 9.7.2
+    - condition: airflow.enabled
+      name: airflow
+      repository: https://airflow-helm.github.io/charts
+      version: 8.9.0
+    - condition: opensearch.enabled
+      name: opensearch
+      repository: https://opensearch-project.github.io/helm-charts/
+      version: 2.12.1
+    description: Helm Dependencies for OpenMetadata
+    digest: da1d7d4fbfa4d53c20e25e1f07a855751086901c468a865d2d3b1032cd7046e3
+    home: https://open-metadata.org/
+    icon: https://open-metadata.org/assets/favicon.png
+    keywords:
+    - metadata
+    - data-science
+    - data
+    - machine-learning
+    - automation
+    - big-data
+    - bigdata
+    - artificial-intelligence
+    - datascience
+    - data-engineering
+    - data-catalog
+    - metadata-api
+    - governance
+    - data-profiling
+    - metadata-management
+    - dataengineering
+    - dataquality
+    - bigdataanalytics
+    - datadiscovery
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata-dependencies
+    sources:
+    - https://github.com/open-metadata/OpenMetadata
+    - https://github.com/open-metadata/openmetadata-helm-charts
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-1.7.6/openmetadata-dependencies-1.7.6.tgz
+    version: 1.7.6
   - apiVersion: v2
     appVersion: 1.7.5
     created: "2025-06-20T06:14:41.879607886Z"
@@ -13361,4 +13461,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2025-09-05T13:41:33.292925498Z"
+generated: "2025-09-18T09:25:55.201829079Z"
