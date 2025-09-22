@@ -9,7 +9,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+  {{- if not .Values.hpa.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "OpenMetadata.selectorLabels" . | nindent 6 }}
