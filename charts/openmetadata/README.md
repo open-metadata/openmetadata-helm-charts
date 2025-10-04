@@ -311,3 +311,5 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | podDisruptionBudget.enabled | bool | `false` |
 | podDisruptionBudget.config.maxUnavailable | String | `1` |
 | podDisruptionBudget.config.minAvailable | String | `1` |
+| cronjobs.deployPipelines.enabled | bool | `true` |
+| cronjobs.reindex.enabled | bool | `true` |

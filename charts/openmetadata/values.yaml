@@ -479,6 +479,15 @@ resources: {}
 
 startingDeadlineSeconds: 100
 
+# Cronjob configuration
+cronjobs:
+  # Enable/disable deploy-pipelines cronjob
+  deployPipelines:
+    enabled: true
+  # Enable/disable reindex cronjob
+  reindex:
+    enabled: true
+
 # Test connection pod configuration
 testConnection:
   resources: {}

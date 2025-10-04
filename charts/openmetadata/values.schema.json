@@ -1412,6 +1412,30 @@
           }
         }
       }
+    },
+    "cronjobs": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deployPipelines": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        },
+        "reindex": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
     }
   }
 }
