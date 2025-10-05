@@ -1,4 +1,4 @@
-{{- if .Values.cronjobs.reindex.enabled }}
+{{- if .Values.openmetadata.config.reindexConfig.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:

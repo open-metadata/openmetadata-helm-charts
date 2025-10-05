@@ -1,4 +1,4 @@
-{{- if .Values.cronjobs.deployPipelines.enabled }}
+{{- if .Values.openmetadata.config.deployPipelinesConfig.enabled }}
 apiVersion: batch/v1
 kind: CronJob
 metadata:

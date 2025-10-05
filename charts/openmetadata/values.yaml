@@ -13,9 +13,11 @@ openmetadata:
       # Example if you want to force migration runs, use additionalArgs: "--force"
       additionalArgs: ""
     deployPipelinesConfig:
+      enabled: true
       debug: false
       additionalArgs: ""
     reindexConfig:
+      enabled: true
       debug: false
       # You can pass the additional argument flags to the openmetadata-ops.sh reindex command
       additionalArgs: ""
@@ -478,15 +480,6 @@ resources: {}
 #     memory: 1024Mi
 
 startingDeadlineSeconds: 100
-
-# Cronjob configuration
-cronjobs:
-  # Enable/disable deploy-pipelines cronjob
-  deployPipelines:
-    enabled: true
-  # Enable/disable reindex cronjob
-  reindex:
-    enabled: true
 
 # Test connection pod configuration
 testConnection:
