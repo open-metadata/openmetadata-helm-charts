@@ -8,6 +8,8 @@ global:
   security:
     allowInsecureImages: true
 
+cronJobLabels: {}
+
 mysql:
   enabled: true
   fullnameOverride: "mysql"
