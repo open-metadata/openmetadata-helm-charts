@@ -13,9 +13,11 @@ openmetadata:
       # Example if you want to force migration runs, use additionalArgs: "--force"
       additionalArgs: ""
     deployPipelinesConfig:
+      enabled: true
       debug: false
       additionalArgs: ""
     reindexConfig:
+      enabled: true
       debug: false
       # You can pass the additional argument flags to the openmetadata-ops.sh reindex command
       additionalArgs: ""

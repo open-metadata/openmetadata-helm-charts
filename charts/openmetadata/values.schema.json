@@ -171,6 +171,9 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
                 "additionalArgs": {
                   "type": "string"
                 },
@@ -183,6 +186,9 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
                 "additionalArgs": {
                   "type": "string"
                 },
