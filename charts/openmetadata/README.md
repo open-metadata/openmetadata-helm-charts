@@ -245,6 +245,14 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.web.referrer-policy.option | string | `SAME_ORIGIN'` | WEB_CONF_REFERRER_POLICY_OPTION |
 | openmetadata.config.web.permission-policy.enabled | bool | `false` | WEB_CONF_PERMISSION_POLICY_ENABLED |
 | openmetadata.config.web.permission-policy.option | string | `Empty String` | WEB_CONF_PERMISSION_POLICY_OPTION |
+| openmetadata.config.rdf.enabled | bool | `false` | RDS_ENABLED |
+| openmetadata.config.rdf.baseUri | string | `https://open-metadata.org/` | RDF_BASE_URI |
+| openmetadata.config.rdf.storageType | string | `FUSEKI` | RDF_STORAGE_TYPE |
+| openmetadata.config.rdf.remoteEndpoint | string | `http://localhost:3030/openmetadata` | RDF_ENDPOINT |
+| openmetadata.config.rdf.username | string | `Empty String` | RDF_REMOTE_USERNAME |
+| openmetadata.config.rdf.password.secretRef | string | `Empty String` | RDF_REMOTE_PASSWORD |
+| openmetadata.config.rdf.password.secretKey | string | `Empty String` | RDF_REMOTE_PASSWORD |
+| openmetadata.config.rdf.dataset | string | `Empty String` | RDF_DATASET |
 
 
 ## Chart Values
@@ -260,7 +268,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.9.12` |
+| image.tag | string | `1.10.0` |
 | imagePullSecrets | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |

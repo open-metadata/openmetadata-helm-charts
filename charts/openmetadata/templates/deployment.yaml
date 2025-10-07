@@ -97,6 +97,10 @@ spec:
               name: {{ include "OpenMetadata.fullname" $ }}-fernetkey-secret
           {{- end }}
           {{- end }}
+          {{- if .Values.openmetadata.config.rdf.enabled }}
+          - secretRef:
+              name: {{ include "OpenMetadata.fullname" . }}-rdf-secret
+          {{- end }}
           {{- with .Values.envFrom }}
             {{- toYaml . | nindent 10 }}
           {{- end }}

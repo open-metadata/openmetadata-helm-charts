@@ -1137,6 +1137,48 @@
                   "type": "boolean"
                 }
               }
+            },
+            "rdf": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "enabled": {
+                  "type": "boolean"
+                },
+                "baseUri": {
+                  "type": "string"
+                },
+                "storageType": {
+                  "type": "string",
+                  "enum": [
+                    "FUSEKI",
+                    "BLAZEGRAPH",
+                    "VIRTUOSO",
+                    "REMOTE"
+                  ]
+                },
+                "remoteEndpoint": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "secretRef": {
+                      "type": "string"
+                    },
+                    "secretKey": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "dataset": {
+                  "type": "string"
+                }
+              }
             }
           }
         }

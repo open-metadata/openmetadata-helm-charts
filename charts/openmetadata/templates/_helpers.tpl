@@ -344,6 +344,17 @@ OpenMetadata Configurations Environment Variables*/}}
 {{ include "OpenMetadata.configs.secretManager.gcp.additionalParameters" . }}
 {{- end }}
 {{- end }}
+{{- if .Values.openmetadata.config.rdf.enabled }}
+{{- if .Values.openmetadata.config.rdf.password.secretRef }}
+{{- with .Values.openmetadata.config.rdf.password }}
+- name: RDF_REMOTE_PASSWORD
+  valueFrom:
+    secretKeyRef: 
+      name: {{ .secretRef }}
+      key: {{ .secretKey }}
+{{- end }}
+{{- end }}
+{{- end }}
 {{- end }}
 
 

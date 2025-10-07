@@ -352,6 +352,16 @@ openmetadata:
         option: ""
       cacheControl: ""
       pragma: ""
+    rdf:
+      enabled: false
+      baseUri: "https://open-metadata.org/"
+      storageType: "FUSEKI"
+      remoteEndpoint: "http://localhost:3030/openmetadata"
+      username: ""
+      password:
+        secretRef: ""
+        secretKey: ""
+      dataset: "openmetadata"
 
 networkPolicy:
   # If networkPolicy is true, following values can be set
