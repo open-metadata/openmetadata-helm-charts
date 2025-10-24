@@ -2,7 +2,7 @@
 
 We ❤️ all contributions, big and small!
 
-Read [Kubennetes Deployment](https://docs.open-metadata.org/deployment/kubernetes#quickstart) for how to setup your local helm environment. Get started with our [Good first issues](https://github.com/open-metadata/openmetadata-helm-charts/issues).
+Read [Kubernetes Deployment](https://docs.open-metadata.org/deployment/kubernetes#quickstart) for how to setup your local helm environment. Get started with our [Good first issues](https://github.com/open-metadata/openmetadata-helm-charts/issues).
 
 You can reach out to us via [Slack](https://slack.open-metadata.org/).
 
