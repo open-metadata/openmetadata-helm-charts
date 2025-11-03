@@ -34,3 +34,4 @@ jobs:
           charts_repo_url: https://helm.open-metadata.org
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          HELM_EXPERIMENTAL_OCI: "1"
