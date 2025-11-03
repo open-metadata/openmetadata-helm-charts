@@ -32,15 +32,19 @@ spec:
       {{- if not (.Values.automountServiceAccountToken) }}
       automountServiceAccountToken: {{ .Values.automountServiceAccountToken }}
       {{- end }}
+      {{- with .Values.podSecurityContext }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       initContainers:
       {{- with .Values.preMigrateInitContainers }}
         {{- toYaml . | nindent 6 }}
       {{- end }}
       - name: run-db-migrations
+        {{- with .Values.securityContext }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 10 }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         {{ include "OpenMetadata.buildUpgradeCommand" .  | nindent 8 }}
@@ -48,8 +52,10 @@ spec:
           {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 10 }}
           {{- end }}
+        {{- with .Values.resources }}
         resources:
-          {{- toYaml .Values.resources | nindent 10 }}
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         envFrom:
           - secretRef:
               name: {{ include "OpenMetadata.fullname" . }}-config-secret
@@ -116,8 +122,10 @@ spec:
       {{- include "tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
           securityContext:
-            {{- toYaml .Values.securityContext | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
@@ -192,8 +200,10 @@ spec:
             {{- with .Values.envFrom }}
               {{- toYaml . | nindent 12 }}
             {{- end }}
+          {{- with .Values.resources }}
           resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
         {{- if .Values.sidecars }}
           {{- include "tplvalues.render" (dict "value" .Values.sidecars "context" $) | nindent 8 }}
         {{- end }}
