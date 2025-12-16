@@ -80,8 +80,8 @@ openmetadata:
     pipelineServiceClientConfig:
       enabled: true
       className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-      # endpoint url for airflow
-      apiEndpoint: http://openmetadata-dependencies-web:8080
+      # endpoint url for airflow (updated for Apache Airflow chart compatibility)
+      apiEndpoint: http://openmetadata-dependencies-api-server:8080
       # this will be the api endpoint url of OpenMetadata Server
       metadataApiEndpoint: http://openmetadata:8585/api
       # possible values are "no-ssl", "ignore", "validate"

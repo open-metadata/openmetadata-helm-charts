@@ -79,10 +79,17 @@ helm install openmetadata-dependencies open-metadata/openmetadata-dependencies -
 Run `kubectl get pods` to check whether all the pods for the dependencies are running. You should get a result similar to below.
 
 ```
-NAME                            READY   STATUS    RESTARTS   AGE
-elasticsearch-0                 1/1     Running   0          3m56s
-mysql-0                         1/1     Running   0          3m56s
+NAME                                                       READY   STATUS    RESTARTS   AGE
+mysql-0                                                    1/1     Running   0          5m
+opensearch-0                                               1/1     Running   0          5m
+openmetadata-dependencies-api-server-xxxxx                 1/1     Running   0          5m
+openmetadata-dependencies-scheduler-0                      2/2     Running   0          5m
+openmetadata-dependencies-dag-processor-xxxxx              2/2     Running   0          5m
+openmetadata-dependencies-triggerer-0                      2/2     Running   0          5m
+openmetadata-dependencies-statsd-xxxxx                     1/1     Running   0          5m
 ```
+
+**Note**: This chart now uses Apache Airflow 3 with the official Apache Airflow Helm chart. See [charts/deps/README.md](charts/deps/README.md) for Airflow 3 compatibility details.
 
 Next, deploy the openmetadata by running the following
 

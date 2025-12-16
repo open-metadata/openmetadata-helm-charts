@@ -1,19 +1,19 @@
-{{- $airflow_cleanup_enabled := and
-  (not .Values.airflow.scheduler.logCleanup.enabled)
-  (not (and
-    (hasKey .Values.airflow "workers")
-    (hasKey .Values.airflow.workers "logCleanup")
-    (.Values.airflow.workers.logCleanup.enabled | default false)
-  ))
-}}
+{{- $airflow_cleanup_enabled := false }}
+{{- if and (hasKey .Values.airflow "scheduler") (hasKey .Values.airflow.scheduler "logCleanup") }}
+  {{- $airflow_cleanup_enabled = .Values.airflow.scheduler.logCleanup.enabled }}
+{{- end }}
 {{- $airflow_persistence_enabled := and
   .Values.airflow.enabled
   .Values.airflow.logs.persistence.enabled
 }}
+{{- $custom_cleanup_enabled := false }}
+{{- if hasKey .Values.airflow.logs.persistence "cleanup" }}
+  {{- $custom_cleanup_enabled = .Values.airflow.logs.persistence.cleanup.enabled }}
+{{- end }}
 {{- if and
   (not $airflow_cleanup_enabled)
   $airflow_persistence_enabled
-  .Values.airflow.logs.persistence.cleanup.enabled
+  $custom_cleanup_enabled
 }}
 apiVersion: batch/v1
 kind: CronJob
