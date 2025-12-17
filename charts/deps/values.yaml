@@ -65,91 +65,96 @@ opensearch:
       memory: "2048M"
 
 # Airflow configurations for helm dependency
-# you can find more details about this here https://github.com/airflow-helm/charts
+# you can find more details about this here https://airflow.apache.org/docs/helm-chart/
 airflow:
   enabled: true
-  airflow:
-    image:
+  # Static secret key for Airflow webserver (strongly recommended for Airflow 3)
+  # Without this, JWT token authentication may fail between Airflow components
+  # Generate a new key with: openssl rand -hex 32
+  # Set to empty string (~) to auto-generate (not recommended for production)
+  webserverSecretKey: "a5f8c3e2d1b9a7f6e4c3b2a1f9e8d7c6b5a4f3e2d1c9b8a7f6e5d4c3b2a1f0e9"
+  # Use OpenMetadata Airflow image with Airflow 3
+  images:
+    airflow:
       repository: docker.getcollate.io/openmetadata/ingestion
       tag: 1.11.2
       pullPolicy: "IfNotPresent"
-    executor: "KubernetesExecutor"
-    config:
-      # This is required for OpenMetadata UI to fetch status of DAGs
-      AIRFLOW__API__AUTH_BACKENDS: "airflow.api.auth.backend.session,airflow.api.auth.backend.basic_auth"
-      # OpenMetadata Airflow Apis Plugin DAGs Configuration
-      AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS: "/opt/airflow/dags"
-      # OpenMetadata Airflow Secrets Manager Configuration
-      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_REGION: ""
-      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY_ID: ""
-      AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY: ""
-    users:
-    - username: admin
-      password: admin
+  # Use KubernetesExecutor for production deployments (recommended)
+  # For local development (Docker Desktop/Minikube), use LocalExecutor instead
+  # Note: KubernetesExecutor requires shared DAGs storage (RWX PVC) which isn't available in Docker Desktop
+  executor: "KubernetesExecutor"
+  # Environment variables for Airflow configuration
+  env:
+    # This is required for OpenMetadata UI to fetch status of DAGs
+    - name: AIRFLOW__API__AUTH_BACKENDS
+      value: "airflow.api.auth.backend.session,airflow.api.auth.backend.basic_auth"
+    # OpenMetadata Airflow Apis Plugin DAGs Configuration
+    - name: AIRFLOW__OPENMETADATA_AIRFLOW_APIS__DAG_GENERATED_CONFIGS
+      value: "/opt/airflow/dags"
+    # OpenMetadata Airflow Secrets Manager Configuration
+    - name: AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_REGION
+      value: ""
+    - name: AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY_ID
+      value: ""
+    - name: AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY
+      value: ""
+    # Workaround for Airflow 3 + MySQL compatibility issue
+    # Downgrade FAB provider to avoid CREATE INDEX IF NOT EXISTS issue
+    - name: _PIP_ADDITIONAL_REQUIREMENTS
+      value: "apache-airflow-providers-fab==2.4.4"
+  # Create admin user
+  webserver:
+    defaultUser:
+      enabled: true
       role: Admin
+      username: admin
       email: spiderman@superhero.org
       firstName: Peter
       lastName: Parker
-  web:
-    extraVolumes:
-    - name: pod-template
-      configMap:
-        name: openmetadata-pod-template
-        defaultMode: 420
-    extraVolumeMounts:
-      - name: pod-template
-        readOnly: true
-        subPath: pod_template.yaml
-        mountPath: /opt/airflow/pod_templates/pod_template.yaml
-    readinessProbe:
-      enabled: true
-      initialDelaySeconds: 60
-      periodSeconds: 30
-      timeoutSeconds: 10
-      failureThreshold: 10
-    livenessProbe:
-      enabled: true
-      initialDelaySeconds: 60
-      periodSeconds: 30
-      timeoutSeconds: 10
-      failureThreshold: 10
+      password: admin
+  # Disable internal PostgreSQL, use external MySQL
   postgresql:
     enabled: false
+  # Worker configuration for KubernetesExecutor
+  # Set replicas to 0 for LocalExecutor (local development)
   workers:
-    enabled: false
+    replicas: 2
+  # Disable Flower
   flower:
     enabled: false
+  # Disable internal Redis
   redis:
     enabled: false
-  externalDatabase:
-    type: mysql
-    host: mysql
-    port: 3306
-    database: airflow_db
-    user: airflow_user
-    passwordSecret: airflow-mysql-secrets
-    passwordSecretKey: airflow-mysql-password
-  serviceAccount:
-    create: true
-    name: "airflow"
-  scheduler:
-    logCleanup:
-      enabled: false
+  # Configure external MySQL database
+  # Using downgraded FAB provider (2.4.4) to avoid CREATE INDEX IF NOT EXISTS issue
+  data:
+    metadataConnection:
+      user: airflow_user
+      pass: airflow_pass
+      protocol: mysql
+      host: mysql
+      port: 3306
+      db: airflow_db
+      sslmode: disable
+  # Service account configuration (required for KubernetesExecutor)
+  # DAGs persistence configuration
   dags:
     persistence:
       enabled: true
-      # NOTE: "" means cluster-default
-      storageClass: ""
+      storageClassName: ""
       size: 1Gi
-      accessMode: ReadWriteMany
+  # Logs persistence configuration
   logs:
     persistence:
       enabled: true
-      # empty string means cluster-default
-      storageClass: ""
-      accessMode: ReadWriteMany
+      storageClassName: ""
       size: 1Gi
-      cleanup:
-        enabled: false
-        schedule: "0 4 * * *"
-        retainDays: 180
+  # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
+  apiServer:
+    extraVolumes:
+      - name: dags
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-dags'
+    extraVolumeMounts:
+      - name: dags
+        mountPath: /opt/airflow/dags

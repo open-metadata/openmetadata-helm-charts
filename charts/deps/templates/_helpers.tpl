@@ -2,9 +2,9 @@
 Common labels
 */}}
 {{- define "OpenMetadataDeps.labels" -}}
-app: {{ include "airflow.labels.app" . }}
+app: airflow
 component: logs-cleanup
-chart: {{ include "airflow.labels.chart" . }}
+chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 release: {{ .Release.Name }}
 heritage: {{ .Release.Service }}
 {{- with .Values.cronJobLabels }}
