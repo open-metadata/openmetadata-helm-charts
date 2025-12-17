@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           # ct needs history to compare
           fetch-depth: 0
@@ -31,20 +31,20 @@ jobs:
           echo "default_branch_ref=refs/heads/$DEFAULT_BRANCH" >> $GITHUB_ENV
 
       - name: Install Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4
       
       - name: Add Helm repos
         run: |
           helm repo add opensearch https://opensearch-project.github.io/helm-charts/
           helm repo add mysql https://charts.bitnami.com/bitnami
-          helm repo add airflow https://airflow-helm.github.io/charts
+          helm repo add airflow https://airflow.apache.org
 
       - uses: actions/setup-python@v2
         with:
           python-version: 3.9
 
       - name: Install chart-testing
-        uses: helm/chart-testing-action@v2.0.1
+        uses: helm/chart-testing-action@v2.8.0
 
       - name: Run chart-testing (list-changed)
         id: list-changed
