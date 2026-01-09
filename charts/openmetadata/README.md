@@ -216,6 +216,8 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.secretsManager.additionalParameters.tenantId.secretKey | string | `azure-key-secret` | OM_SM_TENANT_ID |
 | openmetadata.config.secretsManager.additionalParameters.vaultName.secretRef | string | `azure-vault-name-secret` | OM_SM_VAULT_NAME |
 | openmetadata.config.secretsManager.additionalParameters.vaultName.secretKey | string | `azure-key-secret` | OM_SM_VAULT_NAME |
+| openmetadata.config.secretsManager.additionalParameters.projectId.secretRef | string | `gcp-project-id-secret` | OM_SM_PROJECT_ID |
+| openmetadata.config.secretsManager.additionalParameters.projectId.secretKey | string | `gcp-key-secret` | OM_SM_PROJECT_ID |
 | openmetadata.config.secretsManager.additionalParameters.region | string | `Empty String` | OM_SM_REGION |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` | OM_SM_ACCESS_KEY |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY |
