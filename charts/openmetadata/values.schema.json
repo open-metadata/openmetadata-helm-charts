@@ -201,6 +201,187 @@
               "type": "object",
               "additionalProperties": false,
               "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": ["airflow", "k8s"]
+                },
+                "airflow": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "auth": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "password": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "secretKey": {
+                              "type": "string"
+                            },
+                            "secretRef": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "trustStorePath": {
+                          "type": "string"
+                        },
+                        "trustStorePassword": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "secretKey": {
+                              "type": "string"
+                            },
+                            "secretRef": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "apiEndpoint": {
+                      "type": "string"
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "className": {
+                      "type": "string"
+                    },
+                    "ingestionIpInfoEnabled": {
+                      "type": "boolean"
+                    },
+                    "healthCheckInterval": {
+                      "type": "integer"
+                    },
+                    "metadataApiEndpoint": {
+                      "type": "string"
+                    },
+                    "sslCertificatePath": {
+                      "type": "string"
+                    },
+                    "verifySsl": {
+                      "type": "string"
+                    },
+                    "hostIp": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "k8s": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "className": {
+                      "type": "string"
+                    },
+                    "metadataApiEndpoint": {
+                      "type": "string"
+                    },
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "ingestionImage": {
+                      "type": "string"
+                    },
+                    "imagePullPolicy": {
+                      "type": "string"
+                    },
+                    "imagePullSecrets": {
+                      "type": "string"
+                    },
+                    "serviceAccountName": {
+                      "type": "string"
+                    },
+                    "ttlSecondsAfterFinished": {
+                      "type": "integer"
+                    },
+                    "activeDeadlineSeconds": {
+                      "type": "integer"
+                    },
+                    "backoffLimit": {
+                      "type": "integer"
+                    },
+                    "successfulJobsHistoryLimit": {
+                      "type": "integer"
+                    },
+                    "failedJobsHistoryLimit": {
+                      "type": "integer"
+                    },
+                    "nodeSelector": {
+                      "type": "string"
+                    },
+                    "podAnnotations": {
+                      "type": "string"
+                    },
+                    "enableFailureDiagnostics": {
+                      "type": "boolean"
+                    },
+                    "resources": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "limits": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "requests": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "securityContext": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "runAsUser": {
+                          "type": "integer"
+                        },
+                        "runAsGroup": {
+                          "type": "integer"
+                        },
+                        "fsGroup": {
+                          "type": "integer"
+                        },
+                        "runAsNonRoot": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "extraEnvVars": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
                 "auth": {
                   "type": "object",
                   "additionalProperties": false,
