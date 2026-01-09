@@ -79,29 +79,79 @@ openmetadata:
       minIdleTime: 1 minute
     pipelineServiceClientConfig:
       enabled: true
-      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-      # endpoint url for airflow (updated for Apache Airflow chart compatibility)
-      apiEndpoint: http://openmetadata-dependencies-api-server:8080
-      # this will be the api endpoint url of OpenMetadata Server
-      metadataApiEndpoint: http://openmetadata:8585/api
-      # possible values are "no-ssl", "ignore", "validate"
-      verifySsl: "no-ssl"
-      hostIp: ""
-      ingestionIpInfoEnabled: false
-      # healthCheckInterval in seconds
-      healthCheckInterval: 300
-      # local path in Airflow Pod
-      sslCertificatePath: "/no/path"
-      auth:
-        enabled: true
-        username: admin
-        password:
-          secretRef: airflow-secrets
-          secretKey: openmetadata-airflow-password
-        trustStorePath: ""
-        trustStorePassword:
-          secretRef: ""
-          secretKey: ""
+      # Pipeline service client type - choose between "airflow" or "k8s"
+      type: "airflow"
+      # Airflow configuration (used when type: "airflow")
+      airflow:
+        className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+        # endpoint url for airflow (updated for Apache Airflow chart compatibility)
+        apiEndpoint: http://openmetadata-dependencies-api-server:8080
+        # this will be the api endpoint url of OpenMetadata Server
+        metadataApiEndpoint: http://openmetadata:8585/api
+        # possible values are "no-ssl", "ignore", "validate"
+        verifySsl: "no-ssl"
+        hostIp: ""
+        ingestionIpInfoEnabled: false
+        # healthCheckInterval in seconds
+        healthCheckInterval: 300
+        # local path in Airflow Pod
+        sslCertificatePath: "/no/path"
+        auth:
+          enabled: true
+          username: admin
+          password:
+            secretRef: airflow-secrets
+            secretKey: openmetadata-airflow-password
+          trustStorePath: ""
+          trustStorePassword:
+            secretRef: ""
+            secretKey: ""
+      # Kubernetes Jobs configuration (used when type: "k8s")
+      k8s:
+        className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
+        # this will be the api endpoint url of OpenMetadata Server
+        metadataApiEndpoint: http://openmetadata:8585/api
+        # Kubernetes namespace for pipeline jobs
+        namespace: "openmetadata-pipelines"
+        # Container image for ingestion jobs
+        ingestionImage: "docker.getcollate.io/openmetadata/ingestion:latest"
+        # Image pull policy
+        imagePullPolicy: "IfNotPresent"
+        # Image pull secrets (comma-separated)
+        imagePullSecrets: ""
+        # Service account name for ingestion jobs
+        serviceAccountName: "openmetadata-ingestion"
+        # Time to keep completed jobs (seconds)
+        ttlSecondsAfterFinished: 86400
+        # Maximum job runtime (seconds)
+        activeDeadlineSeconds: 7200
+        # Maximum retry attempts
+        backoffLimit: 3
+        # Job history limits
+        successfulJobsHistoryLimit: 3
+        failedJobsHistoryLimit: 3
+        # Node selector (comma-separated key=value pairs)
+        nodeSelector: ""
+        # Pod security context
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          runAsNonRoot: true
+        # Resource limits and requests
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+        # Pod annotations (comma-separated key=value pairs)
+        podAnnotations: ""
+        # Extra environment variables (list of key:value pairs)
+        extraEnvVars: []
+        # Enable failure diagnostics
+        enableFailureDiagnostics: true
     authorizer:
       enabled: true
       className: "org.openmetadata.service.security.DefaultAuthorizer"

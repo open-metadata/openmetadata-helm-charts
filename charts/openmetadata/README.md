@@ -321,3 +321,270 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | podDisruptionBudget.config.minAvailable | String | `1` |
 | openmetadata.config.deployPipelinesConfig.enabled | bool | `true` |
 | openmetadata.config.reindexConfig.enabled | bool | `true` |
+
+---
+
+## 🚨 BREAKING CHANGES
+
+### Pipeline Service Client Configuration Restructure (v1.4.0+)
+
+**Important**: The pipeline service client configuration structure has been **completely restructured** to support both Airflow and native Kubernetes Jobs execution.
+
+#### What Changed
+
+The previous flat configuration structure:
+```yaml
+openmetadata:
+  config:
+    pipelineServiceClientConfig:
+      enabled: true
+      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+      apiEndpoint: http://openmetadata-dependencies-api-server:8080
+      # ... other airflow specific configs
+```
+
+Has been replaced with a nested structure:
+```yaml
+openmetadata:
+  config:
+    pipelineServiceClientConfig:
+      enabled: true
+      type: "airflow"  # NEW: choose "airflow" or "k8s"
+      airflow:         # NEW: airflow configs nested here
+        className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+        apiEndpoint: http://openmetadata-dependencies-api-server:8080
+        # ... other airflow configs
+      k8s:             # NEW: k8s configs for native execution
+        className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
+        namespace: "openmetadata-pipelines"
+        # ... other k8s configs
+```
+
+#### Migration Guide
+
+##### For Existing Airflow Users (Recommended)
+
+1. **Update your `values.yaml`** to use the new nested structure:
+
+```yaml
+# OLD (will break in v1.4.0+)
+openmetadata:
+  config:
+    pipelineServiceClientConfig:
+      enabled: true
+      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+      apiEndpoint: http://openmetadata-dependencies-api-server:8080
+      metadataApiEndpoint: http://openmetadata:8585/api
+      verifySsl: "no-ssl"
+      # ... other configs
+
+# NEW (v1.4.0+)
+openmetadata:
+  config:
+    pipelineServiceClientConfig:
+      enabled: true
+      type: "airflow"  # Explicitly choose airflow
+      airflow:
+        className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+        apiEndpoint: http://openmetadata-dependencies-api-server:8080
+        metadataApiEndpoint: http://openmetadata:8585/api
+        verifySsl: "no-ssl"
+        # ... move all existing configs under 'airflow:'
+```
+
+2. **No infrastructure changes needed** - your existing Airflow setup will continue to work
+
+##### For New Kubernetes Native Users
+
+Use the new Kubernetes Jobs pipeline client for cloud-native execution without Airflow:
+
+```yaml
+openmetadata:
+  config:
+    pipelineServiceClientConfig:
+      enabled: true
+      type: "k8s"  # Use native Kubernetes Jobs
+      k8s:
+        className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
+        namespace: "openmetadata-pipelines"
+        ingestionImage: "docker.getcollate.io/openmetadata/ingestion:latest"
+        enableFailureDiagnostics: true
+        # ... see K8s configuration section below
+```
+
+#### Configuration Migration Script
+
+For complex deployments, use this script to migrate your values.yaml:
+
+```bash
+#!/bin/bash
+# migrate-pipeline-config.sh
+
+# Backup original values
+cp values.yaml values.yaml.backup
+
+# Migrate configuration (requires yq)
+yq eval '
+  .openmetadata.config.pipelineServiceClientConfig.type = "airflow" |
+  .openmetadata.config.pipelineServiceClientConfig.airflow = .openmetadata.config.pipelineServiceClientConfig |
+  del(.openmetadata.config.pipelineServiceClientConfig.enabled) |
+  del(.openmetadata.config.pipelineServiceClientConfig.type) |
+  .openmetadata.config.pipelineServiceClientConfig.enabled = true
+' values.yaml > values.yaml.migrated
+
+mv values.yaml.migrated values.yaml
+```
+
+---
+
+## Kubernetes Native Pipeline Execution
+
+### Overview
+
+OpenMetadata now supports native Kubernetes Jobs execution as an alternative to Apache Airflow. This eliminates the need for a separate Airflow deployment and provides:
+
+- **Simplified Architecture**: No Airflow dependency
+- **Cloud-Native**: Leverages Kubernetes Job scheduling
+- **Better Resource Management**: Per-pipeline resource allocation
+- **Failure Diagnostics**: Automatic pod log collection and error reporting
+- **Security**: Pod-level isolation with RBAC
+
+### Configuration
+
+To use Kubernetes native pipeline execution:
+
+```yaml
+openmetadata:
+  config:
+    pipelineServiceClientConfig:
+      enabled: true
+      type: "k8s"
+      k8s:
+        # Core configuration
+        className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
+        namespace: "openmetadata-pipelines"
+        ingestionImage: "docker.getcollate.io/openmetadata/ingestion:latest"
+        
+        # Resource management
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+        
+        # Security context
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          runAsNonRoot: true
+        
+        # Failure diagnostics
+        enableFailureDiagnostics: true
+        
+        # Job configuration
+        ttlSecondsAfterFinished: 86400  # 24 hours
+        activeDeadlineSeconds: 7200     # 2 hours max runtime
+        backoffLimit: 3                 # retry attempts
+```
+
+### K8s Pipeline Configuration Reference
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `k8s.namespace` | `openmetadata-pipelines` | Kubernetes namespace for pipeline jobs |
+| `k8s.ingestionImage` | `docker.getcollate.io/openmetadata/ingestion:latest` | Container image for ingestion jobs |
+| `k8s.imagePullPolicy` | `IfNotPresent` | Image pull policy |
+| `k8s.imagePullSecrets` | `""` | Image pull secrets (comma-separated) |
+| `k8s.serviceAccountName` | `openmetadata-ingestion` | Service account for ingestion jobs |
+| `k8s.ttlSecondsAfterFinished` | `86400` | Time to keep completed jobs (24h) |
+| `k8s.activeDeadlineSeconds` | `7200` | Maximum job runtime (2h) |
+| `k8s.backoffLimit` | `3` | Maximum retry attempts |
+| `k8s.successfulJobsHistoryLimit` | `3` | Keep last N successful jobs |
+| `k8s.failedJobsHistoryLimit` | `3` | Keep last N failed jobs |
+| `k8s.enableFailureDiagnostics` | `true` | Enable automatic failure analysis |
+
+### RBAC and Security
+
+The chart automatically creates the required RBAC resources when using `type: "k8s"`:
+
+- **Namespace**: `openmetadata-pipelines` (or configured namespace)
+- **ServiceAccount**: `openmetadata-ingestion`
+- **Role**: Permissions for Jobs, CronJobs, ConfigMaps, Secrets, Pods, Events
+- **RoleBinding**: Binds the role to the service account
+
+### Failure Diagnostics
+
+When enabled, the K8s pipeline client automatically:
+
+1. **Detects job failures** in real-time
+2. **Creates diagnostic jobs** that gather failure information
+3. **Collects pod logs** (last 500 lines) from failed containers
+4. **Gathers pod status** including exit codes and termination reasons
+5. **Fetches Kubernetes events** related to the failed pod
+6. **Updates pipeline status** in OpenMetadata with comprehensive diagnostics
+
+Example diagnostic output:
+```yaml
+failures:
+  - name: "Main Container Diagnostics"
+    error: "Kubernetes job failed - check logs for details"
+    stackTrace: |
+      Pod Description:
+      Pod: om-pipeline-postgres-abc123
+      Status: Failed
+      Container Statuses:
+        ingestion: Ready=false, RestartCount=0
+          State: Terminated - Reason: Error, ExitCode: 1
+      
+      Pod Logs:
+      2024-01-07 16:30:15,123 INFO Starting ingestion pipeline...
+      2024-01-07 16:30:16,456 ERROR Failed to connect to database
+      ...
+```
+
+### Migration from Airflow to K8s
+
+To migrate from Airflow to Kubernetes native execution:
+
+1. **Update configuration** to use `type: "k8s"`
+2. **Deploy the updated chart** - RBAC resources will be created automatically  
+3. **Test with a simple pipeline** to verify functionality
+4. **Gradually migrate pipelines** or switch completely
+5. **Remove Airflow dependencies** when no longer needed
+
+### Comparison: Airflow vs K8s Native
+
+| Aspect | Airflow | K8s Native |
+|--------|---------|------------|
+| **Dependencies** | Requires separate Airflow deployment | No external dependencies |
+| **Resource Usage** | Always-on Airflow webserver + scheduler | On-demand job execution |
+| **Scaling** | Airflow worker scaling | Kubernetes node scaling |
+| **Monitoring** | Airflow UI + OpenMetadata | OpenMetadata + kubectl |
+| **Debugging** | Airflow logs + OpenMetadata | Pod logs + diagnostics in OpenMetadata |
+| **Security** | Airflow RBAC + K8s RBAC | K8s RBAC only |
+| **Maintenance** | Airflow upgrades + configuration | Minimal (K8s Job API stable) |
+
+### Troubleshooting K8s Pipelines
+
+Common issues and solutions:
+
+```bash
+# Check pipeline jobs
+kubectl get jobs -n openmetadata-pipelines
+
+# View job logs  
+kubectl logs -n openmetadata-pipelines job/om-pipeline-<name>-<runId>
+
+# Check service account permissions
+kubectl auth can-i create jobs \
+  --as=system:serviceaccount:openmetadata-pipelines:openmetadata-ingestion \
+  -n openmetadata-pipelines
+
+# View RBAC resources
+kubectl get serviceaccounts,roles,rolebindings \
+  -n openmetadata-pipelines \
+  -l app.kubernetes.io/component=ingestion
+```
