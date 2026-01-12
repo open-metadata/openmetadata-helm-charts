@@ -1,0 +1,218 @@
+{{- if .Values.omjobOperator.enabled }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+rules:
+# OMJob CRD access (cluster-scoped)
+- apiGroups:
+  - pipelines.openmetadata.org
+  resources:
+  - omjobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pipelines.openmetadata.org
+  resources:
+  - omjobs/status
+  verbs:
+  - get
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+subjects:
+- kind: ServiceAccount
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+  namespace: {{ .Release.Namespace | quote }}
+{{- if and .Values.omjobOperator.env.watchNamespaces (ne .Values.omjobOperator.env.watchNamespaces "ALL") }}
+{{- $watchNamespaces := splitList "," .Values.omjobOperator.env.watchNamespaces }}
+{{- range $namespace := $watchNamespaces }}
+{{- $trimmedNamespace := trim $namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ include "OpenMetadata.fullname" $ }}-omjob-operator
+  namespace: {{ $trimmedNamespace | quote }}
+  labels:
+    {{- include "OpenMetadata.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+rules:
+# Pod management in watched namespace
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods/status
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+# Events for debugging
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+# ConfigMaps for configuration
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+# Secrets for credentials
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ include "OpenMetadata.fullname" $ }}-omjob-operator
+  namespace: {{ $trimmedNamespace | quote }}
+  labels:
+    {{- include "OpenMetadata.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ include "OpenMetadata.fullname" $ }}-omjob-operator
+subjects:
+- kind: ServiceAccount
+  name: {{ include "OpenMetadata.fullname" $ }}-omjob-operator
+  namespace: {{ $.Release.Namespace | quote }}
+{{- end }}
+{{- else }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator-resources
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+rules:
+# Pod management for all namespaces mode
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - pods/status
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+# Events for debugging
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+# ConfigMaps for configuration
+- apiGroups:
+  - ""
+  resources:
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+# Secrets for credentials
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator-resources
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator-resources
+subjects:
+- kind: ServiceAccount
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+  namespace: {{ .Release.Namespace | quote }}
+{{- end }}
+{{- end }}

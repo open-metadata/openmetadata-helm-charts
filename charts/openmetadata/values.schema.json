@@ -326,6 +326,9 @@
                     "enableFailureDiagnostics": {
                       "type": "boolean"
                     },
+                    "useOMJobOperator": {
+                      "type": "boolean"
+                    },
                     "resources": {
                       "type": "object",
                       "additionalProperties": false,
@@ -1637,6 +1640,93 @@
               "type": {
                 "type": "string"
               }
+            }
+          }
+        }
+      }
+    },
+    "omjobOperator": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "image": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "pullPolicy": {
+              "type": "string",
+              "enum": ["Always", "Never", "IfNotPresent"]
+            }
+          }
+        },
+        "resources": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "requests": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "cpu": {
+                  "type": "string"
+                },
+                "memory": {
+                  "type": "string"
+                }
+              }
+            },
+            "limits": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "cpu": {
+                  "type": "string"
+                },
+                "memory": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "env": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "logLevel": {
+              "type": "string",
+              "enum": ["DEBUG", "INFO", "WARN", "ERROR"]
+            },
+            "reconciliationThreads": {
+              "type": "string"
+            },
+            "healthCheckPort": {
+              "type": "string"
+            },
+            "metricsPort": {
+              "type": "string"
+            },
+            "watchNamespaces": {
+              "type": "string",
+              "description": "Namespaces to watch for OMJob resources. Use 'ALL' for all namespaces or comma-separated list"
+            }
+          }
+        },
+        "healthCheck": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
             }
           }
         }

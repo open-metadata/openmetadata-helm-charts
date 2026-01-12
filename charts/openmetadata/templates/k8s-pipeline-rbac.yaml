@@ -103,6 +103,13 @@ rules:
 - apiGroups: ["batch"]
   resources: ["jobs", "cronjobs"]
   verbs: ["get", "list", "create", "update", "patch", "delete"]
+# OMJob management for K8s pipeline client
+- apiGroups: ["pipelines.openmetadata.org"]
+  resources: ["omjobs"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["pipelines.openmetadata.org"]
+  resources: ["omjobs/status"]
+  verbs: ["get", "patch"]
 ---
 # RoleBinding for OpenMetadata server to manage pipeline resources
 apiVersion: rbac.authorization.k8s.io/v1
