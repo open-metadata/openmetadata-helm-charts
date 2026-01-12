@@ -200,4 +200,227 @@ spec:
     kind: OMJob
     shortNames:
     - omj
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: cronomjobs.pipelines.openmetadata.org
+spec:
+  group: pipelines.openmetadata.org
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              schedule:
+                type: string
+                description: "Cron schedule for the job"
+              suspend:
+                type: boolean
+                description: "Whether to suspend the scheduled job"
+                default: false
+              concurrencyPolicy:
+                type: string
+                description: "How to handle concurrent executions"
+                enum: ["Allow", "Forbid", "Replace"]
+                default: "Forbid"
+              successfulJobsHistoryLimit:
+                type: integer
+                description: "Number of successful jobs to keep"
+                default: 3
+              failedJobsHistoryLimit:
+                type: integer
+                description: "Number of failed jobs to keep"
+                default: 1
+              jobTemplate:
+                type: object
+                description: "OMJob template for scheduled execution"
+                properties:
+                  spec:
+                    type: object
+                    properties:
+                      mainPodSpec:
+                        type: object
+                        description: "Pod specification for the main ingestion job"
+                        properties:
+                          image:
+                            type: string
+                            description: "Container image for the ingestion job"
+                          imagePullPolicy:
+                            type: string
+                            description: "Image pull policy"
+                            enum: ["Always", "Never", "IfNotPresent"]
+                            default: "IfNotPresent"
+                          imagePullSecrets:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                          serviceAccountName:
+                            type: string
+                            description: "Service account name for the pod"
+                          command:
+                            type: array
+                            items:
+                              type: string
+                            description: "Command to execute in the container"
+                          env:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                                valueFrom:
+                                  type: object
+                          resources:
+                            type: object
+                            properties:
+                              requests:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                              limits:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                            description: "Resource requirements for the container"
+                          nodeSelector:
+                            type: object
+                            additionalProperties:
+                              type: string
+                          securityContext:
+                            type: object
+                            description: "Security context for the pod"
+                          labels:
+                            type: object
+                            additionalProperties:
+                              type: string
+                          annotations:
+                            type: object
+                            additionalProperties:
+                              type: string
+                        required: ["image", "serviceAccountName", "command"]
+                      exitHandlerSpec:
+                        type: object
+                        description: "Pod specification for the exit handler job"
+                        properties:
+                          image:
+                            type: string
+                            description: "Container image for the exit handler"
+                          imagePullPolicy:
+                            type: string
+                            description: "Image pull policy"
+                            enum: ["Always", "Never", "IfNotPresent"]
+                            default: "IfNotPresent"
+                          command:
+                            type: array
+                            items:
+                              type: string
+                            description: "Command to execute in the exit handler container"
+                          env:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  type: string
+                                value:
+                                  type: string
+                                valueFrom:
+                                  type: object
+                          resources:
+                            type: object
+                            properties:
+                              requests:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                              limits:
+                                type: object
+                                additionalProperties:
+                                  type: string
+                            description: "Resource requirements for the exit handler container"
+                          serviceAccountName:
+                            type: string
+                            description: "Service account name for the exit handler pod"
+                          nodeSelector:
+                            type: object
+                            additionalProperties:
+                              type: string
+                          securityContext:
+                            type: object
+                            description: "Security context for the exit handler pod"
+                          labels:
+                            type: object
+                            additionalProperties:
+                              type: string
+                          annotations:
+                            type: object
+                            additionalProperties:
+                              type: string
+                        required: ["image", "command"]
+                      ttlSecondsAfterFinished:
+                        type: integer
+                        description: "TTL for cleanup after both jobs complete"
+                        default: 3600
+                    required: ["mainPodSpec", "exitHandlerSpec"]
+                required: ["spec"]
+            required: ["schedule", "jobTemplate"]
+          status:
+            type: object
+            properties:
+              active:
+                type: array
+                description: "List of currently active OMJobs"
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+              lastScheduleTime:
+                type: string
+                format: date-time
+                description: "Last time the job was scheduled"
+              lastSuccessfulTime:
+                type: string
+                format: date-time
+                description: "Last time a job completed successfully"
+    subresources:
+      status: {}
+    additionalPrinterColumns:
+    - name: Schedule
+      type: string
+      jsonPath: .spec.schedule
+    - name: Suspend
+      type: boolean
+      jsonPath: .spec.suspend
+    - name: Active
+      type: integer
+      jsonPath: .status.active
+    - name: Last Schedule
+      type: date
+      jsonPath: .status.lastScheduleTime
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+  scope: Namespaced
+  names:
+    plural: cronomjobs
+    singular: cronomjob
+    kind: CronOMJob
+    shortNames:
+    - comj
 {{- end }}

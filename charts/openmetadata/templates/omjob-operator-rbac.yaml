@@ -38,6 +38,27 @@ rules:
   - get
   - update
   - patch
+# CronOMJob CRD access (cluster-scoped)
+- apiGroups:
+  - pipelines.openmetadata.org
+  resources:
+  - cronomjobs
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+- apiGroups:
+  - pipelines.openmetadata.org
+  resources:
+  - cronomjobs/status
+  verbs:
+  - get
+  - update
+  - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
