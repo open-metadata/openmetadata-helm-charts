@@ -81,13 +81,16 @@ openmetadata:
       enabled: true
       # Pipeline service client type - choose between "airflow" or "k8s"
       type: "airflow"
+
+      # Common configurations for all pipeline service clients
+      # This will be the api endpoint url of OpenMetadata Server
+      metadataApiEndpoint: http://openmetadata:8585/api
+
       # Airflow configuration (used when type: "airflow")
       airflow:
         className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
         # endpoint url for airflow (updated for Apache Airflow chart compatibility)
         apiEndpoint: http://openmetadata-dependencies-api-server:8080
-        # this will be the api endpoint url of OpenMetadata Server
-        metadataApiEndpoint: http://openmetadata:8585/api
         # possible values are "no-ssl", "ignore", "validate"
         verifySsl: "no-ssl"
         hostIp: ""
@@ -106,11 +109,10 @@ openmetadata:
           trustStorePassword:
             secretRef: ""
             secretKey: ""
+
       # Kubernetes Jobs configuration (used when type: "k8s")
       k8s:
         className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
-        # this will be the api endpoint url of OpenMetadata Server
-        metadataApiEndpoint: http://openmetadata:8585/api
         # Kubernetes namespace for pipeline jobs
         namespace: "openmetadata-pipelines"
         # Container image for ingestion jobs
@@ -624,13 +626,13 @@ hpa:
 # This installs the CRD and operator for guaranteed exit handler execution
 omjobOperator:
   enabled: false  # Set to true to install OMJob CRD and operator
-  
+
   # Image configuration
   image:
     repository: docker.getcollate.io/openmetadata/omjob-operator
     tag: "1.12.0-SNAPSHOT"
     pullPolicy: IfNotPresent
-  
+
   # Resource configuration
   resources:
     requests:
@@ -639,7 +641,7 @@ omjobOperator:
     limits:
       cpu: "500m"
       memory: "256Mi"
-  
+
   # Environment variables
   env:
     logLevel: "INFO"

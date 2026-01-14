@@ -52,7 +52,7 @@ spec:
           protocol: TCP
         resources:
           {{- toYaml .Values.omjobOperator.resources | nindent 10 }}
-        {{- if .Values.omjobOperator.healthCheck.enabled | default false }}
+        {{- if and .Values.omjobOperator.healthCheck (.Values.omjobOperator.healthCheck.enabled | default false) }}
         livenessProbe:
           httpGet:
             path: /health

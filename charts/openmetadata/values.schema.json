@@ -1718,6 +1718,14 @@
             "watchNamespaces": {
               "type": "string",
               "description": "Namespaces to watch for OMJob resources. Use 'ALL' for all namespaces or comma-separated list"
+            },
+            "pollingIntervalSeconds": {
+              "type": "string",
+              "description": "Polling interval in seconds - how often the operator checks pod status"
+            },
+            "requeueDelaySeconds": {
+              "type": "string",
+              "description": "Requeue delay in seconds - delay when requeueing after errors"
             }
           }
         },
