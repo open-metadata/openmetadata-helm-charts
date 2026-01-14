@@ -39,6 +39,10 @@ spec:
           value: {{ .Values.omjobOperator.env.metricsPort | quote }}
         - name: WATCH_NAMESPACES
           value: {{ .Values.omjobOperator.env.watchNamespaces | quote }}
+        - name: POLLING_INTERVAL_SECONDS
+          value: {{ .Values.omjobOperator.env.pollingIntervalSeconds | quote }}
+        - name: REQUEUE_DELAY_SECONDS
+          value: {{ .Values.omjobOperator.env.requeueDelaySeconds | quote }}
         ports:
         - name: health
           containerPort: {{ .Values.omjobOperator.env.healthCheckPort }}

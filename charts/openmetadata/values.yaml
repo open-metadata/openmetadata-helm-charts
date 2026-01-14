@@ -646,6 +646,10 @@ omjobOperator:
     reconciliationThreads: "5"
     healthCheckPort: "8080"
     metricsPort: "8081"
+    # Polling interval in seconds - how often the operator checks pod status
+    pollingIntervalSeconds: "10"
+    # Requeue delay in seconds - delay when requeueing after errors
+    requeueDelaySeconds: "30"
     # Namespace watching configuration:
     # - "ALL" = watch all namespaces (less secure, high resource usage)
     # - "namespace1,namespace2" = watch specific namespaces (recommended)
