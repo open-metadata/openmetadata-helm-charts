@@ -1420,6 +1420,22 @@
     "deploymentAnnotations": {
       "type": "object"
     },
+    "collate": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "aiProxy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        }
+      }
+    },
     "networkPolicy": {
       "type": "object",
       "additionalProperties": false,
