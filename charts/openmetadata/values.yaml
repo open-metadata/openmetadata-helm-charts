@@ -116,7 +116,7 @@ openmetadata:
         # Kubernetes namespace for pipeline jobs
         namespace: "openmetadata-pipelines"
         # Container image for ingestion jobs
-        ingestionImage: "docker.getcollate.io/openmetadata/ingestion:latest"
+        ingestionImage: "docker.getcollate.io/openmetadata/ingestion-base:latest"
         # Image pull policy
         imagePullPolicy: "IfNotPresent"
         # Image pull secrets (comma-separated)
