@@ -113,8 +113,6 @@ openmetadata:
       # Kubernetes Jobs configuration (used when type: "k8s")
       k8s:
         className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
-        # Kubernetes namespace for pipeline jobs
-        namespace: "openmetadata-pipelines"
         # Container image for ingestion jobs
         ingestionImage: "docker.getcollate.io/openmetadata/ingestion-base:latest"
         # Image pull policy
@@ -157,6 +155,10 @@ openmetadata:
         # Use OMJob operator for guaranteed exit handler execution
         # Requires omjobOperator.enabled: true
         useOMJobOperator: false
+        # RBAC configuration
+        rbac:
+          # Set to false if RBAC is managed externally
+          enabled: true
     authorizer:
       enabled: true
       className: "org.openmetadata.service.security.DefaultAuthorizer"
