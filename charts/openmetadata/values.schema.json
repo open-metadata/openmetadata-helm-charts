@@ -287,9 +287,6 @@
                     "metadataApiEndpoint": {
                       "type": "string"
                     },
-                    "namespace": {
-                      "type": "string"
-                    },
                     "ingestionImage": {
                       "type": "string"
                     },
@@ -381,6 +378,15 @@
                       "type": "array",
                       "items": {
                         "type": "string"
+                      }
+                    },
+                    "rbac": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        }
                       }
                     }
                   }
