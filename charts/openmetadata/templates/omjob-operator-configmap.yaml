@@ -1,0 +1,44 @@
+{{- if .Values.omjobOperator.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "OpenMetadata.fullname" . }}-omjob-operator-config
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    app.kubernetes.io/component: omjob-operator
+data:
+  operator.yaml: |
+    # Operator configuration
+    reconciliation:
+      interval: 10s  # How often to reconcile OMJobs
+      retryDelay: 30s  # Delay before retrying failed reconciliation
+    
+    # Pod cleanup settings
+    cleanup:
+      ttlSecondsAfterFinished: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.ttlSecondsAfterFinished | default 604800 }}
+      preserveFailedPods: true  # Keep failed pods for debugging
+    
+    # Exit handler configuration (image and command come from OMJob spec)
+    exitHandler:
+      timeout: 120  # Seconds to wait for exit handler to complete
+      defaultResources:
+        requests:
+          cpu: "100m"
+          memory: "256Mi"
+        limits:
+          cpu: "500m"
+          memory: "512Mi"
+    
+    # Security context defaults (matches openmetadata.yaml structure)
+    securityContext:
+      runAsNonRoot: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.runAsNonRoot | default true }}
+      runAsUser: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.runAsUser | default 1000 }}
+      runAsGroup: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.runAsGroup | default 1000 }}
+      fsGroup: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.fsGroup | default 1000 }}
+    
+    # Logging configuration
+    logging:
+      level: INFO
+      format: json
+{{- end }}

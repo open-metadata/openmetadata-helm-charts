@@ -1,0 +1,133 @@
+{{- if and .Values.openmetadata.config.pipelineServiceClientConfig.enabled (eq .Values.openmetadata.config.pipelineServiceClientConfig.type "k8s") }}
+{{- $namespace := .Release.Namespace }}
+{{- if .Values.openmetadata.config.pipelineServiceClientConfig.k8s.rbac.enabled }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
+  namespace: {{ $namespace }}
+  labels:
+    app.kubernetes.io/name: openmetadata
+    app.kubernetes.io/component: ingestion
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+  annotations:
+    {{- if .Values.serviceAccount.annotations }}
+    {{- toYaml .Values.serviceAccount.annotations | nindent 4 }}
+    {{- end }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
+  namespace: {{ $namespace }}
+  labels:
+    app.kubernetes.io/name: openmetadata
+    app.kubernetes.io/component: ingestion
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+rules:
+# Pod management for pipeline jobs and diagnostics
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+# ConfigMaps for pipeline configuration
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+# Secrets for pipeline credentials
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+# Events for diagnostics (optional - failure diagnostics will work without this)
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["get", "list"]
+# Jobs and CronJobs management
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
+  namespace: {{ $namespace }}
+  labels:
+    app.kubernetes.io/name: openmetadata
+    app.kubernetes.io/component: ingestion
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+subjects:
+- kind: ServiceAccount
+  name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
+  namespace: {{ $namespace }}
+roleRef:
+  kind: Role
+  name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
+  apiGroup: rbac.authorization.k8s.io
+---
+# Cross-namespace Role for OpenMetadata server to manage pipeline jobs
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: openmetadata-server-pipeline-manager
+  namespace: {{ $namespace }}
+  labels:
+    app.kubernetes.io/name: openmetadata
+    app.kubernetes.io/component: server
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+rules:
+# Pod management for pipeline jobs and diagnostics
+- apiGroups: [""]
+  resources: ["pods", "pods/log"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+# ConfigMaps for pipeline configuration
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+# Secrets for pipeline credentials
+- apiGroups: [""]
+  resources: ["secrets"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+# Events for diagnostics (optional - failure diagnostics will work without this)
+- apiGroups: [""]
+  resources: ["events"]
+  verbs: ["get", "list"]
+# Jobs and CronJobs management
+- apiGroups: ["batch"]
+  resources: ["jobs", "cronjobs"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+# OMJob management for K8s pipeline client
+- apiGroups: ["pipelines.openmetadata.org"]
+  resources: ["omjobs"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["pipelines.openmetadata.org"]
+  resources: ["omjobs/status"]
+  verbs: ["get", "patch"]
+# CronOMJob management for K8s pipeline client (scheduled jobs)
+- apiGroups: ["pipelines.openmetadata.org"]
+  resources: ["cronomjobs"]
+  verbs: ["get", "list", "create", "update", "patch", "delete"]
+- apiGroups: ["pipelines.openmetadata.org"]
+  resources: ["cronomjobs/status"]
+  verbs: ["get", "patch"]
+---
+# RoleBinding for OpenMetadata server to manage pipeline resources
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: openmetadata-server-pipeline-manager
+  namespace: {{ $namespace }}
+  labels:
+    app.kubernetes.io/name: openmetadata
+    app.kubernetes.io/component: server
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+subjects:
+- kind: ServiceAccount
+  name: {{ include "OpenMetadata.serviceAccountName" . }}
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: openmetadata-server-pipeline-manager
+  apiGroup: rbac.authorization.k8s.io
+{{- end }}
+{{- end }}

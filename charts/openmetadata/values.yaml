@@ -79,29 +79,86 @@ openmetadata:
       minIdleTime: 1 minute
     pipelineServiceClientConfig:
       enabled: true
-      className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
-      # endpoint url for airflow (updated for Apache Airflow chart compatibility)
-      apiEndpoint: http://openmetadata-dependencies-api-server:8080
-      # this will be the api endpoint url of OpenMetadata Server
+      # Pipeline service client type - choose between "airflow" or "k8s"
+      type: "airflow"
+
+      # Common configurations for all pipeline service clients
+      # This will be the api endpoint url of OpenMetadata Server
       metadataApiEndpoint: http://openmetadata:8585/api
-      # possible values are "no-ssl", "ignore", "validate"
-      verifySsl: "no-ssl"
-      hostIp: ""
-      ingestionIpInfoEnabled: false
-      # healthCheckInterval in seconds
-      healthCheckInterval: 300
-      # local path in Airflow Pod
-      sslCertificatePath: "/no/path"
-      auth:
-        enabled: true
-        username: admin
-        password:
-          secretRef: airflow-secrets
-          secretKey: openmetadata-airflow-password
-        trustStorePath: ""
-        trustStorePassword:
-          secretRef: ""
-          secretKey: ""
+
+      # Airflow configuration (used when type: "airflow")
+      airflow:
+        className: "org.openmetadata.service.clients.pipeline.airflow.AirflowRESTClient"
+        # endpoint url for airflow (updated for Apache Airflow chart compatibility)
+        apiEndpoint: http://openmetadata-dependencies-api-server:8080
+        # possible values are "no-ssl", "ignore", "validate"
+        verifySsl: "no-ssl"
+        hostIp: ""
+        ingestionIpInfoEnabled: false
+        # healthCheckInterval in seconds
+        healthCheckInterval: 300
+        # local path in Airflow Pod
+        sslCertificatePath: "/no/path"
+        auth:
+          enabled: true
+          username: admin
+          password:
+            secretRef: airflow-secrets
+            secretKey: openmetadata-airflow-password
+          trustStorePath: ""
+          trustStorePassword:
+            secretRef: ""
+            secretKey: ""
+
+      # Kubernetes Jobs configuration (used when type: "k8s")
+      k8s:
+        className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
+        # Container image for ingestion jobs
+        ingestionImage: "docker.getcollate.io/openmetadata/ingestion-base:latest"
+        # Image pull policy
+        imagePullPolicy: "IfNotPresent"
+        # Image pull secrets (comma-separated)
+        imagePullSecrets: ""
+        # Service account name for ingestion jobs
+        serviceAccountName: "openmetadata-ingestion"
+        # Time to keep completed jobs (seconds)
+        ttlSecondsAfterFinished: 86400
+        # Maximum job runtime (seconds)
+        activeDeadlineSeconds: 7200
+        # Maximum retry attempts
+        backoffLimit: 3
+        # Job history limits
+        successfulJobsHistoryLimit: 3
+        failedJobsHistoryLimit: 3
+        # Node selector (comma-separated key=value pairs)
+        nodeSelector: ""
+        # Pod security context
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
+          fsGroup: 1000
+          runAsNonRoot: true
+        # Resource limits and requests
+        resources:
+          limits:
+            cpu: "2"
+            memory: "4Gi"
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+        # Pod annotations (comma-separated key=value pairs)
+        podAnnotations: ""
+        # Extra environment variables (list of key:value pairs)
+        extraEnvVars: []
+        # Enable failure diagnostics
+        enableFailureDiagnostics: true
+        # Use OMJob operator for guaranteed exit handler execution
+        # Requires omjobOperator.enabled: true
+        useOMJobOperator: false
+        # RBAC configuration
+        rbac:
+          # Set to false if RBAC is managed externally
+          enabled: true
     authorizer:
       enabled: true
       className: "org.openmetadata.service.security.DefaultAuthorizer"
@@ -566,3 +623,39 @@ hpa:
       target:
         type: Utilization
         averageUtilization: 80
+
+# OMJob Operator Configuration
+# This installs the CRD and operator for guaranteed exit handler execution
+omjobOperator:
+  enabled: false  # Set to true to install OMJob CRD and operator
+
+  # Image configuration
+  image:
+    repository: docker.getcollate.io/openmetadata/omjob-operator
+    tag: "1.12.0-SNAPSHOT"
+    pullPolicy: IfNotPresent
+
+  # Resource configuration
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "128Mi"
+    limits:
+      cpu: "500m"
+      memory: "256Mi"
+
+  # Environment variables
+  env:
+    logLevel: "INFO"
+    reconciliationThreads: "5"
+    healthCheckPort: "8080"
+    metricsPort: "8081"
+    # Polling interval in seconds - how often the operator checks pod status
+    pollingIntervalSeconds: "10"
+    # Requeue delay in seconds - delay when requeueing after errors
+    requeueDelaySeconds: "30"
+    # Namespace watching configuration:
+    # - "ALL" = watch all namespaces (less secure, high resource usage)
+    # - "namespace1,namespace2" = watch specific namespaces (recommended)
+    # - Leave empty for operator's own namespace only
+    watchNamespaces: ""

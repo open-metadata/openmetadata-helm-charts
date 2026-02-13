@@ -1,0 +1,67 @@
+{{- if and .Values.omjobOperator.enabled .Values.omjobOperator.createSample }}
+# This is a sample OMJob resource for testing purposes
+# It will be created only if omjobOperator.createSample is true
+apiVersion: pipelines.openmetadata.org/v1
+kind: OMJob
+metadata:
+  name: sample-omjob
+  namespace: {{ .Release.Namespace | quote }}
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    app.kubernetes.io/component: sample-omjob
+spec:
+  # Container image for the ingestion job
+  image: {{ .Values.pipelineServiceClient.ingestionImage }}
+  imagePullPolicy: IfNotPresent
+  
+  # Service account with necessary permissions
+  serviceAccountName: {{ .Values.pipelineServiceClient.serviceAccountName }}
+  
+  # Command to execute
+  command:
+    - python
+    - -c
+    - |
+      import time
+      print("Sample OMJob starting...")
+      time.sleep(10)
+      print("Sample OMJob completing successfully")
+  
+  # Environment variables (normally would include pipeline config)
+  env:
+    - name: pipelineType
+      value: "sample"
+    - name: pipelineRunId
+      value: "sample-run-001"
+    - name: LOG_LEVEL
+      value: "INFO"
+  
+  # Resource requirements
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+  
+  # TTL for pod cleanup (24 hours)
+  ttlSecondsAfterFinished: 86400
+  
+  # Security context
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+  
+  # Labels to apply to pods
+  labels:
+    app.kubernetes.io/name: openmetadata
+    app.kubernetes.io/component: ingestion
+    app.kubernetes.io/pipeline-type: sample
+  
+  # Annotations for monitoring
+  annotations:
+    description: "Sample OMJob for testing operator functionality"
+{{- end }}
