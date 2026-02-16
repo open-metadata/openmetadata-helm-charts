@@ -77,7 +77,7 @@ airflow:
   images:
     airflow:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.11.8
+      tag: 1.11.9
       pullPolicy: "IfNotPresent"
   # Use KubernetesExecutor for production deployments (recommended)
   # For local development (Docker Desktop/Minikube), use LocalExecutor instead
