@@ -19,8 +19,20 @@ spec:
     spec:
       template:
         metadata:
-          {{- with .Values.podAnnotations }}
           annotations:
+            checksum/fernetkey-secret: {{ include (print $.Template.BasePath "/config/fernetkey-secret.yaml") . | sha256sum }}
+            checksum/db-secret: {{ include (print $.Template.BasePath "/config/db-secret.yaml") . | sha256sum }}
+            checksum/search-secret: {{ include (print $.Template.BasePath "/config/search-secret.yaml") . | sha256sum }}
+            checksum/pipeline-secret: {{ include (print $.Template.BasePath "/config/pipeline-secret.yaml") . | sha256sum }}
+            checksum/authorizer-secret: {{ include (print $.Template.BasePath "/config/authorizer-secret.yaml") . | sha256sum }}
+            checksum/omd-secret: {{ include (print $.Template.BasePath "/config/omd-secret.yaml") . | sha256sum }}
+            checksum/secretsmanager-secret: {{ include (print $.Template.BasePath "/config/secretsmanager-secret.yaml") . | sha256sum }}
+            checksum/jwt-secret: {{ include (print $.Template.BasePath "/config/jwt-secret.yaml") . | sha256sum }}
+            checksum/web-secret: {{ include (print $.Template.BasePath "/config/web-secret.yaml") . | sha256sum }}
+            checksum/authentication-secret: {{ include (print $.Template.BasePath "/config/authentication-secret.yaml") . | sha256sum }}
+            checksum/eventmonitor-secret: {{ include (print $.Template.BasePath "/config/eventmonitor-secret.yaml") . | sha256sum }}
+            checksum/config-secret: {{ include (print $.Template.BasePath "/config/config-secret.yaml") . | sha256sum }}
+          {{- with .Values.podAnnotations }}
             {{- toYaml . | nindent 12 }}
           {{- end }}
           labels:
