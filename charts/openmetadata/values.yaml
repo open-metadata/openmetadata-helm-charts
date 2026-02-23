@@ -510,6 +510,28 @@ ingress:
     #   hosts:
     #     - open-metadata.local
 
+# OpenShift Route — use instead of ingress when deploying on OpenShift.
+# Requires route.openshift.io/v1 API (available on all OpenShift clusters).
+route:
+  enabled: false
+  # host is optional. When omitted, OpenShift auto-assigns a hostname under
+  # the cluster's default subdomain (e.g. openmetadata-openmetadata.apps.<cluster>).
+  host: ""
+  annotations: {}
+  wildcardPolicy: None
+  tls:
+    enabled: true
+    # termination controls where TLS is terminated:
+    #   edge        — TLS terminated at the router; traffic to the pod is plain HTTP (recommended)
+    #   reencrypt   — TLS terminated at the router and re-encrypted to the pod
+    #   passthrough — TLS passed through to the pod unchanged (pod must serve TLS)
+    termination: edge
+    # insecureEdgeTerminationPolicy controls HTTP traffic when termination is edge or reencrypt:
+    #   Redirect — redirect HTTP to HTTPS (recommended)
+    #   Allow    — serve both HTTP and HTTPS
+    #   None     — drop HTTP traffic
+    insecureEdgeTerminationPolicy: Redirect
+
 extraEnvs: []
 # - name: MY_ENVIRONMENT_VAR
 #   value: the_value_goes_here

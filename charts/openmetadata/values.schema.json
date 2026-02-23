@@ -1431,6 +1431,42 @@
         }
       }
     },
+    "route": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "host": {
+          "type": "string"
+        },
+        "annotations": {
+          "type": "object"
+        },
+        "wildcardPolicy": {
+          "type": "string",
+          "enum": ["None", "Subdomain"]
+        },
+        "tls": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "termination": {
+              "type": "string",
+              "enum": ["edge", "reencrypt", "passthrough"]
+            },
+            "insecureEdgeTerminationPolicy": {
+              "type": "string",
+              "enum": ["Allow", "Redirect", "None"]
+            }
+          }
+        }
+      }
+    },
     "livenessProbe": {
       "type": "object",
       "properties": {
