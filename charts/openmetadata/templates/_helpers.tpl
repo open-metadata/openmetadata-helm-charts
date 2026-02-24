@@ -313,9 +313,16 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if and ( .Values.openmetadata.config.pipelineServiceClientConfig.enabled ) ( .Values.openmetadata.config.pipelineServiceClientConfig.auth.enabled )}}
-{{- if .Values.openmetadata.config.pipelineServiceClientConfig.auth.password.secretRef }}
-{{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth.password }}
+{{- $pipelineConfig := .Values.openmetadata.config.pipelineServiceClientConfig }}
+{{- $authConfig := dict }}
+{{- if and $pipelineConfig.type (eq $pipelineConfig.type "airflow") }}
+  {{- $authConfig = $pipelineConfig.airflow.auth | default dict }}
+{{- else }}
+  {{- $authConfig = $pipelineConfig.auth | default dict }}
+{{- end }}
+{{- if and ($pipelineConfig.enabled | default true) ($authConfig.enabled | default false) }}
+{{- if $authConfig.password.secretRef }}
+{{- with $authConfig.password }}
 - name: AIRFLOW_PASSWORD
   valueFrom:
     secretKeyRef:
@@ -323,8 +330,8 @@ OpenMetadata Configurations Environment Variables*/}}
       key: {{ .secretKey }}
 {{- end }}
 {{- end }}
-{{- if .Values.openmetadata.config.pipelineServiceClientConfig.auth.trustStorePassword.secretRef }}
-{{- with .Values.openmetadata.config.pipelineServiceClientConfig.auth.trustStorePassword }}
+{{- if $authConfig.trustStorePassword.secretRef }}
+{{- with $authConfig.trustStorePassword }}
 - name: AIRFLOW_TRUST_STORE_PASSWORD
   valueFrom:
     secretKeyRef:

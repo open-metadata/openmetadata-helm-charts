@@ -1,0 +1,337 @@
+{{- if .Values.omjobOperator.enabled }}
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: omjobs.pipelines.openmetadata.org
+spec:
+  group: pipelines.openmetadata.org
+  versions:
+  - name: v1
+    served: true
+    storage: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              mainPodSpec:
+                type: object
+                description: "Pod specification for the main ingestion job"
+                properties:
+                  image:
+                    type: string
+                    description: "Container image for the ingestion job"
+                  imagePullPolicy:
+                    type: string
+                    description: "Image pull policy"
+                    enum: ["Always", "Never", "IfNotPresent"]
+                    default: "IfNotPresent"
+                  imagePullSecrets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                  serviceAccountName:
+                    type: string
+                    description: "Service account name for the pod"
+                  command:
+                    type: array
+                    items:
+                      type: string
+                    description: "Command to execute in the container"
+                  env:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: "Name of the environment variable"
+                        value:
+                          type: string
+                          description: "Direct value of the environment variable"
+                        valueFrom:
+                          type: object
+                          description: "Source for the environment variable value"
+                          properties:
+                            configMapKeyRef:
+                              type: object
+                              description: "Reference to a key in a ConfigMap"
+                              properties:
+                                name:
+                                  type: string
+                                  description: "Name of the ConfigMap"
+                                key:
+                                  type: string
+                                  description: "Key in the ConfigMap"
+                                optional:
+                                  type: boolean
+                                  description: "Whether the ConfigMap must exist"
+                              required:
+                              - name
+                              - key
+                            secretKeyRef:
+                              type: object
+                              description: "Reference to a key in a Secret"
+                              properties:
+                                name:
+                                  type: string
+                                  description: "Name of the Secret"
+                                key:
+                                  type: string
+                                  description: "Key in the Secret"
+                                optional:
+                                  type: boolean
+                                  description: "Whether the Secret must exist"
+                              required:
+                              - name
+                              - key
+                            fieldRef:
+                              type: object
+                              description: "Reference to a field in the pod"
+                              properties:
+                                apiVersion:
+                                  type: string
+                                  description: "API version of the field reference"
+                                fieldPath:
+                                  type: string
+                                  description: "Path to the field"
+                              required:
+                              - fieldPath
+                            resourceFieldRef:
+                              type: object
+                              description: "Reference to a resource field"
+                              properties:
+                                containerName:
+                                  type: string
+                                  description: "Name of the container"
+                                resource:
+                                  type: string
+                                  description: "Resource to select"
+                                divisor:
+                                  type: string
+                                  description: "Divisor for the resource"
+                              required:
+                              - resource
+                      required:
+                      - name
+                  resources:
+                    type: object
+                    properties:
+                      requests:
+                        type: object
+                        additionalProperties:
+                          type: string
+                      limits:
+                        type: object
+                        additionalProperties:
+                          type: string
+                    description: "Resource requirements for the container"
+                  nodeSelector:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  securityContext:
+                    type: object
+                    x-kubernetes-preserve-unknown-fields: true
+                    description: "Security context for the pod"
+                  labels:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  annotations:
+                    type: object
+                    additionalProperties:
+                      type: string
+                required: ["image", "serviceAccountName", "command"]
+              exitHandlerSpec:
+                type: object
+                description: "Pod specification for the exit handler job (runs after main pod completes)"
+                properties:
+                  image:
+                    type: string
+                    description: "Container image for the exit handler"
+                  imagePullPolicy:
+                    type: string
+                    description: "Image pull policy"
+                    enum: ["Always", "Never", "IfNotPresent"]
+                    default: "IfNotPresent"
+                  command:
+                    type: array
+                    items:
+                      type: string
+                    description: "Command to execute in the exit handler container"
+                  env:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: "Name of the environment variable"
+                        value:
+                          type: string
+                          description: "Direct value of the environment variable"
+                        valueFrom:
+                          type: object
+                          description: "Source for the environment variable value"
+                          properties:
+                            configMapKeyRef:
+                              type: object
+                              description: "Reference to a key in a ConfigMap"
+                              properties:
+                                name:
+                                  type: string
+                                  description: "Name of the ConfigMap"
+                                key:
+                                  type: string
+                                  description: "Key in the ConfigMap"
+                                optional:
+                                  type: boolean
+                                  description: "Whether the ConfigMap must exist"
+                              required:
+                              - name
+                              - key
+                            secretKeyRef:
+                              type: object
+                              description: "Reference to a key in a Secret"
+                              properties:
+                                name:
+                                  type: string
+                                  description: "Name of the Secret"
+                                key:
+                                  type: string
+                                  description: "Key in the Secret"
+                                optional:
+                                  type: boolean
+                                  description: "Whether the Secret must exist"
+                              required:
+                              - name
+                              - key
+                            fieldRef:
+                              type: object
+                              description: "Reference to a field in the pod"
+                              properties:
+                                apiVersion:
+                                  type: string
+                                  description: "API version of the field reference"
+                                fieldPath:
+                                  type: string
+                                  description: "Path to the field"
+                              required:
+                              - fieldPath
+                            resourceFieldRef:
+                              type: object
+                              description: "Reference to a resource field"
+                              properties:
+                                containerName:
+                                  type: string
+                                  description: "Name of the container"
+                                resource:
+                                  type: string
+                                  description: "Resource to select"
+                                divisor:
+                                  type: string
+                                  description: "Divisor for the resource"
+                              required:
+                              - resource
+                      required:
+                      - name
+                  resources:
+                    type: object
+                    properties:
+                      requests:
+                        type: object
+                        additionalProperties:
+                          type: string
+                      limits:
+                        type: object
+                        additionalProperties:
+                          type: string
+                    description: "Resource requirements for the exit handler container"
+                  serviceAccountName:
+                    type: string
+                    description: "Service account name for the exit handler pod"
+                  nodeSelector:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  imagePullSecrets:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                  securityContext:
+                    type: object
+                    x-kubernetes-preserve-unknown-fields: true
+                    description: "Security context for the exit handler pod"
+                  labels:
+                    type: object
+                    additionalProperties:
+                      type: string
+                  annotations:
+                    type: object
+                    additionalProperties:
+                      type: string
+                required: ["image", "command"]
+              ttlSecondsAfterFinished:
+                type: integer
+                description: "Time in seconds to keep pods after completion"
+                default: 86400
+            required: ["mainPodSpec"]
+          status:
+            type: object
+            properties:
+              phase:
+                type: string
+                description: "Current phase of the OMJob"
+                enum: ["Pending", "Running", "ExitHandlerRunning", "Succeeded", "Failed"]
+              mainPodName:
+                type: string
+                description: "Name of the main pod"
+              exitHandlerPodName:
+                type: string
+                description: "Name of the exit handler pod"
+              startTime:
+                type: string
+                format: date-time
+                description: "Time when the job started"
+              completionTime:
+                type: string
+                format: date-time
+                description: "Time when the job completed"
+              message:
+                type: string
+                description: "Human-readable message about the current status"
+              mainPodExitCode:
+                type: integer
+                description: "Exit code of the main pod"
+    subresources:
+      status: {}
+    additionalPrinterColumns:
+    - name: Phase
+      type: string
+      jsonPath: .status.phase
+    - name: Main Pod
+      type: string
+      jsonPath: .status.mainPodName
+    - name: Exit Handler
+      type: string
+      jsonPath: .status.exitHandlerPodName
+    - name: Age
+      type: date
+      jsonPath: .metadata.creationTimestamp
+  scope: Namespaced
+  names:
+    plural: omjobs
+    singular: omjob
+    kind: OMJob
+    shortNames:
+    - omj
+{{- end }}

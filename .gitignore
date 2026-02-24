@@ -38,3 +38,8 @@ Session.vim
 
 # Examples Directory
 examples/
+
+# OpenShift sample values files (local testing only — not committed)
+values-openshift-deps.yaml
+values-openshift.yaml
+docs/
