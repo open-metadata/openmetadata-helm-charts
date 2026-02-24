@@ -317,6 +317,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | startupProbe.httpGet.port | string | `http-admin` |
 | startupProbe.successThreshold | int | `1` |
 | tolerations | list | `[]` |
+| topologySpreadConstraints | list | `[]` |
 | networkPolicy.enabled | bool |`false` |
 | podDisruptionBudget.enabled | bool | `false` |
 | podDisruptionBudget.config.maxUnavailable | String | `1` |
