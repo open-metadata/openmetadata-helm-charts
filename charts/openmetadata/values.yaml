@@ -485,7 +485,9 @@ securityContext: {}
 service:
   type: ClusterIP
   port: 8585
+  # nodePort: 32085
   adminPort: 8586
+  # adminNodePort: 32086
   annotations: {}
 
 # Service monitor for Prometheus metrics

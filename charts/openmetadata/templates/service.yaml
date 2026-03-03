@@ -13,10 +13,16 @@ spec:
   ports:
     - port: {{ .Values.service.port }}
       targetPort: http
+      {{- if and (eq "NodePort" .Values.service.type) .Values.service.nodePort }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
       protocol: TCP
       name: http
     - port: {{ .Values.service.adminPort }}
       targetPort: http-admin
+      {{- if and (eq "NodePort" .Values.service.type) .Values.service.adminNodePort }}
+      nodePort: {{ .Values.service.adminNodePort }}
+      {{- end }}
       protocol: TCP
       name: http-admin
   selector:

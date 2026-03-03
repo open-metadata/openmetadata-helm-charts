@@ -299,8 +299,10 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | testConnection.resources | object | `{}` |
 | securityContext | object | `{}` |
 | service.adminPort | string | `8586` |
+| service.adminNodePort | int | `` |
 | service.annotations | object | `{}` |
 | service.port | int | `8585` |
+| service.nodePort | int | `` |
 | service.type | string | `"ClusterIP"` |
 | serviceAccount.annotations | object | `{}` |
 | serviceAccount.create | bool | `true` |
