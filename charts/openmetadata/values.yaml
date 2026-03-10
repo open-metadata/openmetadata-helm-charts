@@ -510,6 +510,48 @@ ingress:
     #   hosts:
     #     - open-metadata.local
 
+# Kubernetes Gateway API HTTPRoute — use instead of ingress/route when your cluster
+# already has a Gateway configured.
+gateway:
+  enabled: false
+  annotations: {}
+  labels: {}
+  # Optional hostnames to match for this route.
+  hostnames: []
+  # Parent Gateway references. At least one entry with `name` is required when enabled.
+  parentRefs:
+    - name: ""
+      # Optional fields:
+      # group: gateway.networking.k8s.io
+      # kind: Gateway
+      # namespace: ""
+      # sectionName: ""
+      # port: 80
+  # Optional HTTPRoute rules. If omitted, the chart creates a default rule
+  # matching "/" and forwarding traffic to the OpenMetadata service.
+  rules: []
+    # - matches:
+    #     - path:
+    #         type: PathPrefix
+    #         value: /
+    #       headers:
+    #         - name: x-env
+    #           value: prod
+    #       queryParams:
+    #         - name: debug
+    #           value: "false"
+    #       method: GET
+    #   filters:
+    #     - type: RequestHeaderModifier
+    #       requestHeaderModifier:
+    #         add:
+    #           - name: x-forwarded-by
+    #             value: openmetadata
+    #   backendRefs:
+    #     - name: openmetadata
+    #       port: 8585
+    #       weight: 1
+
 # OpenShift Route — use instead of ingress when deploying on OpenShift.
 # Requires route.openshift.io/v1 API (available on all OpenShift clusters).
 route:
