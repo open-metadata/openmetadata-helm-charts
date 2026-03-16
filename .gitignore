@@ -43,3 +43,9 @@ examples/
 values-openshift-deps.yaml
 values-openshift.yaml
 docs/
+
+# OpenMemory - IDE/Assistant specific rules
+.cursor/
+.claude/
+openmemory.md
+CLAUDE.md
