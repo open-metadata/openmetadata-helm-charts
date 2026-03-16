@@ -72,7 +72,17 @@ airflow:
   # Without this, JWT token authentication may fail between Airflow components
   # Generate a new key with: openssl rand -hex 32
   # Set to empty string (~) to auto-generate (not recommended for production)
-  webserverSecretKey: "a5f8c3e2d1b9a7f6e4c3b2a1f9e8d7c6b5a4f3e2d1c9b8a7f6e5d4c3b2a1f0e9"
+
+  # Fernet key settings
+  # Note: fernetKey can only be set during install, not upgrade
+  fernetKey: ~
+
+  # Flask secret key for Airflow 3+ Api: `[api] secret_key` in airflow.cfg
+  apiSecretKey: "a5f8c3e2d1b9a7f6e4c3b2a1f9e8d7c6b5a4f3e2d1c9b8a7f6e5d4c3b2a1f0e9"
+
+  # Secret key used to encode and decode JWTs: `[api_auth] jwt_secret` in airflow.cfg
+  jwtSecret: ~
+
   # Use OpenMetadata Airflow image with Airflow 3
   images:
     airflow:
@@ -102,27 +112,80 @@ airflow:
     # Downgrade FAB provider to avoid CREATE INDEX IF NOT EXISTS issue
     - name: _PIP_ADDITIONAL_REQUIREMENTS
       value: "apache-airflow-providers-fab==2.4.4"
+    # JWT secret for Airflow 3+ Api: `[api_auth] jwt_secret` in airflow.cfg
+    - name: AIRFLOW__API_AUTH__JWT_SECRET
+      value: "{{ .Values.airflow.jwtSecret }}"
+
   # Create admin user
-  webserver:
+  createUserJob:
+    # Whether the create user job should be created
+    enabled: true
+    # The default user to create
     defaultUser:
-      enabled: true
       role: Admin
       username: admin
       email: spiderman@superhero.org
       firstName: Peter
       lastName: Parker
       password: admin
-  # Disable internal PostgreSQL, use external MySQL
-  postgresql:
-    enabled: false
+
+  # Airflow database migration job settings
+  migrateDatabaseJob:
+    enabled: true
+
   # Worker configuration for KubernetesExecutor
   # Set replicas to 0 for LocalExecutor (local development)
   workers:
     replicas: 2
-  # Disable Flower
+
+  # Airflow scheduler settings
+  scheduler:
+    enabled: true
+
+    # Amount of scheduler replicas (recommended to be set 2 with MYSQL 8+ and Postgres 12+)
+    replicas: 1
+
+  # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
+  apiServer:
+    enabled: true
+
+    # Number of Airflow API servers in the deployment.
+    # Omitted from the Deployment, when HPA is enabled.
+    replicas: 1
+
+    extraVolumes:
+      - name: dags
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-dags'
+    extraVolumeMounts:
+      - name: dags
+        mountPath: /opt/airflow/dags
+
+  # Airflow Triggerer Config
+  triggerer:
+    enabled: true
+    # Number of airflow triggerers in the deployment
+    replicas: 1
+
+  # Airflow Dag Processor Config
+  dagProcessor:
+    enabled: false
+    # Number of airflow dag processors in the deployment
+    replicas: 1
+
+  # Disable Flower when use KubernetesExecutor
   flower:
     enabled: false
-  # Disable internal Redis
+
+  # StatsD settings
+  statsd:
+    enabled: true
+
+  # Disable internal PostgreSQL, use external MySQL
+  postgresql:
+    enabled: false
+
+  # Disable internal Redis when use KubernetesExecutor
   redis:
     enabled: false
   # Configure external MySQL database
@@ -149,12 +212,3 @@ airflow:
       enabled: true
       storageClassName: ""
       size: 1Gi
-  # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
-  apiServer:
-    extraVolumes:
-      - name: dags
-        persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-dags'
-    extraVolumeMounts:
-      - name: dags
-        mountPath: /opt/airflow/dags
