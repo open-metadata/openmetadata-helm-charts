@@ -142,7 +142,7 @@ airflow:
   scheduler:
     enabled: true
 
-    # Amount of scheduler replicas (recommended to be set 2 with MYSQL 8+ and Postgres 12+)
+    # Amount of scheduler replicas (recommended to be set larger than 2 with MYSQL 8+ and Postgres 12+)
     replicas: 1
 
   # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
