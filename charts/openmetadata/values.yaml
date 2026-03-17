@@ -112,6 +112,8 @@ openmetadata:
 
       # Kubernetes Jobs configuration (used when type: "k8s")
       k8s:
+        # Namespace for ingestion jobs (defaults to Helm release namespace if empty)
+        namespace: ""
         className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
         # Container image for ingestion jobs
         ingestionImage: "docker.getcollate.io/openmetadata/ingestion-base:latest"
