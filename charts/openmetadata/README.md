@@ -357,6 +357,7 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | startupProbe.httpGet.port | string | `http-admin` |
 | startupProbe.successThreshold | int | `1` |
 | tolerations | list | `[]` |
+| topologySpreadConstraints | list | `[]` |
 | networkPolicy.enabled | bool |`false` |
 | podDisruptionBudget.enabled | bool | `false` |
 | podDisruptionBudget.config.maxUnavailable | String | `1` |

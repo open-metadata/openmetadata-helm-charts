@@ -1718,6 +1718,9 @@
     "tolerations": {
       "type": "array"
     },
+    "topologySpreadConstraints": {
+      "type": "array"
+    },
     "commonLabels": {
       "type": "object"
     },
