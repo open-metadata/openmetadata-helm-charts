@@ -281,6 +281,9 @@
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {
+                    "namespace": {
+                      "type": "string"
+                    },
                     "className": {
                       "type": "string"
                     },
