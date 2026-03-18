@@ -8,7 +8,6 @@ metadata:
   name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
   namespace: {{ $namespace }}
   labels:
-    app.kubernetes.io/name: openmetadata
     app.kubernetes.io/component: ingestion
     {{- include "OpenMetadata.labels" . | nindent 4 }}
   annotations:
@@ -22,7 +21,6 @@ metadata:
   name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
   namespace: {{ $namespace }}
   labels:
-    app.kubernetes.io/name: openmetadata
     app.kubernetes.io/component: ingestion
     {{- include "OpenMetadata.labels" . | nindent 4 }}
 rules:
@@ -53,7 +51,6 @@ metadata:
   name: {{ .Values.openmetadata.config.pipelineServiceClientConfig.k8s.serviceAccountName }}
   namespace: {{ $namespace }}
   labels:
-    app.kubernetes.io/name: openmetadata
     app.kubernetes.io/component: ingestion
     {{- include "OpenMetadata.labels" . | nindent 4 }}
 subjects:
@@ -72,7 +69,6 @@ metadata:
   name: openmetadata-server-pipeline-manager
   namespace: {{ $namespace }}
   labels:
-    app.kubernetes.io/name: openmetadata
     app.kubernetes.io/component: server
     {{- include "OpenMetadata.labels" . | nindent 4 }}
 rules:
@@ -118,7 +114,6 @@ metadata:
   name: openmetadata-server-pipeline-manager
   namespace: {{ $namespace }}
   labels:
-    app.kubernetes.io/name: openmetadata
     app.kubernetes.io/component: server
     {{- include "OpenMetadata.labels" . | nindent 4 }}
 subjects:
