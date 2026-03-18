@@ -29,6 +29,28 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 ```
 ---
 
+## Expose OpenMetadata with Gateway API
+
+If your cluster uses Kubernetes Gateway API, you can expose OpenMetadata with an `HTTPRoute` instead of Ingress:
+
+```yaml
+gateway:
+  enabled: true
+  hostnames:
+    - openmetadata.example.com
+  parentRefs:
+    - name: shared-gateway
+      namespace: infra
+      sectionName: https
+      port: 443
+```
+
+Optional `gateway.rules` let you configure advanced `matches`, `filters`, and explicit `backendRefs`.
+
+You can enable `gateway` alongside `ingress` during migration. Configure hostnames/listeners carefully to avoid duplicate external routing.
+
+---
+
 ## Openmetadata Config Chart Values
 
 | Key | Type | Default | Conf/Openmetadata.yaml |
@@ -272,6 +294,17 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
 | image.tag | string | `1.12.1` |
 | imagePullSecrets | list | `[]` |
+| gateway.annotations | object | `{}` |
+| gateway.enabled | bool | `false` |
+| gateway.hostnames | list | `[]` |
+| gateway.labels | object | `{}` |
+| gateway.parentRefs[0].name | string | `""` |
+| gateway.parentRefs[0].group | string | `nil` |
+| gateway.parentRefs[0].kind | string | `nil` |
+| gateway.parentRefs[0].namespace | string | `nil` |
+| gateway.parentRefs[0].sectionName | string | `nil` |
+| gateway.parentRefs[0].port | int | `nil` |
+| gateway.rules | list | `[]` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
 | ingress.enabled | bool | `false` |
@@ -279,6 +312,13 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | ingress.hosts[0].paths[0].path | string | `"/"` |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |
 | ingress.tls | list | `[]` |
+| route.annotations | object | `{}` |
+| route.enabled | bool | `false` |
+| route.host | string | `""` |
+| route.tls.enabled | bool | `true` |
+| route.tls.insecureEdgeTerminationPolicy | string | `"Redirect"` |
+| route.tls.termination | string | `"edge"` |
+| route.wildcardPolicy | string | `"None"` |
 | livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |
 | livenessProbe.failureThreshold | int | `5` |
