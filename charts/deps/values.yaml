@@ -133,10 +133,19 @@ airflow:
   migrateDatabaseJob:
     enabled: true
 
-  # Worker configuration for KubernetesExecutor
+  # Worker configuration for KubernetesExecutor (from 1.19.0 let's use workers.kubernetes)
   # Set replicas to 0 for LocalExecutor (local development)
   workers:
-    replicas: 2
+    kubernetes:
+      # Resource configuration for pods created with pod-template-file
+      resources: { }
+      #  limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      #  requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
 
   # Airflow scheduler settings
   scheduler:
