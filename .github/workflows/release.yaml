@@ -45,10 +45,6 @@ jobs:
 
       - name: Push charts to GHCR as OCI artifacts
         run: |
-          for chart in openmetadata deps; do
-            helm dependency build charts/$chart
-            helm package charts/$chart -d .cr-release-packages
-          done
           for pkg in .cr-release-packages/*.tgz; do
             helm push "$pkg" oci://ghcr.io/open-metadata/openmetadata-helm-charts
           done
