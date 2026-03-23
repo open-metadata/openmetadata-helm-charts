@@ -3,6 +3,10 @@ name: Release Open Metadata Charts
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  packages: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -35,3 +39,16 @@ jobs:
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
           HELM_EXPERIMENTAL_OCI: "1"
+
+      - name: Login to GHCR
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | helm registry login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+
+      - name: Push charts to GHCR as OCI artifacts
+        run: |
+          for chart in openmetadata deps; do
+            helm dependency build charts/$chart
+            helm package charts/$chart -d .cr-release-packages
+          done
+          for pkg in .cr-release-packages/*.tgz; do
+            helm push "$pkg" oci://ghcr.io/open-metadata/openmetadata-helm-charts
+          done
