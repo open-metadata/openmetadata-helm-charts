@@ -112,9 +112,6 @@ airflow:
     # Downgrade FAB provider to avoid CREATE INDEX IF NOT EXISTS issue
     - name: _PIP_ADDITIONAL_REQUIREMENTS
       value: "apache-airflow-providers-fab==2.4.4"
-    # JWT secret for Airflow 3+ Api: `[api_auth] jwt_secret` in airflow.cfg
-    - name: AIRFLOW__API_AUTH__JWT_SECRET
-      value: "{{ .Values.airflow.jwtSecret }}"
 
   # Create admin user
   createUserJob:
