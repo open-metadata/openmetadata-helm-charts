@@ -700,7 +700,8 @@ omjobOperator:
   # Image configuration
   image:
     repository: docker.getcollate.io/openmetadata/omjob-operator
-    tag: "1.12.0-SNAPSHOT"
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
     pullPolicy: IfNotPresent
 
   # Resource configuration
