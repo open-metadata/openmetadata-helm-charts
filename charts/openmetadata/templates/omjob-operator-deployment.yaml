@@ -19,10 +19,14 @@ spec:
         {{- include "OpenMetadata.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: omjob-operator
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ include "OpenMetadata.fullname" . }}-omjob-operator
       containers:
       - name: operator
-        image: "{{ .Values.omjobOperator.image.repository }}:{{ .Values.omjobOperator.image.tag }}"
+        image: "{{ .Values.omjobOperator.image.repository }}:{{ .Values.omjobOperator.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.omjobOperator.image.pullPolicy }}
         env:
         - name: OPERATOR_NAMESPACE

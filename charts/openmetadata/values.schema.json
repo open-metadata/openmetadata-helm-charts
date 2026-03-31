@@ -203,7 +203,7 @@
               "properties": {
                 "type": {
                   "type": "string",
-                  "enum": ["airflow", "k8s"]
+                  "enum": ["airflow", "k8s", "argoWorkflows"]
                 },
                 "airflow": {
                   "type": "object",
@@ -391,6 +391,99 @@
                           "type": "boolean"
                         }
                       }
+                    }
+                  }
+                },
+                "argoWorkflows": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "serviceAccountName": {
+                      "type": "string"
+                    },
+                    "ingestionImage": {
+                      "type": "string"
+                    },
+                    "imagePullPolicy": {
+                      "type": "string"
+                    },
+                    "imagePullSecrets": {
+                      "type": "string"
+                    },
+                    "automationResources": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "limits": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "requests": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "ingestionResources": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "limits": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "requests": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "extraEnvs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "pipelineConfigs": {
+                      "type": "string"
+                    },
+                    "apiEndpoint": {
+                      "type": "string"
                     }
                   }
                 },
