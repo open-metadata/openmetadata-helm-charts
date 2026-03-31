@@ -292,7 +292,7 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.12.4` |
+| image.tag | string | `1.12.5` |
 | imagePullSecrets | list | `[]` |
 | gateway.annotations | object | `{}` |
 | gateway.enabled | bool | `false` |
