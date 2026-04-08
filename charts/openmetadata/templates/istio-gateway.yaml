@@ -1,0 +1,28 @@
+{{- if and .Values.istio.enabled .Values.istio.gateway.create }}
+apiVersion: {{ include "OpenMetadata.istio.apiVersion" . }}
+kind: Gateway
+metadata:
+  name: {{ include "OpenMetadata.istio.gatewayName" . }}
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    {{- with .Values.istio.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.istio.gateway.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.istio.annotations .Values.istio.gateway.annotations }}
+  annotations:
+    {{- with .Values.istio.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.istio.gateway.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  selector:
+    {{- toYaml .Values.istio.gateway.selector | nindent 4 }}
+  servers:
+    {{- toYaml .Values.istio.gateway.servers | nindent 4 }}
+{{- end }}

@@ -1,0 +1,51 @@
+{{- if .Values.istio.enabled }}
+{{- $fullName := include "OpenMetadata.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+apiVersion: {{ include "OpenMetadata.istio.apiVersion" . }}
+kind: VirtualService
+metadata:
+  name: {{ include "OpenMetadata.istio.virtualServiceName" . }}
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    {{- with .Values.istio.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.istio.virtualService.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.istio.annotations .Values.istio.virtualService.annotations }}
+  annotations:
+    {{- with .Values.istio.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.istio.virtualService.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  hosts:
+    {{- range .Values.istio.virtualService.hosts }}
+    - {{ . | quote }}
+    {{- end }}
+  gateways:
+    {{- if .Values.istio.virtualService.gateways }}
+    {{- range .Values.istio.virtualService.gateways }}
+    - {{ . | quote }}
+    {{- end }}
+    {{- else }}
+    - {{ include "OpenMetadata.istio.gatewayName" . | quote }}
+    {{- end }}
+  http:
+    {{- if .Values.istio.virtualService.http }}
+    {{- toYaml .Values.istio.virtualService.http | nindent 4 }}
+    {{- else }}
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: {{ $fullName | quote }}
+            port:
+              number: {{ $svcPort }}
+    {{- end }}
+{{- end }}

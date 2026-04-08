@@ -305,6 +305,29 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | gateway.parentRefs[0].sectionName | string | `nil` |
 | gateway.parentRefs[0].port | int | `nil` |
 | gateway.rules | list | `[]` |
+| istio.annotations | object | `{}` |
+| istio.destinationRule.annotations | object | `{}` |
+| istio.destinationRule.enabled | bool | `false` |
+| istio.destinationRule.exportTo | list | `[]` |
+| istio.destinationRule.host | string | `""` |
+| istio.destinationRule.labels | object | `{}` |
+| istio.destinationRule.name | string | `""` |
+| istio.destinationRule.subsets | list | `[]` |
+| istio.destinationRule.trafficPolicy | object | `{}` |
+| istio.enabled | bool | `false` |
+| istio.gateway.annotations | object | `{}` |
+| istio.gateway.create | bool | `true` |
+| istio.gateway.labels | object | `{}` |
+| istio.gateway.name | string | `""` |
+| istio.gateway.selector | object | `{"istio":"ingressgateway"}` |
+| istio.gateway.servers | list | `[{"hosts":["open-metadata.local"],"port":{"name":"http","number":80,"protocol":"HTTP"}}]` |
+| istio.labels | object | `{}` |
+| istio.virtualService.annotations | object | `{}` |
+| istio.virtualService.gateways | list | `[]` |
+| istio.virtualService.hosts | list | `["open-metadata.local"]` |
+| istio.virtualService.http | list | `[]` |
+| istio.virtualService.labels | object | `{}` |
+| istio.virtualService.name | string | `""` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
 | ingress.enabled | bool | `false` |
@@ -366,6 +389,12 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | openmetadata.config.reindexConfig.enabled | bool | `true` |
 
 ---
+
+### Istio Exposure
+
+Set `istio.enabled=true` to render Istio `Gateway` and `VirtualService` resources for OpenMetadata. The default VirtualService route forwards only to service port `8585`; the admin port `8586` remains internal for health checks and metrics.
+
+When `istio.gateway.create=false`, bind the generated VirtualService to an existing gateway by setting `istio.virtualService.gateways`. `istio.destinationRule.enabled=true` optionally adds a `DestinationRule` for mesh traffic policy/subset configuration.
 
 ## 🚨 BREAKING CHANGES
 
