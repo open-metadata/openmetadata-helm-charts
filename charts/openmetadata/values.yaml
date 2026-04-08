@@ -134,6 +134,14 @@ openmetadata:
         failedJobsHistoryLimit: 3
         # Node selector (comma-separated key=value pairs)
         nodeSelector: ""
+        # Tolerations for ingestion pod scheduling (list of toleration objects)
+        # Example:
+        # tolerations:
+        #   - key: "dedicated"
+        #     operator: "Equal"
+        #     value: "ingestion"
+        #     effect: "NoSchedule"
+        tolerations: []
         # Pod security context
         securityContext:
           runAsUser: 1000
