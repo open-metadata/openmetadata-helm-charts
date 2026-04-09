@@ -1069,7 +1069,8 @@
                 },
                 "searchType": {
                   "type": "string",
-                  "default": "elasticsearch",
+                  "default": "opensearch",
+                  "description": "Search backend type. 'opensearch' is recommended. 'elasticsearch' has a known issue with index updates on pod restarts (see issue #451).",
                   "enum": [
                     "elasticsearch",
                     "opensearch"

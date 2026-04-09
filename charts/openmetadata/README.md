@@ -158,7 +158,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.elasticsearch.keepAliveTimeoutSecs | int | `600` | ELASTICSEARCH_KEEP_ALIVE_TIMEOUT_SECS |
 | openmetadata.config.elasticsearch.payLoadSize | int | 10485760 | ELASTICSEARCH_PAYLOAD_BYTES_SIZE |
 | openmetadata.config.elasticsearch.port | int | 9200 | ELASTICSEARCH_PORT |
-| openmetadata.config.elasticsearch.searchType | string | `opensearch` | SEARCH_TYPE |
+| openmetadata.config.elasticsearch.searchType | string | `opensearch` | SEARCH_TYPE. **Note:** `elasticsearch` has a [known issue](https://github.com/open-metadata/openmetadata-helm-charts/issues/451) with index updates on pod restarts. Use `opensearch` (default) when possible. |
 | openmetadata.config.elasticsearch.scheme | string | `http` | ELASTICSEARCH_SCHEME |
 | openmetadata.config.elasticsearch.clusterAlias | string | `Empty String` | ELASTICSEARCH_CLUSTER_ALIAS |
 | openmetadata.config.elasticsearch.searchIndexMappingLanguage | string | `EN`| ELASTICSEARCH_INDEX_MAPPING_LANG |
@@ -590,3 +590,18 @@ kubectl get serviceaccounts,roles,rolebindings \
   -n openmetadata-pipelines \
   -l app.kubernetes.io/component=ingestion
 ```
+
+### Troubleshooting Elasticsearch Index Updates
+
+When using `searchType: elasticsearch` with Elasticsearch 8.x, the `run-db-migrations` init container may fail on pod restarts with:
+
+```
+JsonpMappingException: Error deserializing PutMappingRequest: Unknown field 'settings'
+```
+
+This is a known application-level issue ([#451](https://github.com/open-metadata/openmetadata-helm-charts/issues/451)) where the migration code sends index `settings` in a `PutMappingRequest`, which Elasticsearch rejects. It only occurs when updating existing indices — creating from scratch works fine.
+
+**Workarounds:**
+1. **Switch to OpenSearch** (recommended): Set `searchType: opensearch` and use OpenSearch instead of Elasticsearch. This is the default and tested configuration.
+2. **Delete indices before restart**: Remove Elasticsearch indices so the migration creates them fresh instead of updating.
+3. **Use the reindex CronJob**: Enable `openmetadata.config.reindexConfig.enabled` to periodically rebuild indices rather than relying on migration-time updates.
