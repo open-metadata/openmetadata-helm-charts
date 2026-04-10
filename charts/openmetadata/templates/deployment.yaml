@@ -117,7 +117,14 @@ spec:
         {{- toYaml . | nindent 6 }}
       {{- end }}
       volumes:
+      {{- if .Values.extraVolumes }}
       {{- include "tplvalues.render" (dict "value" .Values.extraVolumes "context" $) | nindent 8 }}
+      {{- end }}
+      {{- if (((.Values.openmetadata.config.pipelineServiceClientConfig).argoWorkflows).customConfig).enabled }}
+        - name: custom-config
+          configMap:
+            name: {{ include "OpenMetadata.fullname" . }}-ingestion-config
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           {{- with .Values.securityContext }}
@@ -129,6 +136,11 @@ spec:
           volumeMounts:
           {{- with .Values.extraVolumeMounts }}
             {{- toYaml . | nindent 10 }}
+          {{- end }}
+          {{- if (((.Values.openmetadata.config.pipelineServiceClientConfig).argoWorkflows).customConfig).enabled }}
+            - name: custom-config
+              mountPath: /custom-config
+              readOnly: true
           {{- end }}
           ports:
             - name: http
