@@ -484,6 +484,23 @@
                     },
                     "apiEndpoint": {
                       "type": "string"
+                    },
+                    "customConfig": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "containerParams": {
+                          "type": "object",
+                          "additionalProperties": true
+                        },
+                        "workflowParams": {
+                          "type": "object",
+                          "additionalProperties": true
+                        }
+                      }
                     }
                   }
                 },
