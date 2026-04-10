@@ -1,5 +1,5 @@
 1. Get the application URL by running these commands:
-{{- $hasExternal := or .Values.ingress.enabled (or .Values.gateway.enabled .Values.route.enabled) }}
+{{- $hasExternal := or .Values.ingress.enabled (or .Values.gateway.enabled (or .Values.route.enabled .Values.istio.enabled)) }}
 {{- if .Values.ingress.enabled }}
 {{- range $host := .Values.ingress.hosts }}
   {{- range .paths }}
@@ -22,6 +22,16 @@
 {{- else }}
   OpenShift Route has been created without an explicit host. Run:
   kubectl get route {{ include "OpenMetadata.fullname" . }} -n {{ .Release.Namespace }} -o jsonpath='{.spec.host}'
+{{- end }}
+{{- end }}
+{{- if .Values.istio.enabled }}
+{{- if .Values.istio.virtualService.hosts }}
+  Istio VirtualService host(s):
+{{- range .Values.istio.virtualService.hosts }}
+  {{ . }}
+{{- end }}
+{{- else }}
+  Istio VirtualService has been created. Inspect `istio.virtualService.hosts` and the bound Istio Gateway listeners to determine the external hostname.
 {{- end }}
 {{- end }}
 {{- if and (not $hasExternal) (contains "NodePort" .Values.service.type) }}

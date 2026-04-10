@@ -576,6 +576,61 @@ route:
     #   None     — drop HTTP traffic
     insecureEdgeTerminationPolicy: Redirect
 
+# Istio ingress resources — use instead of ingress/gateway/route when your cluster
+# is fronted by an Istio ingress gateway.
+istio:
+  enabled: false
+  annotations: {}
+  labels: {}
+  gateway:
+    # Create an Istio Gateway resource. Set to false when binding the VirtualService
+    # to a pre-existing gateway and provide the gateway name(s) in
+    # istio.virtualService.gateways.
+    create: true
+    name: ""
+    annotations: {}
+    labels: {}
+    selector:
+      istio: ingressgateway
+    servers:
+      - port:
+          number: 80
+          name: http
+          protocol: HTTP
+        hosts:
+          - open-metadata.local
+  virtualService:
+    name: ""
+    annotations: {}
+    labels: {}
+    hosts:
+      - open-metadata.local
+    # When empty and istio.gateway.create=true, the chart binds the VirtualService
+    # to the generated Gateway. When istio.gateway.create=false, set this explicitly.
+    gateways: []
+    # If omitted, the chart creates a default route matching "/" and forwarding
+    # traffic only to the application port (8585). The admin port (8586) remains
+    # internal-only and should not be exposed externally.
+    http: []
+      # - match:
+      #     - uri:
+      #         prefix: /
+      #   route:
+      #     - destination:
+      #         host: openmetadata
+      #         port:
+      #           number: 8585
+  destinationRule:
+    enabled: false
+    name: ""
+    annotations: {}
+    labels: {}
+    # Defaults to the OpenMetadata service when empty.
+    host: ""
+    trafficPolicy: {}
+    subsets: []
+    exportTo: []
+
 extraEnvs: []
 # - name: MY_ENVIRONMENT_VAR
 #   value: the_value_goes_here
