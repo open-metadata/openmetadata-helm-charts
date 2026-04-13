@@ -112,6 +112,8 @@ openmetadata:
 
       # Kubernetes Jobs configuration (used when type: "k8s")
       k8s:
+        # Namespace for ingestion jobs (defaults to Helm release namespace if empty)
+        namespace: ""
         className: "org.openmetadata.service.clients.pipeline.k8s.K8sPipelineClient"
         # Container image for ingestion jobs
         ingestionImage: "docker.getcollate.io/openmetadata/ingestion-base:latest"
@@ -132,6 +134,14 @@ openmetadata:
         failedJobsHistoryLimit: 3
         # Node selector (comma-separated key=value pairs)
         nodeSelector: ""
+        # Tolerations for ingestion pod scheduling (list of toleration objects)
+        # Example:
+        # tolerations:
+        #   - key: "dedicated"
+        #     operator: "Equal"
+        #     value: "ingestion"
+        #     effect: "NoSchedule"
+        tolerations: []
         # Pod security context
         securityContext:
           runAsUser: 1000
@@ -512,6 +522,48 @@ ingress:
     #   hosts:
     #     - open-metadata.local
 
+# Kubernetes Gateway API HTTPRoute — use instead of ingress/route when your cluster
+# already has a Gateway configured.
+gateway:
+  enabled: false
+  annotations: {}
+  labels: {}
+  # Optional hostnames to match for this route.
+  hostnames: []
+  # Parent Gateway references. At least one entry with `name` is required when enabled.
+  parentRefs:
+    - name: ""
+      # Optional fields:
+      # group: gateway.networking.k8s.io
+      # kind: Gateway
+      # namespace: ""
+      # sectionName: ""
+      # port: 80
+  # Optional HTTPRoute rules. If omitted, the chart creates a default rule
+  # matching "/" and forwarding traffic to the OpenMetadata service.
+  rules: []
+    # - matches:
+    #     - path:
+    #         type: PathPrefix
+    #         value: /
+    #       headers:
+    #         - name: x-env
+    #           value: prod
+    #       queryParams:
+    #         - name: debug
+    #           value: "false"
+    #       method: GET
+    #   filters:
+    #     - type: RequestHeaderModifier
+    #       requestHeaderModifier:
+    #         add:
+    #           - name: x-forwarded-by
+    #             value: openmetadata
+    #   backendRefs:
+    #     - name: openmetadata
+    #       port: 8585
+    #       weight: 1
+
 # OpenShift Route — use instead of ingress when deploying on OpenShift.
 # Requires route.openshift.io/v1 API (available on all OpenShift clusters).
 route:
@@ -533,6 +585,61 @@ route:
     #   Allow    — serve both HTTP and HTTPS
     #   None     — drop HTTP traffic
     insecureEdgeTerminationPolicy: Redirect
+
+# Istio ingress resources — use instead of ingress/gateway/route when your cluster
+# is fronted by an Istio ingress gateway.
+istio:
+  enabled: false
+  annotations: {}
+  labels: {}
+  gateway:
+    # Create an Istio Gateway resource. Set to false when binding the VirtualService
+    # to a pre-existing gateway and provide the gateway name(s) in
+    # istio.virtualService.gateways.
+    create: true
+    name: ""
+    annotations: {}
+    labels: {}
+    selector:
+      istio: ingressgateway
+    servers:
+      - port:
+          number: 80
+          name: http
+          protocol: HTTP
+        hosts:
+          - open-metadata.local
+  virtualService:
+    name: ""
+    annotations: {}
+    labels: {}
+    hosts:
+      - open-metadata.local
+    # When empty and istio.gateway.create=true, the chart binds the VirtualService
+    # to the generated Gateway. When istio.gateway.create=false, set this explicitly.
+    gateways: []
+    # If omitted, the chart creates a default route matching "/" and forwarding
+    # traffic only to the application port (8585). The admin port (8586) remains
+    # internal-only and should not be exposed externally.
+    http: []
+      # - match:
+      #     - uri:
+      #         prefix: /
+      #   route:
+      #     - destination:
+      #         host: openmetadata
+      #         port:
+      #           number: 8585
+  destinationRule:
+    enabled: false
+    name: ""
+    annotations: {}
+    labels: {}
+    # Defaults to the OpenMetadata service when empty.
+    host: ""
+    trafficPolicy: {}
+    subsets: []
+    exportTo: []
 
 extraEnvs: []
 # - name: MY_ENVIRONMENT_VAR
@@ -593,6 +700,8 @@ tolerations: []
 
 affinity: {}
 
+topologySpreadConstraints: []
+
 livenessProbe:
   initialDelaySeconds: 60
   periodSeconds: 30
@@ -618,7 +727,6 @@ startupProbe:
 podDisruptionBudget:
   enabled: false
   config:
-    maxUnavailable: "1"
     minAvailable: "1"
 
 commonLabels: {}
@@ -656,7 +764,8 @@ omjobOperator:
   # Image configuration
   image:
     repository: docker.getcollate.io/openmetadata/omjob-operator
-    tag: "1.12.0-SNAPSHOT"
+    # Overrides the image tag whose default is the chart appVersion.
+    tag: ""
     pullPolicy: IfNotPresent
 
   # Resource configuration

@@ -203,7 +203,7 @@
               "properties": {
                 "type": {
                   "type": "string",
-                  "enum": ["airflow", "k8s"]
+                  "enum": ["airflow", "k8s", "argoWorkflows"]
                 },
                 "airflow": {
                   "type": "object",
@@ -281,6 +281,9 @@
                   "type": "object",
                   "additionalProperties": false,
                   "properties": {
+                    "namespace": {
+                      "type": "string"
+                    },
                     "className": {
                       "type": "string"
                     },
@@ -316,6 +319,12 @@
                     },
                     "nodeSelector": {
                       "type": "string"
+                    },
+                    "tolerations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
                     },
                     "podAnnotations": {
                       "type": "string"
@@ -386,6 +395,116 @@
                       "properties": {
                         "enabled": {
                           "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "argoWorkflows": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "serviceAccountName": {
+                      "type": "string"
+                    },
+                    "ingestionImage": {
+                      "type": "string"
+                    },
+                    "imagePullPolicy": {
+                      "type": "string"
+                    },
+                    "imagePullSecrets": {
+                      "type": "string"
+                    },
+                    "automationResources": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "limits": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "requests": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "ingestionResources": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "limits": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "requests": {
+                          "type": "object",
+                          "additionalProperties": false,
+                          "properties": {
+                            "cpu": {
+                              "type": "string"
+                            },
+                            "memory": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "extraEnvs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "pipelineConfigs": {
+                      "type": "string"
+                    },
+                    "apiEndpoint": {
+                      "type": "string"
+                    },
+                    "customConfig": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "properties": {
+                        "enabled": {
+                          "type": "boolean"
+                        },
+                        "containerParams": {
+                          "type": "object",
+                          "additionalProperties": true
+                        },
+                        "workflowParams": {
+                          "type": "object",
+                          "additionalProperties": true
                         }
                       }
                     }
@@ -1431,6 +1550,104 @@
         }
       }
     },
+    "gateway": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "annotations": {
+          "type": "object"
+        },
+        "labels": {
+          "type": "object"
+        },
+        "hostnames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "parentRefs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "group": {
+                "type": "string"
+              },
+              "kind": {
+                "type": "string"
+              },
+              "namespace": {
+                "type": "string"
+              },
+              "sectionName": {
+                "type": "string"
+              },
+              "port": {
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "matches": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "filters": {
+                "type": "array",
+                "items": {
+                  "type": "object"
+                }
+              },
+              "backendRefs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "kind": {
+                      "type": "string"
+                    },
+                    "group": {
+                      "type": "string"
+                    },
+                    "port": {
+                      "type": "integer"
+                    },
+                    "weight": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "route": {
       "type": "object",
       "additionalProperties": false,
@@ -1462,6 +1679,117 @@
             "insecureEdgeTerminationPolicy": {
               "type": "string",
               "enum": ["Allow", "Redirect", "None"]
+            }
+          }
+        }
+      }
+    },
+    "istio": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "annotations": {
+          "type": "object"
+        },
+        "labels": {
+          "type": "object"
+        },
+        "gateway": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "create": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "annotations": {
+              "type": "object"
+            },
+            "labels": {
+              "type": "object"
+            },
+            "selector": {
+              "type": "object"
+            },
+            "servers": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "virtualService": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "annotations": {
+              "type": "object"
+            },
+            "labels": {
+              "type": "object"
+            },
+            "hosts": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "gateways": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "http": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "destinationRule": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "name": {
+              "type": "string"
+            },
+            "annotations": {
+              "type": "object"
+            },
+            "labels": {
+              "type": "object"
+            },
+            "host": {
+              "type": "string"
+            },
+            "trafficPolicy": {
+              "type": "object"
+            },
+            "subsets": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "exportTo": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           }
         }
@@ -1615,6 +1943,9 @@
       }
     },
     "tolerations": {
+      "type": "array"
+    },
+    "topologySpreadConstraints": {
       "type": "array"
     },
     "commonLabels": {

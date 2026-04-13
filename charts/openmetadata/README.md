@@ -29,6 +29,28 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 ```
 ---
 
+## Expose OpenMetadata with Gateway API
+
+If your cluster uses Kubernetes Gateway API, you can expose OpenMetadata with an `HTTPRoute` instead of Ingress:
+
+```yaml
+gateway:
+  enabled: true
+  hostnames:
+    - openmetadata.example.com
+  parentRefs:
+    - name: shared-gateway
+      namespace: infra
+      sectionName: https
+      port: 443
+```
+
+Optional `gateway.rules` let you configure advanced `matches`, `filters`, and explicit `backendRefs`.
+
+You can enable `gateway` alongside `ingress` during migration. Configure hostnames/listeners carefully to avoid duplicate external routing.
+
+---
+
 ## Openmetadata Config Chart Values
 
 | Key | Type | Default | Conf/Openmetadata.yaml |
@@ -270,8 +292,42 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.12.1` |
+| image.tag | string | `1.12.5` |
 | imagePullSecrets | list | `[]` |
+| gateway.annotations | object | `{}` |
+| gateway.enabled | bool | `false` |
+| gateway.hostnames | list | `[]` |
+| gateway.labels | object | `{}` |
+| gateway.parentRefs[0].name | string | `""` |
+| gateway.parentRefs[0].group | string | `nil` |
+| gateway.parentRefs[0].kind | string | `nil` |
+| gateway.parentRefs[0].namespace | string | `nil` |
+| gateway.parentRefs[0].sectionName | string | `nil` |
+| gateway.parentRefs[0].port | int | `nil` |
+| gateway.rules | list | `[]` |
+| istio.annotations | object | `{}` |
+| istio.destinationRule.annotations | object | `{}` |
+| istio.destinationRule.enabled | bool | `false` |
+| istio.destinationRule.exportTo | list | `[]` |
+| istio.destinationRule.host | string | `""` |
+| istio.destinationRule.labels | object | `{}` |
+| istio.destinationRule.name | string | `""` |
+| istio.destinationRule.subsets | list | `[]` |
+| istio.destinationRule.trafficPolicy | object | `{}` |
+| istio.enabled | bool | `false` |
+| istio.gateway.annotations | object | `{}` |
+| istio.gateway.create | bool | `true` |
+| istio.gateway.labels | object | `{}` |
+| istio.gateway.name | string | `""` |
+| istio.gateway.selector | object | `{"istio":"ingressgateway"}` |
+| istio.gateway.servers | list | `[{"hosts":["open-metadata.local"],"port":{"name":"http","number":80,"protocol":"HTTP"}}]` |
+| istio.labels | object | `{}` |
+| istio.virtualService.annotations | object | `{}` |
+| istio.virtualService.gateways | list | `[]` |
+| istio.virtualService.hosts | list | `["open-metadata.local"]` |
+| istio.virtualService.http | list | `[]` |
+| istio.virtualService.labels | object | `{}` |
+| istio.virtualService.name | string | `""` |
 | ingress.annotations | object | `{}` |
 | ingress.className | string | `""` |
 | ingress.enabled | bool | `false` |
@@ -279,6 +335,13 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | ingress.hosts[0].paths[0].path | string | `"/"` |
 | ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |
 | ingress.tls | list | `[]` |
+| route.annotations | object | `{}` |
+| route.enabled | bool | `false` |
+| route.host | string | `""` |
+| route.tls.enabled | bool | `true` |
+| route.tls.insecureEdgeTerminationPolicy | string | `"Redirect"` |
+| route.tls.termination | string | `"edge"` |
+| route.wildcardPolicy | string | `"None"` |
 | livenessProbe.initialDelaySeconds | int | `60` |
 | livenessProbe.periodSeconds | int | `30` |
 | livenessProbe.failureThreshold | int | `5` |
@@ -319,6 +382,7 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | startupProbe.httpGet.port | string | `http-admin` |
 | startupProbe.successThreshold | int | `1` |
 | tolerations | list | `[]` |
+| topologySpreadConstraints | list | `[]` |
 | networkPolicy.enabled | bool |`false` |
 | podDisruptionBudget.enabled | bool | `false` |
 | podDisruptionBudget.config.maxUnavailable | String | `1` |
@@ -327,6 +391,12 @@ helm install openmetadata open-metadata/openmetadata --values <<path-to-values-f
 | openmetadata.config.reindexConfig.enabled | bool | `true` |
 
 ---
+
+### Istio Exposure
+
+Set `istio.enabled=true` to render Istio `Gateway` and `VirtualService` resources for OpenMetadata. The default VirtualService route forwards only to service port `8585`; the admin port `8586` remains internal for health checks and metrics.
+
+When `istio.gateway.create=false`, bind the generated VirtualService to an existing gateway by setting `istio.virtualService.gateways`. `istio.destinationRule.enabled=true` optionally adds a `DestinationRule` for mesh traffic policy/subset configuration.
 
 ## 🚨 BREAKING CHANGES
 
