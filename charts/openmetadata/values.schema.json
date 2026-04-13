@@ -320,6 +320,12 @@
                     "nodeSelector": {
                       "type": "string"
                     },
+                    "tolerations": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
                     "podAnnotations": {
                       "type": "string"
                     },

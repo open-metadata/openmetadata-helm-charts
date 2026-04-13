@@ -161,6 +161,25 @@ spec:
                         type: object
                         additionalProperties:
                           type: string
+                      tolerations:
+                        type: array
+                        description: "Tolerations for pod scheduling"
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                              enum: ["Exists", "Equal"]
+                            value:
+                              type: string
+                            effect:
+                              type: string
+                              enum: ["NoSchedule", "PreferNoSchedule", "NoExecute"]
+                            tolerationSeconds:
+                              type: integer
+                              format: int64
                       securityContext:
                         type: object
                         x-kubernetes-preserve-unknown-fields: true
@@ -286,6 +305,25 @@ spec:
                         type: object
                         additionalProperties:
                           type: string
+                      tolerations:
+                        type: array
+                        description: "Tolerations for pod scheduling"
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              type: string
+                            operator:
+                              type: string
+                              enum: ["Exists", "Equal"]
+                            value:
+                              type: string
+                            effect:
+                              type: string
+                              enum: ["NoSchedule", "PreferNoSchedule", "NoExecute"]
+                            tolerationSeconds:
+                              type: integer
+                              format: int64
                       imagePullSecrets:
                         type: array
                         items:
