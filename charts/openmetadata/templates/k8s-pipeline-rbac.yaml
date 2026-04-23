@@ -26,8 +26,12 @@ metadata:
 rules:
 # Pod management for pipeline jobs and diagnostics
 - apiGroups: [""]
-  resources: ["pods", "pods/log"]
+  resources: ["pods"]
   verbs: ["get", "list", "create", "update", "patch", "delete"]
+# Pod logs with read-only access for diagnostics
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list", "watch"]
 # ConfigMaps for pipeline configuration
 - apiGroups: [""]
   resources: ["configmaps"]
@@ -74,8 +78,12 @@ metadata:
 rules:
 # Pod management for pipeline jobs and diagnostics
 - apiGroups: [""]
-  resources: ["pods", "pods/log"]
+  resources: ["pods"]
   verbs: ["get", "list", "create", "update", "patch", "delete"]
+# Pod logs with read-only access for diagnostics
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list", "watch"]
 # ConfigMaps for pipeline configuration
 - apiGroups: [""]
   resources: ["configmaps"]
