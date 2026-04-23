@@ -68,9 +68,17 @@ The default configuration uses KubernetesExecutor, which is recommended for prod
    ```
    Update `airflow.webserverSecretKey` in your values file with the generated key.
 
-2. **Configure RWX Storage**: KubernetesExecutor requires ReadWriteMany (RWX) storage for DAGs:
-   - Update `airflow.dags.persistence.storageClassName` to a storage class that supports RWX (e.g., `efs-sc` on AWS, `azurefile` on Azure, `nfs-client` on GKE)
-   - Most cloud providers support RWX storage classes
+2. **Configure RWX Storage**: KubernetesExecutor requires ReadWriteMany (RWX) storage for DAGs and logs:
+   - Update `airflow.dags.persistence.storageClassName` to a storage class that supports RWX (e.g., `efs-sc` on AWS, `azurefile` on Azure, `filestore-rwx` on GKE)
+   - **Important**: The upstream Airflow chart (v1.18.0) hardcodes `ReadWriteMany` on the logs PVC. If your storage class only supports `ReadWriteOnce` (e.g., GKE Autopilot's `standard-rwo`), you must either use an RWX-capable storage class for `airflow.logs.persistence.storageClassName` or disable logs persistence (`airflow.logs.persistence.enabled: false`)
+   - Most cloud providers offer RWX storage classes (see table below)
+
+   | Cloud Provider | RWX Storage Class | Notes |
+   |---|---|---|
+   | AWS | `efs-sc` | Requires EFS CSI driver |
+   | Azure | `azurefile` | Built-in |
+   | GKE | `filestore-rwx` | Requires Filestore CSI driver |
+   | GKE Autopilot | N/A | Use `airflow.logs.persistence.enabled: false` as a workaround |
 
 3. **Adjust Worker Replicas**: Set `airflow.workers.replicas` based on your workload (default is 2)
 
@@ -86,6 +94,9 @@ airflow:
   dags:
     persistence:
       storageClassName: "efs-sc"  # Or your RWX storage class
+  logs:
+    persistence:
+      storageClassName: "efs-sc"  # Must be RWX-capable (hardcoded by upstream Airflow chart)
 mysql:
   auth:
     rootPassword: "<strong-password>"
