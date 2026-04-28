@@ -148,8 +148,15 @@ openmetadata:
           runAsGroup: 1000
           fsGroup: 1000
           runAsNonRoot: true
+          # Optional: required by namespaces enforcing the
+          # "restricted" Pod Security Standard. Allowed values for
+          # `type`: RuntimeDefault, Localhost, Unconfined.
+          # When type is Localhost, also set `localhostProfile`
+          # to the path of the profile on the node, relative to
+          # the kubelet's configured seccomp profile root.
           # seccompProfile:
           #   type: RuntimeDefault
+          #   # localhostProfile: profiles/audit.json
         # Resource limits and requests
         resources:
           limits:

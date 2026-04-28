@@ -393,6 +393,10 @@
                                 "Unconfined"
                               ],
                               "description": "Seccomp profile type for ingestion pods/containers. Required by namespaces enforcing the restricted Pod Security Standard."
+                            },
+                            "localhostProfile": {
+                              "type": "string",
+                              "description": "Path to a node-local seccomp profile, relative to the kubelet's configured seccomp profile root (e.g. 'profiles/audit.json'). Required when type is 'Localhost'."
                             }
                           },
                           "required": [
@@ -1334,7 +1338,6 @@
                 "idleThreadTimeout": {
                   "type": "string"
                 }
-
               }
             },
             "secretsManager": {
