@@ -2126,6 +2126,12 @@
               "type": "boolean"
             }
           }
+        },
+        "podSecurityContext": {
+          "type": "object"
+        },
+        "securityContext": {
+          "type": "object"
         }
       }
     }

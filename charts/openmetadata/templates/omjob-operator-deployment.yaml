@@ -24,8 +24,16 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+      {{- with .Values.omjobOperator.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: operator
+        {{- with .Values.omjobOperator.securityContext }}
+        securityContext:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         image: "{{ .Values.omjobOperator.image.repository }}:{{ .Values.omjobOperator.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.omjobOperator.image.pullPolicy }}
         env:

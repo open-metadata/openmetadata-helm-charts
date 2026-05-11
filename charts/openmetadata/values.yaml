@@ -790,3 +790,26 @@ omjobOperator:
     # - "namespace1,namespace2" = watch specific namespaces (recommended)
     # - Leave empty for operator's own namespace only
     watchNamespaces: ""
+
+  # Pod-level securityContext for the operator pod. Empty by default for
+  # backwards compatibility. Required for clusters that enforce Pod
+  # Security Standards "restricted".
+  podSecurityContext: {}
+    # runAsNonRoot: true
+    # runAsUser: 1000
+    # runAsGroup: 1000
+    # seccompProfile:
+    #   type: RuntimeDefault
+
+  # Container-level securityContext for the operator container. Required
+  # for PSS Restricted; the operator image runs as user `omjob` (UID 1000).
+  securityContext: {}
+    # allowPrivilegeEscalation: false
+    # capabilities:
+    #   drop: [ALL]
+    # readOnlyRootFilesystem: false   # JVM operators may need writable root
+    # runAsNonRoot: true
+    # runAsUser: 1000
+    # runAsGroup: 1000
+    # seccompProfile:
+    #   type: RuntimeDefault
