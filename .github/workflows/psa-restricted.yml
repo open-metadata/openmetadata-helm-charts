@@ -1,0 +1,55 @@
+name: PSA Restricted Install Check
+
+on:
+  pull_request:
+    paths:
+      - 'charts/openmetadata/**'
+      - 'tests/psa-restricted/**'
+      - 'scripts/test-psa-restricted.sh'
+      - '.github/workflows/psa-restricted.yml'
+  workflow_dispatch:
+
+jobs:
+  psa-check:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # Pin against multiple k8s minor versions so PSS-version drift
+        # surfaces here, not in production.
+        node-image:
+          - kindest/node:v1.32.5
+          - kindest/node:v1.33.1
+          - kindest/node:v1.34.0
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.16.4
+
+      - name: Install kind
+        uses: helm/kind-action@v1
+        with:
+          install_only: true
+
+      - name: Run PSA restricted check
+        env:
+          KIND_NODE_IMAGE: ${{ matrix.node-image }}
+        run: bash scripts/test-psa-restricted.sh
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: psa-report-${{ strategy.job-index }}
+          path: psa-report/
+          retention-days: 14
+
+      - name: Surface report in job summary
+        if: always()
+        run: |
+          if [[ -f psa-report/psa-report.md ]]; then
+            cat psa-report/psa-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
