@@ -2,52 +2,73 @@
 
 Validates that `charts/openmetadata` can be installed into a namespace
 that enforces the [Pod Security Standards "restricted"](https://kubernetes.io/docs/concepts/security/pod-security-standards/)
-profile.
+profile, using two complementary policy engines.
 
-## What it does
+## Engines
 
-For each scenario in `values-*.yaml`:
+### `kind` — real K8s API server fidelity
 
-1. Render the chart with `helm template … -f <values>.yaml`.
-2. Apply the rendered manifest with `kubectl apply --dry-run=server` against a
-   kind cluster whose API server enforces `restricted:latest` cluster-wide.
-3. Parse stderr for `Warning:` and `Forbidden` from the PodSecurity admission
-   plugin, group by resource, and emit a markdown + JUnit report.
+Spins up a kind cluster whose API server runs the in-tree `PodSecurity`
+admission plugin with `enforce=restricted:latest` cluster-wide (via an
+`AdmissionConfiguration` mounted into the control-plane container — no
+need to label namespaces individually).
 
-The kind cluster gets the PSA cluster-wide default via an
-`AdmissionConfiguration` mounted into the control-plane container, so we don't
-have to remember to label every namespace.
+For each scenario, renders the chart with `helm template`, applies it
+with `kubectl apply --dry-run=server`, and parses stderr for `Warning:`
+and `Forbidden`. **Limitation:** PSA only *enforces* at Pod creation; for
+workload templates (Deployment, CronJob), violations show up as `Warning:`
+rather than `Forbidden`. The harness counts both.
+
+### `kyverno` — offline, autogen-rule coverage
+
+Runs `kyverno apply` against the upstream PSS Restricted ClusterPolicy
+bundle from `kyverno/policies@release-1.13`. Kyverno generates `autogen-*`
+variants of each Pod-level rule for every workload kind (Deployment,
+DaemonSet, CronJob, …), so it catches the same workload-template
+violations as `Forbidden`, not just `Warning:` — useful in CI where you
+want any non-compliant pod template to fail the build.
+
+No cluster needed; runs in ~5s once policies are cached. Catches things
+PSA's PodSecurity admission alone won't flag at apply time.
 
 ## Scenarios
 
 | Scenario | Values | Expectation |
 | --- | --- | --- |
-| `baseline` | `values-baseline.yaml` — `omjobOperator.enabled=true`, no securityContext | **fail** — must show PSA violations. Regression catch: if this starts passing, either the chart has tightened defaults or PSA has loosened, either way worth knowing. |
-| `restricted` | `values-restricted.yaml` — full PSS-restricted securityContext on main + omjobOperator | **pass** — zero `Forbidden`. With `STRICT=1`, also zero `Warning:`. |
+| `baseline` | `values-baseline.yaml` — `omjobOperator.enabled=true`, no `securityContext` overrides | **fail** — must show violations. Regression catch in both directions. |
+| `restricted` | `values-restricted.yaml` — full PSS-restricted `securityContext` on main + `omjobOperator` | **pass** — zero `Forbidden`/policy-fails. With `STRICT=1`, also zero `Warning:` (kind). |
 
 ## Run locally
 
 ```bash
-# need: docker, kind, kubectl, helm
+# need: docker, kind, kubectl, helm, kyverno, git
 bash scripts/test-psa-restricted.sh
 
-# strict (fail on Warnings, not just Forbidden):
+# just one engine:
+ENGINES=kind    bash scripts/test-psa-restricted.sh
+ENGINES=kyverno bash scripts/test-psa-restricted.sh
+
+# strict (kind engine fails on Warnings, not just Forbidden):
 STRICT=1 bash scripts/test-psa-restricted.sh
 
 # keep cluster around for poking:
 KEEP_CLUSTER=1 bash scripts/test-psa-restricted.sh
+
+# pin a different kyverno/policies ref:
+KYVERNO_POLICIES_REF=release-1.14 bash scripts/test-psa-restricted.sh
 ```
 
 Reports land in `./psa-report/`:
 
-- `psa-report.md` — human-readable
-- `psa-report.junit.xml` — for CI test reporters
-- `<scenario>.manifest.yaml` — rendered chart per scenario
-- `<scenario>.apply.log` — raw `kubectl apply --dry-run=server` output
+- `psa-report.md` — human-readable combined report (matrix table + per-cell detail)
+- `psa-report.junit.xml` — `psa-restricted.<engine>` testcases, consumable by CI test reporters
+- `<scenario>.manifest.yaml` — rendered chart per scenario (shared across engines)
+- `kind.<scenario>.log` — raw `kubectl apply --dry-run=server` output
+- `kyverno.<scenario>.log` — raw `kyverno apply` output
 
 ## CI
 
 Wired up in `.github/workflows/psa-restricted.yml`. Runs on PRs that touch
-the chart, the test fixtures, the script, or the workflow itself. Matrix
-runs three kindest/node minor versions in parallel to catch PSS-version
-drift early.
+the chart, the test fixtures, the script, or the workflow itself. Single
+job runs both engines and emits a combined report into the job summary.
+Kyverno policies are cached across runs via `actions/cache`.
