@@ -552,6 +552,11 @@ openmetadata:
           runAsGroup: 1000
           fsGroup: 1000
           runAsNonRoot: true
+          # Optional: required by namespaces enforcing the
+          # "restricted" Pod Security Standard. Allowed values for
+          # `type`: RuntimeDefault, Localhost, Unconfined.
+          # seccompProfile:
+          #   type: RuntimeDefault
         
         # Failure diagnostics
         enableFailureDiagnostics: true
@@ -577,6 +582,12 @@ openmetadata:
 | `k8s.successfulJobsHistoryLimit` | `3` | Keep last N successful jobs |
 | `k8s.failedJobsHistoryLimit` | `3` | Keep last N failed jobs |
 | `k8s.enableFailureDiagnostics` | `true` | Enable automatic failure analysis |
+| `k8s.securityContext.runAsUser` | `1000` | UID for ingestion pods/containers |
+| `k8s.securityContext.runAsGroup` | `1000` | GID for ingestion pods/containers |
+| `k8s.securityContext.fsGroup` | `1000` | Filesystem group for ingestion pods |
+| `k8s.securityContext.runAsNonRoot` | `true` | Force ingestion pods to run as non-root |
+| `k8s.securityContext.seccompProfile.type` | `unset` | Seccomp profile applied to ingestion pods/containers. Allowed values: `RuntimeDefault`, `Localhost`, `Unconfined`. Set to `RuntimeDefault` when running in namespaces enforcing the [restricted Pod Security Standard](https://kubernetes.io/docs/concepts/security/pod-security-standards/) |
+| `k8s.securityContext.seccompProfile.localhostProfile` | `unset` | Path to a node-local seccomp profile (e.g. `profiles/audit.json`), relative to the kubelet's configured seccomp profile root. Required when `seccompProfile.type` is `Localhost` |
 
 ### RBAC and Security
 
