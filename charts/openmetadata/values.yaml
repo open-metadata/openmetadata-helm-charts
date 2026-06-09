@@ -759,6 +759,9 @@ hpa:
 omjobOperator:
   enabled: false  # Set to true to install OMJob CRD and operator
 
+  # Image pull secrets for operator/ingestion service accounts and operator pod
+  imagePullSecrets: []
+
   # Image configuration
   image:
     repository: docker.getcollate.io/openmetadata/omjob-operator

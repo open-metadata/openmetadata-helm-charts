@@ -2041,6 +2041,19 @@
         "enabled": {
           "type": "boolean"
         },
+        "imagePullSecrets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": ["name"]
+          }
+        },
         "image": {
           "type": "object",
           "additionalProperties": false,
