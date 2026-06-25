@@ -4,9 +4,9 @@ dependencies:
   version: 14.0.2
 - name: airflow
   repository: https://airflow.apache.org
-  version: 1.18.0
+  version: 1.19.0
 - name: opensearch
   repository: https://opensearch-project.github.io/helm-charts/
   version: 3.3.2
-digest: sha256:94f8e65e4e65e50751e7885c424a97a3e4e543cd5fcb3e4fb5e9cb423fced69d
-generated: "2026-02-09T10:47:40.254231+05:30"
+digest: sha256:6febbaaf90a9881150e77c61c0c1a504b9ead0975b33579a93ad3b77a471f2f8
+generated: "2026-03-16T21:32:20.838807+07:00"
