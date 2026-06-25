@@ -11,12 +11,13 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      {{- include "OpenMetadata.selectorLabels" . | nindent 6 }}
-      app.kubernetes.io/component: omjob-operator
+      app.kubernetes.io/name: {{ include "OpenMetadata.name" . }}-omjob-operator
+      app.kubernetes.io/instance: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        {{- include "OpenMetadata.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/name: {{ include "OpenMetadata.name" . }}-omjob-operator
+        app.kubernetes.io/instance: {{ .Release.Name }}
         app.kubernetes.io/component: omjob-operator
     spec:
       {{- with .Values.imagePullSecrets }}
