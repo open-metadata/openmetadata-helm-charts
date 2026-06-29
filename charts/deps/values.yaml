@@ -144,6 +144,12 @@ airflow:
       storageClassName: ""
       size: 1Gi
   # Logs persistence configuration
+  # WARNING: The upstream Airflow chart (v1.18.0) hardcodes the logs PVC access mode
+  # to ReadWriteMany (RWX). If your cluster/storage class only supports ReadWriteOnce
+  # (e.g., GKE Autopilot with standard-rwo), you must either:
+  #   1. Set storageClassName to an RWX-capable class (e.g., "filestore-rwx" on GKE,
+  #      "efs-sc" on AWS, "azurefile" on Azure)
+  #   2. Disable logs persistence (enabled: false) to use emptyDir instead
   logs:
     persistence:
       enabled: true
