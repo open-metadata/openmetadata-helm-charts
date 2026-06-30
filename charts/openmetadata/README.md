@@ -359,6 +359,7 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | replicaCount | int | `1` |
 | resources | object | `{}` |
 | startingDeadlineSeconds | int | `100` |
+| testConnection.enabled | bool | `true` |
 | testConnection.resources | object | `{}` |
 | securityContext | object | `{}` |
 | service.adminPort | string | `8586` |
