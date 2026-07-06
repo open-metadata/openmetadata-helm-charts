@@ -70,3 +70,7 @@ dependencies:
   version: "3.3.2"
   repository: "https://opensearch-project.github.io/helm-charts/"
   condition: opensearch.enabled
+- name: fuseki
+  version: "0.1.0"
+  repository: ""
+  condition: fuseki.enabled

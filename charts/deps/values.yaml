@@ -158,3 +158,54 @@ airflow:
     extraVolumeMounts:
       - name: dags
         mountPath: /opt/airflow/dags
+
+# Apache Jena Fuseki SPARQL server for the OpenMetadata RDF / Knowledge Graph feature.
+# Disabled by default. When enabled it deploys an in-cluster Fuseki (Deployment +
+# Service "fuseki" on port 3030 + optional PVC). Point OpenMetadata at it by setting
+# openmetadata.config.rdf in the openmetadata chart values, e.g.:
+#   rdf:
+#     enabled: true
+#     remoteEndpoint: "http://fuseki:3030/openmetadata"
+#     username: "admin"
+#     dataset: "openmetadata"
+#     password:
+#       secretRef: fuseki-admin-credentials
+#       secretKey: admin-password
+# Both the server (ADMIN_PASSWORD) and the app (RDF_REMOTE_PASSWORD) read the same
+# admin password secret. Create it before installing:
+#   kubectl create secret generic fuseki-admin-credentials \
+#     --from-literal=admin-password=<STRONG_PASSWORD> -n <namespace>
+fuseki:
+  enabled: false
+  replicaCount: 1
+  image:
+    repository: daschswiss/apache-jena-fuseki
+    tag: "6.0.0"
+    pullPolicy: IfNotPresent
+  # Production BYOC resource recommendation. Override for smaller deployments.
+  resources:
+    requests:
+      cpu: "1500m"
+      memory: "10Gi"
+    limits:
+      cpu: "2500m"
+      memory: "12Gi"
+  adminPassword:
+    secretName: "fuseki-admin-credentials"
+    secretKey: "admin-password"
+  jvmArgs: "-Xmx8g -Xms8g"
+  service:
+    type: ClusterIP
+    port: 3030
+  persistence:
+    enabled: true
+    size: 100Gi
+    # Empty string uses the cluster default StorageClass. Set e.g. "gp3" on AWS.
+    storageClass: ""
+  extraEnvs: []
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}
