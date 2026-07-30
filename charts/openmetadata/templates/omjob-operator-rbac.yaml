@@ -1,4 +1,5 @@
 {{- if .Values.omjobOperator.enabled }}
+{{- $omjobImagePullSecrets := .Values.omjobOperator.imagePullSecrets | default .Values.imagePullSecrets }}
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -8,6 +9,10 @@ metadata:
   labels:
     {{- include "OpenMetadata.labels" . | nindent 4 }}
     app.kubernetes.io/component: omjob-operator
+{{- with $omjobImagePullSecrets }}
+imagePullSecrets:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
