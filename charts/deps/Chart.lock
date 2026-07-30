@@ -8,5 +8,8 @@ dependencies:
 - name: opensearch
   repository: https://opensearch-project.github.io/helm-charts/
   version: 3.3.2
-digest: sha256:6febbaaf90a9881150e77c61c0c1a504b9ead0975b33579a93ad3b77a471f2f8
-generated: "2026-03-16T21:32:20.838807+07:00"
+- name: fuseki
+  repository: ""
+  version: 0.1.0
+digest: sha256:038448c608b3c6e8b7309bf2be0e58632e94112dd17e5f1a1ef24af54c5af005
+generated: "2026-06-26T15:07:26.965825-04:00"

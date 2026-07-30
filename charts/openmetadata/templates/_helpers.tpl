@@ -65,6 +65,36 @@ Create the name of the service account to use
 {{- end }}
 
 {{/*
+Resolve the Istio API version available in the target cluster.
+*/}}
+{{- define "OpenMetadata.istio.apiVersion" -}}
+{{- if .Capabilities.APIVersions.Has "networking.istio.io/v1" -}}
+networking.istio.io/v1
+{{- else if .Capabilities.APIVersions.Has "networking.istio.io/v1beta1" -}}
+networking.istio.io/v1beta1
+{{- else if .Capabilities.APIVersions.Has "networking.istio.io/v1alpha3" -}}
+networking.istio.io/v1alpha3
+{{- else -}}
+{{- fail "istio.enabled is true but none of networking.istio.io/v1, networking.istio.io/v1beta1, or networking.istio.io/v1alpha3 APIs are available in the target cluster" -}}
+{{- end -}}
+{{- end }}
+
+{{/*
+Istio resource names.
+*/}}
+{{- define "OpenMetadata.istio.gatewayName" -}}
+{{- default (include "OpenMetadata.fullname" .) .Values.istio.gateway.name -}}
+{{- end }}
+
+{{- define "OpenMetadata.istio.virtualServiceName" -}}
+{{- default (include "OpenMetadata.fullname" .) .Values.istio.virtualService.name -}}
+{{- end }}
+
+{{- define "OpenMetadata.istio.destinationRuleName" -}}
+{{- default (include "OpenMetadata.fullname" .) .Values.istio.destinationRule.name -}}
+{{- end }}
+
+{{/*
 Quoted Array of strings with base64 encoding
 */}}
 {{- define "OpenMetadata.commaJoinedQuotedEncodedList" }}

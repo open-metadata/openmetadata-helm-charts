@@ -1,0 +1,37 @@
+{{- if and .Values.istio.enabled .Values.istio.destinationRule.enabled }}
+apiVersion: {{ include "OpenMetadata.istio.apiVersion" . }}
+kind: DestinationRule
+metadata:
+  name: {{ include "OpenMetadata.istio.destinationRuleName" . }}
+  labels:
+    {{- include "OpenMetadata.labels" . | nindent 4 }}
+    {{- with .Values.istio.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.istio.destinationRule.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- if or .Values.istio.annotations .Values.istio.destinationRule.annotations }}
+  annotations:
+    {{- with .Values.istio.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- with .Values.istio.destinationRule.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- end }}
+spec:
+  host: {{ default (include "OpenMetadata.fullname" .) .Values.istio.destinationRule.host | quote }}
+  {{- with .Values.istio.destinationRule.trafficPolicy }}
+  trafficPolicy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.istio.destinationRule.subsets }}
+  subsets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.istio.destinationRule.exportTo }}
+  exportTo:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+{{- end }}

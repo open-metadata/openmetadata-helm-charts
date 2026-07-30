@@ -1,0 +1,95 @@
+{{- if .Values.gateway.enabled }}
+{{- $fullName := include "OpenMetadata.fullname" . -}}
+{{- $svcPort := .Values.service.port -}}
+{{- if .Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1" }}
+apiVersion: gateway.networking.k8s.io/v1
+{{- else if .Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1beta1" }}
+apiVersion: gateway.networking.k8s.io/v1beta1
+{{- else }}
+{{- fail "gateway.enabled is true but neither gateway.networking.k8s.io/v1 nor gateway.networking.k8s.io/v1beta1 APIs are available in the target cluster" }}
+{{- end }}
+kind: HTTPRoute
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "OpenMetadata.labels" . | indent 4 }}
+  {{- with .Values.gateway.labels }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.gateway.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  parentRefs:
+    {{- range .Values.gateway.parentRefs }}
+    {{- if not .name }}
+    {{- fail "gateway.parentRefs[].name is required when gateway.enabled=true" }}
+    {{- end }}
+    - name: {{ .name | quote }}
+      {{- with .group }}
+      group: {{ . | quote }}
+      {{- end }}
+      {{- with .kind }}
+      kind: {{ . | quote }}
+      {{- end }}
+      {{- with .namespace }}
+      namespace: {{ . | quote }}
+      {{- end }}
+      {{- with .sectionName }}
+      sectionName: {{ . | quote }}
+      {{- end }}
+      {{- with .port }}
+      port: {{ . }}
+      {{- end }}
+    {{- end }}
+  {{- with .Values.gateway.hostnames }}
+  hostnames:
+    {{- range . }}
+    - {{ . | quote }}
+    {{- end }}
+  {{- end }}
+  rules:
+    {{- if .Values.gateway.rules }}
+    {{- range .Values.gateway.rules }}
+    - {{- with .matches }}
+      matches:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .filters }}
+      filters:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      backendRefs:
+        {{- if .backendRefs }}
+        {{- range .backendRefs }}
+        - name: {{ default $fullName .name | quote }}
+          {{- with .namespace }}
+          namespace: {{ . | quote }}
+          {{- end }}
+          {{- with .kind }}
+          kind: {{ . | quote }}
+          {{- end }}
+          {{- with .group }}
+          group: {{ . | quote }}
+          {{- end }}
+          port: {{ default $svcPort .port }}
+          {{- with .weight }}
+          weight: {{ . }}
+          {{- end }}
+        {{- end }}
+        {{- else }}
+        - name: {{ $fullName | quote }}
+          port: {{ $svcPort }}
+        {{- end }}
+    {{- end }}
+    {{- else }}
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: {{ $fullName | quote }}
+          port: {{ $svcPort }}
+    {{- end }}
+{{- end }}

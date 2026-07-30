@@ -1,0 +1,48 @@
+replicaCount: 1
+
+image:
+  repository: daschswiss/apache-jena-fuseki
+  tag: "6.0.0"
+  pullPolicy: IfNotPresent
+
+# Default resource sizing follows the BYOC recommendation for production RDF
+# workloads. Override for smaller / non-production deployments.
+resources:
+  requests:
+    cpu: "1500m"
+    memory: "10Gi"
+  limits:
+    cpu: "2500m"
+    memory: "12Gi"
+
+# Secret providing the ADMIN_PASSWORD for Fuseki.
+# The same secret/key must be referenced by OpenMetadata as RDF_REMOTE_PASSWORD
+# (openmetadata.config.rdf.password) so the server and the app share one admin
+# password. Create it before installing, e.g.:
+#   kubectl create secret generic fuseki-admin-credentials \
+#     --from-literal=admin-password=<STRONG_PASSWORD> -n <namespace>
+adminPassword:
+  secretName: "fuseki-admin-credentials"
+  secretKey: "admin-password"
+
+jvmArgs: "-Xmx8g -Xms8g"
+
+service:
+  type: ClusterIP
+  port: 3030
+
+persistence:
+  enabled: true
+  size: 100Gi
+  # Empty string uses the cluster default StorageClass. Set e.g. "gp3" on AWS.
+  storageClass: ""
+
+extraEnvs: []
+
+serviceMonitor:
+  enabled: false
+  interval: 30s
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
