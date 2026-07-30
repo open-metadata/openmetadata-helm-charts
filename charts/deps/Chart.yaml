@@ -63,7 +63,7 @@ dependencies:
   repository: "https://charts.bitnami.com/bitnami"
   condition: mysql.enabled
 - name: airflow
-  version: "1.18.0"
+  version: "1.19.0"
   repository: "https://airflow.apache.org"
   condition: airflow.enabled
 - name: opensearch
