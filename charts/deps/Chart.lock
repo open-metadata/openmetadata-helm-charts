@@ -11,5 +11,5 @@ dependencies:
 - name: fuseki
   repository: ""
   version: 0.1.0
-digest: sha256:038448c608b3c6e8b7309bf2be0e58632e94112dd17e5f1a1ef24af54c5af005
-generated: "2026-06-26T15:07:26.965825-04:00"
+digest: sha256:12d332c29620b3380c7df28b1f1f9342edf3deb47a073a06acff6879ffda4b2a
+generated: "2026-07-30T17:43:28.758147+05:30"
