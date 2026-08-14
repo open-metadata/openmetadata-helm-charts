@@ -129,10 +129,31 @@ airflow:
       value: ""
     - name: AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY
       value: ""
-    # Workaround for Airflow 3 + MySQL compatibility issue
-    # Downgrade FAB provider to avoid CREATE INDEX IF NOT EXISTS issue
-    - name: _PIP_ADDITIONAL_REQUIREMENTS
-      value: "apache-airflow-providers-fab==2.4.4"
+    # REMOVED: _PIP_ADDITIONAL_REQUIREMENTS: "apache-airflow-providers-fab==2.4.4"
+    #
+    # This was a workaround for a MySQL "CREATE INDEX IF NOT EXISTS" issue, but on the
+    # ingestion image's Python 3.10 the pin is unsatisfiable alongside Airflow 3.2.x, so
+    # pip resolved it by silently downgrading Airflow itself at container startup:
+    #
+    #   $ uv pip compile --python-version 3.10 <<< 'apache-airflow-providers-fab==2.4.4'
+    #   apache-airflow-core==3.1.8   flask-appbuilder==4.6.3   sqlalchemy==1.4.54
+    #
+    # flask-appbuilder 4.6.3 requires sqlalchemy<1.5 while airflow-core 3.2.1 requires
+    # sqlalchemy>=2.0.48, so the two are provably incompatible and pip backtracks onto
+    # airflow-core 3.1.8.
+    #
+    # Because migrateDatabaseJob/createUserJob can run with applyCustomEnv=false, the
+    # migrate job kept the image's real Airflow and stamped the DB at the 3.2.x head,
+    # while every long-lived pod pip-downgraded itself to 3.1.8 on start. `airflow db
+    # check-migrations` then never converges and every pod sits in
+    # Init:CrashLoopBackOff:
+    #   MigrationHead(s) in DB:           {1d6611b6ab7c}   # airflow-core 3.2.1 head
+    #   Migration Head(s) in Source Code: {509b94a1042d}   # airflow-core 3.1.8 head
+    #
+    # If the CREATE INDEX issue resurfaces, pin a NEWER fab, not an older one:
+    # apache-airflow-providers-fab==3.8.0 resolves cleanly against airflow 3.2.1.
+    # Pinning any provider here also makes every pod pip-install at startup, which
+    # needs egress to PyPI on every restart - prefer baking it into the image.
 
   # Create admin user
   createUserJob:
