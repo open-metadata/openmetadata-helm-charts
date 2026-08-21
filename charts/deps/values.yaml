@@ -87,7 +87,7 @@ airflow:
   images:
     airflow:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.13.3
+      tag: 1.13.4
       pullPolicy: "IfNotPresent"
   # Use KubernetesExecutor for production deployments (recommended)
   # For local development (Docker Desktop/Minikube), use LocalExecutor instead
@@ -135,7 +135,7 @@ airflow:
   workers:
     kubernetes:
       # Resource configuration for pods created with pod-template-file
-      resources: { }
+      resources: {}
       #  limits:
       #   cpu: 100m
       #   memory: 128Mi
@@ -218,16 +218,6 @@ airflow:
       enabled: true
       storageClassName: ""
       size: 1Gi
-  # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
-  apiServer:
-    extraVolumes:
-      - name: dags
-        persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-dags'
-    extraVolumeMounts:
-      - name: dags
-        mountPath: /opt/airflow/dags
-
 # Apache Jena Fuseki SPARQL server for the OpenMetadata RDF / Knowledge Graph feature.
 # Disabled by default. When enabled it deploys an in-cluster Fuseki (Deployment +
 # Service "fuseki" on port 3030 + optional PVC). Point OpenMetadata at it by setting
