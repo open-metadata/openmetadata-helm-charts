@@ -561,6 +561,41 @@ gateway:
     #     - name: openmetadata
     #       port: 8585
     #       weight: 1
+    #   timeouts:
+    #     request: 300s
+    #     backendRequest: 300s
+
+# Envoy Gateway policy attachments — optional, on top of `gateway`. Envoy Gateway's
+# BackendTrafficPolicy/ClientTrafficPolicy CRDs (gateway.envoyproxy.io/v1alpha1) cover
+# things the core Gateway API spec doesn't (session persistence, buffer/body-size limits,
+# circuit breaking, etc). The `spec` field is a raw passthrough merged into the CRD's
+# spec alongside `targetRefs` — field names depend on your installed Envoy Gateway
+# version, see https://gateway.envoyproxy.io/docs/api/extension_types/
+envoyGateway:
+  # BackendTrafficPolicy — targets this chart's HTTPRoute by default.
+  backendTrafficPolicy:
+    enabled: false
+    annotations: {}
+    labels: {}
+    targetRefs: []
+      # - group: gateway.networking.k8s.io
+      #   kind: HTTPRoute
+      #   name: openmetadata
+    spec: {}
+      # sessionPersistence:
+      #   type: Cookie
+      #   cookie:
+      #     name: http-cookie
+  # ClientTrafficPolicy — targets the Gateway in `gateway.parentRefs[0]` by default.
+  clientTrafficPolicy:
+    enabled: false
+    annotations: {}
+    labels: {}
+    targetRefs: []
+      # - group: gateway.networking.k8s.io
+      #   kind: Gateway
+      #   name: shared-gateway
+    spec: {}
 
 # OpenShift Route — use instead of ingress when deploying on OpenShift.
 # Requires route.openshift.io/v1 API (available on all OpenShift clusters).

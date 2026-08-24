@@ -1642,7 +1642,64 @@
                     }
                   }
                 }
+              },
+              "timeouts": {
+                "type": "object"
               }
+            }
+          }
+        }
+      }
+    },
+    "envoyGateway": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backendTrafficPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object"
+            },
+            "labels": {
+              "type": "object"
+            },
+            "targetRefs": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "spec": {
+              "type": "object"
+            }
+          }
+        },
+        "clientTrafficPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object"
+            },
+            "labels": {
+              "type": "object"
+            },
+            "targetRefs": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "spec": {
+              "type": "object"
             }
           }
         }
