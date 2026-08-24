@@ -108,11 +108,6 @@ airflow:
       value: ""
     - name: AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY
       value: ""
-    # Workaround for Airflow 3 + MySQL compatibility issue
-    # Downgrade FAB provider to avoid CREATE INDEX IF NOT EXISTS issue
-    - name: _PIP_ADDITIONAL_REQUIREMENTS
-      value: "apache-airflow-providers-fab==2.4.4"
-
   # Create admin user
   createUserJob:
     # Whether the create user job should be created
@@ -195,7 +190,6 @@ airflow:
   redis:
     enabled: false
   # Configure external MySQL database
-  # Using downgraded FAB provider (2.4.4) to avoid CREATE INDEX IF NOT EXISTS issue
   data:
     metadataConnection:
       user: airflow_user
