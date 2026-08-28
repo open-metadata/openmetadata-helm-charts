@@ -1,0 +1,59 @@
+name: PSA Restricted Install Check
+
+on:
+  pull_request:
+    paths:
+      - 'charts/openmetadata/**'
+      - 'tests/psa-restricted/**'
+      - 'scripts/test-psa-restricted.sh'
+      - '.github/workflows/psa-restricted.yml'
+  workflow_dispatch:
+
+jobs:
+  psa-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install helm
+        uses: azure/setup-helm@v4
+        with:
+          version: v3.16.4
+
+      - name: Install kind
+        uses: helm/kind-action@v1
+        with:
+          install_only: true
+
+      - name: Install kyverno CLI
+        run: |
+          KYVERNO_VERSION="${KYVERNO_VERSION:-v1.13.4}"
+          curl -fsSL -o /tmp/kyverno.tgz \
+            "https://github.com/kyverno/kyverno/releases/download/${KYVERNO_VERSION}/kyverno-cli_${KYVERNO_VERSION}_linux_x86_64.tar.gz"
+          tar -xzf /tmp/kyverno.tgz -C /tmp kyverno
+          sudo mv /tmp/kyverno /usr/local/bin/
+          kyverno version
+
+      - name: Cache kyverno policies
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/kyverno-policies
+          key: kyverno-policies-release-1.13
+
+      - name: Run PSA restricted check (kind + kyverno)
+        run: bash scripts/test-psa-restricted.sh
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: psa-report
+          path: psa-report/
+          retention-days: 14
+
+      - name: Surface report in job summary
+        if: always()
+        run: |
+          if [[ -f psa-report/psa-report.md ]]; then
+            cat psa-report/psa-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
