@@ -403,6 +403,7 @@ By default `backendTrafficPolicy` targets this chart's own `HTTPRoute` and `clie
 | replicaCount | int | `1` |
 | resources | object | `{}` |
 | startingDeadlineSeconds | int | `100` |
+| testConnection.enabled | bool | `true` |
 | testConnection.resources | object | `{}` |
 | securityContext | object | `{}` |
 | service.adminPort | string | `8586` |
