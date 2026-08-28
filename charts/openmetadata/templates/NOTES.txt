@@ -16,6 +16,9 @@
   Gateway API HTTPRoute has been created. Inspect `gateway.parentRefs` and your Gateway listeners to determine the external hostname.
 {{- end }}
 {{- end }}
+{{- if or .Values.envoyGateway.backendTrafficPolicy.enabled .Values.envoyGateway.clientTrafficPolicy.enabled }}
+  Envoy Gateway policy attachment(s) created ({{- if .Values.envoyGateway.backendTrafficPolicy.enabled }} BackendTrafficPolicy{{- end }}{{- if .Values.envoyGateway.clientTrafficPolicy.enabled }} ClientTrafficPolicy{{- end }} ). These only take effect if your Gateway is managed by Envoy Gateway.
+{{- end }}
 {{- if .Values.route.enabled }}
 {{- if .Values.route.host }}
   https://{{ .Values.route.host }}

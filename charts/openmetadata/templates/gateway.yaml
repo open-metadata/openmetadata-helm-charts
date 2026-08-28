@@ -82,6 +82,10 @@ spec:
         - name: {{ $fullName | quote }}
           port: {{ $svcPort }}
         {{- end }}
+      {{- with .timeouts }}
+      timeouts:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
     {{- end }}
     {{- else }}
     - matches:

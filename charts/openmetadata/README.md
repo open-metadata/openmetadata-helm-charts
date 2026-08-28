@@ -45,9 +45,43 @@ gateway:
       port: 443
 ```
 
-Optional `gateway.rules` let you configure advanced `matches`, `filters`, and explicit `backendRefs`.
+Optional `gateway.rules` let you configure advanced `matches`, `filters`, `backendRefs`, and per-rule `timeouts` (`request`/`backendRequest`).
 
 You can enable `gateway` alongside `ingress` during migration. Configure hostnames/listeners carefully to avoid duplicate external routing.
+
+### Envoy Gateway
+
+[Envoy Gateway](https://gateway.envoyproxy.io/) implements the Kubernetes Gateway API, so the `gateway.*` HTTPRoute above works as-is once you point `gateway.parentRefs` at an Envoy-managed `Gateway`:
+
+```yaml
+gateway:
+  enabled: true
+  hostnames:
+    - openmetadata.example.com
+  parentRefs:
+    - name: eg-gateway
+      namespace: envoy-gateway-system
+```
+
+For behavior that isn't part of the core Gateway API spec (session persistence, request buffer/body-size limits, retries, circuit breaking), Envoy Gateway exposes its own CRDs, `BackendTrafficPolicy` and `ClientTrafficPolicy` (`gateway.envoyproxy.io/v1alpha1`). This chart can create those too via `envoyGateway.backendTrafficPolicy` and `envoyGateway.clientTrafficPolicy`. The `spec` field under each is a raw passthrough merged next to `targetRefs`, since the exact fields depend on your installed Envoy Gateway version — check `https://gateway.envoyproxy.io/docs/api/extension_types/` for the version you have deployed before copying the example below verbatim:
+
+```yaml
+envoyGateway:
+  backendTrafficPolicy:
+    enabled: true
+    spec:
+      sessionPersistence:
+        type: Cookie
+        cookie:
+          name: http-cookie
+  clientTrafficPolicy:
+    enabled: true
+    spec:
+      connection:
+        bufferLimit: 500Mi
+```
+
+By default `backendTrafficPolicy` targets this chart's own `HTTPRoute` and `clientTrafficPolicy` targets `gateway.parentRefs[0]`; override `targetRefs` on either if you need to point elsewhere. Both require the Envoy Gateway CRDs to already be installed on the cluster.
 
 ---
 
@@ -305,6 +339,16 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | gateway.parentRefs[0].sectionName | string | `nil` |
 | gateway.parentRefs[0].port | int | `nil` |
 | gateway.rules | list | `[]` |
+| envoyGateway.backendTrafficPolicy.enabled | bool | `false` |
+| envoyGateway.backendTrafficPolicy.annotations | object | `{}` |
+| envoyGateway.backendTrafficPolicy.labels | object | `{}` |
+| envoyGateway.backendTrafficPolicy.targetRefs | list | `[]` |
+| envoyGateway.backendTrafficPolicy.spec | object | `{}` |
+| envoyGateway.clientTrafficPolicy.enabled | bool | `false` |
+| envoyGateway.clientTrafficPolicy.annotations | object | `{}` |
+| envoyGateway.clientTrafficPolicy.labels | object | `{}` |
+| envoyGateway.clientTrafficPolicy.targetRefs | list | `[]` |
+| envoyGateway.clientTrafficPolicy.spec | object | `{}` |
 | istio.annotations | object | `{}` |
 | istio.destinationRule.annotations | object | `{}` |
 | istio.destinationRule.enabled | bool | `false` |
