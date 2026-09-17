@@ -829,6 +829,11 @@ omjobOperator:
     # - Leave empty for operator's own namespace only
     watchNamespaces: ""
 
+  # Schedule the operator pod on selected nodes.
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+
   # Pod-level securityContext for the operator pod. Empty by default for
   # backwards compatibility. Required for clusters that enforce Pod
   # Security Standards "restricted".

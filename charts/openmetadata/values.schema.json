@@ -2197,6 +2197,15 @@
             }
           }
         },
+        "nodeSelector": {
+          "type": "object"
+        },
+        "affinity": {
+          "type": "object"
+        },
+        "tolerations": {
+          "type": "array"
+        },
         "podSecurityContext": {
           "type": "object"
         },
