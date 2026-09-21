@@ -55,7 +55,25 @@ jobs:
       env:
         NEW_VERSION: ${{ inputs.mode == 'commit-version-bump' && inputs.version || inputs.release_branch_name }}
       run: |
-        sed -i "s/$(cat .version)/${NEW_VERSION}/g" charts/deps/Chart.yaml charts/deps/values.yaml charts/openmetadata/Chart.yaml charts/openmetadata/README.md charts/openmetadata/templates/tests/test-connection.yaml .version
+        set -euo pipefail
+        OLD_VERSION=$(cat .version)
+        OLD_RE=$(printf '%s' "$OLD_VERSION" | sed 's/\./\\./g')
+        echo "$NEW_VERSION" > .version
+
+        # Structured fields — exact-path updates, no pattern matching
+        for chart in charts/deps charts/openmetadata; do
+          yq eval -i '.version = strenv(NEW_VERSION)' "$chart/Chart.yaml"
+          yq eval -i '.appVersion = strenv(NEW_VERSION) | .appVersion style="double"' "$chart/Chart.yaml"
+        done
+        yq eval -i '.airflow.images.airflow.tag = strenv(NEW_VERSION)' charts/deps/values.yaml
+
+        # Image tags in docs/annotations/test manifest — only <image>:<old-version>.
+        # A bare 's/$OLD/$NEW/g' mangles unrelated values when the old version is
+        # two-segment: 2.0 also matches 2000m, 9200, SAML:2.0, Apache-2.0.
+        sed -i -E "s#(server|ingestion):${OLD_RE}([^0-9A-Za-z.]|\$)#\1:${NEW_VERSION}\2#g" \
+          charts/openmetadata/Chart.yaml charts/openmetadata/README.md charts/openmetadata/templates/tests/test-connection.yaml
+        # README table rows showing the version wrapped in backticks (e.g. image.tag)
+        sed -i -E "s#\`${OLD_RE}\`#\`${NEW_VERSION}\`#g" charts/openmetadata/README.md
     - name: Commit version bump
       if: ${{ inputs.mode == 'commit-version-bump' }}
       env:
