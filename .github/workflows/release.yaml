@@ -7,6 +7,10 @@ on:
         description: "Branch to publish charts from (defaults to the dispatched ref)"
         required: false
 
+# chart-releaser creates GitHub releases and pushes the index to gh-pages
+permissions:
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
