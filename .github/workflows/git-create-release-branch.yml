@@ -60,20 +60,23 @@ jobs:
         OLD_RE=$(printf '%s' "$OLD_VERSION" | sed 's/\./\\./g')
         echo "$NEW_VERSION" > .version
 
-        # Structured fields — exact-path updates, no pattern matching
-        for chart in charts/deps charts/openmetadata; do
-          yq eval -i '.version = strenv(NEW_VERSION)' "$chart/Chart.yaml"
-          yq eval -i '.appVersion = strenv(NEW_VERSION) | .appVersion style="double"' "$chart/Chart.yaml"
-        done
-        yq eval -i '.airflow.images.airflow.tag = strenv(NEW_VERSION)' charts/deps/values.yaml
-
-        # Image tags in docs/annotations/test manifest — only <image>:<old-version>.
-        # A bare 's/$OLD/$NEW/g' mangles unrelated values when the old version is
-        # two-segment: 2.0 also matches 2000m, 9200, SAML:2.0, Apache-2.0.
+        # Line-anchored updates — a bare 's/$OLD/$NEW/g' mangles unrelated values
+        # when the old version is two-segment: 2.0 also matches 2000m, 9200,
+        # SAML:2.0 and Apache-2.0.
+        sed -i -E "s/^version: ${OLD_RE}\$/version: ${NEW_VERSION}/" charts/deps/Chart.yaml charts/openmetadata/Chart.yaml
+        sed -i -E "s/^appVersion: \"${OLD_RE}\"\$/appVersion: \"${NEW_VERSION}\"/" charts/deps/Chart.yaml charts/openmetadata/Chart.yaml
+        # Image tags whose value is exactly the old version (e.g. the airflow ingestion tag)
+        sed -i -E "s/^([[:space:]]*tag: \"?)${OLD_RE}(\"?)\$/\1${NEW_VERSION}\2/" charts/deps/values.yaml
+        # Image references in docs/annotations/test manifest — only <image>:<old-version>
         sed -i -E "s#(server|ingestion):${OLD_RE}([^0-9A-Za-z.]|\$)#\1:${NEW_VERSION}\2#g" \
           charts/openmetadata/Chart.yaml charts/openmetadata/README.md charts/openmetadata/templates/tests/test-connection.yaml
         # README table rows showing the version wrapped in backticks (e.g. image.tag)
         sed -i -E "s#\`${OLD_RE}\`#\`${NEW_VERSION}\`#g" charts/openmetadata/README.md
+
+        # Fail fast if the anchored patterns stopped matching the files
+        for f in charts/deps/Chart.yaml charts/openmetadata/Chart.yaml; do
+          grep -q "^version: ${NEW_VERSION}\$" "$f" || { echo "::error::version not updated in $f"; exit 1; }
+        done
     - name: Commit version bump
       if: ${{ inputs.mode == 'commit-version-bump' }}
       env:
