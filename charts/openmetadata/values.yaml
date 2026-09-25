@@ -424,7 +424,8 @@ openmetadata:
       baseUri: "https://open-metadata.org/"
       storageType: "FUSEKI"
       remoteEndpoint: "http://localhost:3030/openmetadata"
-      username: ""
+      # the openmetadata/fuseki image's shiro.ini only authorizes the admin account
+      username: "admin"
       password:
         secretRef: ""
         secretKey: ""

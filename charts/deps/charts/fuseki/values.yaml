@@ -1,19 +1,23 @@
 replicaCount: 1
 
 image:
-  repository: daschswiss/apache-jena-fuseki
-  tag: "6.0.0"
+  repository: openmetadata/fuseki
+  tag: "6.2.0"
   pullPolicy: IfNotPresent
 
+# Base name of the blue/green dataset family (<dataset>, <dataset>_a, <dataset>_b).
+dataset: "openmetadata"
+
 # Default resource sizing follows the BYOC recommendation for production RDF
-# workloads. Override for smaller / non-production deployments.
+# workloads: memory at 2x the heap so TDB2's memory-mapped indexes keep OS page
+# cache. Override for smaller / non-production deployments.
 resources:
   requests:
     cpu: "1500m"
-    memory: "10Gi"
+    memory: "16Gi"
   limits:
     cpu: "2500m"
-    memory: "12Gi"
+    memory: "16Gi"
 
 # Secret providing the ADMIN_PASSWORD for Fuseki.
 # The same secret/key must be referenced by OpenMetadata as RDF_REMOTE_PASSWORD
@@ -25,7 +29,9 @@ adminPassword:
   secretName: "fuseki-admin-credentials"
   secretKey: "admin-password"
 
-jvmArgs: "-Xmx8g -Xms8g"
+# Heap via FUSEKI_HEAP (sets -Xms and -Xmx). jvmArgs overrides it entirely when set.
+jvmArgs: ""
+heap: "8g"
 
 service:
   type: ClusterIP

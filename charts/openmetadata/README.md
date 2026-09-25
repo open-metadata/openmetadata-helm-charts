@@ -307,7 +307,7 @@ By default `backendTrafficPolicy` targets this chart's own `HTTPRoute` and `clie
 | openmetadata.config.rdf.baseUri | string | `https://open-metadata.org/` | RDF_BASE_URI |
 | openmetadata.config.rdf.storageType | string | `FUSEKI` | RDF_STORAGE_TYPE |
 | openmetadata.config.rdf.remoteEndpoint | string | `http://localhost:3030/openmetadata` | RDF_ENDPOINT |
-| openmetadata.config.rdf.username | string | `Empty String` | RDF_REMOTE_USERNAME |
+| openmetadata.config.rdf.username | string | `admin` | RDF_REMOTE_USERNAME |
 | openmetadata.config.rdf.password.secretRef | string | `Empty String` | RDF_REMOTE_PASSWORD |
 | openmetadata.config.rdf.password.secretKey | string | `Empty String` | RDF_REMOTE_PASSWORD |
 | openmetadata.config.rdf.dataset | string | `Empty String` | RDF_DATASET |
