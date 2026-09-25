@@ -11,6 +11,9 @@ metadata:
 spec:
   replicas: {{ .Values.replicaCount }}
   revisionHistoryLimit: 3
+  # single TDB2 writer on one PVC; never run old and new pods against the same store
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: fuseki
@@ -22,6 +25,11 @@ spec:
         app.kubernetes.io/name: fuseki
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      # openmetadata/fuseki runs as uid 1000; fsGroup fixes volumes written by the
+      # previous root-running image
+      securityContext:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
       containers:
         - name: fuseki
           image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
@@ -33,6 +41,20 @@ spec:
           env:
             - name: JVM_ARGS
               value: {{ .Values.jvmArgs | quote }}
+            - name: FUSEKI_HEAP
+              value: {{ .Values.heap | quote }}
+            # seeds the blue/green dataset family; existing dataset configs are left alone
+            - name: FUSEKI_DATASETS
+              value: "{{ .Values.dataset }},{{ .Values.dataset }}_a,{{ .Values.dataset }}_b"
+            - name: OPENMETADATA_EXTENSION_ENABLED
+              value: "true"
+            - name: FUSEKI_UNION_DEFAULT_GRAPH
+              value: "true"
+            # server-side deadlines, kept below the 60s OpenMetadata client timeout
+            - name: FUSEKI_QUERY_TIMEOUT_MS
+              value: "50000"
+            - name: FUSEKI_UPDATE_TIMEOUT_MS
+              value: "50000"
             - name: ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:

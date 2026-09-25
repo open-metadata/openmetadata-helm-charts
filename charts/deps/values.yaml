@@ -230,23 +230,28 @@ airflow:
 #     --from-literal=admin-password=<STRONG_PASSWORD> -n <namespace>
 fuseki:
   enabled: false
+  # Base name of the blue/green dataset family (<dataset>, <dataset>_a, <dataset>_b).
+  dataset: "openmetadata"
   replicaCount: 1
   image:
-    repository: daschswiss/apache-jena-fuseki
-    tag: "6.0.0"
+    repository: openmetadata/fuseki
+    tag: "6.2.0"
     pullPolicy: IfNotPresent
-  # Production BYOC resource recommendation. Override for smaller deployments.
+  # Production BYOC resource recommendation, memory at 2x the heap so TDB2's
+  # memory-mapped indexes keep OS page cache. Override for smaller deployments.
   resources:
     requests:
       cpu: "1500m"
-      memory: "10Gi"
+      memory: "16Gi"
     limits:
       cpu: "2500m"
-      memory: "12Gi"
+      memory: "16Gi"
   adminPassword:
     secretName: "fuseki-admin-credentials"
     secretKey: "admin-password"
-  jvmArgs: "-Xmx8g -Xms8g"
+  # Heap via FUSEKI_HEAP (sets -Xms and -Xmx). jvmArgs overrides it entirely when set.
+  jvmArgs: ""
+  heap: "8g"
   service:
     type: ClusterIP
     port: 3030
