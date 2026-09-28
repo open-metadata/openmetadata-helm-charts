@@ -1,29 +1,100 @@
 name: Create Release Branch
-run-name: Create Release Branch for ${{ inputs.release_branch_name }}
+run-name: >-
+  ${{ inputs.mode == 'commit-version-bump'
+      && format('Commit version bump {0} on {1}', inputs.version, inputs.base_branch_name)
+      || format('Create Release Branch for {0}', inputs.release_branch_name) }}
 on:
   workflow_dispatch:
     inputs:
+      mode:
+        description: "Action to perform"
+        required: false
+        type: choice
+        options:
+          - create-release-branch
+          - commit-version-bump
+        default: create-release-branch
       release_branch_name:
-        description: "Github Release Branch Name"
-        required: true
+        description: "Github Release Branch Name (create-release-branch mode)"
+        required: false
+      version:
+        description: "Application version to set (commit-version-bump mode, e.g. 2.0.1)"
+        required: false
+      base_branch_name:
+        description: "Branch to commit the version bump onto (commit-version-bump mode)"
+        required: false
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
   create-release-branch:
-    name: Create Release Branch ${{ inputs.release_branch_name }}
+    name: >-
+      ${{ inputs.mode == 'commit-version-bump'
+          && format('Commit version bump {0}', inputs.version)
+          || format('Create Release Branch {0}', inputs.release_branch_name) }}
     runs-on: ubuntu-latest
     steps:
+    - name: Validate inputs
+      run: |
+        if [[ "${{ inputs.mode }}" == "commit-version-bump" ]]; then
+          if [[ -z "${{ inputs.version }}" || -z "${{ inputs.base_branch_name }}" ]]; then
+            echo "::error::version and base_branch_name are required when mode is 'commit-version-bump'."
+            exit 1
+          fi
+        elif [[ -z "${{ inputs.release_branch_name }}" ]]; then
+          echo "::error::release_branch_name is required when mode is 'create-release-branch'."
+          exit 1
+        fi
     - name: Checkout Repo
       uses: actions/checkout@v4
       with:
-        ref: main
+        ref: ${{ inputs.mode == 'commit-version-bump' && inputs.base_branch_name || 'main' }}
         fetch-depth: 0
     - name: Update application versions
+      env:
+        NEW_VERSION: ${{ inputs.mode == 'commit-version-bump' && inputs.version || inputs.release_branch_name }}
       run: |
-        sed -i "s/$(cat .version)/${{ inputs.release_branch_name}}/g" charts/deps/Chart.yaml charts/deps/values.yaml charts/openmetadata/Chart.yaml charts/openmetadata/README.md charts/openmetadata/templates/tests/test-connection.yaml .version
+        set -euo pipefail
+        OLD_VERSION=$(cat .version)
+        OLD_RE=$(printf '%s' "$OLD_VERSION" | sed 's/\./\\./g')
+        echo "$NEW_VERSION" > .version
+
+        # Line-anchored updates — a bare 's/$OLD/$NEW/g' mangles unrelated values
+        # when the old version is two-segment: 2.0 also matches 2000m, 9200,
+        # SAML:2.0 and Apache-2.0.
+        sed -i -E "s/^version: ${OLD_RE}\$/version: ${NEW_VERSION}/" charts/deps/Chart.yaml charts/openmetadata/Chart.yaml
+        sed -i -E "s/^appVersion: \"${OLD_RE}\"\$/appVersion: \"${NEW_VERSION}\"/" charts/deps/Chart.yaml charts/openmetadata/Chart.yaml
+        # Image tags whose value is exactly the old version (e.g. the airflow ingestion tag)
+        sed -i -E "s/^([[:space:]]*tag: \"?)${OLD_RE}(\"?)\$/\1${NEW_VERSION}\2/" charts/deps/values.yaml
+        # Image references in docs/annotations/test manifest — only <image>:<old-version>
+        sed -i -E "s#(server|ingestion):${OLD_RE}([^0-9A-Za-z.]|\$)#\1:${NEW_VERSION}\2#g" \
+          charts/openmetadata/Chart.yaml charts/openmetadata/README.md charts/openmetadata/templates/tests/test-connection.yaml
+        # README table rows showing the version wrapped in backticks (e.g. image.tag)
+        sed -i -E "s#\`${OLD_RE}\`#\`${NEW_VERSION}\`#g" charts/openmetadata/README.md
+
+        # Fail fast if the anchored patterns stopped matching the files
+        for f in charts/deps/Chart.yaml charts/openmetadata/Chart.yaml; do
+          grep -q "^version: ${NEW_VERSION}\$" "$f" || { echo "::error::version not updated in $f"; exit 1; }
+        done
+    - name: Commit version bump
+      if: ${{ inputs.mode == 'commit-version-bump' }}
+      env:
+        VERSION: ${{ inputs.version }}
+        BASE_BRANCH: ${{ inputs.base_branch_name }}
+      run: |
+        set -euo pipefail
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add .
+        if git diff --cached --quiet; then
+          echo "No version-bump changes to commit."
+          exit 0
+        fi
+        git commit -m "chore(release): bump version to \`$VERSION\`"
+        git push origin "HEAD:$BASE_BRANCH"
     - name: Create Pull Request
+      if: ${{ inputs.mode != 'commit-version-bump' }}
       uses: peter-evans/create-pull-request@v7
       with:
         title: 'chore(release): Prepare ${{ inputs.release_branch_name }} release'

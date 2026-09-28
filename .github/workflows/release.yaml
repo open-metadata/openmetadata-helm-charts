@@ -2,6 +2,14 @@ name: Release Open Metadata Charts
 
 on:
   workflow_dispatch:
+    inputs:
+      release_branch_name:
+        description: "Branch to publish charts from (defaults to the dispatched ref)"
+        required: false
+
+# chart-releaser creates GitHub releases and pushes the index to gh-pages
+permissions:
+  contents: write
 
 jobs:
   release:
@@ -10,6 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
+          ref: ${{ inputs.release_branch_name }}
           fetch-depth: 0
 
       - name: Configure Git
