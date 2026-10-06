@@ -275,6 +275,9 @@ By default `backendTrafficPolicy` targets this chart's own `HTTPRoute` and `clie
 | openmetadata.config.secretsManager.additionalParameters.projectId.secretRef | string | `gcp-project-id-secret` | OM_SM_PROJECT_ID |
 | openmetadata.config.secretsManager.additionalParameters.projectId.secretKey | string | `gcp-key-secret` | OM_SM_PROJECT_ID |
 | openmetadata.config.secretsManager.additionalParameters.region | string | `Empty String` | OM_SM_REGION |
+| openmetadata.config.secretsManager.additionalParameters.namespace | string | `Empty String` | OM_SM_NAMESPACE |
+| openmetadata.config.secretsManager.additionalParameters.inCluster | bool | `true` | OM_SM_IN_CLUSTER |
+| openmetadata.config.secretsManager.additionalParameters.kubeconfigPath | string | `Empty String` | OM_SM_KUBECONFIG_PATH |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretRef | string | `aws-secret-access-key-secret` | OM_SM_ACCESS_KEY |
 | openmetadata.config.secretsManager.additionalParameters.secretAccessKey.secretKey | string | `aws-key-secret` | OM_SM_ACCESS_KEY |
 | openmetadata.config.upgradeMigrationConfigs.debug | bool | `false` |  |
