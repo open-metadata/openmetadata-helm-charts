@@ -5,17 +5,35 @@ on:
     types: [closed]
     branches: [main]
 
+env:
+  CURRENT_RELEASE_ENDPOINT: ${{ vars.CURRENT_RELEASE_ENDPOINT }}
+
 jobs:
   backport:
     if: >-
-      github.event.pull_request.merged &&
-      contains(toJSON(github.event.pull_request.labels.*.name), '"To Release ')
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'To release')
     permissions:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
+      - name: Resolve release branches
+        id: release
+        run: |
+          set -euo pipefail
+          if [[ -z "${CURRENT_RELEASE_ENDPOINT:-}" ]]; then
+            echo "::error::CURRENT_RELEASE_ENDPOINT is not set."
+            exit 1
+          fi
+          RESPONSE=$(curl -fsS --max-time 20 --retry 3 --retry-delay 5 \
+            "$CURRENT_RELEASE_ENDPOINT")
+          BRANCHES=$(printf '%s' "$RESPONSE" \
+            | jq -r '(.collate_branches // []) | map("release/" + .) | join(" ")')
+          echo "target_branches=$BRANCHES" >> "$GITHUB_OUTPUT"
+
       - uses: actions/checkout@v6
       - uses: korthout/backport-action@v4
         with:
-          label_pattern: '^To Release ([^ ]+)$'
+          label_pattern: ''
+          target_branches: ${{ steps.release.outputs.target_branches }}
