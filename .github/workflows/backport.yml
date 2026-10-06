@@ -1,0 +1,121 @@
+name: Backport merged pull request
+
+on:
+  pull_request_target:
+    types: [closed]
+    branches: [main]
+
+env:
+  CURRENT_RELEASE_ENDPOINT: ${{ vars.CURRENT_RELEASE_ENDPOINT }}
+
+jobs:
+  plan:
+    if: >-
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'to release')
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      release_branches: ${{ steps.release.outputs.release_branches }}
+    steps:
+      - name: Resolve release branches
+        id: release
+        run: |
+          set -euo pipefail
+          if [[ -z "${CURRENT_RELEASE_ENDPOINT:-}" ]]; then
+            echo "::error::CURRENT_RELEASE_ENDPOINT is not set."
+            exit 1
+          fi
+          RESPONSE=$(curl -fsS --max-time 20 --retry 3 --retry-delay 5 \
+            "$CURRENT_RELEASE_ENDPOINT")
+          BRANCHES=$(printf '%s' "$RESPONSE" | jq -ce \
+            '(.collate_branches // []) | map("release/" + .)')
+          echo "release_branches=$BRANCHES" >> "$GITHUB_OUTPUT"
+
+      - name: Report no active release branches
+        if: steps.release.outputs.release_branches == '[]'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          gh api --method POST \
+            "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" \
+            -f body='No release branch is currently marked for release, so nothing was backported.'
+
+  backport:
+    needs: plan
+    if: >-
+      needs.plan.outputs.release_branches != '' &&
+      needs.plan.outputs.release_branches != '[]'
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJson(needs.plan.outputs.release_branches) }}
+    concurrency:
+      group: backport-${{ github.event.pull_request.number }}-${{ matrix.target }}
+      cancel-in-progress: false
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      TARGET: ${{ matrix.target }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_TITLE: ${{ github.event.pull_request.title }}
+      MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+      HEAD_BRANCH: backport/${{ matrix.target }}/pr-${{ github.event.pull_request.number }}
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Create backport branch
+        id: branch
+        run: |
+          set -euo pipefail
+          git init .
+          git remote add origin "https://github.com/$GITHUB_REPOSITORY.git"
+          git fetch --no-tags --depth=1 origin \
+            "$TARGET:refs/remotes/origin/$TARGET"
+          git fetch --no-tags origin "$MERGE_SHA"
+          git switch -c "$HEAD_BRANCH" "origin/$TARGET"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git cherry-pick -x "$MERGE_SHA"
+          git push --force \
+            "https://x-access-token:${GH_TOKEN}@github.com/$GITHUB_REPOSITORY.git" \
+            "HEAD:refs/heads/$HEAD_BRANCH"
+
+      - name: Create backport pull request
+        id: pr
+        run: |
+          set -euo pipefail
+          OWNER=${GITHUB_REPOSITORY%%/*}
+          URL=$(gh api --method GET "repos/$GITHUB_REPOSITORY/pulls" \
+            -f state=open -f "head=$OWNER:$HEAD_BRANCH" -f "base=$TARGET" \
+            --jq '.[0].html_url // empty')
+          if [[ -z "$URL" ]]; then
+            URL=$(gh api --method POST "repos/$GITHUB_REPOSITORY/pulls" \
+              -f "title=[$TARGET] $PR_TITLE" \
+              -f "head=$HEAD_BRANCH" \
+              -f "base=$TARGET" \
+              -f "body=Automated backport of #$PR_NUMBER to \`$TARGET\`." \
+              --jq .html_url)
+          fi
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Comment on source pull request
+        if: always()
+        env:
+          BACKPORT_URL: ${{ steps.pr.outputs.url }}
+        run: |
+          if [[ -n "$BACKPORT_URL" ]]; then
+            BODY="Backport to \`$TARGET\` opened as $BACKPORT_URL."
+          else
+            BODY="Backport to \`$TARGET\` failed. No pull request was opened. [Run log]($RUN_URL)."
+          fi
+          gh api --method POST \
+            "repos/$GITHUB_REPOSITORY/issues/$PR_NUMBER/comments" \
+            -f "body=$BODY"
