@@ -67,7 +67,7 @@ dependencies:
   repository: "https://airflow.apache.org"
   condition: airflow.enabled
 - name: opensearch
-  version: "3.3.2"
+  version: "3.5.0"
   repository: "https://opensearch-project.github.io/helm-charts/"
   condition: opensearch.enabled
 - name: fuseki

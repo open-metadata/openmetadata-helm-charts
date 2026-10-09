@@ -40,7 +40,7 @@ mysql:
       commit;
 
 # OpenSearch Helm Dependency
-# you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/2.12.2
+# you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/3.5.0
 opensearch:
   enabled: true
   clusterName: opensearch
