@@ -219,6 +219,18 @@ OpenMetadata Configurations GCP Additional Parameters Environment Variables for 
 {{- end -}}
 
 {{/*
+OpenMetadata Configurations Kubernetes Additional Parameters Environment Variables for Secret Manager
+*/}}
+{{- define "OpenMetadata.configs.secretManager.kubernetes.additionalParameters" -}}
+- name: OM_SM_NAMESPACE
+  value: {{ coalesce (.Values.openmetadata.config.secretsManager.additionalParameters.namespace | trim) .Release.Namespace | quote }}
+- name: OM_SM_IN_CLUSTER
+  value: {{ .Values.openmetadata.config.secretsManager.additionalParameters.inCluster | quote }}
+- name: OM_SM_KUBECONFIG_PATH
+  value: {{ .Values.openmetadata.config.secretsManager.additionalParameters.kubeconfigPath | quote }}
+{{- end -}}
+
+{{/*
 OpenMetadata Configurations Environment Variables*/}}
 {{- define "OpenMetadata.configs" -}}
 {{- if .Values.openmetadata.config.fernetkey.secretRef -}}
@@ -379,6 +391,9 @@ OpenMetadata Configurations Environment Variables*/}}
 {{- end }}
 {{- if has .Values.openmetadata.config.secretsManager.provider (list "gcp") }}
 {{ include "OpenMetadata.configs.secretManager.gcp.additionalParameters" . }}
+{{- end }}
+{{- if has .Values.openmetadata.config.secretsManager.provider (list "kubernetes") }}
+{{ include "OpenMetadata.configs.secretManager.kubernetes.additionalParameters" . }}
 {{- end }}
 {{- end }}
 {{- if .Values.openmetadata.config.rdf.enabled }}
