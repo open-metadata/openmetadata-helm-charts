@@ -34,6 +34,13 @@ openmetadata:
     elasticsearch:
       enabled: true
       host: opensearch
+      # Supported values: "opensearch" (default, recommended) or "elasticsearch"
+      # NOTE: Using "elasticsearch" with Elasticsearch 8.x has a known issue where
+      # the run-db-migrations init container fails on pod restarts when updating
+      # existing search indices (PutMappingRequest rejects "settings" field).
+      # Creating indices from scratch works fine. If you must use Elasticsearch,
+      # consider deleting indices before restarting or switching to OpenSearch.
+      # See: https://github.com/open-metadata/openmetadata-helm-charts/issues/451
       searchType: opensearch
       port: 9200
       scheme: http
