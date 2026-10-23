@@ -235,7 +235,7 @@ fuseki:
   replicaCount: 1
   image:
     repository: openmetadata/fuseki
-    tag: "6.2.0"
+    tag: "6.2.0-c75b095"
     pullPolicy: IfNotPresent
   # Production BYOC resource recommendation, memory at 2x the heap so TDB2's
   # memory-mapped indexes keep OS page cache. Override for smaller deployments.
