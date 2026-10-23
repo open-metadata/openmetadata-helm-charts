@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: openmetadata/fuseki
-  tag: "6.2.0"
+  tag: "6.2.0-c75b095"
   pullPolicy: IfNotPresent
 
 # Base name of the blue/green dataset family (<dataset>, <dataset>_a, <dataset>_b).
