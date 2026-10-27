@@ -156,8 +156,14 @@ openmetadata:
           requests:
             cpu: "500m"
             memory: "1Gi"
-        # Pod annotations (comma-separated key=value pairs)
+        # Annotations and labels added to every resource the server spawns for pipelines:
+        # Jobs, CronJobs, OMJobs, CronOMJobs, ConfigMaps, Secrets and their pods
+        # (comma-separated key=value pairs). Built-in labels win on key clash.
+        # Example for ArgoCD label tracking, so spawned resources count as managed:
+        #   podLabels: "app.kubernetes.io/instance=<argocd-application-name>"
+        #   podAnnotations: "argocd.argoproj.io/compare-options=IgnoreExtraneous,argocd.argoproj.io/sync-options=Prune=false"
         podAnnotations: ""
+        podLabels: ""
         # Extra environment variables (list of key:value pairs)
         extraEnvVars: []
         # Enable failure diagnostics

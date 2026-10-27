@@ -621,6 +621,8 @@ openmetadata:
 | `k8s.successfulJobsHistoryLimit` | `3` | Keep last N successful jobs |
 | `k8s.failedJobsHistoryLimit` | `3` | Keep last N failed jobs |
 | `k8s.enableFailureDiagnostics` | `true` | Enable automatic failure analysis |
+| `k8s.podAnnotations` | `""` | Annotations added to every spawned resource and pod (comma-separated `key=value`) |
+| `k8s.podLabels` | `""` | Labels added to every spawned resource and pod (comma-separated `key=value`); built-in labels win on clash |
 
 ### RBAC and Security
 
