@@ -329,6 +329,9 @@
                     "podAnnotations": {
                       "type": "string"
                     },
+                    "podLabels": {
+                      "type": "string"
+                    },
                     "enableFailureDiagnostics": {
                       "type": "boolean"
                     },
