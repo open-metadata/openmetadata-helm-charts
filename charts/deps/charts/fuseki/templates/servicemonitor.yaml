@@ -1,0 +1,21 @@
+{{- if .Values.serviceMonitor.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: fuseki
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: fuseki
+    app.kubernetes.io/name: fuseki
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app: fuseki
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  endpoints:
+    - port: http
+      path: "/$/metrics"
+      interval: {{ .Values.serviceMonitor.interval | default "30s" }}
+{{- end }}

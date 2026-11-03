@@ -1,4 +1,5 @@
 {{- if .Values.omjobOperator.enabled }}
+{{- $omjobImagePullSecrets := .Values.omjobOperator.imagePullSecrets | default .Values.imagePullSecrets }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -19,13 +20,33 @@ spec:
         {{- include "OpenMetadata.selectorLabels" . | nindent 8 }}
         app.kubernetes.io/component: omjob-operator
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- with $omjobImagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       serviceAccountName: {{ include "OpenMetadata.fullname" . }}-omjob-operator
+      {{- with .Values.omjobOperator.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.omjobOperator.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.omjobOperator.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.omjobOperator.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
       - name: operator
+        {{- with .Values.omjobOperator.securityContext }}
+        securityContext:
+          {{- toYaml . | nindent 10 }}
+        {{- end }}
         image: "{{ .Values.omjobOperator.image.repository }}:{{ .Values.omjobOperator.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.omjobOperator.image.pullPolicy }}
         env:

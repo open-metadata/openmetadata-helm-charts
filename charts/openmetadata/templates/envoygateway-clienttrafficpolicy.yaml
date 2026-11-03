@@ -1,0 +1,36 @@
+{{- if .Values.envoyGateway.clientTrafficPolicy.enabled }}
+{{- $fullName := include "OpenMetadata.fullname" . -}}
+{{- if not (.Capabilities.APIVersions.Has "gateway.envoyproxy.io/v1alpha1") }}
+{{- fail "envoyGateway.clientTrafficPolicy.enabled is true but gateway.envoyproxy.io/v1alpha1 is not available in the target cluster. Install Envoy Gateway's CRDs first." }}
+{{- end }}
+{{- $hasDefaultParentRef := and .Values.gateway.enabled (gt (len .Values.gateway.parentRefs) 0) (index .Values.gateway.parentRefs 0).name }}
+{{- if not (or .Values.envoyGateway.clientTrafficPolicy.targetRefs $hasDefaultParentRef) }}
+{{- fail "envoyGateway.clientTrafficPolicy.targetRefs is required unless gateway.enabled=true with gateway.parentRefs[0].name set" }}
+{{- end }}
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: ClientTrafficPolicy
+metadata:
+  name: {{ $fullName }}
+  labels:
+    {{- include "OpenMetadata.labels" . | indent 4 }}
+    {{- with .Values.envoyGateway.clientTrafficPolicy.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.envoyGateway.clientTrafficPolicy.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  targetRefs:
+    {{- if .Values.envoyGateway.clientTrafficPolicy.targetRefs }}
+    {{- toYaml .Values.envoyGateway.clientTrafficPolicy.targetRefs | nindent 4 }}
+    {{- else }}
+    {{- $ref := index .Values.gateway.parentRefs 0 }}
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: {{ $ref.name }}
+    {{- end }}
+  {{- with .Values.envoyGateway.clientTrafficPolicy.spec }}
+  {{- toYaml . | nindent 2 }}
+  {{- end }}
+{{- end }}

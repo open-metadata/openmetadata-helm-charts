@@ -1,5 +1,6 @@
 {{- if and .Values.openmetadata.config.pipelineServiceClientConfig.enabled (eq .Values.openmetadata.config.pipelineServiceClientConfig.type "k8s") }}
 {{- $namespace := .Release.Namespace }}
+{{- $omjobImagePullSecrets := .Values.omjobOperator.imagePullSecrets | default .Values.imagePullSecrets }}
 {{- if .Values.openmetadata.config.pipelineServiceClientConfig.k8s.rbac.enabled }}
 ---
 apiVersion: v1
@@ -14,6 +15,10 @@ metadata:
     {{- if .Values.serviceAccount.annotations }}
     {{- toYaml .Values.serviceAccount.annotations | nindent 4 }}
     {{- end }}
+{{- with $omjobImagePullSecrets }}
+imagePullSecrets:
+  {{- toYaml . | nindent 2 }}
+{{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role

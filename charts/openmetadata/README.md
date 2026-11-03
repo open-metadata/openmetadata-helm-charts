@@ -45,9 +45,43 @@ gateway:
       port: 443
 ```
 
-Optional `gateway.rules` let you configure advanced `matches`, `filters`, and explicit `backendRefs`.
+Optional `gateway.rules` let you configure advanced `matches`, `filters`, `backendRefs`, and per-rule `timeouts` (`request`/`backendRequest`).
 
 You can enable `gateway` alongside `ingress` during migration. Configure hostnames/listeners carefully to avoid duplicate external routing.
+
+### Envoy Gateway
+
+[Envoy Gateway](https://gateway.envoyproxy.io/) implements the Kubernetes Gateway API, so the `gateway.*` HTTPRoute above works as-is once you point `gateway.parentRefs` at an Envoy-managed `Gateway`:
+
+```yaml
+gateway:
+  enabled: true
+  hostnames:
+    - openmetadata.example.com
+  parentRefs:
+    - name: eg-gateway
+      namespace: envoy-gateway-system
+```
+
+For behavior that isn't part of the core Gateway API spec (session persistence, request buffer/body-size limits, retries, circuit breaking), Envoy Gateway exposes its own CRDs, `BackendTrafficPolicy` and `ClientTrafficPolicy` (`gateway.envoyproxy.io/v1alpha1`). This chart can create those too via `envoyGateway.backendTrafficPolicy` and `envoyGateway.clientTrafficPolicy`. The `spec` field under each is a raw passthrough merged next to `targetRefs`, since the exact fields depend on your installed Envoy Gateway version — check `https://gateway.envoyproxy.io/docs/api/extension_types/` for the version you have deployed before copying the example below verbatim:
+
+```yaml
+envoyGateway:
+  backendTrafficPolicy:
+    enabled: true
+    spec:
+      sessionPersistence:
+        type: Cookie
+        cookie:
+          name: http-cookie
+  clientTrafficPolicy:
+    enabled: true
+    spec:
+      connection:
+        bufferLimit: 500Mi
+```
+
+By default `backendTrafficPolicy` targets this chart's own `HTTPRoute` and `clientTrafficPolicy` targets `gateway.parentRefs[0]`; override `targetRefs` on either if you need to point elsewhere. Both require the Envoy Gateway CRDs to already be installed on the cluster.
 
 ---
 
@@ -273,7 +307,7 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | openmetadata.config.rdf.baseUri | string | `https://open-metadata.org/` | RDF_BASE_URI |
 | openmetadata.config.rdf.storageType | string | `FUSEKI` | RDF_STORAGE_TYPE |
 | openmetadata.config.rdf.remoteEndpoint | string | `http://localhost:3030/openmetadata` | RDF_ENDPOINT |
-| openmetadata.config.rdf.username | string | `Empty String` | RDF_REMOTE_USERNAME |
+| openmetadata.config.rdf.username | string | `admin` | RDF_REMOTE_USERNAME |
 | openmetadata.config.rdf.password.secretRef | string | `Empty String` | RDF_REMOTE_PASSWORD |
 | openmetadata.config.rdf.password.secretKey | string | `Empty String` | RDF_REMOTE_PASSWORD |
 | openmetadata.config.rdf.dataset | string | `Empty String` | RDF_DATASET |
@@ -292,7 +326,7 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `1.12.6` |
+| image.tag | string | `2.0.3` |
 | imagePullSecrets | list | `[]` |
 | gateway.annotations | object | `{}` |
 | gateway.enabled | bool | `false` |
@@ -305,6 +339,16 @@ You can enable `gateway` alongside `ingress` during migration. Configure hostnam
 | gateway.parentRefs[0].sectionName | string | `nil` |
 | gateway.parentRefs[0].port | int | `nil` |
 | gateway.rules | list | `[]` |
+| envoyGateway.backendTrafficPolicy.enabled | bool | `false` |
+| envoyGateway.backendTrafficPolicy.annotations | object | `{}` |
+| envoyGateway.backendTrafficPolicy.labels | object | `{}` |
+| envoyGateway.backendTrafficPolicy.targetRefs | list | `[]` |
+| envoyGateway.backendTrafficPolicy.spec | object | `{}` |
+| envoyGateway.clientTrafficPolicy.enabled | bool | `false` |
+| envoyGateway.clientTrafficPolicy.annotations | object | `{}` |
+| envoyGateway.clientTrafficPolicy.labels | object | `{}` |
+| envoyGateway.clientTrafficPolicy.targetRefs | list | `[]` |
+| envoyGateway.clientTrafficPolicy.spec | object | `{}` |
 | istio.annotations | object | `{}` |
 | istio.destinationRule.annotations | object | `{}` |
 | istio.destinationRule.enabled | bool | `false` |
@@ -588,6 +632,8 @@ openmetadata:
 | `k8s.securityContext.runAsNonRoot` | `true` | Force ingestion pods to run as non-root |
 | `k8s.securityContext.seccompProfile.type` | `unset` | Seccomp profile applied to ingestion pods/containers. Allowed values: `RuntimeDefault`, `Localhost`, `Unconfined`. Set to `RuntimeDefault` when running in namespaces enforcing the [restricted Pod Security Standard](https://kubernetes.io/docs/concepts/security/pod-security-standards/) |
 | `k8s.securityContext.seccompProfile.localhostProfile` | `unset` | Path to a node-local seccomp profile (e.g. `profiles/audit.json`), relative to the kubelet's configured seccomp profile root. Required when `seccompProfile.type` is `Localhost` |
+| `k8s.podAnnotations` | `""` | Annotations added to every spawned resource and pod (comma-separated `key=value`) |
+| `k8s.podLabels` | `""` | Labels added to every spawned resource and pod (comma-separated `key=value`); built-in labels win on clash |
 
 ### RBAC and Security
 

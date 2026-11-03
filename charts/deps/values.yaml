@@ -40,7 +40,7 @@ mysql:
       commit;
 
 # OpenSearch Helm Dependency
-# you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/2.12.2
+# you can find more details about this here https://artifacthub.io/packages/helm/opensearch-project-helm-charts/opensearch/3.5.0
 opensearch:
   enabled: true
   clusterName: opensearch
@@ -72,12 +72,22 @@ airflow:
   # Without this, JWT token authentication may fail between Airflow components
   # Generate a new key with: openssl rand -hex 32
   # Set to empty string (~) to auto-generate (not recommended for production)
-  webserverSecretKey: "a5f8c3e2d1b9a7f6e4c3b2a1f9e8d7c6b5a4f3e2d1c9b8a7f6e5d4c3b2a1f0e9"
+
+  # Fernet key settings
+  # Note: fernetKey can only be set during install, not upgrade
+  fernetKey: ~
+
+  # Flask secret key for Airflow 3+ Api: `[api] secret_key` in airflow.cfg
+  apiSecretKey: "a5f8c3e2d1b9a7f6e4c3b2a1f9e8d7c6b5a4f3e2d1c9b8a7f6e5d4c3b2a1f0e9"
+
+  # Secret key used to encode and decode JWTs: `[api_auth] jwt_secret` in airflow.cfg
+  jwtSecret: ~
+
   # Use OpenMetadata Airflow image with Airflow 3
   images:
     airflow:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 1.12.6
+      tag: 2.0.3
       pullPolicy: "IfNotPresent"
   # Use KubernetesExecutor for production deployments (recommended)
   # For local development (Docker Desktop/Minikube), use LocalExecutor instead
@@ -98,35 +108,88 @@ airflow:
       value: ""
     - name: AIRFLOW__OPENMETADATA_SECRETS_MANAGER__AWS_ACCESS_KEY
       value: ""
-    # Workaround for Airflow 3 + MySQL compatibility issue
-    # Downgrade FAB provider to avoid CREATE INDEX IF NOT EXISTS issue
-    - name: _PIP_ADDITIONAL_REQUIREMENTS
-      value: "apache-airflow-providers-fab==2.4.4"
   # Create admin user
-  webserver:
+  createUserJob:
+    # Whether the create user job should be created
+    enabled: true
+    # The default user to create
     defaultUser:
-      enabled: true
       role: Admin
       username: admin
       email: spiderman@superhero.org
       firstName: Peter
       lastName: Parker
       password: admin
+
+  # Airflow database migration job settings
+  migrateDatabaseJob:
+    enabled: true
+
+  # Worker configuration for KubernetesExecutor (from 1.19.0 let's use workers.kubernetes)
+  # Set replicas to 0 for LocalExecutor (local development)
+  workers:
+    kubernetes:
+      # Resource configuration for pods created with pod-template-file
+      resources: {}
+      #  limits:
+      #   cpu: 100m
+      #   memory: 128Mi
+      #  requests:
+      #   cpu: 100m
+      #   memory: 128Mi
+
+
+  # Airflow scheduler settings
+  scheduler:
+    enabled: true
+
+    # Amount of scheduler replicas (recommended to be set larger than 2 with MYSQL 8+ and Postgres 12+)
+    replicas: 1
+
+  # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
+  apiServer:
+    enabled: true
+
+    # Number of Airflow API servers in the deployment.
+    # Omitted from the Deployment, when HPA is enabled.
+    replicas: 1
+
+    extraVolumes:
+      - name: dags
+        persistentVolumeClaim:
+          claimName: '{{ include "airflow.fullname" . }}-dags'
+    extraVolumeMounts:
+      - name: dags
+        mountPath: /opt/airflow/dags
+
+  # Airflow Triggerer Config
+  triggerer:
+    enabled: true
+    # Number of airflow triggerers in the deployment
+    replicas: 1
+
+  # Airflow Dag Processor Config
+  dagProcessor:
+    enabled: false
+    # Number of airflow dag processors in the deployment
+    replicas: 1
+
+  # Disable Flower when use KubernetesExecutor
+  flower:
+    enabled: false
+
+  # StatsD settings
+  statsd:
+    enabled: true
+
   # Disable internal PostgreSQL, use external MySQL
   postgresql:
     enabled: false
-  # Worker configuration for KubernetesExecutor
-  # Set replicas to 0 for LocalExecutor (local development)
-  workers:
-    replicas: 2
-  # Disable Flower
-  flower:
-    enabled: false
-  # Disable internal Redis
+
+  # Disable internal Redis when use KubernetesExecutor
   redis:
     enabled: false
   # Configure external MySQL database
-  # Using downgraded FAB provider (2.4.4) to avoid CREATE INDEX IF NOT EXISTS issue
   data:
     metadataConnection:
       user: airflow_user
@@ -149,12 +212,58 @@ airflow:
       enabled: true
       storageClassName: ""
       size: 1Gi
-  # API server needs access to DAGs volume for OpenMetadata dynamic DAG generation
-  apiServer:
-    extraVolumes:
-      - name: dags
-        persistentVolumeClaim:
-          claimName: '{{ include "airflow.fullname" . }}-dags'
-    extraVolumeMounts:
-      - name: dags
-        mountPath: /opt/airflow/dags
+# Apache Jena Fuseki SPARQL server for the OpenMetadata RDF / Knowledge Graph feature.
+# Disabled by default. When enabled it deploys an in-cluster Fuseki (Deployment +
+# Service "fuseki" on port 3030 + optional PVC). Point OpenMetadata at it by setting
+# openmetadata.config.rdf in the openmetadata chart values, e.g.:
+#   rdf:
+#     enabled: true
+#     remoteEndpoint: "http://fuseki:3030/openmetadata"
+#     username: "admin"
+#     dataset: "openmetadata"
+#     password:
+#       secretRef: fuseki-admin-credentials
+#       secretKey: admin-password
+# Both the server (ADMIN_PASSWORD) and the app (RDF_REMOTE_PASSWORD) read the same
+# admin password secret. Create it before installing:
+#   kubectl create secret generic fuseki-admin-credentials \
+#     --from-literal=admin-password=<STRONG_PASSWORD> -n <namespace>
+fuseki:
+  enabled: false
+  # Base name of the blue/green dataset family (<dataset>, <dataset>_a, <dataset>_b).
+  dataset: "openmetadata"
+  replicaCount: 1
+  image:
+    repository: openmetadata/fuseki
+    tag: "6.2.0-c75b095"
+    pullPolicy: IfNotPresent
+  # Production BYOC resource recommendation, memory at 2x the heap so TDB2's
+  # memory-mapped indexes keep OS page cache. Override for smaller deployments.
+  resources:
+    requests:
+      cpu: "1500m"
+      memory: "16Gi"
+    limits:
+      cpu: "2500m"
+      memory: "16Gi"
+  adminPassword:
+    secretName: "fuseki-admin-credentials"
+    secretKey: "admin-password"
+  # Heap via FUSEKI_HEAP (sets -Xms and -Xmx). jvmArgs overrides it entirely when set.
+  jvmArgs: ""
+  heap: "8g"
+  service:
+    type: ClusterIP
+    port: 3030
+  persistence:
+    enabled: true
+    size: 100Gi
+    # Empty string uses the cluster default StorageClass. Set e.g. "gp3" on AWS.
+    storageClass: ""
+  extraEnvs: []
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: fuseki
+description: Apache Jena Fuseki SPARQL server subchart for OpenMetadata RDF/Knowledge Graph
+type: application
+version: 0.1.0
+appVersion: "6.0.0"

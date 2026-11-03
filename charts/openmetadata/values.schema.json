@@ -329,6 +329,9 @@
                     "podAnnotations": {
                       "type": "string"
                     },
+                    "podLabels": {
+                      "type": "string"
+                    },
                     "enableFailureDiagnostics": {
                       "type": "boolean"
                     },
@@ -1663,7 +1666,64 @@
                     }
                   }
                 }
+              },
+              "timeouts": {
+                "type": "object"
               }
+            }
+          }
+        }
+      }
+    },
+    "envoyGateway": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "backendTrafficPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object"
+            },
+            "labels": {
+              "type": "object"
+            },
+            "targetRefs": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "spec": {
+              "type": "object"
+            }
+          }
+        },
+        "clientTrafficPolicy": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "annotations": {
+              "type": "object"
+            },
+            "labels": {
+              "type": "object"
+            },
+            "targetRefs": {
+              "type": "array",
+              "items": {
+                "type": "object"
+              }
+            },
+            "spec": {
+              "type": "object"
             }
           }
         }
@@ -2062,6 +2122,19 @@
         "enabled": {
           "type": "boolean"
         },
+        "imagePullSecrets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": ["name"]
+          }
+        },
         "image": {
           "type": "object",
           "additionalProperties": false,
@@ -2147,6 +2220,21 @@
               "type": "boolean"
             }
           }
+        },
+        "nodeSelector": {
+          "type": "object"
+        },
+        "affinity": {
+          "type": "object"
+        },
+        "tolerations": {
+          "type": "array"
+        },
+        "podSecurityContext": {
+          "type": "object"
+        },
+        "securityContext": {
+          "type": "object"
         }
       }
     }
