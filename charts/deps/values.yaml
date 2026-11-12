@@ -29,7 +29,7 @@ mysql:
       nodePort: 3306
   initdbScripts:
     init_openmetadata_db_scripts.sql: |
-      CREATE DATABASE openmetadata_db;
+      CREATE DATABASE openmetadata_db CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
       CREATE USER 'openmetadata_user'@'%' IDENTIFIED BY 'openmetadata_password';
       GRANT ALL PRIVILEGES ON openmetadata_db.* TO 'openmetadata_user'@'%' WITH GRANT OPTION;
       commit;
@@ -87,7 +87,7 @@ airflow:
   images:
     airflow:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 2.1
+      tag: "2.1"
       pullPolicy: "IfNotPresent"
   # Use KubernetesExecutor for production deployments (recommended)
   # For local development (Docker Desktop/Minikube), use LocalExecutor instead
