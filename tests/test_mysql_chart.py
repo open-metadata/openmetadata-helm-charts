@@ -67,6 +67,11 @@ class MysqlChartTests(unittest.TestCase):
         self.assertEqual(svc['spec']['selector'], sts['spec']['template']['metadata']['labels'])
         self.assertEqual(svc['spec']['ports'][0]['nodePort'], 30306)
 
+    def test_long_override_keeps_resource_names_valid(self):
+        docs = render('--set', 'fullnameOverride=' + 'x' * 63)
+        for doc in docs:
+            self.assertLessEqual(len(doc['metadata']['name']), 63)
+
     def test_init_and_optional_user(self):
         docs = render('--set', 'auth.database=app', '--set', 'auth.username=app',
                       '--set', 'auth.password=test-only', '--set-string', 'initdbScripts.test\\.sql=SELECT 1;')
