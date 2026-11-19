@@ -39,9 +39,9 @@ jobs:
           helm repo add mysql https://charts.bitnami.com/bitnami
           helm repo add airflow https://airflow.apache.org
 
-      - uses: actions/setup-python@v2
+      - uses: actions/setup-python@v5
         with:
-          python-version: 3.9
+          python-version: '3.12'
 
       - name: Install chart-testing
         uses: helm/chart-testing-action@v2.8.0
