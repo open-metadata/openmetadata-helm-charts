@@ -1419,6 +1419,15 @@
                           "type": "string"
                         }
                       }
+                    },
+                    "namespace": {
+                      "type": "string"
+                    },
+                    "inCluster": {
+                      "type": "boolean"
+                    },
+                    "kubeconfigPath": {
+                      "type": "string"
                     }
                   }
                 },
@@ -1433,7 +1442,8 @@
                     "in-memory",
                     "managed-azure-kv",
                     "azure-kv",
-                    "gcp"
+                    "gcp",
+                    "kubernetes"
                   ]
                 },
                 "prefix": {
