@@ -1,5 +1,5 @@
 {{- define "mysql.name" -}}
-{{- default (printf "%s-mysql" .Release.Name) .Values.fullnameOverride | trunc 55 | trimSuffix "-" -}}
+{{- default (printf "%s-mysql" .Release.Name) .Values.fullnameOverride | trunc 54 | trimSuffix "-" -}}
 {{- end -}}
 {{- define "mysql.labels" -}}
 app.kubernetes.io/name: mysql
