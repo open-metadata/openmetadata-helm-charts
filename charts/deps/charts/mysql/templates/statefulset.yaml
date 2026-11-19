@@ -1,0 +1,131 @@
+{{- if ne .Values.architecture "standalone" }}
+{{- fail "The official MySQL chart supports architecture=standalone only; replication needs a separately managed database" }}
+{{- end }}
+{{- if and .Release.IsUpgrade (not .Values.migration.backupAndRestoreCompleted) }}
+{{- fail "MySQL 8.4 replaces Bitnami MySQL: follow MYSQL-UPGRADE.md and set mysql.migration.backupAndRestoreCompleted=true after migration" }}
+{{- end }}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  # A new workload/claim name prevents reusing the Bitnami data directory.
+  name: {{ include "mysql.name" . }}-84
+  labels:
+    {{- include "mysql.labels" . | nindent 4 }}
+spec:
+  serviceName: {{ include "mysql.name" . }}-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "mysql.labels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "mysql.labels" . | nindent 8 }}
+    spec:
+      terminationGracePeriodSeconds: 120
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.primary.podSecurityContext | nindent 8 }}
+      containers:
+        - name: mysql
+          image: {{ printf "%s/%s:%s" .Values.image.registry .Values.image.repository .Values.image.tag | quote }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.primary.containerSecurityContext | nindent 12 }}
+          args:
+            {{- range (splitList " " .Values.primary.extraFlags) }}
+            {{- if . }}
+            - {{ . | quote }}
+            {{- end }}
+            {{- end }}
+          ports:
+            - name: mysql
+              containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD_FILE
+              value: /run/mysql-secrets/mysql-root-password
+            {{- if .Values.auth.database }}
+            - name: MYSQL_DATABASE
+              value: {{ .Values.auth.database | quote }}
+            {{- end }}
+            {{- if .Values.auth.username }}
+            - name: MYSQL_USER
+              value: {{ .Values.auth.username | quote }}
+            - name: MYSQL_PASSWORD_FILE
+              value: /run/mysql-secrets/mysql-password
+            {{- end }}
+          startupProbe:
+            exec:
+              command: [sh, -ec, 'MYSQL_PWD="$(cat /run/mysql-secrets/mysql-root-password)" mysql --protocol=TCP -h 127.0.0.1 -uroot -e "SELECT 1"']
+            periodSeconds: 10
+            failureThreshold: 60
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command: [sh, -ec, 'MYSQL_PWD="$(cat /run/mysql-secrets/mysql-root-password)" mysql --protocol=TCP -h 127.0.0.1 -uroot -e "SELECT 1"']
+            periodSeconds: 10
+            timeoutSeconds: 5
+          livenessProbe:
+            tcpSocket:
+              port: mysql
+            periodSeconds: 20
+            timeoutSeconds: 5
+          resources:
+            {{- toYaml .Values.primary.resources | nindent 12 }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/mysql
+              subPath: mysql
+            - name: passwords
+              mountPath: /run/mysql-secrets
+              readOnly: true
+            {{- if .Values.initdbScripts }}
+            - name: init
+              mountPath: /docker-entrypoint-initdb.d
+              readOnly: true
+            {{- end }}
+      volumes:
+        - name: passwords
+          secret:
+            secretName: {{ include "mysql.secret" . }}
+        {{- if .Values.initdbScripts }}
+        - name: init
+          configMap:
+            name: {{ include "mysql.name" . }}-init
+        {{- end }}
+        {{- if .Values.primary.persistence.existingClaim }}
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.primary.persistence.existingClaim }}
+        {{- else if not .Values.primary.persistence.enabled }}
+        - name: data
+          emptyDir: {}
+        {{- end }}
+      {{- with .Values.primary.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.primary.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.primary.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  {{- if and .Values.primary.persistence.enabled (not .Values.primary.persistence.existingClaim) }}
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: [ReadWriteOnce]
+        {{- if .Values.primary.persistence.storageClass }}
+        storageClassName: {{ .Values.primary.persistence.storageClass | quote }}
+        {{- end }}
+        resources:
+          requests:
+            storage: {{ .Values.primary.persistence.size }}
+  {{- end }}

@@ -1,7 +1,7 @@
 dependencies:
 - name: mysql
-  repository: https://charts.bitnami.com/bitnami
-  version: 14.0.2
+  repository: ""
+  version: 1.0.0
 - name: airflow
   repository: https://airflow.apache.org
   version: 1.18.0
@@ -11,5 +11,5 @@ dependencies:
 - name: fuseki
   repository: ""
   version: 0.1.0
-digest: sha256:038448c608b3c6e8b7309bf2be0e58632e94112dd17e5f1a1ef24af54c5af005
-generated: "2026-06-26T15:07:26.965825-04:00"
+digest: sha256:403d198779fc61dd9162df9480e6e4f705e5031db8eeab75c959f685f110ff4a
+generated: "2026-11-19T12:48:37.221684+05:30"

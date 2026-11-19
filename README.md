@@ -148,6 +148,8 @@ oc adm policy add-scc-to-user anyuid \
 
 ### Step 1 — Install dependencies (MySQL + OpenSearch)
 
+This example requires dependency chart 3.0.0, which uses official MySQL 8.4.13. Before upgrading an existing Bitnami installation, follow [the MySQL migration guide](charts/deps/MYSQL-UPGRADE.md). Validate the MySQL pod against your OpenShift security context constraints and storage permissions before rollout.
+
 Save the following as `values-openshift-deps.yaml` and adjust the image tags and storage sizes for your environment:
 
 ```yaml
@@ -161,16 +163,16 @@ mysql:
   architecture: standalone
   image:
     registry: docker.io
-    repository: bitnamilegacy/mysql
-    tag: 8.0.37-debian-12-r2
+    repository: mysql
+    tag: "8.4.13"
     pullPolicy: "Always"
   auth:
     rootPassword: password         # change this
     database: openmetadata_db
     username: openmetadata_user
     password: openmetadata_password  # change this
-  # Override base chart initdbScripts with no-ops to prevent the airflow_db
-  # script from failing on restart with "Can't create database; database exists"
+  # auth.database/auth.username initialize the application database and user.
+  # Disable the parent scripts to avoid duplicate CREATE statements.
   initdbScripts:
     init_airflow_db_scripts.sql: "SELECT 1;"
     init_openmetadata_db_scripts.sql: "SELECT 1;"
@@ -219,6 +221,7 @@ Then install:
 
 ```bash
 helm upgrade --install openmetadata-dependencies open-metadata/openmetadata-dependencies \
+  --version 3.0.0 \
   --namespace openmetadata --create-namespace \
   --values values-openshift-deps.yaml
 ```
@@ -226,7 +229,7 @@ helm upgrade --install openmetadata-dependencies open-metadata/openmetadata-depe
 Wait for the pods to be ready:
 
 ```bash
-oc rollout status deployment/mysql -n openmetadata
+oc rollout status statefulset/mysql-84 -n openmetadata
 oc rollout status statefulset/opensearch -n openmetadata
 ```
 
@@ -261,7 +264,7 @@ openmetadata:
           enabled: true
 
     # Point at the MySQL installed above.
-    # Bitnami stores the user password in a Secret named "mysql" under key "mysql-password".
+    # The MySQL subchart stores the user password in a Secret named "mysql" under key "mysql-password".
     database:
       enabled: true
       host: mysql
