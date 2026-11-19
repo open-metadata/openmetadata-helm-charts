@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 # MySQL configurations for helm dependency
-# you can find more details about this here https://artifacthub.io/packages/helm/bitnami/mysql
+# See MYSQL-UPGRADE.md before upgrading an existing Bitnami installation.
 global:
   security:
     allowInsecureImages: true
@@ -16,8 +16,8 @@ mysql:
   architecture: standalone
   image:
     registry: docker.io
-    repository: bitnamilegacy/mysql
-    tag: 8.0.37-debian-12-r2
+    repository: mysql
+    tag: "8.4.13"
     pullPolicy: "Always"
   auth:
     rootPassword: password    # to be provided by CI/CD
@@ -77,7 +77,7 @@ airflow:
   images:
     airflow:
       repository: docker.getcollate.io/openmetadata/ingestion
-      tag: 2.0
+      tag: "2.0"
       pullPolicy: "IfNotPresent"
   # Use KubernetesExecutor for production deployments (recommended)
   # For local development (Docker Desktop/Minikube), use LocalExecutor instead

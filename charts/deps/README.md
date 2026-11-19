@@ -5,7 +5,7 @@ A Helm chart for installing components required to run Open Metadata.
 ## Components
 
 This chart installs the following dependencies:
-- **MySQL 8.0** - Database for OpenMetadata and Airflow
+- **MySQL 8.4.13 LTS** - Database for OpenMetadata and Airflow
 - **Apache Airflow 3** (via official Apache Airflow Helm chart) - Workflow orchestration for data ingestion
 - **OpenSearch** - Search and indexing engine
 
@@ -90,3 +90,10 @@ mysql:
   auth:
     rootPassword: "<strong-password>"
 ```
+## MySQL deployment and upgrade
+
+The bundled standalone chart uses the official `docker.io/mysql:8.4.13` image. This replaces the Bitnami dependency and requires backup/restore migration, not reuse of a Bitnami data volume. See [MYSQL-UPGRADE.md](MYSQL-UPGRADE.md) for supported values, authentication, migration and rollback.
+
+### Local Chart Tests
+
+Run `uv run --with pyyaml python -m unittest discover -s tests` from the repository root, then run `helm dependency build charts/deps` and `helm lint charts/deps`. The rendering tests cover storage selection, existing Secrets, initialization, Service selectors, and the migration guard.
