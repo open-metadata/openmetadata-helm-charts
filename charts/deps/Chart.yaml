@@ -59,8 +59,8 @@ icon: https://open-metadata.org/assets/favicon.png
 # Add Dependencies of other charts
 dependencies:
 - name: mysql
-  version: "14.0.2"
-  repository: "https://charts.bitnami.com/bitnami"
+  version: "1.0.0"
+  repository: ""
   condition: mysql.enabled
 - name: airflow
   version: "1.19.0"
