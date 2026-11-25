@@ -329,7 +329,7 @@ By default `backendTrafficPolicy` targets this chart's own `HTTPRoute` and `clie
 | fullnameOverride | string | `"openmetadata"` |
 | image.pullPolicy | string | `"Always"` |
 | image.repository | string | `"docker.getcollate.io/openmetadata/server"` |
-| image.tag | string | `2.1` |
+| image.tag | string | `1.12.15` |
 | imagePullSecrets | list | `[]` |
 | gateway.annotations | object | `{}` |
 | gateway.enabled | bool | `false` |
