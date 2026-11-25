@@ -102,6 +102,55 @@ entries:
   - annotations:
       artifacthub.io/images: |
         - name: openmetadata-server
+          image: docker.io/openmetadata/server:2.0.10
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/recommendations: |
+        - name: bitnami/mysql
+        - name: apache/airflow
+        - name: opensearchproject/opensearch
+      artifacthub.io/support: https://github.com/open-metadata/openmetadata-helm-charts/issues
+      kubeVersion: '>=1.24'
+    apiVersion: v2
+    appVersion: 2.0.10
+    created: "2026-11-25T06:15:06.52420016Z"
+    description: A Helm chart for OpenMetadata on Kubernetes
+    digest: ae05272a912aeb1a2665e0458883f9cc9b91d9a3d162728cc7cf3c5b30ccf9d0
+    home: https://open-metadata.org/
+    icon: https://open-metadata.org/assets/favicon.png
+    keywords:
+    - metadata
+    - data-science
+    - data
+    - machine-learning
+    - automation
+    - big-data
+    - bigdata
+    - artificial-intelligence
+    - datascience
+    - data-engineering
+    - data-catalog
+    - metadata-api
+    - governance
+    - data-profiling
+    - metadata-management
+    - dataengineering
+    - dataquality
+    - bigdataanalytics
+    - datadiscovery
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata
+    sources:
+    - https://github.com/open-metadata/OpenMetadata
+    - https://github.com/open-metadata/openmetadata-helm-charts
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-2.0.10/openmetadata-2.0.10.tgz
+    version: 2.0.10
+  - annotations:
+      artifacthub.io/images: |
+        - name: openmetadata-server
           image: docker.io/openmetadata/server:2.0.8
       artifacthub.io/license: Apache-2.0
       artifacthub.io/recommendations: |
@@ -9452,6 +9501,61 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-2.1.0-rc1/openmetadata-dependencies-2.1.0-rc1.tgz
     version: 2.1.0-rc1
+  - apiVersion: v2
+    appVersion: 2.0.10
+    created: "2026-11-25T06:15:06.729179919Z"
+    dependencies:
+    - condition: mysql.enabled
+      name: mysql
+      repository: ""
+      version: 1.0.0
+    - condition: airflow.enabled
+      name: airflow
+      repository: https://airflow.apache.org
+      version: 1.19.0
+    - condition: opensearch.enabled
+      name: opensearch
+      repository: https://opensearch-project.github.io/helm-charts/
+      version: 3.5.0
+    - condition: fuseki.enabled
+      name: fuseki
+      repository: ""
+      version: 0.1.0
+    description: Helm Dependencies for OpenMetadata
+    digest: 2281e13669e157eecd7ee80e521c8ef3bea076bfe62b046fc9721c7faffd41de
+    home: https://open-metadata.org/
+    icon: https://open-metadata.org/assets/favicon.png
+    keywords:
+    - metadata
+    - data-science
+    - data
+    - machine-learning
+    - automation
+    - big-data
+    - bigdata
+    - artificial-intelligence
+    - datascience
+    - data-engineering
+    - data-catalog
+    - metadata-api
+    - governance
+    - data-profiling
+    - metadata-management
+    - dataengineering
+    - dataquality
+    - bigdataanalytics
+    - datadiscovery
+    maintainers:
+    - email: support@open-metadata.org
+      name: OpenMetadata
+    name: openmetadata-dependencies
+    sources:
+    - https://github.com/open-metadata/OpenMetadata
+    - https://github.com/open-metadata/openmetadata-helm-charts
+    type: application
+    urls:
+    - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-2.0.10/openmetadata-dependencies-2.0.10.tgz
+    version: 2.0.10
   - apiVersion: v2
     appVersion: 2.0.9
     created: "2026-11-25T05:49:47.035347166Z"
@@ -20392,4 +20496,4 @@ entries:
     urls:
     - https://github.com/open-metadata/openmetadata-helm-charts/releases/download/openmetadata-dependencies-0.0.1/openmetadata-dependencies-0.0.1.tgz
     version: 0.0.1
-generated: "2026-11-25T05:49:47.036316592Z"
+generated: "2026-11-25T06:15:06.730161193Z"
