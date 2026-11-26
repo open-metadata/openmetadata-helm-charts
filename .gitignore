@@ -44,3 +44,6 @@ values-openshift-deps.yaml
 values-openshift.yaml
 docs/
 
+# Local PSA test reports
+psa-report/
+
